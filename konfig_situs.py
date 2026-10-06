@@ -5,7 +5,7 @@
 # ==========================================
 
 # --- Identitas situs ---
-SITE_URL = "https://dadungdadung87-cloud.github.io/SAHAM-SCREENING/"
+SITE_URL = "https://muhammadekonugroho4-spec.github.io/WEB-SCREENING/"
 SITE_NAME = "AlgoTrade Screener IHSG"
 SITE_DESC = "Screener saham IHSG gratis: detektor akumulasi bandar, anomali volume, dan radar BSJP — diperbarui otomatis setiap hari bursa."
 

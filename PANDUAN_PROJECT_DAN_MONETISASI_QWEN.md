@@ -1,8 +1,8 @@
-# Panduan Project SAHAM-SCREENING Untuk Qwen
+# Panduan Project WEB-SCREENING Untuk Qwen
 
 ## 1. Tujuan Dokumen
 
-Dokumen ini menjelaskan arsitektur, alur data, mekanisme bot, komponen web, keamanan, serta rencana monetisasi project `SAHAM-SCREENING`.
+Dokumen ini menjelaskan arsitektur, alur data, mekanisme bot, komponen web, keamanan, serta rencana monetisasi project `WEB-SCREENING`.
 
 Gunakan dokumen ini sebagai konteks utama sebelum mengubah kode. Jangan mengubah perilaku portfolio, jadwal cron, kredensial, atau alur R2 tanpa memeriksa bagian terkait dan menjalankan smoke test.
 
@@ -13,7 +13,7 @@ Gunakan dokumen ini sebagai konteks utama sebelum mengubah kode. Jangan mengubah
 - Framework web: Streamlit
 - Database lokal: file CSV dan JSON di folder `Database/`
 - Penyimpanan cloud: Cloudflare R2 bucket `saham-arsip`
-- Backup source code: GitHub repository `dadungdadung87-cloud/SAHAM-SCREENING`
+- Backup source code: GitHub repository `muhammadekonugroho4-spec/WEB-SCREENING`
 - URL aplikasi Streamlit: `https://minhaz0305.streamlit.app/`
 - Website publik/artikel: GitHub Pages dari folder `docs/` setelah Pages diaktifkan oleh pemilik repository
 
@@ -213,7 +213,7 @@ Ada dua website berbeda:
 
 ```text
 Website artikel/landing page:
-https://dadungdadung87-cloud.github.io/SAHAM-SCREENING/
+https://muhammadekonugroho4-spec.github.io/WEB-SCREENING/
 
 Aplikasi interaktif:
 https://minhaz0305.streamlit.app/
@@ -248,7 +248,7 @@ Cron saat ini dijadwalkan sekitar 17:10 WIB hari kerja. Generator hanya membaca 
 Pemilik repository harus membuka:
 
 ```text
-https://github.com/dadungdadung87-cloud/SAHAM-SCREENING/settings/pages
+https://github.com/muhammadekonugroho4-spec/WEB-SCREENING/settings/pages
 ```
 
 Pilih:
@@ -261,7 +261,7 @@ Pilih:
 Setelah deployment selesai, uji:
 
 ```text
-https://dadungdadung87-cloud.github.io/SAHAM-SCREENING/
+https://muhammadekonugroho4-spec.github.io/WEB-SCREENING/
 ```
 
 #### Langkah 2: Siapkan konten dan kepatuhan
@@ -372,4 +372,4 @@ Sebelum mengedit:
 
 ## 11. Ringkasan Satu Paragraf
 
-`SAHAM-SCREENING` adalah aplikasi Streamlit untuk screening saham IHSG berbasis data Yahoo Finance, indikator teknikal, broker summary, fundamental Exodus, ML anomaly detection, dan sembilan rumus radar AI. R2 menyimpan arsip dan state portfolio. Cron memperbarui data dan sekarang hanya menjual otomatis saat TP/SL tersentuh; pembelian tetap manual melalui Tab Portfolio, sedangkan posisi yang belum terkena TP/SL dapat ditutup manual sore hari. Website publik di `docs/` berfungsi sebagai landing page dan artikel SEO, terpisah dari Streamlit, dengan slot AdSense dan affiliate yang baru aktif setelah ID publik/domain resmi diisi. Semua secret harus tetap lokal dan tidak boleh masuk Git atau website publik.
+`WEB-SCREENING` adalah aplikasi Streamlit untuk screening saham IHSG berbasis data Yahoo Finance, indikator teknikal, broker summary, fundamental Exodus, ML anomaly detection, dan sembilan rumus radar AI. R2 menyimpan arsip dan state portfolio. Cron memperbarui data dan sekarang hanya menjual otomatis saat TP/SL tersentuh; pembelian tetap manual melalui Tab Portfolio, sedangkan posisi yang belum terkena TP/SL dapat ditutup manual sore hari. Website publik di `docs/` berfungsi sebagai landing page dan artikel SEO, terpisah dari Streamlit, dengan slot AdSense dan affiliate yang baru aktif setelah ID publik/domain resmi diisi. Semua secret harus tetap lokal dan tidak boleh masuk Git atau website publik.
