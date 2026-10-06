@@ -44,8 +44,6 @@ if [ "$JAM_SEKARANG" -ge "1520" ] && [ "$JAM_SEKARANG" -le "1535" ]; then
     if [ ! -f "$FLAG_PAGI" ]; then
         echo "🧠 [15:20-15:35] Sidang jadwal (hanya bikin sinyal — TIDAK membeli)..."
         if ./.venv/bin/python sidang_jadwal.py; then
-            echo "📲 [15:36] Telegram pagi..."
-            ./.venv/bin/python kirim_telegram.py
             touch "$FLAG_PAGI"
         else
             echo "❌ Sidang jadwal gagal — dicoba lagi siklus berikutnya."
@@ -56,10 +54,10 @@ if [ "$JAM_SEKARANG" -ge "1520" ] && [ "$JAM_SEKARANG" -le "1535" ]; then
 elif [ "$JAM_SEKARANG" -ge "1600" ] && [ "$JAM_SEKARANG" -le "1610" ]; then
     if [ ! -f "$FLAG_SORE" ]; then
         echo "🌆 [16:00-16:10] Sidang sore (referensi)..."
-        if ./.venv/bin/python sidang_sore.py && ./.venv/bin/python kirim_telegram_sore.py; then
+        if ./.venv/bin/python sidang_sore.py; then
             touch "$FLAG_SORE"
         else
-            echo "❌ Sidang/Telegram sore gagal — dicoba lagi siklus berikutnya."
+            echo "❌ Sidang sore gagal — dicoba lagi siklus berikutnya."
         fi
     fi
 else

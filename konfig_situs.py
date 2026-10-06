@@ -27,8 +27,5 @@ BROKER_REF = [
     {"nama": "Ajaib", "url": "https://ajaib.co.id/", "deskripsi": "Trading saham & reksadana, registrasi cepat."},
 ]
 
-# --- Telegram (opsional, tombol komunitas) ---
-TELEGRAM_URL = ""            # contoh: "https://t.me/namachannel" — kosong = tombol disembunyikan
-
 # --- Kata kunci SEO ---
 SEO_KEYWORDS = "screener saham, IHSG, analisa saham hari ini, akumulasi bandar, radar BSJP, saham paling aktif, deteksi bandar, stock screening Indonesia"

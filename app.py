@@ -1625,13 +1625,13 @@ if not df_hasil.empty:
 
 
 # =====================================================================
-# >>> PART 12 : TAB 3 - ASISTEN AI SPESIAL (RUMUS v5.2 + RADAR LIVE + TELEGRAM SNAPSHOT) <<<
+# >>> PART 12 : TAB 3 - ASISTEN AI SPESIAL (RUMUS v5.2 + RADAR LIVE) <<<
 # =====================================================================
     VERSI_SIDANG = "v5.2"
     MAX_CHANGE_BELI = 20.0  # saringan keras BSJP (sinkron dengan sidang_lib.py)
     FILE_CACHE_AUTOPILOT = "Database/cache_autopilot.json"
 
-    # S1 — Helper simpan snapshot sidang lokal (dipakai Radar Live + bot Telegram)
+    # S1 — Helper simpan snapshot sidang lokal (dipakai Radar Live web)
     def simpan_snapshot_radar(keranjang, stempel_data):
         try:
             snap = {"stempel_data": stempel_data, "versi": VERSI_SIDANG, "keranjang": keranjang,
@@ -1844,7 +1844,7 @@ if not df_hasil.empty:
                                                     json.dump({"stempel_data": stempel_data, "versi": VERSI_SIDANG, "keranjang": keranjang_spreadsheet}, f, indent=4)
                                             except: pass
                                             muat_keranjang_radar.clear()
-                                            # S2a — simpan snapshot untuk Telegram
+                                            # S2a — simpan snapshot radar lokal
                                             simpan_snapshot_radar(keranjang_spreadsheet, stempel_data)
                                             status_teks.success("🎉 MISSION ACCOMPLISHED! SELURUH RUMUS BERHASIL DISARING!")
                                             st.balloons()
@@ -2061,7 +2061,7 @@ if not df_hasil.empty:
                                                 json.dump({"stempel_data": stempel_data, "versi": VERSI_SIDANG, "keranjang": keranjang_spreadsheet}, f, indent=4)
                                         except: pass
                                         muat_keranjang_radar.clear()
-                                        # S2b — simpan snapshot untuk Telegram
+                                        # S2b — simpan snapshot radar lokal
                                         simpan_snapshot_radar(keranjang_spreadsheet, stempel_data)
                                         status_teks.success("🎉 MISSION ACCOMPLISHED! Daftar belanja baru tercetak.")
                                         st.balloons()
@@ -2103,7 +2103,7 @@ if not df_hasil.empty:
                                     except Exception:
                                         pass
                                     muat_keranjang_radar.clear()
-                                    # S3 — simpan snapshot untuk Telegram
+                                    # S3 — simpan snapshot radar lokal
                                     simpan_snapshot_radar(keranjang_radar, stempel_now)
                                     sumber_radar = "sidang_baru"
 

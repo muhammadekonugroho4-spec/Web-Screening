@@ -15,7 +15,7 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE)
 from konfig_situs import (SITE_URL, SITE_NAME, SITE_DESC, ADSENSE_CLIENT,
                           ADSENSE_SLOT_ATAS, ADSENSE_SLOT_TENGAH, ADSENSE_SLOT_BAWAH,
-                          BROKER_REF, TELEGRAM_URL, SEO_KEYWORDS)
+                          BROKER_REF, SEO_KEYWORDS)
 
 DIR_ARTIKEL = os.path.join(BASE, "docs", "artikel")
 WIB = timezone(timedelta(hours=7))
@@ -48,9 +48,7 @@ def footer_affiliate():
         f'<a href="{html.escape(b["url"])}" target="_blank" rel="sponsored noopener">{html.escape(b["nama"])}</a>'
         f'<span class="afil-desk">{html.escape(b["deskripsi"])}</span>'
         for b in BROKER_REF if b.get("url"))
-    tg = (f'<a href="{html.escape(TELEGRAM_URL)}" target="_blank" rel="noopener">📢 Channel Telegram</a>'
-          if TELEGRAM_URL else "")
-    return baris + tg
+    return baris
 
 
 def _amankan_num(v):
