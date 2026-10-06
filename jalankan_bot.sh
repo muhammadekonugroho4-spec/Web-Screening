@@ -3,7 +3,7 @@
 # ⚠️ MODE BELI MANUAL: pembelian hanya lewat tombol web Tab 4.
 # Cron otomatis hanya memeriksa TP/SL; posisi lain dijual lewat tombol JUAL sore.
 # ==========================================
-exec 200>/tmp/bot_simulator.lock
+exec 200>/tmp/bot_simulator_ws.lock
 flock -n 200 || { echo "⏳ Siklus dilewati: bot sebelumnya masih berjalan."; exit 0; }
 
 # 🏖️ AKHIR PEKAN: Sabtu(6)/Minggu(0→7) tidak menyedot data sama sekali
