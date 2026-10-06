@@ -6,11 +6,18 @@
 exec 200>/tmp/bot_simulator.lock
 flock -n 200 || { echo "⏳ Siklus dilewati: bot sebelumnya masih berjalan."; exit 0; }
 
+# 🏖️ AKHIR PEKAN: Sabtu(6)/Minggu(0→7) tidak menyedot data sama sekali
+HARI=$(date +%u)  # 1=Senin ... 5=Jumat, 6=Sabtu, 7=Minggu
+if [ "$HARI" -ge 6 ]; then
+    echo "🏖️ Akhir pekan (Sabtu/Minggu) — tidak menyedot data. Keluar."
+    exit 0
+fi
+
 cd /home/kaltaraid/Documents/WEB-SCREENING/ || exit 1
 
 git rebase --abort >/dev/null 2>&1
 git merge --abort >/dev/null 2>&1
-git pull --rebase origin main || git rebase --abort
+git pull --rebase codespace main || git rebase --abort
 
 echo "⏳ Memulai pembaruan data saham..."
 ./.venv/bin/python update_data.py
@@ -62,12 +69,12 @@ fi
 
 ./.venv/bin/python bangun_buku_besar.py
 
-find Arsip_Data_Harian/ -name "*.csv" -type f -mtime +50 -delete
+# Pembersih arsip diupdate_data.py sudah menjaga maksimal 5 hari (hapus ke-6+)
 
 echo "📤 Mengupload ke GitHub..."
 git add -A Database/
-git commit -m "Auto-update data dan bot simulator (arsip via R2)" || echo "Tidak ada perubahan"
-git pull --rebase origin main || git rebase --abort
-git push origin main || { git rebase --abort >/dev/null 2>&1; git pull --rebase origin main; git push origin main; }
+git commit -m "Auto-update data dan bot simulator (arsip via git)" || echo "Tidak ada perubahan"
+git pull --rebase codespace main || git rebase --abort
+git push codespace main || { git rebase --abort >/dev/null 2>&1; git pull --rebase codespace main; git push codespace main; }
 
 echo "✅ Proses 100% Selesai!"

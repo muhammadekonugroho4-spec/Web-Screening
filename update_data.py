@@ -611,14 +611,6 @@ def main():
             # 1. SELALU Simpan Data Utama (Overwrite untuk Web)
             df_hasil.to_csv(FILE_HASIL, index=False)
             
-            # >>> BARU: Upload data utama ke R2 agar web real-time (tidak mentok lagi)
-            try:
-                import r2_client
-                if r2_client.upload_arsip(FILE_HASIL, "Database/hasil_screener.csv"):
-                    print("☁️ Data utama (hasil_screener) ter-upload ke R2.")
-            except Exception as e:
-                print(f"⚠️ Gagal upload data utama ke R2: {e}")
-            
             # 2. LOGIKA JAM & HARI PINTAR (DENGAN PEMBAGIAN 3 FOLDER)
             hari_ini = now.weekday() # 0 = Senin, 1=Selasa ... 4=Jumat
             
@@ -629,16 +621,7 @@ def main():
                 file_exists = os.path.isfile(file_arsip_harian)
                 df_hasil.to_csv(file_arsip_harian, mode='a', header=not file_exists, index=False)
                 
-                # >>> BARU: Upload arsip ke Cloudflare R2 (agar web selalu real-time)
-                try:
-                    import r2_client
-                    object_name = f"Arsip_Data_Harian/{os.path.basename(file_arsip_harian)}"
-                    if r2_client.upload_arsip(file_arsip_harian, object_name):
-                        print("☁️ Arsip harian ter-upload ke Cloudflare R2.")
-                except Exception as e:
-                    print(f"⚠️ Gagal upload R2: {e}")
-                
-                print(f"✅ Selesai! Data Web diperbarui & Diarsipkan ke sistem 3 Folder (Arsip_Data_Harian).")
+                print(f"✅ Selesai! Data Web diperbarui & Diarsipkan (Arsip_Data_Harian, maks 5 hari).")
                 
             # Jika hari Sabtu atau Minggu
             elif hari_ini >= 5:

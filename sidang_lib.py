@@ -161,11 +161,6 @@ def jalankan_sidang(daftar_rumus, df_data, api_key, log=print, mode_tulis=True):
             if mode_tulis:
                 fs = os.path.join(DIR_DB, f"sinyal_ai_rumus_{i}.csv")
                 pd.DataFrame(baris).to_csv(fs, index=False)
-                try:
-                    import r2_client
-                    r2_client.upload_arsip(fs, f"Database/sinyal_ai_rumus_{i}.csv")
-                except Exception:
-                    pass
         return i, [b["Ticker"] for b in baris], n
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
@@ -185,12 +180,6 @@ def jalankan_sidang(daftar_rumus, df_data, api_key, log=print, mode_tulis=True):
         with open(ps, "w") as f:
             json.dump(snap, f)
         log(f"✅ {nama_snap} ditulis lokal")
-        try:
-            import r2_client
-            r2_client.upload_arsip(ps, f"Database/{nama_snap}")
-            log(f"✅ {nama_snap} ter-upload ke R2")
-        except Exception as e2:
-            log(f"⚠️ upload R2 gagal (file lokal tetap ada): {e2}")
     except Exception as e:
         log(f"❌ GAGAL tulis snapshot: {e}")
         import traceback

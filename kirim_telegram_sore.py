@@ -36,11 +36,15 @@ def kirim(text, cfg):
         print(f"📤 Pesan {i+1}/{len(bagian)}: {'OK' if resp.get('ok') else resp}")
 
 def unduh_r2(key, tmp):
+    """Tanpa R2: baca langsung dari file lokal (key 'Database/x' -> Database/x)."""
     try:
-        import r2_client
-        return r2_client.download_arsip(key, tmp)
+        if os.path.exists(key):
+            import shutil
+            shutil.copy(key, tmp)
+            return True
     except Exception as e:
-        print(f"⚠️ R2 {key}: {e}"); return False
+        print(f"⚠️ {key}: {e}")
+    return False
 
 def utama():
     now = wb_now(); tgl = now.strftime("%Y-%m-%d")

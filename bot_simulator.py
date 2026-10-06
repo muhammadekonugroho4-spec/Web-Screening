@@ -12,118 +12,6 @@ FEE_BELI = 0.0015         # 0.15%
 FEE_JUAL = 0.0025         # 0.25%
 FILE_MARKET = "Database/hasil_screener.csv"
 DIR_DB = "Database"       
-
-# ==========================================
-# ☁️ FUNGSI SINKRON R2
-# ==========================================
-def sinkron_r2_masuk():
-    """Tarik state portofolio terbaru dari R2 sebelum bot bekerja."""
-    try:
-        import r2_client
-        if r2_client.download_database():
-            print("☁️ State portofolio tersinkron dari R2.")
-        else:
-            print("⚠️ R2 kosong/belum ada data — pakai file lokal.")
-        return True
-    except Exception as e:
-        print(f"⚠️ Gagal sinkron masuk R2: {e}")
-        return False
-
-def sinkron_r2_keluar():
-    """Kirim state portofolio terbaru ke R2 (mode mirror: sinyal terbakar ikut terhapus)."""
-    try:
-        import r2_client
-        if r2_client.upload_database(mirror=True):
-            print("☁️ State portofolio ter-upload ke R2 (mirror).")
-    except Exception as e:
-        print(f"⚠️ Gagal sinkron keluar R2: {e}")
-
-def _dapatkan_daftar_objek_r2():
-    """Helper: dapatkan daftar SEMUA objek di R2 (bukan hanya arsip harian)."""
-    import r2_client
-    
-    # Metode 1: fungsi list_semua_objek (jika ada)
-    try:
-        result = r2_client.list_semua_objek()
-        if result:
-            keys = set()
-            for item in result:
-                if isinstance(item, tuple):
-                    keys.add(item[0])
-                else:
-                    keys.add(str(item))
-            return keys
-    except AttributeError:
-        pass
-    except Exception:
-        pass
-    
-    # Metode 2: list_objects via boto3 langsung (fallback paling reliable)
-    try:
-        import boto3
-        endpoint = os.environ.get("R2_ENDPOINT_URL") or os.environ.get("CLOUDFLARE_R2_ENDPOINT")
-        access_key = os.environ.get("R2_ACCESS_KEY_ID") or os.environ.get("CLOUDFLARE_R2_ACCESS_KEY_ID")
-        secret_key = os.environ.get("R2_SECRET_ACCESS_KEY") or os.environ.get("CLOUDFLARE_R2_SECRET_ACCESS_KEY")
-        bucket = os.environ.get("R2_BUCKET_NAME") or os.environ.get("CLOUDFLARE_R2_BUCKET_NAME")
-        if all([endpoint, access_key, secret_key, bucket]):
-            s3 = boto3.client('s3',
-                endpoint_url=endpoint,
-                aws_access_key_id=access_key,
-                aws_secret_access_key=secret_key,
-            )
-            keys = set()
-            paginator = s3.get_paginator('list_objects_v2')
-            for page in paginator.paginate(Bucket=bucket):
-                for obj in page.get('Contents', []):
-                    keys.add(obj['Key'])
-            return keys
-    except Exception:
-        pass
-    
-    # Metode 3: list_arsip HANYA jika prefiks Database/ (tidak ideal, fallback terakhir)
-    try:
-        arsip_keys = r2_client.list_arsip()
-        # list_arsip hanya mengembalikan arsip harian, jadi tidak bisa dipakai untuk cek Database/
-        # Return empty agar tidak menghapus apa-apa
-        return set()
-    except Exception:
-        return set()
-
-def sinkron_sinyal_dari_r2():
-    """Hapus sinyal lokal yang sudah tidak ada di R2 (misal disapu via tombol web).
-    
-    PERBAIKAN v2: hanya menghapus jika kita YAKIN sinyal tidak ada di R2.
-    Jika gagal mendeteksi daftar R2, LEBIH AMAN tidak menghapus apa-apa
-    daripada menghapus semua sinyal (bug lama).
-    """
-    try:
-        kunci_r2 = _dapatkan_daftar_objek_r2()
-        
-        # KONSERVATIF: jika tidak bisa mendapatkan daftar R2, SKIP penghapusan
-        if not kunci_r2:
-            print("⚠️ Tidak bisa mendapatkan daftar objek R2 — sinkronisasi sinyal dilewati (aman: tidak ada sinyal yang dihapus).")
-            return True
-        
-        terhapus = 0
-        for i in range(1, 10):
-            f_sinyal = os.path.join(DIR_DB, f"sinyal_ai_rumus_{i}.csv")
-            kunci = f"Database/sinyal_ai_rumus_{i}.csv"
-            if os.path.exists(f_sinyal) and kunci not in kunci_r2:
-                try:
-                    os.remove(f_sinyal)
-                    terhapus += 1
-                    print(f"🗑️ Sinyal Rumus {i} lokal dibuang (tidak ada di R2 — disapu via web).")
-                except Exception:
-                    pass
-        if terhapus == 0:
-            print("✅ Sinyal lokal & R2 selaras.")
-        return True
-    except Exception as e:
-        print(f"⚠️ Sinkron sinyal gagal: {e}")
-        return False
-
-# ==========================================
-# 🛠️ FUNGSI AUTO-SAVE KE GITHUB (ABADI)
 # ==========================================
 def auto_save_github():
     print("\n🔄 Memulai pencadangan (Auto-Save) permanen ke GitHub...")
@@ -135,11 +23,11 @@ def auto_save_github():
         if "nothing to commit" in commit_process.stdout or "nothing to commit" in commit_process.stderr:
             print("✅ Data aman. Tidak ada transaksi baru.")
             return
-        subprocess.run(["git", "pull", "--rebase", "origin", "main"], capture_output=True, text=True)
-        push_process = subprocess.run(["git", "push", "origin", "main"], capture_output=True, text=True)
+        subprocess.run(["git", "pull", "--rebase", "codespace", "main"], capture_output=True, text=True)
+        push_process = subprocess.run(["git", "push", "codespace", "main"], capture_output=True, text=True)
         if push_process.returncode != 0:
-            subprocess.run(["git", "pull", "--rebase", "origin", "main"], capture_output=True, text=True)
-            subprocess.run(["git", "push", "origin", "main"], check=True)
+            subprocess.run(["git", "pull", "--rebase", "codespace", "main"], capture_output=True, text=True)
+            subprocess.run(["git", "push", "codespace", "main"], check=True)
         print("🚀 Pencadangan berhasil! Data portofolio Anda abadi.")
     except Exception as e:
         print(f"❌ Gagal melakukan Auto-Save. Error: {e}")
@@ -223,21 +111,6 @@ def jalankan_bot():
 
 
     # ----------------------------------------------------
-    # ☁️ SINKRON MASUK: tarik state terbaru dari R2
-    # ----------------------------------------------------
-    r2_ok = sinkron_r2_masuk()
-
-    # ----------------------------------------------------
-    # 🔄 SEGARKAN DATA MARKET DARI R2 (agar sama dengan data sidang web)
-    # ----------------------------------------------------
-    try:
-        import r2_client
-        r2_client.download_arsip("Database/hasil_screener.csv", FILE_MARKET)
-        print("🔄 Data market disegarkan dari R2.")
-    except Exception as e:
-        print(f"⚠️ Gagal segarkan data market dari R2: {e} — pakai file lokal.")
-
-    # ----------------------------------------------------
     # 🔒 GEMBOK PAGI: SISTEM PENGAMAN ANTI-HILANG DATA
     # ----------------------------------------------------
     if not os.path.exists(FILE_MARKET):
@@ -268,14 +141,6 @@ def jalankan_bot():
         print(f"🔒 GEMBOK DATA BASI AKTIF: data market berusia {usia_data} hari — bot hanya evaluasi jual, tidak membeli.")
 
     # ----------------------------------------------------
-    # 🧹 SINKRON SINYAL: R2 adalah sumber kebenaran
-    # Sinyal yang sudah disapu via web (tombol Tab 4) akan
-    # ikut dihapus di lokal agar cron tidak membeli diam-diam.
-    # PERBAIKAN v2: hanya hapus jika kita YAKIN sinyal tidak ada di R2
-    # ----------------------------------------------------
-    sinkron_sinyal_dari_r2()
-
-    is_square_off_time = (jam_sekarang >= jam_square_off) and now.weekday() < 5
     if is_square_off_time:
         print("🧹 WAKTU SQUARE OFF / SORE HARI! Evaluasi jual paksa diaktifkan.")
 
@@ -573,14 +438,6 @@ def jalankan_bot():
 
         df_porto.to_csv(file_porto, index=False)
         df_history.to_csv(file_hist, index=False)
-
-    print("✅ Inspeksi 9 Arena selesai.")
-    
-    # ----------------------------------------------------
-    # ☁️ SINKRON KELUAR: kirim state terbaru ke R2 (mirror)
-    # ----------------------------------------------------
-    if r2_ok:
-        sinkron_r2_keluar()
 
     # EKSEKUSI AUTO-SAVE KE GITHUB
     auto_save_github()

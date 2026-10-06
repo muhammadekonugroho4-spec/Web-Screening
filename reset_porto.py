@@ -32,14 +32,6 @@ for i in range(1, 10):
 print(f"✅ {dipindah} file lama diarsipkan ke {folder}")
 print("✅ 9 arena dibuat ulang kosong (modal awal Rp 100.000.000/arena, profit 0)")
 
-# Mirror R2: hapus file lama di R2 yang tidak ada lokal, upload file kosong baru
-try:
-    import r2_client
-    if r2_client.upload_database(mirror=True):
-        print("☁️ R2 sudah dicerminkan: portofolio kosong di cloud juga.")
-except Exception as e:
-    print(f"⚠️ Mirror R2 gagal (perbaiki manual): {e}")
-
 if "--yes" not in sys.argv:
     print("\nLangkah push GitHub (atau biarkan cron yang push):")
-    print('  git add -A Database/ && git commit -m "Reset portofolio: arsip lama, mulai lembar baru" && git push origin main')
+    print('  git add -A Database/ && git commit -m "Reset portofolio: arsip lama, mulai lembar baru" && git push codespace main')

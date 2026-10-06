@@ -288,12 +288,6 @@ def ambil_fundamental(token, paksa=False):
     hasil = {"diambil": df["Diambil"].iloc[0], "jumlah": len(df), "kolom": KOLOM_FUNDAMENTAL}
     tulis_cache("fundamental", hasil)
     print(f"✅ {len(df)} saham × {len(KOLOM_FUNDAMENTAL)} metrik → {FILE_FUND}")
-    try:
-        import r2_client
-        if r2_client.upload_arsip(FILE_FUND, "Database/fundamental_exodus.csv"):
-            print("☁️ fundamental_exodus.csv ter-upload ke R2 (web bisa baca).")
-    except Exception as e:
-        print(f"⚠️ Upload R2 gagal (file lokal tetap ada): {e}")
     return hasil
 
 

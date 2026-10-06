@@ -626,38 +626,13 @@ def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None,
 
     if progress_bar: progress_bar.progress(1.0)
 
-    try:
-        import r2_client
-        for i in range(1, 10):
-            f_sinyal = f"Database/sinyal_ai_rumus_{i}.csv"
-            if os.path.exists(f_sinyal):
-                r2_client.upload_arsip(f_sinyal, f"Database/sinyal_ai_rumus_{i}.csv")
-    except Exception:
-        pass
-
     return keranjang, None, laporan
 
 
 # =====================================================================
-# >>> PART 04 : SISTEM ARSIP CERDAS (DATA HARIAN) — R2 + LOKAL <<<
+# >>> PART 04 : SISTEM ARSIP CERDAS (DATA HARIAN) — LOKAL <<<
 # =====================================================================
-import r2_client
 import tempfile
-
-@st.cache_data(ttl=300, show_spinner=False)
-def _muat_arsip_r2():
-    keys = r2_client.list_arsip()
-    keys.sort(reverse=True)
-    hasil = []
-    for key in keys[:5]:
-        date_str = key.split("_")[-1].replace(".csv", "")
-        tmp = os.path.join(tempfile.gettempdir(), f"arsip_r2_{date_str}.csv")
-        if r2_client.download_arsip(key, tmp):
-            try:
-                hasil.append((date_str, pd.read_csv(tmp)))
-            except Exception:
-                pass
-    return hasil
 
 def _muat_arsip_lokal():
     arsip_files = glob.glob("Arsip_Data_Harian/screener_*.csv")
@@ -672,10 +647,7 @@ def _muat_arsip_lokal():
     return hasil
 
 def muat_arsip():
-    data = _muat_arsip_r2()
-    if not data:
-        data = _muat_arsip_lokal()
-    return data
+    return _muat_arsip_lokal()
 
 def get_historical_summary(ticker):
     cols = ["Waktu Update", "Ticker", "Harga (Rp)", "Volume", "Posisi VWAP", "OBV Trend", "Tekanan Bandar", "Fase Siklus Bandar", "Trend MA (5,20,50)"]
@@ -750,15 +722,15 @@ def get_forensic_data(ticker):
 # ==========================================
 # 📖 HELPER BUKU BESAR & ARSIP HARIAN (TAB 5)
 # ==========================================
-KEY_LEDGER = "Buku_Besar/ringkasan_harian.csv.gz"
+KEY_LEDGER = os.path.join("Database", "ringkasan_harian.csv.gz")
 
 @st.cache_data(ttl=3600)
 def muat_buku_besar():
+    # Tanpa R2: buku besar hanya ada lokal jika pernah dibangun (fitur pelengkap)
     try:
-        import r2_client
-        tmp = os.path.join(tempfile.gettempdir(), "ringkasan_harian_web.csv.gz")
-        if r2_client.download_arsip(KEY_LEDGER, tmp):
-            return pd.read_csv(tmp)
+        path = os.path.join("Database", "ringkasan_harian.csv.gz")
+        if os.path.exists(path):
+            return pd.read_csv(path)
     except Exception:
         pass
     return pd.DataFrame()
@@ -766,10 +738,9 @@ def muat_buku_besar():
 @st.cache_data(ttl=3600)
 def muat_arsip_harian(tanggal):
     try:
-        import r2_client
-        tmp = os.path.join(tempfile.gettempdir(), f"arsip_web_{tanggal}.csv")
-        if r2_client.download_arsip(f"Arsip_Data_Harian/screener_{tanggal}.csv", tmp):
-            return pd.read_csv(tmp)
+        path = os.path.join("Arsip_Data_Harian", f"screener_{tanggal}.csv")
+        if os.path.exists(path):
+            return pd.read_csv(path)
     except Exception:
         pass
     return pd.DataFrame()
@@ -1081,18 +1052,12 @@ SUMBER_DATA = "❓"
 def load_data_saham():
     global SUMBER_DATA
     df = None
+    SUMBER_DATA = "📁 Lokal"
+    if not os.path.exists(FILE_HASIL): return pd.DataFrame()
     try:
-        import r2_client
-        tmp = os.path.join(tempfile.gettempdir(), "hasil_screener_r2.csv")
-        if r2_client.download_arsip("Database/hasil_screener.csv", tmp):
-            df = pd.read_csv(tmp)
-            SUMBER_DATA = "☁️ R2 (real-time)"
-    except Exception:
-        df = None
-    if df is None or df.empty:
-        SUMBER_DATA = "📁 Lokal/Git (cadangan) — R2 GAGAL"
-        if not os.path.exists(FILE_HASIL): return pd.DataFrame()
         df = pd.read_csv(FILE_HASIL)
+    except Exception:
+        return pd.DataFrame()
 
     if os.path.exists(FILE_AKUISISI):
         df_akuisisi = pd.read_csv(FILE_AKUISISI)
@@ -1111,7 +1076,7 @@ if not df_hasil.empty and 'Volume' in df_hasil.columns and 'Harga (Rp)' in df_ha
 # 🧪 MERGE FUNDAMENTAL EXODUS (Stockbit Screener — sesi sendiri, via fetcher_exodus.py)
 # Kolom tambahan: Market Cap, PE (TTM), PBV, P/S, Earnings Yield, Dividend Yield,
 #                 Piotroski F-Score, EPS Rating, RS Rating, BVPS, PEG
-# Sumber: R2 Database/fundamental_exodus.csv (hasil fetch harian) / lokal.
+# Sumber: Database/fundamental_exodus.csv lokal.
 # ==========================================
 KOLOM_FUND_EXODUS = {
     "Market Cap": "Mkt Cap (Exodus)",
@@ -1129,15 +1094,7 @@ KOLOM_FUND_EXODUS = {
 
 @st.cache_data(ttl=1800, show_spinner=False)
 def _muat_fundamental_exodus():
-    """Unduh CSV fundamental dari R2; fallback lokal. Return DataFrame (boleh kosong)."""
-    import tempfile as _tf
-    try:
-        import r2_client
-        tmp = os.path.join(_tf.gettempdir(), "fundamental_exodus.csv")
-        if r2_client.download_arsip("Database/fundamental_exodus.csv", tmp):
-            return pd.read_csv(tmp)
-    except Exception:
-        pass
+    """Muat CSV fundamental lokal. Return DataFrame (boleh kosong)."""
     fp = os.path.join("Database", "fundamental_exodus.csv")
     if os.path.exists(fp):
         try:
@@ -1170,7 +1127,7 @@ except Exception as e:
 
 # ==========================================
 # 🗄️ LAPISAN CACHE 300 DETIK (satu fungsi per sumber)
-# Pindah tab instan setelah muat pertama; unduhan R2 <=1x per 5 menit.
+# Pindah tab instan setelah muat pertama.
 # ==========================================
 @st.cache_data(ttl=300, show_spinner=False)
 def muat_sinyal_arena(rumus_id):
@@ -1226,7 +1183,7 @@ if SUMBER_FUND:
     st.sidebar.caption(SUMBER_FUND)
 
 if st.sidebar.button("🔃 Sync & Muat Ulang Data Server", use_container_width=True):
-    with st.spinner("Menarik data terbaru dari Cloudflare R2..."):
+    with st.spinner("Memuat data terbaru..."):
         time.sleep(1)
     st.cache_data.clear()
     st.rerun()
@@ -1674,15 +1631,13 @@ if not df_hasil.empty:
     MAX_CHANGE_BELI = 20.0  # saringan keras BSJP (sinkron dengan sidang_lib.py)
     FILE_CACHE_AUTOPILOT = "Database/cache_autopilot.json"
 
-    # S1 — Helper simpan snapshot sidang ke R2 (dipakai Radar Live + bot Telegram)
+    # S1 — Helper simpan snapshot sidang lokal (dipakai Radar Live + bot Telegram)
     def simpan_snapshot_radar(keranjang, stempel_data):
         try:
             snap = {"stempel_data": stempel_data, "versi": VERSI_SIDANG, "keranjang": keranjang,
                     "waktu": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}
             path = os.path.join("Database", "radar_snapshot.json")
             with open(path, "w") as f: json.dump(snap, f)
-            import r2_client
-            r2_client.upload_arsip(path, "Database/radar_snapshot.json")
         except Exception:
             pass
 
@@ -1702,7 +1657,7 @@ if not df_hasil.empty:
                 change_num = pd.to_numeric(df_hasil.get('Change (%)', 0), errors='coerce')
                 supply_banjir = df_hasil['Kondisi Supply'].astype(str).str.contains('Banjir', na=False) if 'Kondisi Supply' in df_hasil.columns else False
 
-                # RUMUS 1: Smart Money Menyelam (eks R2)
+                # RUMUS 1: Smart Money Menyelam
                 cond_v1 = (akumulasi_pro &
                            (df_hasil.get('Status Bandar', '') == 'Akumulasi Kuat') &
                            vwap_kuat &
@@ -2108,7 +2063,7 @@ if not df_hasil.empty:
                                         muat_keranjang_radar.clear()
                                         # S2b — simpan snapshot untuk Telegram
                                         simpan_snapshot_radar(keranjang_spreadsheet, stempel_data)
-                                        status_teks.success("🎉 MISSION ACCOMPLISHED! Daftar belanja baru tercetak & ter-upload ke R2.")
+                                        status_teks.success("🎉 MISSION ACCOMPLISHED! Daftar belanja baru tercetak.")
                                         st.balloons()
                                     else:
                                         status_teks.warning("⚠️ Sidang selesai tetapi tidak ada jawara. Baca Laporan Sidang untuk tahu penyebab pastinya.")
@@ -2179,7 +2134,7 @@ Berikan opini singkat (maks 150 kata) dalam Bahasa Indonesia: rumus mana yang pa
 # =====================================================================
     with tab5:
         st.markdown("## 🕵️ Detektif Ledakan & Ruang Obrolan AI")
-        st.caption("Angka dihitung LOKAL dari arsip intraday R2 (snapshot 5-menitan) + Buku Besar Harian (50 hari, gzip ±1MB). AI gratis hanya menyusun narasi — tidak berhitung.")
+        st.caption("Angka dihitung LOKAL dari arsip intraday (snapshot 5-menitan) + Buku Besar Harian (50 hari, gzip ±1MB). AI gratis hanya menyusun narasi — tidak berhitung.")
         st.caption("🔒 **Pagar keamanan:** Tab ini hanya MEMBACA & MENGANALISIS — tidak pernah membeli, menjual, atau mengubah portofolio/sinyal Anda.")
 
         # ==========================================
@@ -2399,15 +2354,13 @@ Berikan opini singkat (maks 150 kata) dalam Bahasa Indonesia: rumus mana yang pa
 
         def simpan_kasus(entry):
             try:
-                import r2_client
-                tmp = os.path.join(tempfile.gettempdir(), "kasus_web.json")
+                path_kasus = os.path.join("Database", "kasus_ledakan.json")
                 data = []
-                if r2_client.download_arsip("Buku_Besar/kasus_ledakan.json", tmp):
-                    try: data = json.load(open(tmp))
+                if os.path.exists(path_kasus):
+                    try: data = json.load(open(path_kasus))
                     except Exception: data = []
                 data.append(entry); data = data[-200:]
-                json.dump(data, open(tmp, "w"), indent=2)
-                r2_client.upload_arsip(tmp, "Buku_Besar/kasus_ledakan.json")
+                json.dump(data, open(path_kasus, "w"), indent=2)
             except Exception: pass
 
         # ---------- Panel kontrol ----------

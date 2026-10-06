@@ -59,11 +59,15 @@ def posisi_terbeli_hari_ini(tgl):
     return terbeli
 
 def unduh_r2(key, tmp):
+    """Tanpa R2: baca langsung dari file lokal (key 'Database/x' -> Database/x)."""
     try:
-        import r2_client
-        return r2_client.download_arsip(key, tmp)
+        if os.path.exists(key):
+            import shutil
+            shutil.copy(key, tmp)
+            return True
     except Exception as e:
-        print(f"⚠️ R2 {key}: {e}"); return False
+        print(f"⚠️ {key}: {e}")
+    return False
 
 def utama():
     now = wb_now(); tgl = now.strftime("%Y-%m-%d")
@@ -144,8 +148,6 @@ def utama():
 
     # 7) Alert suspend (posisi aktif hilang dari data market)
     try:
-        import r2_client
-        r2_client.download_database()
         susp = set()
         for i in range(1, 10):
             fp = os.path.join(DB, f"portofolio_aktif_rumus_{i}.csv")
