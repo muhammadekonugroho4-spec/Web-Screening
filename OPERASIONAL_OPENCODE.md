@@ -24,7 +24,7 @@ Dua kanal:
 ### 1. Buka tmux session bernama `oc`
 
 ```bash
-cd ~/Documents/SAHAM-SCREENING
+cd ~/Documents/WEB-SCREENING
 tmux new -s oc
 ```
 
@@ -33,7 +33,7 @@ tmux new -s oc
 **PENTING — gunakan `setsid` agar kebal Ctrl+C terminal:**
 
 ```bash
-cd ~/Documents/SAHAM-SCREENING
+cd ~/Documents/WEB-SCREENING
 setsid nohup ./.venv/bin/python jembatan_opencode.py > logs/bridge_v2.log 2>&1 &
 ```
 

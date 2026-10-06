@@ -8,7 +8,7 @@ Gunakan dokumen ini sebagai konteks utama sebelum mengubah kode. Jangan mengubah
 
 ## 2. Identitas Project
 
-- Lokasi project: `/home/kaltaraid/Documents/SAHAM-SCREENING/`
+- Lokasi project: `/home/kaltaraid/Documents/WEB-SCREENING/`
 - Bahasa utama: Python
 - Framework web: Streamlit
 - Database lokal: file CSV dan JSON di folder `Database/`
@@ -333,7 +333,7 @@ Jangan memasukkan token R2, token Telegram, token Stockbit, cookie HAR, atau API
 ## 9. Checklist Pengujian Sebelum Deploy
 
 ```bash
-cd /home/kaltaraid/Documents/SAHAM-SCREENING
+cd /home/kaltaraid/Documents/WEB-SCREENING
 ./.venv/bin/python -m py_compile app.py bot_simulator.py fetcher_exodus.py buat_artikel.py
 bash -n jalankan_bot.sh
 ./.venv/bin/python buat_artikel.py --force

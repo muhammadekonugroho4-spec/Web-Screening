@@ -13,7 +13,6 @@
 # PART 10 : TAB 1 - MARKET OVERVIEW
 # PART 11 : TAB 2 - SCREENER UTAMA
 # PART 12 : TAB 3 - ASISTEN AI (RUMUS v5.2 + RADAR LIVE)
-# PART 13 : TAB 4 - PORTOFOLIO BOT (+ KURASI)
 # PART 14 : TAB 5 - DETEKTIF LEDAKAN
 # =====================================================================
 
@@ -1174,26 +1173,6 @@ except Exception as e:
 # Pindah tab instan setelah muat pertama; unduhan R2 <=1x per 5 menit.
 # ==========================================
 @st.cache_data(ttl=300, show_spinner=False)
-def muat_portofolio_arena(rumus_id):
-    fp = os.path.join("Database", f"portofolio_aktif_rumus_{rumus_id}.csv")
-    if not os.path.exists(fp):
-        return pd.DataFrame()
-    try:
-        return pd.read_csv(fp)
-    except Exception:
-        return pd.DataFrame()
-
-@st.cache_data(ttl=300, show_spinner=False)
-def muat_histori_arena(rumus_id):
-    fh = os.path.join("Database", f"histori_transaksi_rumus_{rumus_id}.csv")
-    if not os.path.exists(fh):
-        return pd.DataFrame()
-    try:
-        return pd.read_csv(fh)
-    except Exception:
-        return pd.DataFrame()
-
-@st.cache_data(ttl=300, show_spinner=False)
 def muat_sinyal_arena(rumus_id):
     fs = os.path.join("Database", f"sinyal_ai_rumus_{rumus_id}.csv")
     if not os.path.exists(fs):
@@ -1407,11 +1386,10 @@ def render_strategy_table(df_subset, file_name):
 # >>> PART 10 : TAB 1 - MARKET OVERVIEW <<<
 # =====================================================================
 if not df_hasil.empty:
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    tab1, tab2, tab3, tab5 = st.tabs([
         "📊 Market Overview", 
         "📌 Screener Utama", 
         "🤖 Asisten AI Spesial", 
-        "💼 Portofolio Bot",
         "🕵️ Detektif Ledakan & Chat"
     ])
     
@@ -2196,268 +2174,6 @@ Berikan opini singkat (maks 150 kata) dalam Bahasa Indonesia: rumus mana yang pa
 
 
 # =====================================================================
-# >>> PART 13 : TAB 4 - PORTOFOLIO BOT (+ KURASI DAFTAR BELANJA) <<<
-# =====================================================================
-    with tab4:
-        @st.cache_data(ttl=300, show_spinner=False)
-        def _sedot_porto_r2():
-            try:
-                import r2_client
-                return r2_client.download_database()
-            except Exception:
-                return False
-        _sedot_porto_r2()
-
-        st.markdown("## 🤖 Monitor Bot Simulator")
-        
-        # >>> MODE CAMPURAN TERKONTROL: TP/SL otomatis, pembelian dan jual sore manual.
-        st.info("🎯 **Mode terkontrol:** posisi otomatis dijual hanya jika menyentuh Target_TP atau Target_CL. Posisi yang belum menyentuh TP/SL tidak dijual oleh cron. Gunakan 🛒 BELI untuk pembelian manual, lalu 💸 JUAL SORE untuk menutup posisi yang masih tersisa.")
-        col_beli, col_jual = st.columns(2)
-        with col_beli:
-            if st.button("🛒 EKSEKUSI BELI Semua Sinyal!", type="primary", use_container_width=True,
-                         help="Beli seluruh kertas belanja yang lolos kurasi (alokasi saldo dinamis per rumus). Tidak ada penjualan."):
-                with st.spinner("Bot mengeksekusi pembelian dengan harga terakhir..."):
-                    import subprocess
-                    import sys
-                    try:
-                        proses_bot = subprocess.run([sys.executable, "bot_simulator.py", "--beli-only"], capture_output=True, text=True)
-                        if proses_bot.returncode != 0:
-                            st.error("❌ Bot beli gagal dijalankan. Log error:")
-                            st.code(proses_bot.stderr, language="bash")
-                        else:
-                            st.success("✅ Pembelian selesai! Log eksekusi:")
-                            st.code(proses_bot.stdout[-2500:], language="bash")
-                            st.cache_data.clear()
-                            time.sleep(1)
-                            st.rerun()
-                    except Exception as e:
-                        st.error(f"Sistem web gagal memanggil file bot: {e}")
-        with col_jual:
-            if st.button("💸 JUAL SORE Semua Posisi!", use_container_width=True,
-                         help="Menutup semua posisi yang belum tersentuh TP/SL. Tidak ada pembelian."):
-                with st.spinner("Bot mengeksekusi penjualan (TP/CL/square-off)..."):
-                    import subprocess
-                    import sys
-                    try:
-                        proses_bot = subprocess.run([sys.executable, "bot_simulator.py", "--jual-only"], capture_output=True, text=True)
-                        if proses_bot.returncode != 0:
-                            st.error("❌ Bot jual gagal dijalankan. Log error:")
-                            st.code(proses_bot.stderr, language="bash")
-                        else:
-                            st.success("✅ Jual sore selesai! Log eksekusi:")
-                            st.code(proses_bot.stdout[-2500:], language="bash")
-                            st.cache_data.clear()
-                            time.sleep(1)
-                            st.rerun()
-                    except Exception as e:
-                        st.error(f"Sistem web gagal memanggil file bot: {e}")
-
-        st.markdown("---")
-        st.markdown("### 🔄 Reset Semua Arena Portfolio")
-        st.warning("Reset akan mengarsipkan lalu mengosongkan seluruh posisi, histori transaksi, dan sinyal 9 rumus. Setiap arena kembali memiliki saldo awal Rp100.000.000. Tindakan ini tidak dapat dibatalkan dari web.")
-        if st.session_state.get("konfirmasi_reset_porto"):
-            st.error("Konfirmasi terakhir: seluruh data aktif Tab Portfolio akan dikosongkan dan kondisi kosong dikirim ke R2.")
-            reset_ya, reset_batal = st.columns(2)
-            with reset_ya:
-                if st.button("✅ YA, RESET KE Rp100 JUTA", type="primary", use_container_width=True, key="reset_porto_ya"):
-                    import subprocess
-                    import sys
-                    try:
-                        hasil_reset = subprocess.run(
-                            [sys.executable, "reset_porto.py", "--yes"],
-                            capture_output=True, text=True, timeout=120
-                        )
-                        if hasil_reset.returncode != 0:
-                            st.error("❌ Reset gagal.")
-                            st.code(hasil_reset.stderr or hasil_reset.stdout, language="bash")
-                        else:
-                            st.session_state["konfirmasi_reset_porto"] = False
-                            st.success("✅ Selesai: 9 arena kembali kosong dengan saldo Rp100.000.000 per arena.")
-                            st.code(hasil_reset.stdout[-2500:], language="bash")
-                            st.cache_data.clear()
-                            time.sleep(1)
-                            st.rerun()
-                    except Exception as e:
-                        st.error(f"Sistem web gagal menjalankan reset: {e}")
-            with reset_batal:
-                if st.button("↩️ Batal Reset", use_container_width=True, key="reset_porto_batal"):
-                    st.session_state["konfirmasi_reset_porto"] = False
-                    st.rerun()
-        elif st.button("🔄 Reset Portfolio ke Kondisi Awal", use_container_width=True, key="reset_porto_mulai"):
-            st.session_state["konfirmasi_reset_porto"] = True
-            st.rerun()
-        
-        col_backup, col_restore = st.columns(2)
-        with col_backup:
-            if st.button("💾 Backup Portofolio ke R2", use_container_width=True):
-                with st.spinner("Mengunggah seluruh Database ke Cloudflare R2..."):
-                    import r2_client
-                    ok = r2_client.upload_database()
-                if ok:
-                    st.success("✅ Portofolio, histori & sinyal AMAN di R2 (tidak akan hilang meski reboot)!")
-                else:
-                    st.error("❌ Gagal backup ke R2.")
-        with col_restore:
-            if st.button("⬇️ Tarik Portofolio dari R2", use_container_width=True):
-                with st.spinner("Menarik data portofolio terbaru dari R2..."):
-                    import r2_client
-                    ok = r2_client.download_database()
-                if ok:
-                    st.success("✅ Data portofolio terbaru berhasil ditarik!")
-                    st.cache_data.clear()
-                    time.sleep(1)
-                    st.rerun()
-                else:
-                    st.error("❌ Gagal menarik dari R2.")
-        
-        # >>> BARU: KURASI DAFTAR BELANJA — sapu bersih 9 rumus (lokal + R2)
-        st.markdown("---")
-        st.markdown("### 🗑️ Kurasi Daftar Belanja")
-        st.caption("Buang kertas belanja yang tidak ingin Anda beli — terhapus di web DAN di R2, sehingga cron laptop & tombol Eksekusi tidak akan menyentuhnya. Posisi yang sudah dibeli TIDAK tersentuh.")
-        if st.session_state.get("konfirmasi_sapu_sinyal"):
-            st.warning("️ Seluruh daftar belanja di 9 arena akan dihapus (lokal & R2). Lanjutkan?")
-            col_ya, col_batal = st.columns(2)
-            with col_ya:
-                if st.button("✅ YA, SAPU BERSIH SEMUA", type="primary", key="sapu_ya"):
-                    terhapus = 0
-                    for i in range(1, 10):
-                        f_local = f"Database/sinyal_ai_rumus_{i}.csv"
-                        if os.path.exists(f_local):
-                            try:
-                                os.remove(f_local); terhapus += 1
-                            except Exception: pass
-                        try:
-                            r2_client.hapus_objek(f"Database/sinyal_ai_rumus_{i}.csv")
-                        except Exception: pass
-                    st.session_state["konfirmasi_sapu_sinyal"] = False
-                    st.success(f"🧹 Selesai: {terhapus} file lokal dibuang + seluruh objek sinyal di R2 dihapus. Daftar belanja kini kosong.")
-                    st.cache_data.clear()
-                    time.sleep(1)
-                    st.rerun()
-            with col_batal:
-                if st.button("↩️ Batal", key="sapu_batal"):
-                    st.session_state["konfirmasi_sapu_sinyal"] = False
-                    st.rerun()
-        else:
-            if st.button("🗑️ Kosongkan Semua Daftar Belanja (9 Rumus)", use_container_width=True,
-                         help="Hapus kertas belanja yang tidak ingin Anda beli — lokal & R2 sekaligus"):
-                st.session_state["konfirmasi_sapu_sinyal"] = True
-                st.rerun()
-        
-        st.markdown("---")
-        
-        st.markdown("## 📊 Dashboard Performa AI (Live)")
-        
-        pilihan_arena = st.selectbox("📂 Pilih Arena untuk diinspeksi:", [f"Rumus {i}" for i in range(1, 10)])
-        nomor_rumus = pilihan_arena.split(" ")[1]
-
-        FILE_SINYAL = f"Database/sinyal_ai_rumus_{nomor_rumus}.csv"
-        file_porto = f"Database/portofolio_aktif_rumus_{nomor_rumus}.csv"
-        file_hist = f"Database/histori_transaksi_rumus_{nomor_rumus}.csv"
-
-        MODAL_AWAL = 100000000.0 
-        
-        df_porto = muat_portofolio_arena(nomor_rumus)
-        df_hist = muat_histori_arena(nomor_rumus)
-
-        total_profit_rp = df_hist['Total_Return_Rp'].sum() if not df_hist.empty and 'Total_Return_Rp' in df_hist.columns else 0
-        modal_terpakai = df_porto['Total_Modal'].sum() if not df_porto.empty and 'Total_Modal' in df_porto.columns else 0
-        
-        saldo_saat_ini = MODAL_AWAL + total_profit_rp - modal_terpakai
-        total_aset = saldo_saat_ini + modal_terpakai
-        
-        total_trade = len(df_hist)
-        win_trade = loss_trade = be_trade = 0
-        winrate = 0.0
-        profit_factor = 0.0
-        avg_return = 0.0
-        if total_trade > 0 and 'Return_%' in df_hist.columns:
-            win_trade = int((df_hist['Return_%'] > 0).sum())
-            loss_trade = int((df_hist['Return_%'] < 0).sum())
-            be_trade = total_trade - win_trade - loss_trade
-            winrate = (win_trade / total_trade) * 100
-            gross_profit = df_hist.loc[df_hist['Total_Return_Rp'] > 0, 'Total_Return_Rp'].sum()
-            gross_loss = abs(df_hist.loc[df_hist['Total_Return_Rp'] < 0, 'Total_Return_Rp'].sum())
-            profit_factor = (gross_profit / gross_loss) if gross_loss > 0 else float('inf')
-            avg_return = df_hist['Return_%'].mean()
-
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            st.metric(label="💰 Total Aset (Kas + Saham)", value=f"Rp {total_aset:,.0f}".replace(",", "."))
-        with col2:
-            st.metric(label="💵 Dana Kas Tersedia", value=f"Rp {saldo_saat_ini:,.0f}".replace(",", "."))
-        with col3:
-            tanda = "+" if total_profit_rp >= 0 else "-"
-            st.metric(label="📈 Realized Profit/Loss",
-                      value=f"Rp {total_profit_rp:,.0f}".replace(",", "."),
-                      delta=f"{tanda} Rp {abs(total_profit_rp):,.0f}".replace(",", "."),
-                      delta_color="normal")
-        with col4:
-            st.metric(label="🎯 Winrate AI", value=f"{winrate:.1f}%",
-                      delta=f"✅ {win_trade} Win | ❌ {loss_trade} Loss | ➖ {be_trade} BE",
-                      delta_color="off")
-
-        m1, m2 = st.columns(2)
-        with m1:
-            pf_txt = "∞" if profit_factor == float('inf') else f"{profit_factor:.2f}"
-            st.metric(label="⚖️ Profit Factor (ideal > 1.5)", value=pf_txt)
-        with m2:
-            st.metric(label="📊 Rata-rata Return/Trade", value=f"{avg_return:.2f}%")
-
-        st.markdown("---")
-        
-        sub1, sub2, sub3 = st.tabs(["📝 Sinyal Antrean", "🟢 Lapis 1: Portofolio Aktif", "📚 Lapis 2: Histori Transaksi"])
-        
-        with sub1:
-            if os.path.exists(FILE_SINYAL):
-                df_sinyal = muat_sinyal_arena(nomor_rumus)
-                st.success("🔥 Sinyal AI (Kertas Belanja) diterima! Tunggu Anda menekan tombol 🛒 **EKSEKUSI BELI** di atas — pembelian tetap manual.")
-                st.dataframe(df_sinyal, use_container_width=True, hide_index=True)
-            else:
-                st.info(f"KOSONG. Belum ada sinyal masuk untuk {pilihan_arena}, atau bot sudah membelinya dan membakar kertas belanja.")
-        
-        with sub2:
-            if not df_porto.empty:
-                df_porto_tampil = df_porto.copy()
-                df_porto_tampil['Harga_Beli'] = df_porto_tampil['Harga_Beli'].apply(lambda x: f"Rp {x:,.0f}".replace(",", "."))
-                df_porto_tampil['Target_TP'] = df_porto_tampil['Target_TP'].apply(lambda x: f"Rp {x:,.0f}".replace(",", "."))
-                df_porto_tampil['Target_CL'] = df_porto_tampil['Target_CL'].apply(lambda x: f"Rp {x:,.0f}".replace(",", "."))
-                df_porto_tampil['Total_Modal'] = df_porto_tampil['Total_Modal'].apply(lambda x: f"Rp {x:,.0f}".replace(",", "."))
-                st.dataframe(df_porto_tampil, use_container_width=True, hide_index=True)
-            else:
-                st.info("📦 Gudang kosong. Belum ada saham yang dibeli atau semua sudah terjual (Masuk ke Lapis 2).")
-        
-        with sub3:
-            if not df_hist.empty:
-                def warnai_profit(val):
-                    if isinstance(val, (int, float)):
-                        color = '#166534' if val > 0 else '#991b1b' if val < 0 else ''
-                        return f'background-color: {color}'
-                    return ''
-                    
-                if 'Tanggal_Jual' in df_hist.columns:
-                    df_hist_tampil = df_hist.sort_values(by='Tanggal_Jual', ascending=False).reset_index(drop=True)
-                else:
-                    df_hist_tampil = df_hist.copy()
-                    
-                styler = df_hist_tampil.style
-                kolom_warna = [c for c in ['Total_Return_Rp', 'Return_%'] if c in df_hist_tampil.columns]
-                if kolom_warna:
-                    if hasattr(styler, "map"):
-                        styler = styler.map(warnai_profit, subset=kolom_warna)
-                    else:
-                        styler = styler.applymap(warnai_profit, subset=kolom_warna)
-                
-                fmt = {}
-                for c, f in [('Harga_Beli', "Rp {:,.0f}"), ('Harga_Jual', "Rp {:,.0f}"),
-                             ('Total_Return_Rp', "Rp {:,.0f}"), ('Return_%', "{:.2f}%")]:
-                    if c in df_hist_tampil.columns:
-                        fmt[c] = f
-                
-                st.dataframe(styler.format(fmt), use_container_width=True, hide_index=True)
-            else:
-                st.info(f"📭 Belum ada riwayat penjualan saham untuk {pilihan_arena}.")
-
 # =====================================================================
 # >>> PART 14 : TAB 5 - DETEKTIF LEDAKAN (HANYA BACA) + CHAT AI <<<
 # =====================================================================

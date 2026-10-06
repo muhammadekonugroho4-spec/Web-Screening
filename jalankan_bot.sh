@@ -6,7 +6,7 @@
 exec 200>/tmp/bot_simulator.lock
 flock -n 200 || { echo "⏳ Siklus dilewati: bot sebelumnya masih berjalan."; exit 0; }
 
-cd /home/kaltaraid/Documents/SAHAM-SCREENING/ || exit 1
+cd /home/kaltaraid/Documents/WEB-SCREENING/ || exit 1
 
 git rebase --abort >/dev/null 2>&1
 git merge --abort >/dev/null 2>&1
