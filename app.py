@@ -1014,35 +1014,9 @@ MASTER_FILTERS = WEB_CONFIG["MASTER_FILTERS"]
 
 
 # =====================================================================
-# >>> PART 07 : PRESET & LOAD DATA SAHAM <<<
+# >>> PART 07 : LOAD DATA SAHAM (fitur preset dihapus) <<<
 # =====================================================================
-def muat_preset():
-    preset_bawaan = {
-        "🌙 BSJP (Beli Sore 15:30)": {k: "Semua" for k in MASTER_FILTERS},
-        "⚡ HAKA Sesi Pagi (Open=Low)": {k: "Semua" for k in MASTER_FILTERS},
-        "🚀 Gorengan Aktif (High Risk)": {k: "Semua" for k in MASTER_FILTERS},
-        "🎣 Pantulan Reversal Emas": {k: "Semua" for k in MASTER_FILTERS},
-        "🔥 Bluechip Terakumulasi": {k: "Semua" for k in MASTER_FILTERS}
-    }
-    preset_bawaan["🌙 BSJP (Beli Sore 15:30)"].update({"Tekanan Bandar": "Dominan Beli (Hajar Kanan)", "Karakter Gorengan": "Solid (Jarang Dibanting)", "Status Bandar": "Akumulasi Kuat", "MA Signal": "Uptrend", "Rekomendasi": "BELI"})
-    preset_bawaan["⚡ HAKA Sesi Pagi (Open=Low)"].update({"Status Open": "Open = Low (Bullish Kuat)", "Risk/Reward Ratio": "Sangat Menarik (> 1:3)"})
-    preset_bawaan["🚀 Gorengan Aktif (High Risk)"].update({"Kategori": "Small Cap (Lapis 3)", "RVOL (Anomali Vol)": "Ledakan Ekstrem (> 300%)", "Posisi VWAP": "Di Atas VWAP (Kuat)"})
-    preset_bawaan["🎣 Pantulan Reversal Emas"].update({"Sinyal Cuci Barang": "Jarum Bawah (Sinyal Pantulan Kuat)", "Kekuatan A/D": "Akumulasi Pro (Smart Money)"})
-    preset_bawaan["🔥 Bluechip Terakumulasi"].update({"Status Bandar": "Akumulasi Kuat", "Kategori": "Big Cap (Lapis 1)", "MA Signal": "Uptrend"})
-
-    if os.path.exists(FILE_PRESET):
-        try:
-            with open(FILE_PRESET, "r") as f: preset_bawaan.update(json.load(f))
-        except: pass
-    return preset_bawaan
-
-daftar_preset_aktif = muat_preset()
-if "preset_selector" not in st.session_state: st.session_state.preset_selector = "Matikan Preset (Manual)"
-
-def apply_preset():
-    if st.session_state.preset_selector != "Matikan Preset (Manual)":
-        for k, v in daftar_preset_aktif[st.session_state.preset_selector].items():
-            if k in MASTER_FILTERS: st.session_state[f"main_{k}"] = v
+def manual_override(): pass
 
 def manual_override(): st.session_state.preset_selector = "Matikan Preset (Manual)"
 
@@ -1191,56 +1165,6 @@ if st.sidebar.button("🔃 Sync & Muat Ulang Data Server", use_container_width=T
 if st.sidebar.button("🔄 Refresh Sekarang", use_container_width=True, help="Bersihkan cache tampilan agar data terbaru termuat tanpa pindah tab."):
     st.cache_data.clear()
     st.rerun()
-
-st.sidebar.title("⚙️ Preset Filter Cepat")
-st.sidebar.info("Gunakan **'BSJP (Beli Sore 15:30)'** untuk mencari saham yang mantap dibeli sebelum penutupan bursa!")
-
-opsi_preset = ["Matikan Preset (Manual)"] + list(daftar_preset_aktif.keys())
-idx_default = opsi_preset.index(st.session_state.preset_selector) if st.session_state.preset_selector in opsi_preset else 0
-st.sidebar.selectbox("📌 Pilih Preset Aktif:", opsi_preset, index=idx_default, key="preset_selector", on_change=apply_preset)
-
-kustom_presets = {}
-if os.path.exists(FILE_PRESET):
-    try:
-        with open(FILE_PRESET, "r") as f: kustom_presets = json.load(f)
-    except: pass
-
-with st.sidebar.expander("🛠️ Manajemen Preset Kustom"):
-    tab_edit, tab_hapus = st.tabs(["📝 Buat/Edit", "🗑️ Hapus"])
-    with tab_edit:
-        opsi_edit = ["-- Buat Baru --"] + list(kustom_presets.keys())
-        pilih_edit = st.selectbox("Pilih Preset:", opsi_edit, key="select_edit")
-        if pilih_edit == "-- Buat Baru --":
-            nama_preset_baru = st.text_input("Nama Preset Baru:", placeholder="Contoh: Strategi X", key="nama_baru")
-            nilai_awal = {k: info['options'][0] for k, info in MASTER_FILTERS.items()}
-        else:
-            nama_preset_baru = st.text_input("Simpan sebagai:", value=pilih_edit, key="nama_edit")
-            nilai_awal = kustom_presets[pilih_edit]
-
-        kustom_input = {}
-        for k, info in MASTER_FILTERS.items():
-            val_awal = nilai_awal.get(k, info['options'][0])
-            idx_awal = info['options'].index(val_awal) if val_awal in info['options'] else 0
-            kustom_input[k] = st.selectbox(f"P-{info['label']}", info['options'], index=idx_awal, key=f"edit_{k}")
-
-        if st.button("💾 Simpan Preset"):
-            if nama_preset_baru.strip():
-                if pilih_edit != "-- Buat Baru --" and pilih_edit != nama_preset_baru.strip(): del kustom_presets[pilih_edit]
-                kustom_presets[nama_preset_baru.strip()] = kustom_input
-                with open(FILE_PRESET, "w") as f: json.dump(kustom_presets, f, indent=4)
-                st.session_state.preset_selector = nama_preset_baru.strip()
-                st.success("Preset berhasil disimpan!")
-                st.rerun()
-    with tab_hapus:
-        if kustom_presets:
-            pilih_hapus = st.selectbox("Pilih Preset untuk Dihapus:", list(kustom_presets.keys()))
-            if st.button("🗑️ Hapus Preset"):
-                del kustom_presets[pilih_hapus]
-                with open(FILE_PRESET, "w") as f: json.dump(kustom_presets, f, indent=4)
-                if st.session_state.preset_selector == pilih_hapus: st.session_state.preset_selector = "Matikan Preset (Manual)"
-                st.success("Preset dihapus!")
-                st.rerun()
-        else: st.info("Belum ada preset kustom.")
 
 st.title("⚡ AlgoTrade Screener - IHSG Ultimate")
 st.markdown("Detektor Jejak Bandar, Anomali Volume, & Strategi BSJP.")
@@ -1642,7 +1566,7 @@ if not df_hasil.empty:
             pass
 
     with tab3:
-        st.markdown("## 🦅 Radar BSJP & Laboratorium Forensik AI")
+        st.markdown("## 🦅 Radar BSJP & Asisten AI")
         st.markdown("<div class='bandar-box-green'><b>💡 INFO:</b> Gunakan kotak pilihan (Dropdown) di bawah ini untuk beralih antar strategi atau mode AI agar tampilan lebih rapi.</div>", unsafe_allow_html=True)
         
         if 'Tekanan Bandar' not in df_hasil.columns:
@@ -1765,14 +1689,7 @@ if not df_hasil.empty:
                     render_strategy_table(df_v9, "Screener_Rumus_9")
 
             with tab_ai:
-                pilihan_ai = st.selectbox(
-                    "Pilih Mode Analisis AI:",
-                    [
-                        "🤖 AI Bandar (Persiapan BSJP)", 
-                        "🔎 Forensik Bandar (Bongkar DNA ARA)", 
-                        "🎯 Pemburu ARA (Spesialis DNA Ledakan)"
-                    ]
-                )
+                pilihan_ai = "🤖 AI Bandar (Persiapan BSJP)"
                 st.markdown("---")
                 
                 if "AI Bandar" in pilihan_ai:
@@ -1932,97 +1849,13 @@ if not df_hasil.empty:
                                             st.markdown("### 🏆 Rekap Konsistensi (semakin sering muncul = semakin dipercaya AI)")
                                             st.dataframe(df_freq, use_container_width=True, hide_index=True)
 
-                elif "Forensik Bandar" in pilihan_ai:
-                    st.subheader("📡 Radar Pencari Model Gemini Aktif (Live Server)")
-                    st.markdown("Mesin ini akan bertanya langsung ke server Google AI Studio untuk mencari **semua nama model Gemini yang valid dan mendukung fitur Generate Content** untuk API Key Anda, lalu mengujinya satu per satu.")
-                    
-                    input_tester = st.text_area("📋 Paste Daftar Saham Uji Coba (Minimal 3 Saham):", placeholder="Contoh:\nVISI\nBBHI\nPANI", height=150, key="input_tester_gemini")
-                    
-                    if st.button("🚀 Tarik Daftar Server Google & Mulai Uji Coba"):
-                        GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", os.environ.get("GEMINI_API_KEY"))
-                        if not GEMINI_API_KEY:
-                            st.error("❌ Kunci API GEMINI belum dipasang di Secrets!")
-                        else:
-                            saham_bersih = [s.strip().upper() for s in re.split(r'[,\s\n]+', input_tester) if s.strip()]
-                            saham_unik = list(dict.fromkeys(saham_bersih))
-                            saham_valid = [s for s in saham_unik if s in df_hasil['Ticker'].values]
-                            
-                            if len(saham_valid) < 2:
-                                st.error("❌ Masukkan minimal 2 kode saham yang valid di database hari ini.")
-                            else:
-                                st.info("🔄 Langkah 1: Meminta katalog model langsung dari server Google AI...")
-                                
-                                daftar_model_aktif = []
-                                try:
-                                    genai.configure(api_key=GEMINI_API_KEY)
-                                    for m in genai.list_models():
-                                        if 'generateContent' in m.supported_generation_methods:
-                                            daftar_model_aktif.append(m.name)
-                                except Exception as e:
-                                    st.error(f"Gagal menarik data dari server Google. Error: {e}")
-                                
-                                if not daftar_model_aktif:
-                                    st.warning("⚠️ Tidak ada model yang ditemukan untuk API Key ini.")
-                                else:
-                                    st.success(f"✅ Ditemukan {len(daftar_model_aktif)} model Gemini yang online untuk Anda! Memulai pengujian...")
-                                    
-                                    progress_bar = st.progress(0)
-                                    status_text = st.empty()
-                                    
-                                    payload_text = ""
-                                    for ticker in saham_valid:
-                                        data_saham = df_hasil[df_hasil['Ticker'] == ticker].iloc[0]
-                                        payload_text += f"\n- {ticker}: Harga {data_saham.get('Harga (Rp)', 0)}, Vol {data_saham.get('Volume', 0)}"
 
-                                    prompt_test = f"""
-                                    CRITICAL INSTRUCTION: You are an automated data filter. 
-                                    Read this data:
-                                    {payload_text}
-                                    
-                                    MISSION: Pick EXACTLY 1 best ticker based on volume.
-                                    STRICT RULE: Output ONLY the 4-letter ticker code (e.g., BBCA). DO NOT add any other words, punctuation, explanations, or formatting.
-                                    """
-                                    
-                                    hasil_rekap = []
-                                    
-                                    for i, nama_model in enumerate(daftar_model_aktif):
-                                        model_id_bersih = nama_model.replace("models/", "")
-                                        status_text.text(f"⏳ Sedang menguji: {model_id_bersih} ({i+1}/{len(daftar_model_aktif)})")
-                                        
-                                        try:
-                                            model_uji = genai.GenerativeModel(model_id_bersih)
-                                            response = model_uji.generate_content(prompt_test)
-                                            raw_content = response.text or ""
-                                            bersih = raw_content.replace('`', '').replace('.', '').replace('\n', '').strip().upper()
-                                            
-                                            if bersih in saham_valid:
-                                                status = "✅ Lulus & Patuh (Sangat Cocok!)"
-                                            else:
-                                                status = f"⚠️ Aktif tapi Bawel (Jawab: {raw_content.strip()[:25]}...)"
-                                                
-                                            hasil_rekap.append({"Nama Model": model_id_bersih, "Status": status})
-                                            
-                                        except Exception as e:
-                                            pesan_error = str(e)
-                                            hasil_rekap.append({"Nama Model": model_id_bersih, "Status": f"❌ Gagal: {pesan_error[:30]}..."})
-                                        
-                                        progress_bar.progress((i + 1) / len(daftar_model_aktif))
-                                        time.sleep(2)
-                                    
-                                    status_text.success("🎉 Pengecekan Server Google Selesai!")
-                                    
-                                    df_rekap = pd.DataFrame(hasil_rekap)
-                                    st.markdown("### 🏆 Hasil Uji Coba Model Gemini (Live Server)")
-                                    st.dataframe(df_rekap, use_container_width=True)
-                                    
-                                    st.info("💡 **TUGAS ANDA:** Salin nama model yang berstatus '✅ Lulus & Patuh', dan kita gunakan nama pasti itu untuk skrip turnamen!")
-
-                elif "Pemburu ARA" in pilihan_ai:
-                    st.subheader("🎯 Pemburu ARA — 2 Bagian")
-                    st.caption("**Bagian 1** mencetak daftar belanja simulator. **Bagian 2** radar referensi uang asli (tidak menulis apa pun).")
+                if True:
+                    st.subheader("🛸 Auto-Pilot Pembuat Daftar Belanja (Sidang AI)")
+                    st.caption("Menyeleksi 15 saham terbaik per rumus → AI sidang Top 5 → mencetak kertas belanja ke simulator.")
 
                     # ========== BAGIAN 1: PEMBUAT DAFTAR BELANJA (SIMULATOR) ==========
-                    st.markdown("### 🛸 Bagian 1 — Auto-Pilot Pembuat Daftar Belanja")
+                    st.markdown("### 🛸 Auto-Pilot Pembuat Daftar Belanja")
                     st.caption("Menyeleksi 15 saham terbaik per rumus → AI sidang Top 5 → **menulis kertas belanja** ke simulator (Tab 4).")
                     paksa_sidang_ara = st.checkbox("🔄 Paksa Sidang Ulang (abaikan cache Mode Kilat)", key="paksa_sidang_ara")
                     if st.button("🛸 Jalankan Auto-Pilot (Buat Daftar Belanja)", type="primary", key="autopilot_ara"):
@@ -2075,62 +1908,9 @@ if not df_hasil.empty:
                             df_spreadsheet = pd.DataFrame(keranjang_spreadsheet)
                             st.data_editor(df_spreadsheet, use_container_width=True, hide_index=True)
 
-                    st.markdown("---")
-
-                    # ========== BAGIAN 2: RADAR LIVE (SUMBER AI YANG SAMA) ==========
-                    st.markdown("### 📡 Bagian 2 — Radar Live Top-5 (Sumber AI yang Sama)")
-                    st.caption("Menampilkan **hasil sidang AI yang sama persis** dengan Daftar Belanja (Bagian 1). Tidak ada AI kedua → hasil dijamin identik & hemat kuota. Refresh ±5 menit hanya memuat ulang hasil.")
-                    if AUTOREFRESH_OK:
-                        st_autorefresh(interval=5 * 60 * 1000, key="radar_live_autorefresh")
-                    _now = datetime.utcnow() + pd.Timedelta(hours=7)
-                    _jam = _now.time()
-                    live = (_now.weekday() < 5) and (pd.Timestamp("08:45").time() <= _jam <= pd.Timestamp("16:05").time())
-                    st.caption("🟢 DATA LIVE (jam bursa)" if live else "📴 Data penutupan terakhir (di luar jam bursa)")
-
-                    stempel_now = str(df_hasil["Terakhir Update"].iloc[0]) if (not df_hasil.empty and "Terakhir Update" in df_hasil.columns) else "tanpa_stempel"
-
-                    auto_sidang_radar = st.checkbox("🤖 Auto-sidang ulang saat data berubah (pakai kuota AI)", key="auto_sidang_radar")
-                    keranjang_radar, sumber_radar = muat_keranjang_radar(stempel_now, VERSI_SIDANG)
-
-                    if auto_sidang_radar and sumber_radar != "cache_cocok":
-                        GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", os.environ.get("GEMINI_API_KEY"))
-                        if GEMINI_API_KEY:
-                            with st.spinner("Data berubah — sidang AI ulang agar Radar & Daftar Belanja tetap identik..."):
-                                daftar_rumus_r = {1: df_v1, 2: df_v2, 3: df_v3, 4: df_v4, 5: df_v5, 6: df_v6, 7: df_v7, 8: df_v8, 9: df_v9}
-                                keranjang_radar, err_r, lap_r = jalankan_sidang_autopilot(daftar_rumus_r, df_hasil, GEMINI_API_KEY)
-                                if not err_r and keranjang_radar:
-                                    try:
-                                        with open(FILE_CACHE_AUTOPILOT, "w") as f:
-                                            json.dump({"stempel_data": stempel_now, "versi": VERSI_SIDANG, "keranjang": keranjang_radar}, f, indent=4)
-                                    except Exception:
-                                        pass
-                                    muat_keranjang_radar.clear()
-                                    # S3 — simpan snapshot radar lokal
-                                    simpan_snapshot_radar(keranjang_radar, stempel_now)
-                                    sumber_radar = "sidang_baru"
-
-                    if keranjang_radar:
-                        df_radar = pd.DataFrame({k: (v + ["", "", "", "", ""])[:5] for k, v in keranjang_radar.items()})
-                        st.markdown("#### 🏆 Top-5 per Rumus (hasil sidang AI — identik dengan Daftar Belanja)")
-                        st.dataframe(df_radar, use_container_width=True, hide_index=True)
-                        lbl = {"cache_cocok": "⚡ cache sidang (data belum berubah)",
-                               "sinyal": "📄 file sinyal aktif",
-                               "sidang_baru": "🤖 sidang AI baru saja dijalankan"}.get(sumber_radar, sumber_radar)
-                        st.caption(f"Sumber: {lbl}.")
-                    else:
-                        st.info("📭 Belum ada hasil sidang AI. Jalankan **Bagian 1** sekali, atau centang Auto-sidang di atas.")
-                        df_radar = None
-                    if df_radar is not None and st.button("🧠 Mintakan opini AI sekarang (hemat kuota: hanya saat diklik)", key="btn_opini_radar"):
-                        prompt_radar = f"""Berikut hasil radar top-5 per rumus screener IHSG saat ini:
-{df_radar.to_string(index=False)}
-Berikan opini singkat (maks 150 kata) dalam Bahasa Indonesia: rumus mana yang paling layak dieksekusi uang asli sore ini dan mana yang sebaiknya dihindari, beserta alasan teknikal singkat."""
-                        with st.spinner("AI menyusun opini..."):
-                            jawab_r, mesin_r = panggil_ai_teks(prompt_radar)
-                        st.markdown(jawab_r)
-                        st.caption(f"⚡ via {mesin_r}")
 
                     # =====================================================
-                    # 🛠️ BAGIAN 3 — RUMUS MANUAL (BUAT RUMUS SENDIRI, 1-9)
+                    # 🛠️ RUMUS MANUAL (BUAT RUMUS SENDIRI, 1-9)
                     # Tulis kondisi per rumus, pratinjau hasil, lalu simpan
                     # sebagai kertas belanja (sinyal_ai_rumus_N.csv) tanpa AI.
                     # =====================================================
