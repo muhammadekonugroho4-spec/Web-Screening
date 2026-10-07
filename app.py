@@ -1513,6 +1513,128 @@ if not df_hasil.empty:
                 st.empty()
         else: st.warning("Tidak ada data sesuai filter.")
 
+        # ==========================================
+        # 🧮 RULE SCREENER (Replikasi logika Stockbit Screener)
+        # Pola: item1 OPERATOR item2 × multiplier
+        # item1 & item2 = kolom data; operator = >, <, =, >=, <=, antara
+        # multiplier = faktor skala opsional (mis. 1.05 untuk +5%)
+        # Semua rule digabung AND. Tidak butuh token Stockbit — pakai data lokal.
+        # ==========================================
+        st.markdown("---")
+        st.markdown("### 🧮 Rule Screener — Buat Aturan Sendiri (Tanpa Token)")
+
+        KOLOM_NUMERIC = ["Harga (Rp)", "Change (%)", "Volume", "RSI (14D)", "PER (x)", "PBV (x)",
+                         "Harga MA20", "Support", "Resistance", "Total Score"]
+        OPERATOR_LIST = [">", "<", ">=", "<=", "==", "antara"]
+
+        if "rule_screener" not in st.session_state:
+            st.session_state.rule_screener = {}
+
+        sub_tab_rules, sub_tab_hasil = st.tabs(["📝 Susun Rule", "📊 Hasil"])
+
+        with sub_tab_rules:
+            col_tambah, _ = st.columns([1, 4])
+            with col_tambah:
+                if st.button("➕ Tambah Rule", key="rs_tambah"):
+                    n = str(max([int(k) for k in st.session_state.rule_screener.keys()] or [0]) + 1)
+                    st.session_state.rule_screener[n] = {"item1": "Harga (Rp)", "op": ">", "item2_mode": "nilai", "item2_nilai": "0", "item2_kolom": "Support", "mult": "1.0"}
+                    st.rerun()
+
+            for kunci in sorted(st.session_state.rule_screener.keys(), key=int):
+                r = st.session_state.rule_screener[kunci]
+                c1, c2, c3, c4, c5, c6 = st.columns([2, 1, 1, 2, 1, 1])
+                with c1:
+                    r["item1"] = st.selectbox("Item 1 (kolom)", KOLOM_NUMERIC,
+                                              index=KOLOM_NUMERIC.index(r.get("item1", "Harga (Rp)")),
+                                              key=f"rs_i1_{kunci}")
+                with c2:
+                    r["op"] = st.selectbox("Operator", OPERATOR_LIST,
+                                           index=OPERATOR_LIST.index(r.get("op", ">")),
+                                           key=f"rs_op_{kunci}")
+                with c3:
+                    r["item2_mode"] = st.selectbox("Tipe", ["nilai", "kolom"],
+                                                    index=0 if r.get("item2_mode") == "nilai" else 1,
+                                                    key=f"rs_m2_{kunci}")
+                with c4:
+                    if r["item2_mode"] == "nilai":
+                        r["item2_nilai"] = st.text_input("Nilai", value=r.get("item2_nilai", "0"),
+                                                          key=f"rs_v2_{kunci}")
+                    else:
+                        r["item2_kolom"] = st.selectbox("Kolom", KOLOM_NUMERIC,
+                                                         index=KOLOM_NUMERIC.index(r.get("item2_kolom", "Support")),
+                                                         key=f"rs_k2_{kunci}")
+                with c5:
+                    r["mult"] = st.text_input("× Multiplier", value=r.get("mult", "1.0"),
+                                               key=f"rs_mult_{kunci}", help="1.0 = tidak diubah. 1.05 = +5%.")
+                with c6:
+                    if st.button("🗑️", key=f"rs_h_{kunci}"):
+                        del st.session_state.rule_screener[kunci]
+                        st.rerun()
+
+            if st.session_state.rule_screener:
+                if st.button("📊 Jalankan Rule Screener", type="primary", key="rs_jalankan", use_container_width=True):
+                    st.session_state["rs_hasil"] = "jalankan"
+
+        def _eval_rule_screener(df_in, kamus_rule):
+            mask = pd.Series(True, index=df_in.index)
+            log = []
+            for k, r in kamus_rule.items():
+                col1 = r["item1"]
+                if col1 not in df_in.columns:
+                    log.append(f"Rule {k}: kolom '{col1}' tidak ada → dilewati")
+                    continue
+                v1 = pd.to_numeric(df_in[col1], errors="coerce")
+                try:
+                    mult = float(r.get("mult", "1.0"))
+                except ValueError:
+                    mult = 1.0
+                v1 = v1 * mult
+
+                if r["item2_mode"] == "nilai":
+                    try:
+                        v2 = float(r["item2_nilai"])
+                    except ValueError:
+                        log.append(f"Rule {k}: nilai '{r['item2_nilai']}' bukan angka → dilewati")
+                        continue
+                else:
+                    col2 = r["item2_kolom"]
+                    if col2 not in df_in.columns:
+                        log.append(f"Rule {k}: kolom '{col2}' tidak ada → dilewati")
+                        continue
+                    v2 = pd.to_numeric(df_in[col2], errors="coerce")
+
+                op = r["op"]
+                if op == ">":
+                    m = v1 > v2
+                elif op == "<":
+                    m = v1 < v2
+                elif op == ">=":
+                    m = v1 >= v2
+                elif op == "<=":
+                    m = v1 <= v2
+                elif op == "==":
+                    m = (v1 - v2).abs() < 0.01
+                else:
+                    m = (v1 >= v2) & (v1 <= v2 * 2)
+
+                mask &= m.fillna(False)
+                n_lo = int(m.fillna(False).sum())
+                log.append(f"Rule {k}: {col1}({mult}×) {op} {r['item2_nilai'] if r['item2_mode']=='nilai' else r['item2_kolom']} → {n_lo} saham lolos")
+            return df_in[mask.fillna(False)], log
+
+        with sub_tab_hasil:
+            if st.session_state.get("rs_hasil") == "jalankan" and st.session_state.rule_screener:
+                df_rule, log_rule = _eval_rule_screener(df_hasil.copy(), st.session_state.rule_screener)
+                for baris in log_rule:
+                    st.text(baris)
+                st.markdown(f"**✅ {len(df_rule)} saham lolos semua rule**")
+                if not df_rule.empty:
+                    render_strategy_table(df_rule, "Rule_Screener_Hasil")
+                else:
+                    st.warning("Tidak ada saham lolos. Longgarkan rule atau ganti operator.")
+            else:
+                st.info("Susun rule di tab 📝 lalu klik **Jalankan Rule Screener**.")
+
 
 # =====================================================================
 # >>> PART 12 : TAB 3 - ASISTEN AI SPESIAL (RUMUS v5.2 + RADAR LIVE) <<<
