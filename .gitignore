@@ -3,11 +3,7 @@ r2_config.json
 bot.log
 __pycache__/
 Arsip_Reset/
-telegram_config.json
-telegram_opencode.json
 token_stockbit.txt
-kirim_telegram.py.lokal
-kirim_telegram.py.backup
+token_stockbit.txt.bak
 logs/
 Database/cache_exodus/
-token_stockbit.txt.bak

@@ -1,5 +1,5 @@
 {
-    "stempel_data": "2026-10-07 15:20:03",
+    "stempel_data": "2026-10-07 19:22:54",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
@@ -10,17 +10,17 @@
             "AKKU"
         ],
         "RUMUS 2": [
+            "KREN",
             "REAL",
             "NAYZ",
-            "BDMN",
-            "SMLE",
-            "MBSS"
+            "MBSS",
+            "BDMN"
         ],
         "RUMUS 3": [
-            "PGLI",
             "CSMI",
             "MPXL",
             "WIDI",
+            "PGLI",
             "IDEA"
         ],
         "RUMUS 4": [
@@ -38,18 +38,18 @@
             "MPXL"
         ],
         "RUMUS 6": [
-            "BDMN",
+            "BMBL",
             "ISSP",
-            "KDSI",
-            "MTMH",
-            "AMFG"
+            "GEMS",
+            "BTPN",
+            "KBLI"
         ],
         "RUMUS 7": [
             "RSCH",
-            "MMIX",
             "MBSS",
             "TRUE",
-            "BTEK"
+            "BTEK",
+            "BBKP"
         ],
         "RUMUS 8": [
             "",
@@ -59,11 +59,11 @@
             ""
         ],
         "RUMUS 9": [
-            "VIVA",
-            "ASJT",
-            "PRAY",
+            "FORU",
             "SMSM",
-            "ITIC"
+            "JELI",
+            "WGSH",
+            "INDF"
         ]
     }
 }
