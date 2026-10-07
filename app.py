@@ -1325,9 +1325,9 @@ if not df_hasil.empty:
         # ==========================================
         GRUP_FILTER = [
             ("🏢 Fundamental & Likuiditas", ["Kategori", "Valuasi", "Kelas Transaksi", "Likuiditas", "Status Akuisisi", "Status Sentimen"]),
-            ("📈 Teknikal Klasik", ["RSI (14D)", "MA Signal", "Trend MA (5,20,50)", "MA Cross", "MACD", "Status Stochastic", "Status BB"]),
-            ("🎯 Entry, Exit & Risiko", ["Risk/Reward Ratio", "Posisi Entry", "Status Open", "Status Gap", "Sinyal Cuci Barang", "Pola Candle", "Risiko"]),
-            ("🕵️ Bandarmologi & Volume", ["Status Bandar", "Tekanan Bandar", "OBV Trend", "Kekuatan A/D", "RVOL (Anomali Vol)", "Karakter Gorengan", "Vol Breakout MA20"]),
+            ("📈 Teknikal Klasik", ["RSI (14D)", "MA Signal", "Trend MA (5,20,50)", "MA Cross", "MACD", "Momentum", "Status Stochastic", "Status BB"]),
+            ("🎯 Entry, Exit & Risiko", ["Risk/Reward Ratio", "Posisi Entry", "Status Open", "Status Gap", "Sinyal Cuci Barang", "Pola Candle", "Status Fibonacci", "Risiko"]),
+            ("🕵️ Bandarmologi & Volume", ["Status Bandar", "Tekanan Bandar", "OBV Trend", "Kekuatan A/D", "Posisi VWAP", "RVOL (Anomali Vol)", "Karakter Gorengan", "Vol Breakout", "Vol Breakout MA20"]),
             ("🌊 Siklus & Behavior", ["Fase Siklus Bandar", "Kondisi Supply", "Streak Harian", "Kelas Perubahan", "Prediksi Machine Learning", "Total Score", "Rekomendasi"])
         ]
 
@@ -1355,6 +1355,25 @@ if not df_hasil.empty:
                 filter_terpilih.update(_render_grup(nama_grup, daftar_key, col_count=3))
                 st.markdown("")
 
+            # ==========================================
+            # FILTER RANGE NUMERIK (PER, PBV, Volume, Change %)
+            # ==========================================
+            st.markdown("**🔢 Filter Numerik (Range)**")
+            nr1, nr2, nr3, nr4 = st.columns(4)
+            with nr1:
+                per_min = st.number_input("PER Min", min_value=0.0, value=0.0, step=0.1, key="nr_per_min")
+                per_max = st.number_input("PER Maks", min_value=0.0, value=0.0, step=0.1, key="nr_per_max")
+            with nr2:
+                pbv_min = st.number_input("PBV Min", min_value=0.0, value=0.0, step=0.1, key="nr_pbv_min")
+                pbv_max = st.number_input("PBV Maks", min_value=0.0, value=0.0, step=0.1, key="nr_pbv_max")
+            with nr3:
+                vol_min = st.number_input("Volume Min", min_value=0, value=0, step=10000, key="nr_vol_min")
+                vol_max = st.number_input("Volume Maks", min_value=0, value=0, step=100000, key="nr_vol_max")
+            with nr4:
+                chg_min = st.number_input("Change % Min", value=0.0, step=0.5, key="nr_chg_min")
+                chg_max = st.number_input("Change % Maks", value=0.0, step=0.5, key="nr_chg_max")
+            st.markdown("")
+
         col_search, col_broker, col_min, col_max = st.columns([1.5, 1.5, 1, 1])
         with col_search: 
             search_ticker = st.text_input("🔍 Cari Kode Saham", "", placeholder="Contoh: BBCA", key="pencarian_ticker")
@@ -1377,6 +1396,26 @@ if not df_hasil.empty:
             df_filtered = df_filtered[df_filtered["Harga (Rp)"] >= min_price]
         if max_price > 0:
             df_filtered = df_filtered[df_filtered["Harga (Rp)"] <= max_price]
+
+        # ==========================================
+        # APPLY FILTER RANGE NUMERIK
+        # ==========================================
+        if per_min > 0 and "PER (x)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["PER (x)"], errors="coerce") >= per_min]
+        if per_max > 0 and "PER (x)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["PER (x)"], errors="coerce") <= per_max]
+        if pbv_min > 0 and "PBV (x)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["PBV (x)"], errors="coerce") >= pbv_min]
+        if pbv_max > 0 and "PBV (x)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["PBV (x)"], errors="coerce") <= pbv_max]
+        if vol_min > 0 and "Volume" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["Volume"], errors="coerce") >= vol_min]
+        if vol_max > 0 and "Volume" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["Volume"], errors="coerce") <= vol_max]
+        if chg_min != 0 and "Change (%)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["Change (%)"], errors="coerce") >= chg_min]
+        if chg_max != 0 and "Change (%)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["Change (%)"], errors="coerce") <= chg_max]
         
         # ==========================================
         # APPLY FILTER (handle field baru = string match)
