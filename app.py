@@ -513,7 +513,7 @@ def jalankan_9_ronde_acak(df_data, daftar_ticker, api_key, progress_bar=None, st
     return hasil_ronde, None
 # =====================================================================
 
-def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None, status_teks=None):
+def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None, status_teks=None, tulis_sinyal=True):
     import concurrent.futures
 
     keranjang = {f"RUMUS {i}": ["", "", "", "", ""] for i in range(1, 10)}
@@ -591,7 +591,7 @@ def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None,
                     "Target_TP": int(round(harga * 1.05)),
                     "Target_CL": int(round(harga * 0.97)),
                 })
-            if baris_sinyal:
+            if baris_sinyal and tulis_sinyal:
                 pd.DataFrame(baris_sinyal).to_csv(f"Database/sinyal_ai_rumus_{i}.csv", index=False)
 
             jawara = [b["Ticker"] for b in baris_sinyal]
@@ -1688,415 +1688,264 @@ if not df_hasil.empty:
                 elif "RUMUS 9" in pilihan_v:
                     render_strategy_table(df_v9, "Screener_Rumus_9")
 
-            with tab_ai:
-                pilihan_ai = "🤖 AI Bandar (Persiapan BSJP)"
                 st.markdown("---")
-                
-                if "AI Bandar" in pilihan_ai:
-                    st.subheader("🤖 AI Bandar (Persiapan BSJP Besok)")
-                    
-                    tab_otomatis, tab_manual, tab_acak = st.tabs(["🛸 Auto-Pilot 9 Rumus (Spreadsheet)", "✍️ Mode Manual (Paste Saham)", "🎲 Uji Konsistensi 9 Ronde"])
-                    
-                    with tab_otomatis:
-                        st.markdown("Sistem akan menyeleksi 15 saham terbaik per rumus secara global, lalu AI akan memilih Top 5 untuk dicetak ke tabel Spreadsheet.")
-                        
-                        paksa_sidang = st.checkbox("🔄 Paksa Sidang Ulang (abaikan cache Mode Kilat)", key="paksa_sidang_ulang")
+                st.markdown("### 🛠️ Rumus Manual — Buat Rumus Sendiri (Rumus 1–9)")
 
-                        if st.button("🗑️ Hapus Cache Sidang", key="hapus_cache_sidang"):
-                            try:
-                                if os.path.exists(FILE_CACHE_AUTOPILOT):
-                                    os.remove(FILE_CACHE_AUTOPILOT)
-                                    st.success("✅ Cache sidang dihapus. Sidang berikutnya mulai dari awal.")
-                                else:
-                                    st.info("Tidak ada cache tersimpan.")
-                            except Exception as e:
-                                st.error(f"Gagal hapus cache: {e}")
+                with st.expander("📖 Cara pakai", expanded=False):
+                    st.markdown(
+                        "1. Pilih **nomor rumus** yang mau kamu isi (1–9).\n"
+                        "2. Susun **syarat filter** — minimal 1 syarat; saham harus lolos **semua** syarat (logika DAN).\n"
+                        "3. Klik **👁️ Pratinjau** untuk melihat saham yang lolos.\n"
+                        "4. Klik **💾 Simpan sebagai Kertas Belanja** → file `sinyal_ai_rumus_N.csv` ditulis\n"
+                        "   (sinkron dengan Radar Live, Daftar Belanja & tombol beli manual).\n"
+                        "5. Hapus rumus yang tersimpan lewat **🗑️ Hapus** bila tak dipakai.")
+                    st.caption("🔒 Aturan tetap: ini hanya menulis kertas belanja — pembelian tetap manual, tidak ada auto-buy.")
 
-                        if st.button("🛸 Jalankan Auto-Pilot Ultimate", type="primary", key="autopilot_utama"):
-                            
-                            GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", os.environ.get("GEMINI_API_KEY"))
-                            
-                            if not GEMINI_API_KEY:
-                                st.error("❌ Kunci API GEMINI belum dipasang!")
-                            else:
-                                daftar_rumus = {
-                                    1: df_v1, 2: df_v2, 3: df_v3, 
-                                    4: df_v4, 5: df_v5, 6: df_v6, 
-                                    7: df_v7, 8: df_v8, 9: df_v9
-                                }
-                                
-                                stempel_data = str(df_hasil["Terakhir Update"].iloc[0]) if "Terakhir Update" in df_hasil.columns else "tanpa_stempel"
-                                FILE_CACHE_AUTOPILOT = "Database/cache_autopilot.json"
-                                
-                                keranjang_spreadsheet = None
-                                if not paksa_sidang and os.path.exists(FILE_CACHE_AUTOPILOT):
-                                    try:
-                                        with open(FILE_CACHE_AUTOPILOT, "r") as f: cache_muat = json.load(f)
-                                        if cache_muat.get("stempel_data") == stempel_data and cache_muat.get("versi") == VERSI_SIDANG and cache_muat.get("keranjang"):
-                                            ada_isi_cache = any(len([t for t in cache_muat["keranjang"].get(f"RUMUS {i}", []) if t]) > 0 for i in range(1, 10))
-                                            if ada_isi_cache:
-                                                keranjang_spreadsheet = cache_muat["keranjang"]
-                                                st.info("⚡ **Mode Kilat Aktif:** Data belum berubah sejak sidang terakhir — hasil ditampilkan instan dari cache.")
-                                    except: pass
-                                
-                                if keranjang_spreadsheet is None:
-                                    progress_bar = st.progress(0)
-                                    status_teks = st.empty()
-                                    
-                                    keranjang_spreadsheet, err_global, laporan_sidang = jalankan_sidang_autopilot(daftar_rumus, df_hasil, GEMINI_API_KEY, progress_bar, status_teks)
-                                    
-                                    if err_global:
-                                        st.error(err_global)
-                                    else:
-                                        df_laporan = pd.DataFrame([{
-                                            "Rumus": f"RUMUS {i}",
-                                            "Status": laporan_sidang[i]["status"],
-                                            "Keterangan": laporan_sidang[i]["detail"]
-                                        } for i in range(1, 10)])
-                                        st.markdown("### 🧾 Laporan Sidang (Transparan)")
-                                        st.dataframe(df_laporan, use_container_width=True, hide_index=True)
-                                        
-                                        ada_isi = any(laporan_sidang[i]["status"] == "✅ Sukses" for i in range(1, 10))
-                                        if ada_isi:
-                                            try:
-                                                with open(FILE_CACHE_AUTOPILOT, "w") as f:
-                                                    json.dump({"stempel_data": stempel_data, "versi": VERSI_SIDANG, "keranjang": keranjang_spreadsheet}, f, indent=4)
-                                            except: pass
-                                            muat_keranjang_radar.clear()
-                                            # S2a — simpan snapshot radar lokal
-                                            simpan_snapshot_radar(keranjang_spreadsheet, stempel_data)
-                                            status_teks.success("🎉 MISSION ACCOMPLISHED! SELURUH RUMUS BERHASIL DISARING!")
-                                            st.balloons()
-                                        else:
-                                            status_teks.warning("⚠️ Sidang selesai tetapi tidak ada jawara. Baca Laporan Sidang untuk tahu penyebab pastinya.")
-                                
-                                st.markdown("### 📋 Tabel Master Portofolio (Siap Salin)")
-                                
-                                for kunci in keranjang_spreadsheet:
-                                    keranjang_spreadsheet[kunci] = (keranjang_spreadsheet[kunci] + ["", "", "", "", ""])[:5]
-                                
-                                df_spreadsheet = pd.DataFrame(keranjang_spreadsheet)
-                                
-                                st.data_editor(df_spreadsheet, use_container_width=True, hide_index=True)
+                OPSI_KOLOM = {
+                    "Rekomendasi": "Rekomendasi",
+                    "MA Signal": "MA Signal",
+                    "MA Cross": "MA Cross",
+                    "MACD": "MACD",
+                    "Momentum": "Momentum",
+                    "Tekanan Bandar": "Tekanan Bandar",
+                    "Status Bandar": "Status Bandar",
+                    "OBV Trend": "OBV Trend",
+                    "Status Gap": "Status Gap",
+                    "Status BB": "Status BB",
+                    "Status Open": "Status Open",
+                    "Status Stochastic": "Status Stochastic",
+                    "Status Sentimen": "Status Sentimen",
+                    "Status Akuisisi": "Status Akuisisi",
+                    "Status Fibonacci": "Status Fibonacci",
+                    "Vol Breakout": "Vol Breakout",
+                    "Pola Candle": "Pola Candle",
+                    "Posisi Entry": "Posisi Entry",
+                    "Posisi VWAP": "Posisi VWAP",
+                    "Kekuatan A/D": "Kekuatan A/D",
+                    "Kelas Transaksi": "Kelas Transaksi",
+                    "RVOL (Anomali Vol)": "RVOL (Anomali Vol)",
+                    "Fase Siklus Bandar": "Fase Siklus Bandar",
+                    "Risk/Reward Ratio": "Risk/Reward Ratio",
+                    "Kondisi Supply": "Kondisi Supply",
+                    "Kategori": "Kategori",
+                    "Valuasi": "Valuasi",
+                    "Risiko": "Risiko",
+                    "Prediksi Machine Learning": "Prediksi Machine Learning",
+                }
 
-                    with tab_manual:
-                        st.markdown("Paste saham yang MASIH MERAH / SIDEWAYS. AI akan mencari siapa yang siap terbang besok.")
-                        input_saham_massal = st.text_area("📋 Paste Daftar Saham (Pisahkan dengan Enter/Spasi):", placeholder="Contoh:\nDMAS\nINDF", height=200, key="input_ai_bandar")
-                        
-                        if st.button("🔮 Mulai Eksekusi AI Bandar"):
-                            saham_bersih = [s.strip().upper() for s in re.split(r'[,\s\n]+', input_saham_massal) if s.strip()]
-                            saham_unik = list(dict.fromkeys(saham_bersih))
-                            saham_valid = [s for s in saham_unik if s in df_hasil['Ticker'].values]
-                            
-                            df_valid = df_hasil[df_hasil['Ticker'].isin(saham_valid)].copy()
-                            if 'Change (%)' in df_valid.columns:
-                                df_valid = df_valid[df_valid['Change (%)'] <= 5.0]
-                                saham_valid = df_valid['Ticker'].tolist()
+                def _nilai_unik(kolom):
+                    if kolom in df_hasil.columns:
+                        vals = [str(v) for v in df_hasil[kolom].dropna().unique() if str(v).strip()]
+                        return sorted(vals)
+                    return []
 
-                            if not saham_valid:
-                                st.error("❌ Saham yang Anda masukkan sudah terbang terlalu tinggi (>5%). Gunakan AI Bandar untuk mencari saham yang masih di bawah!")
-                            else:
-                                if len(saham_valid) > 19:
-                                    st.info("🤖 Menyaring 19 saham terbaik untuk mencegah limit AI...")
-                                    df_valid = df_valid.sort_values(by=['Total Score', 'Volume'], ascending=[False, False])
-                                    saham_valid = df_valid['Ticker'].head(19).tolist()
-                                
-                                with st.spinner(f"Menganalisa {len(saham_valid)} saham untuk BSJP besok..."):
-                                    data_kompilasi = {}
-                                    for ticker in saham_valid:
-                                        data_saham = df_hasil[df_hasil['Ticker'] == ticker].iloc[0]
-                                        teks_ringkasan = get_historical_summary(ticker)
-                                        data_kompilasi[ticker] = {
-                                            'harga': data_saham.get('Harga (Rp)', 0),
-                                            'change': data_saham.get('Change (%)', 0), 
-                                            'broksum': data_saham.get('Broksum', 'Tidak Ada'),
-                                            'status': data_saham.get('Fase Siklus Bandar', 'Normal'),
-                                            'skor': data_saham.get('Total Score', 0),
-                                            'histori': teks_ringkasan if teks_ringkasan else "Arsip belum tersedia."
-                                        }
-                                    hasil_ai = analisa_bandar_ai_multisaham(data_kompilasi, 'pilihan_ai')
-                                    st.info(hasil_ai)
+                if "rumus_manual" not in st.session_state:
+                    st.session_state.rumus_manual = {}
 
-                    # >>> Tab 9 Ronde Uji Konsistensi
-                    with tab_acak:
-                        st.markdown("Paste puluhan saham → AI memilih Top 5 → urutan diacak otomatis → diulang sampai **9 ronde**. Hasil dicetak sebagai spreadsheet murni, tanpa penjelasan.")
-                        input_acak = st.text_area("📋 Paste Daftar Saham (Enter/Spasi):", height=200, key="input_acak_9ronde", placeholder="Contoh:\nBBCA\nTLKM\nASII\nGOTO\nBUKA\n...")
-                        if st.button("🎲 Jalankan 9 Ronde Top-5", type="primary", key="btn_9ronde"):
-                            GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", os.environ.get("GEMINI_API_KEY"))
-                            if not GEMINI_API_KEY:
-                                st.error("❌ Kunci API GEMINI belum dipasang!")
-                            else:
-                                saham_bersih = [s.strip().upper() for s in re.split(r'[,\s\n]+', input_acak) if s.strip()]
-                                saham_unik = list(dict.fromkeys(saham_bersih))
-                                if len(saham_unik) < 5:
-                                    st.error("❌ Minimal 5 kode saham valid untuk menggelar 9 ronde.")
-                                else:
-                                    progress_bar = st.progress(0)
-                                    status_teks = st.empty()
-                                    hasil_ronde, err = jalankan_9_ronde_acak(df_hasil, saham_unik, GEMINI_API_KEY, progress_bar, status_teks)
-                                    if err:
-                                        st.error(err)
-                                    else:
-                                        df_spread = pd.DataFrame({f"RONDE {i}": (hasil_ronde.get(i, []) + ["", "", "", "", ""])[:5] for i in range(1, 10)})
-                                        st.markdown("### 📋 Spreadsheet Top-5 per Ronde (Siap Salin)")
-                                        st.data_editor(df_spread, use_container_width=True, hide_index=True)
-                                        from collections import Counter
-                                        freq = Counter()
-                                        for i in range(1, 10):
-                                            freq.update(hasil_ronde.get(i, []))
-                                        if freq:
-                                            df_freq = pd.DataFrame([(t, c) for t, c in freq.most_common()], columns=["Ticker", "Muncul (dari 9 Ronde)"])
-                                            st.markdown("### 🏆 Rekap Konsistensi (semakin sering muncul = semakin dipercaya AI)")
-                                            st.dataframe(df_freq, use_container_width=True, hide_index=True)
+                c_rn, c_aksi = st.columns([1, 3])
+                with c_rn:
+                    nomor_manual = st.selectbox("Nomor rumus:", list(range(1, 10)),
+                                                index=7, key="rm_nomor",
+                                                help="Rumus 8 contoh default karena kosong dari sidang standar.")
+                with c_aksi:
+                    st.markdown(f"#### 🧮 Rumus {nomor_manual} (manual)")
 
+                # --- Muat rumus tersimpan untuk nomor ini ---
+                FILE_RM = os.path.join("Database", f"rumus_manual_{nomor_manual}.json")
+                if st.button("📂 Muat rumus tersimpan", key=f"rm_muat_{nomor_manual}"):
+                    if os.path.exists(FILE_RM):
+                        try:
+                            with open(FILE_RM) as f:
+                                st.session_state.rumus_manual = json.load(f)
+                            st.success(f"Rumus {nomor_manual} dimuat ({len(st.session_state.rumus_manual)} syarat).")
+                        except Exception as e:
+                            st.error(f"Gagal muat: {e}")
+                    else:
+                        st.info(f"Belum ada rumus tersimpan untuk Rumus {nomor_manual}.")
 
-                if True:
-                    st.subheader("🛸 Auto-Pilot Pembuat Daftar Belanja (Sidang AI)")
-                    st.caption("Menyeleksi 15 saham terbaik per rumus → AI sidang Top 5 → mencetak kertas belanja ke simulator.")
+                syarat = st.session_state.rumus_manual
 
-                    # ========== BAGIAN 1: PEMBUAT DAFTAR BELANJA (SIMULATOR) ==========
-                    st.markdown("### 🛸 Auto-Pilot Pembuat Daftar Belanja")
-                    st.caption("Menyeleksi 15 saham terbaik per rumus → AI sidang Top 5 → **menulis kertas belanja** ke simulator (Tab 4).")
-                    paksa_sidang_ara = st.checkbox("🔄 Paksa Sidang Ulang (abaikan cache Mode Kilat)", key="paksa_sidang_ara")
-                    if st.button("🛸 Jalankan Auto-Pilot (Buat Daftar Belanja)", type="primary", key="autopilot_ara"):
-                        GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", os.environ.get("GEMINI_API_KEY"))
-                        if not GEMINI_API_KEY:
-                            st.error("❌ Kunci API GEMINI belum dipasang!")
+                # --- Editor syarat ---
+                EDIT_BARU = "__syarat_baru__"
+                if not syarat:
+                    st.session_state.setdefault(EDIT_BARU, True)
+
+                daftar_edit = sorted(syarat.keys())
+                tambah = st.button("➕ Tambah Syarat", key=f"rm_tambah_{nomor_manual}")
+                if tambah:
+                    kunci_baru = str(max([int(k) for k in syarat.keys()] or [0]) + 1)
+                    syarat[kunci_baru] = {"kolom": "Rekomendasi", "operator": "sama dengan", "nilai": "BELI"}
+                    st.session_state.rumus_manual = syarat
+                    st.rerun()
+
+                for kunci in daftar_edit:
+                    s = syarat[kunci]
+                    c1, c2, c3, c4 = st.columns([3, 2, 4, 1])
+                    with c1:
+                        s["kolom"] = st.selectbox("Kolom", list(OPSI_KOLOM.keys()),
+                                                  index=list(OPSI_KOLOM.keys()).index(s.get("kolom", "Rekomendasi")),
+                                                  key=f"rm_k_{nomor_manual}_{kunci}")
+                    with c2:
+                        s["operator"] = st.selectbox("Operator", ["sama dengan", "mengandung"],
+                                                     index=0 if s.get("operator", "sama dengan") == "sama dengan" else 1,
+                                                     key=f"rm_o_{nomor_manual}_{kunci}")
+                    with c3:
+                        opsi_nilai = _nilai_unik(s["kolom"]) or [s.get("nilai", "")]
+                        idx = opsi_nilai.index(s.get("nilai", "")) if s.get("nilai", "") in opsi_nilai else 0
+                        s["nilai"] = st.selectbox("Nilai", opsi_nilai, index=idx,
+                                                  key=f"rm_v_{nomor_manual}_{kunci}")
+                    with c4:
+                        if st.button("🗑️", key=f"rm_h_{nomor_manual}_{kunci}", help="Hapus syarat ini"):
+                            del syarat[kunci]
+                            st.session_state.rumus_manual = syarat
+                            st.rerun()
+
+                # --- Terapkan filter ke df_hasil ---
+                def _terapkan_rumus_manual(dfa, kamus_syarat):
+                    mask = pd.Series(True, index=dfa.index)
+                    for s in kamus_syarat.values():
+                        kolom = s.get("kolom")
+                        nilai = str(s.get("nilai", ""))
+                        if kolom not in dfa.columns:
+                            return dfa.iloc[0:0]
+                        kolom_str = dfa[kolom].astype(str)
+                        if s.get("operator") == "mengandung":
+                            mask &= kolom_str.str.contains(nilai, case=False, na=False)
                         else:
-                            daftar_rumus = {1: df_v1, 2: df_v2, 3: df_v3, 4: df_v4, 5: df_v5, 6: df_v6, 7: df_v7, 8: df_v8, 9: df_v9}
-                            stempel_data = str(df_hasil["Terakhir Update"].iloc[0]) if "Terakhir Update" in df_hasil.columns else "tanpa_stempel"
-                            keranjang_spreadsheet = None
-                            if not paksa_sidang_ara and os.path.exists(FILE_CACHE_AUTOPILOT):
-                                try:
-                                    with open(FILE_CACHE_AUTOPILOT, "r") as f: cache_muat = json.load(f)
-                                    if cache_muat.get("stempel_data") == stempel_data and cache_muat.get("versi") == VERSI_SIDANG and cache_muat.get("keranjang"):
-                                        ada_isi_cache = any(len([t for t in cache_muat["keranjang"].get(f"RUMUS {i}", []) if t]) > 0 for i in range(1, 10))
-                                        if ada_isi_cache:
-                                            keranjang_spreadsheet = cache_muat["keranjang"]
-                                            st.info("⚡ **Mode Kilat Aktif:** hasil sidang sebelumnya ditampilkan instan dari cache.")
-                                except: pass
-                            if keranjang_spreadsheet is None:
-                                progress_bar = st.progress(0)
-                                status_teks = st.empty()
-                                keranjang_spreadsheet, err_global, laporan_sidang = jalankan_sidang_autopilot(daftar_rumus, df_hasil, GEMINI_API_KEY, progress_bar, status_teks)
-                                if err_global:
-                                    st.error(err_global)
-                                else:
-                                    df_laporan = pd.DataFrame([{
-                                        "Rumus": f"RUMUS {i}",
-                                        "Status": laporan_sidang[i]["status"],
-                                        "Keterangan": laporan_sidang[i]["detail"]
-                                    } for i in range(1, 10)])
-                                    st.markdown("#### 🧾 Laporan Sidang (Transparan)")
-                                    st.dataframe(df_laporan, use_container_width=True, hide_index=True)
-                                    ada_isi = any(laporan_sidang[i]["status"] == "✅ Sukses" for i in range(1, 10))
-                                    if ada_isi:
-                                        try:
-                                            with open(FILE_CACHE_AUTOPILOT, "w") as f:
-                                                json.dump({"stempel_data": stempel_data, "versi": VERSI_SIDANG, "keranjang": keranjang_spreadsheet}, f, indent=4)
-                                        except: pass
-                                        muat_keranjang_radar.clear()
-                                        # S2b — simpan snapshot radar lokal
-                                        simpan_snapshot_radar(keranjang_spreadsheet, stempel_data)
-                                        status_teks.success("🎉 MISSION ACCOMPLISHED! Daftar belanja baru tercetak.")
-                                        st.balloons()
-                                    else:
-                                        status_teks.warning("⚠️ Sidang selesai tetapi tidak ada jawara. Baca Laporan Sidang untuk tahu penyebab pastinya.")
-                            st.markdown("#### 📋 Tabel Master Portofolio (Siap Salin)")
-                            for kunci in keranjang_spreadsheet:
-                                keranjang_spreadsheet[kunci] = (keranjang_spreadsheet[kunci] + ["", "", "", "", ""])[:5]
-                            df_spreadsheet = pd.DataFrame(keranjang_spreadsheet)
-                            st.data_editor(df_spreadsheet, use_container_width=True, hide_index=True)
+                            mask &= (kolom_str == nilai)
+                    return dfa[mask]
 
+                df_hasil_manual = _terapkan_rumus_manual(df_hasil, syarat) if syarat else df_hasil.iloc[0:0]
 
-                    # =====================================================
-                    # 🛠️ RUMUS MANUAL (BUAT RUMUS SENDIRI, 1-9)
-                    # Tulis kondisi per rumus, pratinjau hasil, lalu simpan
-                    # sebagai kertas belanja (sinyal_ai_rumus_N.csv) tanpa AI.
-                    # =====================================================
-                    st.markdown("---")
-                    st.markdown("### 🛠️ Rumus Manual — Buat Rumus Sendiri (Rumus 1–9)")
+                c_prev, c_sim, c_hps = st.columns(3)
+                with c_prev:
+                    pratinjau = st.button("👁️ Pratinjau Hasil", key=f"rm_prev_{nomor_manual}",
+                                          disabled=not syarat)
+                with c_sim:
+                    simpan = st.button("💾 Simpan sebagai Kertas Belanja", type="primary",
+                                       key=f"rm_sim_{nomor_manual}", disabled=not syarat)
+                with c_hps:
+                    hapus_kertas = st.button("🗑️ Hapus Kertas Belanja Rumus Ini", key=f"rm_hps_{nomor_manual}")
 
-                    with st.expander("📖 Cara pakai", expanded=False):
-                        st.markdown(
-                            "1. Pilih **nomor rumus** yang mau kamu isi (1–9).\n"
-                            "2. Susun **syarat filter** — minimal 1 syarat; saham harus lolos **semua** syarat (logika DAN).\n"
-                            "3. Klik **👁️ Pratinjau** untuk melihat saham yang lolos.\n"
-                            "4. Klik **💾 Simpan sebagai Kertas Belanja** → file `sinyal_ai_rumus_N.csv` ditulis\n"
-                            "   (sinkron dengan Radar Live, Daftar Belanja & tombol beli manual).\n"
-                            "5. Hapus rumus yang tersimpan lewat **🗑️ Hapus** bila tak dipakai.")
-                        st.caption("🔒 Aturan tetap: ini hanya menulis kertas belanja — pembelian tetap manual, tidak ada auto-buy.")
+                if pratinjau:
+                    n = len(df_hasil_manual)
+                    if n:
+                        st.success(f"✅ {n} saham lolos Rumus {nomor_manual} (manual).")
+                        render_strategy_table(df_hasil_manual, f"RumusManual_{nomor_manual}")
+                    else:
+                        st.warning("Tidak ada saham yang lolos. Longgarkan syaratmu.")
 
-                    OPSI_KOLOM = {
-                        "Rekomendasi": "Rekomendasi",
-                        "MA Signal": "MA Signal",
-                        "MA Cross": "MA Cross",
-                        "MACD": "MACD",
-                        "Momentum": "Momentum",
-                        "Tekanan Bandar": "Tekanan Bandar",
-                        "Status Bandar": "Status Bandar",
-                        "OBV Trend": "OBV Trend",
-                        "Status Gap": "Status Gap",
-                        "Status BB": "Status BB",
-                        "Status Open": "Status Open",
-                        "Status Stochastic": "Status Stochastic",
-                        "Status Sentimen": "Status Sentimen",
-                        "Status Akuisisi": "Status Akuisisi",
-                        "Status Fibonacci": "Status Fibonacci",
-                        "Vol Breakout": "Vol Breakout",
-                        "Pola Candle": "Pola Candle",
-                        "Posisi Entry": "Posisi Entry",
-                        "Posisi VWAP": "Posisi VWAP",
-                        "Kekuatan A/D": "Kekuatan A/D",
-                        "Kelas Transaksi": "Kelas Transaksi",
-                        "RVOL (Anomali Vol)": "RVOL (Anomali Vol)",
-                        "Fase Siklus Bandar": "Fase Siklus Bandar",
-                        "Risk/Reward Ratio": "Risk/Reward Ratio",
-                        "Kondisi Supply": "Kondisi Supply",
-                        "Kategori": "Kategori",
-                        "Valuasi": "Valuasi",
-                        "Risiko": "Risiko",
-                        "Prediksi Machine Learning": "Prediksi Machine Learning",
-                    }
-
-                    def _nilai_unik(kolom):
-                        if kolom in df_hasil.columns:
-                            vals = [str(v) for v in df_hasil[kolom].dropna().unique() if str(v).strip()]
-                            return sorted(vals)
-                        return []
-
-                    if "rumus_manual" not in st.session_state:
-                        st.session_state.rumus_manual = {}
-
-                    c_rn, c_aksi = st.columns([1, 3])
-                    with c_rn:
-                        nomor_manual = st.selectbox("Nomor rumus:", list(range(1, 10)),
-                                                    index=7, key="rm_nomor",
-                                                    help="Rumus 8 contoh default karena kosong dari sidang standar.")
-                    with c_aksi:
-                        st.markdown(f"#### 🧮 Rumus {nomor_manual} (manual)")
-
-                    # --- Muat rumus tersimpan untuk nomor ini ---
-                    FILE_RM = os.path.join("Database", f"rumus_manual_{nomor_manual}.json")
-                    if st.button("📂 Muat rumus tersimpan", key=f"rm_muat_{nomor_manual}"):
-                        if os.path.exists(FILE_RM):
-                            try:
-                                with open(FILE_RM) as f:
-                                    st.session_state.rumus_manual = json.load(f)
-                                st.success(f"Rumus {nomor_manual} dimuat ({len(st.session_state.rumus_manual)} syarat).")
-                            except Exception as e:
-                                st.error(f"Gagal muat: {e}")
-                        else:
-                            st.info(f"Belum ada rumus tersimpan untuk Rumus {nomor_manual}.")
-
-                    syarat = st.session_state.rumus_manual
-
-                    # --- Editor syarat ---
-                    EDIT_BARU = "__syarat_baru__"
-                    if not syarat:
-                        st.session_state.setdefault(EDIT_BARU, True)
-
-                    daftar_edit = sorted(syarat.keys())
-                    tambah = st.button("➕ Tambah Syarat", key=f"rm_tambah_{nomor_manual}")
-                    if tambah:
-                        kunci_baru = str(max([int(k) for k in syarat.keys()] or [0]) + 1)
-                        syarat[kunci_baru] = {"kolom": "Rekomendasi", "operator": "sama dengan", "nilai": "BELI"}
-                        st.session_state.rumus_manual = syarat
-                        st.rerun()
-
-                    for kunci in daftar_edit:
-                        s = syarat[kunci]
-                        c1, c2, c3, c4 = st.columns([3, 2, 4, 1])
-                        with c1:
-                            s["kolom"] = st.selectbox("Kolom", list(OPSI_KOLOM.keys()),
-                                                      index=list(OPSI_KOLOM.keys()).index(s.get("kolom", "Rekomendasi")),
-                                                      key=f"rm_k_{nomor_manual}_{kunci}")
-                        with c2:
-                            s["operator"] = st.selectbox("Operator", ["sama dengan", "mengandung"],
-                                                         index=0 if s.get("operator", "sama dengan") == "sama dengan" else 1,
-                                                         key=f"rm_o_{nomor_manual}_{kunci}")
-                        with c3:
-                            opsi_nilai = _nilai_unik(s["kolom"]) or [s.get("nilai", "")]
-                            idx = opsi_nilai.index(s.get("nilai", "")) if s.get("nilai", "") in opsi_nilai else 0
-                            s["nilai"] = st.selectbox("Nilai", opsi_nilai, index=idx,
-                                                      key=f"rm_v_{nomor_manual}_{kunci}")
-                        with c4:
-                            if st.button("🗑️", key=f"rm_h_{nomor_manual}_{kunci}", help="Hapus syarat ini"):
-                                del syarat[kunci]
-                                st.session_state.rumus_manual = syarat
-                                st.rerun()
-
-                    # --- Terapkan filter ke df_hasil ---
-                    def _terapkan_rumus_manual(dfa, kamus_syarat):
-                        mask = pd.Series(True, index=dfa.index)
-                        for s in kamus_syarat.values():
-                            kolom = s.get("kolom")
-                            nilai = str(s.get("nilai", ""))
-                            if kolom not in dfa.columns:
-                                return dfa.iloc[0:0]
-                            kolom_str = dfa[kolom].astype(str)
-                            if s.get("operator") == "mengandung":
-                                mask &= kolom_str.str.contains(nilai, case=False, na=False)
-                            else:
-                                mask &= (kolom_str == nilai)
-                        return dfa[mask]
-
-                    df_hasil_manual = _terapkan_rumus_manual(df_hasil, syarat) if syarat else df_hasil.iloc[0:0]
-
-                    c_prev, c_sim, c_hps = st.columns(3)
-                    with c_prev:
-                        pratinjau = st.button("👁️ Pratinjau Hasil", key=f"rm_prev_{nomor_manual}",
-                                              disabled=not syarat)
-                    with c_sim:
-                        simpan = st.button("💾 Simpan sebagai Kertas Belanja", type="primary",
-                                           key=f"rm_sim_{nomor_manual}", disabled=not syarat)
-                    with c_hps:
-                        hapus_kertas = st.button("🗑️ Hapus Kertas Belanja Rumus Ini", key=f"rm_hps_{nomor_manual}")
-
-                    if pratinjau:
-                        n = len(df_hasil_manual)
-                        if n:
-                            st.success(f"✅ {n} saham lolos Rumus {nomor_manual} (manual).")
-                            render_strategy_table(df_hasil_manual, f"RumusManual_{nomor_manual}")
-                        else:
-                            st.warning("Tidak ada saham yang lolos. Longgarkan syaratmu.")
-
-                    if simpan:
-                        if df_hasil_manual.empty:
-                            st.error("Tidak ada saham yang lolos — kertas belanja tidak ditulis.")
-                        else:
-                            harga = pd.to_numeric(df_hasil_manual["Harga (Rp)"], errors="coerce")
-                            stempel = datetime.utcnow().strftime("%Y-%m-%d")
-                            kertas = pd.DataFrame({
-                                "Ticker": df_hasil_manual["Ticker"].values,
-                                "Target_TP": (harga * 1.05).round(0).astype(int).values,
-                                "Target_CL": (harga * 0.97).round(0).astype(int).values,
-                                "Stempel": stempel,
-                            })
-                            fs = os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv")
-                            kertas.to_csv(fs, index=False)
-                            # simpan definisi rumusnya juga agar bisa dimuat ulang
-                            with open(FILE_RM, "w") as f:
-                                json.dump(syarat, f, indent=2)
-                            st.success(f"💾 {len(kertas)} saham → {fs} (+ definisi rumus disimpan). "
-                                       f"Kertas belanja Rumus {nomor_manual} siap dibeli manual via tombol EKSEKUSI BELI.")
-                            muat_keranjang_radar.clear()
-                            st.cache_data.clear()
-
-                    if hapus_kertas:
+                if simpan:
+                    if df_hasil_manual.empty:
+                        st.error("Tidak ada saham yang lolos — kertas belanja tidak ditulis.")
+                    else:
+                        harga = pd.to_numeric(df_hasil_manual["Harga (Rp)"], errors="coerce")
+                        stempel = datetime.utcnow().strftime("%Y-%m-%d")
+                        kertas = pd.DataFrame({
+                            "Ticker": df_hasil_manual["Ticker"].values,
+                            "Target_TP": (harga * 1.05).round(0).astype(int).values,
+                            "Target_CL": (harga * 0.97).round(0).astype(int).values,
+                            "Stempel": stempel,
+                        })
                         fs = os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv")
-                        if os.path.exists(fs):
-                            os.remove(fs)
-                            st.success(f"Kertas belanja Rumus {nomor_manual} dihapus.")
-                        else:
-                            st.info("Tidak ada kertas belanja untuk rumus ini.")
+                        kertas.to_csv(fs, index=False)
+                        # simpan definisi rumusnya juga agar bisa dimuat ulang
+                        with open(FILE_RM, "w") as f:
+                            json.dump(syarat, f, indent=2)
+                        st.success(f"💾 {len(kertas)} saham → {fs} (+ definisi rumus disimpan). "
+                                   f"Kertas belanja Rumus {nomor_manual} siap dibeli manual via tombol EKSEKUSI BELI.")
                         muat_keranjang_radar.clear()
+                        st.cache_data.clear()
 
-                    if os.path.exists(os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv")):
-                        ds = pd.read_csv(os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv"))
-                        st.caption(f"📄 Kertas belanja aktif Rumus {nomor_manual}: {len(ds)} saham "
-                                   f"({', '.join(ds['Ticker'].astype(str).head(5))})")
+                if hapus_kertas:
+                    fs = os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv")
+                    if os.path.exists(fs):
+                        os.remove(fs)
+                        st.success(f"Kertas belanja Rumus {nomor_manual} dihapus.")
+                    else:
+                        st.info("Tidak ada kertas belanja untuk rumus ini.")
+                    muat_keranjang_radar.clear()
 
+                if os.path.exists(os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv")):
+                    ds = pd.read_csv(os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv"))
+                    st.caption(f"📄 Kertas belanja aktif Rumus {nomor_manual}: {len(ds)} saham "
+                               f"({', '.join(ds['Ticker'].astype(str).head(5))})")
+
+
+            with tab_ai:
+                st.subheader("🧠 Asisten AI — Seleksi Top-5 per Rumus")
+                st.caption("Sidang AI memilih **Top 5 dari setiap rumus** (1–9). Hasilnya murni tampilan — tidak menulis kertas belanja.")
+
+                paksa_sidang = st.checkbox("🔄 Paksa Sidang Ulang (abaikan cache Mode Kilat)", key="paksa_sidang_ulang")
+
+                c_j, c_h = st.columns(2)
+                with c_j:
+                    jalankan = st.button("🧠 Sidang AI Top-5 Semua Rumus", type="primary", key="autopilot_utama")
+                with c_h:
+                    hapus_cache = st.button("🗑️ Hapus Cache Sidang", key="hapus_cache_sidang")
+
+                if hapus_cache:
+                    try:
+                        if os.path.exists(FILE_CACHE_AUTOPILOT):
+                            os.remove(FILE_CACHE_AUTOPILOT)
+                            st.success("✅ Cache sidang dihapus.")
+                        else:
+                            st.info("Tidak ada cache tersimpan.")
+                    except Exception as e:
+                        st.error(f"Gagal hapus cache: {e}")
+
+                if jalankan:
+                    GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", os.environ.get("GEMINI_API_KEY"))
+                    if not GEMINI_API_KEY:
+                        st.error("❌ Kunci API GEMINI belum dipasang!")
+                    else:
+                        daftar_rumus = {1: df_v1, 2: df_v2, 3: df_v3, 4: df_v4, 5: df_v5, 6: df_v6, 7: df_v7, 8: df_v8, 9: df_v9}
+                        stempel_data = str(df_hasil["Terakhir Update"].iloc[0]) if "Terakhir Update" in df_hasil.columns else "tanpa_stempel"
+                        keranjang_spreadsheet = None
+                        if not paksa_sidang and os.path.exists(FILE_CACHE_AUTOPILOT):
+                            try:
+                                with open(FILE_CACHE_AUTOPILOT, "r") as f: cache_muat = json.load(f)
+                                if cache_muat.get("stempel_data") == stempel_data and cache_muat.get("versi") == VERSI_SIDANG and cache_muat.get("keranjang"):
+                                    ada_isi_cache = any(len([x for x in cache_muat["keranjang"].get(f"RUMUS {i}", []) if x]) > 0 for i in range(1, 10))
+                                    if ada_isi_cache:
+                                        keranjang_spreadsheet = cache_muat["keranjang"]
+                                        st.info("⚡ **Mode Kilat:** hasil ditampilkan instan dari cache.")
+                            except: pass
+                        if keranjang_spreadsheet is None:
+                            progress_bar = st.progress(0)
+                            status_teks = st.empty()
+                            # tulis_sinyal=False: murni seleksi Top-5, TIDAK menulis kertas belanja
+                            keranjang_spreadsheet, err_global, laporan_sidang = jalankan_sidang_autopilot(
+                                daftar_rumus, df_hasil, GEMINI_API_KEY, progress_bar, status_teks, tulis_sinyal=False)
+                            if err_global:
+                                st.error(err_global)
+                            else:
+                                df_laporan = pd.DataFrame([{
+                                    "Rumus": f"RUMUS {i}",
+                                    "Status": laporan_sidang[i]["status"],
+                                    "Keterangan": laporan_sidang[i]["detail"]
+                                } for i in range(1, 10)])
+                                st.markdown("#### 🧾 Laporan Sidang")
+                                st.dataframe(df_laporan, use_container_width=True, hide_index=True)
+                                ada_isi = any(laporan_sidang[i]["status"] == "✅ Sukses" for i in range(1, 10))
+                                if ada_isi:
+                                    try:
+                                        with open(FILE_CACHE_AUTOPILOT, "w") as f:
+                                            json.dump({"stempel_data": stempel_data, "versi": VERSI_SIDANG, "keranjang": keranjang_spreadsheet}, f, indent=4)
+                                    except: pass
+                                    status_teks.success("🎉 Seleksi Top-5 selesai (tampilan saja — kertas belanja tidak diubah).")
+                                else:
+                                    status_teks.warning("⚠️ Sidang selesai tetapi tidak ada jawara.")
+
+                if os.path.exists(FILE_CACHE_AUTOPILOT):
+                    try:
+                        with open(FILE_CACHE_AUTOPILOT, "r") as f: cm = json.load(f)
+                        if cm.get("keranjang"):
+                            df_hasil_sidang = pd.DataFrame({k: (v + ["", "", "", "", ""])[:5] for k, v in cm["keranjang"].items()})
+                            st.markdown("### 🏆 Top-5 per Rumus (hasil sidang AI)")
+                            st.dataframe(df_hasil_sidang, use_container_width=True, hide_index=True)
+                    except Exception:
+                        pass
 
 # =====================================================================
 # =====================================================================
