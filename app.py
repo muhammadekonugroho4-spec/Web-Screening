@@ -1204,30 +1204,6 @@ def warna_tabel(val):
         elif "⭐" in val: return 'color: #22c55e;' if len(val) >= 6 else 'color: #ef4444;'
     return ''
 
-def _render_salin_dengan_acak(daftar_ticker, key_state, key_btn):
-    sumber = "|".join(daftar_ticker)
-    key_sumber = f"{key_state}_sumber"
-    if st.session_state.get(key_sumber) != sumber:
-        st.session_state[key_state] = daftar_ticker[:]
-        st.session_state[key_sumber] = sumber
-    
-    def _acak():
-        urutan_lama = st.session_state.get(key_state, [])
-        urutan_baru = urutan_lama[:]
-        if len(urutan_baru) > 1:
-            while urutan_baru == urutan_lama:
-                random.shuffle(urutan_baru)
-        st.session_state[key_state] = urutan_baru
-    
-    st.markdown("**📋 Salin Daftar Saham:**")
-    col_kode, col_btn = st.columns([12, 1])
-    with col_kode:
-        st.code("\n".join(st.session_state.get(key_state, daftar_ticker)), language="text")
-    with col_btn:
-        st.button("🔀", key=key_btn, on_click=_acak,
-                  use_container_width=True,
-                  help="Acak urutan — dijamin berbeda setiap klik")
-
 def render_strategy_table(df_subset, file_name):
     if not df_subset.empty:
         sort_cols = [c for c in ['Total Score', 'Volume'] if c in df_subset.columns]
@@ -1254,12 +1230,7 @@ def render_strategy_table(df_subset, file_name):
         with pd.ExcelWriter(buffer, engine='openpyxl') as writer: tabel_jadi.to_excel(writer, index=False, sheet_name='Screener')
         c1.download_button(label=f"📥 Download {file_name} (Excel)", data=buffer.getvalue(), file_name=f"{file_name}.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", key=f"dl_{file_name}")
         with c2:
-            _render_salin_dengan_acak(
-                df_subset["Ticker"].tolist(),
-                key_state=f"acak_{file_name}",
-                key_btn=f"btn_acak_{file_name}"
-            )
-            st.caption("Klik icon 'Copy' untuk paste ke Tab AI — atau 🔀 untuk acak urutan.")
+            st.empty()
     else: st.info("🔍 Belum ada pergerakan saham yang memenuhi kriteria strategi ini pada sesi saat ini.")
 
 
@@ -1539,12 +1510,7 @@ if not df_hasil.empty:
                 csv_filter = df_filtered[kolom_ada].to_csv(index=False).encode('utf-8')
                 st.download_button(label=f"📥 Download Data Tabel CSV", data=csv_filter, file_name=f"Screener_View_{datetime.now().strftime('%Y%m%d_%H%M')}.csv", mime="text/csv", key="dl_tab2")
             with col_wl:
-                _render_salin_dengan_acak(
-                    df_filtered["Ticker"].tolist(),
-                    key_state="acak_tab2",
-                    key_btn="btn_acak_tab2"
-                )
-                st.caption("Klik icon 'Copy' untuk paste massal ke Tab AI — atau 🔀 untuk acak urutan.")
+                st.empty()
         else: st.warning("Tidak ada data sesuai filter.")
 
 
