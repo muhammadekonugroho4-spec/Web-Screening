@@ -108,9 +108,10 @@ def hitung_rumus(df):
     out[7] = df[(df.get('Prediksi Machine Learning', '') == '🔥 ANOMALI BANDAR (Siap Ledakan)') & vwap_kuat &
                 ((df.get('Status Stochastic', '').isin(['Oversold (Jenuh Jual - Peluang)', 'Golden Cross (Awal Bullish)'])) |
                  (df.get('Tekanan Bandar', '') == 'Dominan Beli (Hajar Kanan)'))].copy()
-    out[8] = df[((df.get('Status Sentimen', '') == 'Sentimen Positif 📰') |
-                 (df.get('Status Akuisisi', '').isin(['RENCANA AKUISISI', 'DALAM AKUISISI']))) &
-                (df.get('MA Signal', '') == 'Uptrend') & (df.get('Rekomendasi', '') == 'BELI')].copy()
+    # v5.3-WEB: sentimen berita mati (tanpa Google News) -> ganti momentum+volume
+    out[8] = df[(df.get('Momentum', '') == 'Positif') & (df.get('MA Signal', '') == 'Uptrend') &
+                (df.get('Vol Breakout', '') == 'Tembus MA20') & vwap_ok &
+                (df.get('Rekomendasi', '') == 'BELI')].copy()
     out[9] = df[(df.get('MACD', '').isin(['Strong Bullish', 'Bullish MACD'])) & (df.get('Momentum', '') == 'Positif') & vwap_ok &
                 ((df.get('Risk/Reward Ratio', '').isin(['Sangat Menarik (> 1:3)', 'Ideal (1:2)'])) |
                  (df.get('Posisi Entry', '') == 'Dekat Support (Low Risk)'))].copy()
