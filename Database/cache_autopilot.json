@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-07 19:22:54",
+    "stempel_data": "2026-10-08 15:15:02",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "ASMI",
-            "POLA",
-            "MEJA",
-            "PCAR",
-            "AKKU"
-        ],
-        "RUMUS 2": [
-            "KREN",
-            "REAL",
-            "NAYZ",
-            "MBSS",
-            "BDMN"
-        ],
-        "RUMUS 3": [
-            "CSMI",
-            "MPXL",
+            "PURA",
             "WIDI",
             "PGLI",
-            "IDEA"
-        ],
-        "RUMUS 4": [
-            "ASMI",
-            "POLA",
-            "MEJA",
-            "PCAR",
-            "AKKU"
-        ],
-        "RUMUS 5": [
-            "ASMI",
-            "POLA",
-            "MEJA",
-            "PCAR",
+            "AIMS",
             "MPXL"
         ],
+        "RUMUS 2": [
+            "IDEA",
+            "UVCR",
+            "HADE",
+            "PLAN",
+            "SURI"
+        ],
+        "RUMUS 3": [
+            "MPXL",
+            "ARII",
+            "MCAS",
+            "PGLI",
+            "PEVE"
+        ],
+        "RUMUS 4": [
+            "PURA",
+            "IDEA",
+            "MPXL",
+            "WIDI",
+            "PGLI"
+        ],
+        "RUMUS 5": [
+            "KREN",
+            "IDEA",
+            "MPXL",
+            "SMLE",
+            "MMIX"
+        ],
         "RUMUS 6": [
-            "BMBL",
-            "ISSP",
-            "GEMS",
-            "BTPN",
-            "KBLI"
+            "MMIX",
+            "NEST",
+            "INCI",
+            "ESTI",
+            "BFIN"
         ],
         "RUMUS 7": [
+            "INCI",
+            "MMIX",
             "RSCH",
-            "MBSS",
-            "TRUE",
-            "BTEK",
-            "BBKP"
+            "DADA",
+            ""
         ],
         "RUMUS 8": [
-            "",
-            "",
-            "",
-            "",
-            ""
+            "PURA",
+            "AKKU",
+            "IDEA",
+            "WIDI",
+            "MPXL"
         ],
         "RUMUS 9": [
             "FORU",
-            "SMSM",
-            "JELI",
-            "WGSH",
-            "INDF"
+            "FILM",
+            "CINT",
+            "PSSI",
+            "BRNA"
         ]
     }
 }
