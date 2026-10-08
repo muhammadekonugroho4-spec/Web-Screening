@@ -1372,6 +1372,25 @@ if not df_hasil.empty:
             with nr4:
                 chg_min = st.number_input("Change % Min", value=0.0, step=0.5, key="nr_chg_min")
                 chg_max = st.number_input("Change % Maks", value=0.0, step=0.5, key="nr_chg_max")
+
+            st.markdown("**💎 Fundamental Exodus (Range)**")
+            fe1, fe2, fe3, fe4 = st.columns(4)
+            with fe1:
+                mktcap_min = st.number_input("Market Cap Min (T)", min_value=0.0, value=0.0, step=0.1, key="fe_mktcap_min", help="Dalam triliun rupiah")
+                ps_min = st.number_input("P/S Min", min_value=0.0, value=0.0, step=0.1, key="fe_ps_min")
+                ey_min = st.number_input("Earnings Yield Min (%)", min_value=0.0, value=0.0, step=0.5, key="fe_ey_min")
+            with fe2:
+                pettm_min = st.number_input("PE TTM Min", min_value=0.0, value=0.0, step=1.0, key="fe_pettm_min")
+                ps_max = st.number_input("P/S Maks", min_value=0.0, value=0.0, step=0.1, key="fe_ps_max")
+                div_min = st.number_input("Div Yield Min (%)", min_value=0.0, value=0.0, step=0.5, key="fe_div_min")
+            with fe3:
+                pbvex_min = st.number_input("PBV Exodus Min", min_value=0.0, value=0.0, step=0.1, key="fe_pbvex_min")
+                peg_max = st.number_input("PEG Maks", min_value=0.0, value=0.0, step=0.1, key="fe_peg_max")
+                bvps_min = st.number_input("BVPS Min", min_value=0.0, value=0.0, step=100.0, key="fe_bvps_min")
+            with fe4:
+                fscore_min = st.selectbox("F-Score Min", ["Semua","≥3","≥5","≥7","≥9"], key="fe_fscore")
+                epsr_min = st.number_input("EPS Rating Min", min_value=0, value=0, step=1, key="fe_epsr_min")
+                rsr_min = st.number_input("RS Rating Min", min_value=0, value=0, step=1, key="fe_rsr_min")
             st.markdown("")
 
         col_search, col_broker, col_min, col_max = st.columns([1.5, 1.5, 1, 1])
@@ -1416,6 +1435,35 @@ if not df_hasil.empty:
             df_filtered = df_filtered[pd.to_numeric(df_filtered["Change (%)"], errors="coerce") >= chg_min]
         if chg_max != 0 and "Change (%)" in df_filtered.columns:
             df_filtered = df_filtered[pd.to_numeric(df_filtered["Change (%)"], errors="coerce") <= chg_max]
+
+        # ==========================================
+        # APPLY FUNDAMENTAL EXODUS RANGE
+        # ==========================================
+        if mktcap_min > 0 and "Mkt Cap (Exodus)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["Mkt Cap (Exodus)"], errors="coerce") >= mktcap_min * 1e12]
+        if pettm_min > 0 and "PE TTM (Exodus)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["PE TTM (Exodus)"], errors="coerce") >= pettm_min]
+        if pbvex_min > 0 and "PBV (Exodus)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["PBV (Exodus)"], errors="coerce") >= pbvex_min]
+        if ps_min > 0 and "P/S TTM (Exodus)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["P/S TTM (Exodus)"], errors="coerce") >= ps_min]
+        if ps_max > 0 and "P/S TTM (Exodus)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["P/S TTM (Exodus)"], errors="coerce") <= ps_max]
+        if ey_min > 0 and "Earnings Yield" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["Earnings Yield"], errors="coerce") >= ey_min]
+        if div_min > 0 and "Div Yield" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["Div Yield"], errors="coerce") >= div_min]
+        if peg_max > 0 and "PEG" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["PEG"], errors="coerce") <= peg_max]
+        if bvps_min > 0 and "BVPS (Exodus)" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["BVPS (Exodus)"], errors="coerce") >= bvps_min]
+        if fscore_min != "Semua" and "F-Score" in df_filtered.columns:
+            ambang = int(fscore_min.replace("≥", ""))
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["F-Score"], errors="coerce") >= ambang]
+        if epsr_min > 0 and "EPS Rating" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["EPS Rating"], errors="coerce") >= epsr_min]
+        if rsr_min > 0 and "RS Rating" in df_filtered.columns:
+            df_filtered = df_filtered[pd.to_numeric(df_filtered["RS Rating"], errors="coerce") >= rsr_min]
         
         # ==========================================
         # APPLY FILTER (handle field baru = string match)
