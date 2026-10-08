@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-08 15:15:02",
+    "stempel_data": "2026-10-08 16:00:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "PURA",
+            "BLTA",
+            "MPXL",
             "WIDI",
-            "PGLI",
-            "AIMS",
-            "MPXL"
+            "ARII",
+            "PGLI"
         ],
         "RUMUS 2": [
             "IDEA",
-            "UVCR",
-            "HADE",
-            "PLAN",
-            "SURI"
+            "DGNS",
+            "INCI",
+            "DEWI",
+            "BDKR"
         ],
         "RUMUS 3": [
+            "BLTA",
             "MPXL",
-            "ARII",
+            "KLBF",
             "MCAS",
-            "PGLI",
-            "PEVE"
+            "ARII"
         ],
         "RUMUS 4": [
-            "PURA",
-            "IDEA",
-            "MPXL",
+            "BLTA",
             "WIDI",
+            "MPXL",
+            "IDEA",
             "PGLI"
         ],
         "RUMUS 5": [
-            "KREN",
+            "BLTA",
             "IDEA",
             "MPXL",
-            "SMLE",
-            "MMIX"
+            "VICI",
+            "GEMS"
         ],
         "RUMUS 6": [
             "MMIX",
-            "NEST",
-            "INCI",
-            "ESTI",
-            "BFIN"
+            "ULTJ",
+            "VICI",
+            "PLAN",
+            "DGNS"
         ],
         "RUMUS 7": [
             "INCI",
+            "GEMS",
             "MMIX",
-            "RSCH",
             "DADA",
             ""
         ],
         "RUMUS 8": [
             "PURA",
+            "BLTA",
             "AKKU",
             "IDEA",
-            "WIDI",
             "MPXL"
         ],
         "RUMUS 9": [
-            "FORU",
-            "FILM",
-            "CINT",
             "PSSI",
-            "BRNA"
+            "FORU",
+            "UDNG",
+            "TCPI",
+            "MIKA"
         ]
     }
 }
