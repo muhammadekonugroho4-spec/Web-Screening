@@ -1198,7 +1198,8 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("### 👤 Akun")
 
 if "username" not in st.session_state:
-    st.session_state.username = None
+    qp_user = st.query_params.get("user")
+    st.session_state.username = qp_user if qp_user else None
 
 if st.session_state.username is None:
     tab_login, tab_daftar = st.sidebar.tabs(["🔑 Login", "📝 Daftar"])
@@ -1209,6 +1210,7 @@ if st.session_state.username is None:
             users = _muat_users()
             if u in users and users[u] == p:
                 st.session_state.username = u
+                st.query_params["user"] = u
                 st.rerun()
             else:
                 st.error("Username/PIN salah")
@@ -1227,11 +1229,13 @@ if st.session_state.username is None:
                 users[u2] = p2
                 _simpan_users(users)
                 st.session_state.username = u2
+                st.query_params["user"] = u2
                 st.rerun()
 else:
     st.sidebar.success(f"👤 {st.session_state.username}")
     if st.sidebar.button("🔒 Logout", key="btn_logout", use_container_width=True):
         st.session_state.username = None
+        st.query_params.clear()
         st.rerun()
     with st.sidebar.expander("🔄 Ganti PIN", expanded=False):
         pin_lama = st.text_input("PIN Lama", type="password", max_chars=6, key="ganti_pin_lama")
@@ -2273,10 +2277,13 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
     with tab5:
         logged_in = st.session_state.get("username") is not None
 
-        st.markdown("## 💼 Portofolio Bot — 9 Arena Simulator")
-        st.caption("Modal awal Rp 100 jt per rumus · fee beli 0,15% · fee jual 0,25% · Ini simulator, bukan akun broker riil.")
+        if not logged_in:
+            st.warning("🔐 Silakan login dulu di sidebar (kiri) untuk mengakses Portofolio.")
+            st.info("Belum punya akun? Klik tab **📝 Daftar** di sidebar.")
+        else:
+            st.markdown("## 💼 Portofolio Bot — 9 Arena Simulator")
+            st.caption("Modal awal Rp 100 jt per rumus · fee beli 0,15% · fee jual 0,25% · Ini simulator, bukan akun broker riil.")
 
-        if logged_in:
             col_beli, col_jual, col_reset = st.columns([2, 2, 3])
             with col_beli:
                 if st.button("🛒 EKSEKUSI BELI Semua Sinyal!", type="primary", use_container_width=True):
@@ -2329,70 +2336,68 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
 
             st.markdown("---")
             st.info("💡 Saham suspend otomatis dijual saat cron TP/SL (harga beli, fee only). Untuk jual manual, gunakan tombol JUAL SORE di atas.")
-        else:
-            st.info("🔐 Login dulu di sidebar untuk mengakses tombol beli/jual/reset.")
 
-        # Load portfolio data
-        ARENA_LABEL = {1: "Smart Money Menyelam", 2: "Pantulan Jarum Bawah", 3: "Tutup Kuat Bandar Hajar",
-                       4: "Golden Cross Muda", 5: "Momentum Likuid Sehat", 6: "Ledakan Volume Senyap",
-                       7: "Anomali ML", 8: "Momentum Tembus MA20", 9: "MACD Momentum Terukur"}
+            # Load portfolio data
+            ARENA_LABEL = {1: "Smart Money Menyelam", 2: "Pantulan Jarum Bawah", 3: "Tutup Kuat Bandar Hajar",
+                           4: "Golden Cross Muda", 5: "Momentum Likuid Sehat", 6: "Ledakan Volume Senyap",
+                           7: "Anomali ML", 8: "Momentum Tembus MA20", 9: "MACD Momentum Terukur"}
 
-        pilihan_arena = st.selectbox("📂 Pilih Arena:", [f"Rumus {i} — {ARENA_LABEL[i]}" for i in range(1, 10)])
-        rumus_id = pilihan_arena.split(" ")[1]
+            pilihan_arena = st.selectbox("📂 Pilih Arena:", [f"Rumus {i} — {ARENA_LABEL[i]}" for i in range(1, 10)])
+            rumus_id = pilihan_arena.split(" ")[1]
 
-        def _baca_csv_safe(path, cols):
-            if os.path.exists(path):
-                try:
-                    df = pd.read_csv(path)
-                    return df
-                except: pass
-            return pd.DataFrame(columns=cols)
+            def _baca_csv_safe(path, cols):
+                if os.path.exists(path):
+                    try:
+                        df = pd.read_csv(path)
+                        return df
+                    except: pass
+                return pd.DataFrame(columns=cols)
 
-        df_porto = _baca_csv_safe(f"Database/portofolio_aktif_rumus_{rumus_id}.csv",
-                                  ["Tanggal_Beli","Ticker","Harga_Beli","Lot","Total_Modal","Target_TP","Target_CL"])
-        df_hist = _baca_csv_safe(f"Database/histori_transaksi_rumus_{rumus_id}.csv",
-                                 ["Tanggal_Beli","Tanggal_Jual","Ticker","Harga_Beli","Harga_Jual","Status","Total_Return_Rp","Return_%"])
-        df_sinyal = _baca_csv_safe(f"Database/sinyal_ai_rumus_{rumus_id}.csv",
-                                   ["Ticker","Target_TP","Target_CL","Stempel"])
+            df_porto = _baca_csv_safe(f"Database/portofolio_aktif_rumus_{rumus_id}.csv",
+                                      ["Tanggal_Beli","Ticker","Harga_Beli","Lot","Total_Modal","Target_TP","Target_CL"])
+            df_hist = _baca_csv_safe(f"Database/histori_transaksi_rumus_{rumus_id}.csv",
+                                     ["Tanggal_Beli","Tanggal_Jual","Ticker","Harga_Beli","Harga_Jual","Status","Total_Return_Rp","Return_%"])
+            df_sinyal = _baca_csv_safe(f"Database/sinyal_ai_rumus_{rumus_id}.csv",
+                                       ["Ticker","Target_TP","Target_CL","Stempel"])
 
-        total_profit = df_hist["Total_Return_Rp"].sum() if not df_hist.empty and "Total_Return_Rp" in df_hist.columns else 0
-        modal_terpakai = df_porto["Total_Modal"].sum() if not df_porto.empty and "Total_Modal" in df_porto.columns else 0
-        saldo = 100000000 + total_profit - modal_terpakai
-        total_aset = saldo + modal_terpakai
+            total_profit = df_hist["Total_Return_Rp"].sum() if not df_hist.empty and "Total_Return_Rp" in df_hist.columns else 0
+            modal_terpakai = df_porto["Total_Modal"].sum() if not df_porto.empty and "Total_Modal" in df_porto.columns else 0
+            saldo = 100000000 + total_profit - modal_terpakai
+            total_aset = saldo + modal_terpakai
 
-        m1, m2, m3, m4 = st.columns(4)
-        m1.metric("💵 Saldo Kas", f"Rp {saldo:,.0f}".replace(",","."))
-        m2.metric("📦 Modal Terpakai", f"Rp {modal_terpakai:,.0f}".replace(",","."))
-        m3.metric("💰 Total Aset", f"Rp {total_aset:,.0f}".replace(",","."))
-        m4.metric("📊 P/L Realized", f"Rp {total_profit:,.0f}".replace(",","."),
-                  delta=f"{total_profit/100000000*100:.1f}%", delta_color="normal")
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("💵 Saldo Kas", f"Rp {saldo:,.0f}".replace(",","."))
+            m2.metric("📦 Modal Terpakai", f"Rp {modal_terpakai:,.0f}".replace(",","."))
+            m3.metric("💰 Total Aset", f"Rp {total_aset:,.0f}".replace(",","."))
+            m4.metric("📊 P/L Realized", f"Rp {total_profit:,.0f}".replace(",","."),
+                      delta=f"{total_profit/100000000*100:.1f}%", delta_color="normal")
 
-        st.markdown("---")
-        sub1, sub2, sub3 = st.tabs(["📝 Sinyal Antrean", "🟢 Posisi Aktif", "📚 Histori Transaksi"])
+            st.markdown("---")
+            sub1, sub2, sub3 = st.tabs(["📝 Sinyal Antrean", "🟢 Posisi Aktif", "📚 Histori Transaksi"])
 
-        with sub1:
-            if not df_sinyal.empty:
-                st.success(f"🔥 {len(df_sinyal)} sinyal siap dieksekusi.")
-                st.dataframe(df_sinyal, use_container_width=True, hide_index=True)
-            else:
-                st.info("Kosong. Tidak ada sinyal.")
+            with sub1:
+                if not df_sinyal.empty:
+                    st.success(f"🔥 {len(df_sinyal)} sinyal siap dieksekusi.")
+                    st.dataframe(df_sinyal, use_container_width=True, hide_index=True)
+                else:
+                    st.info("Kosong. Tidak ada sinyal.")
 
-        with sub2:
-            if not df_porto.empty:
-                df_t = df_porto.copy()
-                if "Harga_Beli" in df_t: df_t["Harga_Beli"] = df_t["Harga_Beli"].apply(lambda x: f"Rp {x:,.0f}".replace(",","."))
-                if "Target_TP" in df_t: df_t["Target_TP"] = df_t["Target_TP"].apply(lambda x: f"Rp {x:,.0f}".replace(",","."))
-                if "Target_CL" in df_t: df_t["Target_CL"] = df_t["Target_CL"].apply(lambda x: f"Rp {x:,.0f}".replace(",","."))
-                st.dataframe(df_t, use_container_width=True, hide_index=True)
-            else:
-                st.info("📦 Gudang kosong. Belum ada posisi aktif.")
+            with sub2:
+                if not df_porto.empty:
+                    df_t = df_porto.copy()
+                    if "Harga_Beli" in df_t: df_t["Harga_Beli"] = df_t["Harga_Beli"].apply(lambda x: f"Rp {x:,.0f}".replace(",","."))
+                    if "Target_TP" in df_t: df_t["Target_TP"] = df_t["Target_TP"].apply(lambda x: f"Rp {x:,.0f}".replace(",","."))
+                    if "Target_CL" in df_t: df_t["Target_CL"] = df_t["Target_CL"].apply(lambda x: f"Rp {x:,.0f}".replace(",","."))
+                    st.dataframe(df_t, use_container_width=True, hide_index=True)
+                else:
+                    st.info("📦 Gudang kosong. Belum ada posisi aktif.")
 
-        with sub3:
-            if not df_hist.empty:
-                df_h = df_hist.sort_values("Tanggal_Jual", ascending=False) if "Tanggal_Jual" in df_hist.columns else df_hist
-                st.dataframe(df_h, use_container_width=True, hide_index=True)
-            else:
-                st.info("📭 Belum ada riwayat penjualan.")
+            with sub3:
+                if not df_hist.empty:
+                    df_h = df_hist.sort_values("Tanggal_Jual", ascending=False) if "Tanggal_Jual" in df_hist.columns else df_hist
+                    st.dataframe(df_h, use_container_width=True, hide_index=True)
+                else:
+                    st.info("📭 Belum ada riwayat penjualan.")
 
 # =====================================================================
 # >>> PART 14 : TAB 6 - DETEKTIF LEDAKAN (HANYA BACA) + CHAT AI <<<
