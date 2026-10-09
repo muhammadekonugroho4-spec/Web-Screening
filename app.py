@@ -249,7 +249,6 @@ def ai_penyisihan_turnamen(data_grup_dict, api_key):
             
             if len(lolos) == 0:
                 lolos = saham_grup_ini[:3]
-                
             lolos_final = lolos[:3]
             return ",".join(lolos_final)
             
@@ -1198,19 +1197,18 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("### 👤 Akun")
 
 if "username" not in st.session_state:
-    qp_user = st.query_params.get("user")
-    st.session_state.username = qp_user if qp_user else None
+    st.session_state.username = None
 
 if st.session_state.username is None:
     tab_login, tab_daftar = st.sidebar.tabs(["🔑 Login", "📝 Daftar"])
     with tab_login:
         u = st.text_input("Username", max_chars=20, key="login_user")
         p = st.text_input("PIN (6 digit)", type="password", max_chars=6, key="login_pin")
+        st.caption('<a href="https://trakteer.id" target="_blank" rel="noopener" style="color:var(--muted);font-size:.7rem">💜 Dukung pengembang via Trakteer</a>', unsafe_allow_html=True)
         if st.button("Login", key="btn_login", use_container_width=True):
             users = _muat_users()
             if u in users and users[u] == p:
                 st.session_state.username = u
-                st.query_params["user"] = u
                 st.rerun()
             else:
                 st.error("Username/PIN salah")
@@ -1229,13 +1227,12 @@ if st.session_state.username is None:
                 users[u2] = p2
                 _simpan_users(users)
                 st.session_state.username = u2
-                st.query_params["user"] = u2
+
                 st.rerun()
 else:
     st.sidebar.success(f"👤 {st.session_state.username}")
     if st.sidebar.button("🔒 Logout", key="btn_logout", use_container_width=True):
         st.session_state.username = None
-        st.query_params.clear()
         st.rerun()
     with st.sidebar.expander("🔄 Ganti PIN", expanded=False):
         pin_lama = st.text_input("PIN Lama", type="password", max_chars=6, key="ganti_pin_lama")
@@ -1412,7 +1409,6 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
         if saham_naik > (saham_turun * 1.5): sentimen_teks, warna_sentimen = "🔥 Sangat Bullish", "#4ade80"
         elif saham_turun > (saham_naik * 1.5): sentimen_teks, warna_sentimen = "🩸 Sangat Bearish", "#f87171"
         else: sentimen_teks, warna_sentimen = "⚖️ Konsolidasi (Ragu)", "#facc15"
-                
         m1, m2, m3, m4, m5 = st.columns(5)
         m1.markdown(f"<div class='metric-container'><h3>🔍 Total Saham</h3><h2>{total_saham}</h2></div>", unsafe_allow_html=True)
         m2.markdown(f"<div class='metric-container'><h3>🟢 Menguat</h3><h2 style='color: #4ade80;'>{saham_naik}</h2></div>", unsafe_allow_html=True)
@@ -1891,6 +1887,10 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
             pass
 
     with tab4:
+        if st.session_state.get("username") is None:
+            st.warning("🔐 Silakan login dulu di sidebar (kiri) untuk mengakses Asisten AI.")
+            st.info("Belum punya akun? Klik tab **📝 Daftar** di sidebar.")
+        else:
             st.markdown("## 🦅 Radar BSJP & Asisten AI")
             st.markdown("<div class='bandar-box-green'><b>💡 INFO:</b> Gunakan kotak pilihan (Dropdown) di bawah ini untuk beralih antar strategi atau mode AI agar tampilan lebih rapi.</div>", unsafe_allow_html=True)
         
@@ -1992,7 +1992,6 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
                             "RUMUS 9 : MACD Momentum Terukur 🎯"
                         ]
                     )
-                
                     st.markdown("---")
                     if "RUMUS 1" in pilihan_v:
                         render_strategy_table(df_v1, "Screener_Rumus_1")
@@ -2076,7 +2075,7 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
                         st.markdown(f"#### 🧮 Rumus {nomor_manual} (manual)")
 
                     # --- Muat rumus tersimpan untuk nomor ini ---
-                    FILE_RM = os.path.join("Database", f"rumus_manual_{nomor_manual}.json")
+                    FILE_RM = os.path.join("Database", "users", st.session_state.get("username", "default"), f"rumus_manual_{nomor_manual}.json")
                     if st.button("📂 Muat rumus tersimpan", key=f"rm_muat_{nomor_manual}"):
                         if os.path.exists(FILE_RM):
                             try:
@@ -2172,9 +2171,10 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
                                 "Target_CL": (harga * 0.97).round(0).astype(int).values,
                                 "Stempel": stempel,
                             })
-                            fs = os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv")
+                            ud = os.path.join("Database", "users", st.session_state.get("username", "default"))
+                            os.makedirs(ud, exist_ok=True)
+                            fs = os.path.join(ud, f"sinyal_ai_rumus_{nomor_manual}.csv")
                             kertas.to_csv(fs, index=False)
-                            # simpan definisi rumusnya juga agar bisa dimuat ulang
                             with open(FILE_RM, "w") as f:
                                 json.dump(syarat, f, indent=2)
                             st.success(f"💾 {len(kertas)} saham → {fs} (+ definisi rumus disimpan). "
@@ -2183,7 +2183,8 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
                             st.cache_data.clear()
 
                     if hapus_kertas:
-                        fs = os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv")
+                        ud = os.path.join("Database", "users", st.session_state.get("username", "default"))
+                        fs = os.path.join(ud, f"sinyal_ai_rumus_{nomor_manual}.csv")
                         if os.path.exists(fs):
                             os.remove(fs)
                             st.success(f"Kertas belanja Rumus {nomor_manual} dihapus.")
@@ -2191,8 +2192,9 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
                             st.info("Tidak ada kertas belanja untuk rumus ini.")
                         muat_keranjang_radar.clear()
 
-                    if os.path.exists(os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv")):
-                        ds = pd.read_csv(os.path.join("Database", f"sinyal_ai_rumus_{nomor_manual}.csv"))
+                    ud = os.path.join("Database", "users", st.session_state.get("username", "default"))
+                    if os.path.exists(os.path.join(ud, f"sinyal_ai_rumus_{nomor_manual}.csv")):
+                        ds = pd.read_csv(os.path.join(ud, f"sinyal_ai_rumus_{nomor_manual}.csv"))
                         st.caption(f"📄 Kertas belanja aktif Rumus {nomor_manual}: {len(ds)} saham "
                                    f"({', '.join(ds['Ticker'].astype(str).head(5))})")
 
