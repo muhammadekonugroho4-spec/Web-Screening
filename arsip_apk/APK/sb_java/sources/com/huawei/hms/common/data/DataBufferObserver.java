@@ -1,0 +1,14 @@
+package com.huawei.hms.common.data;
+
+/* loaded from: classes6.dex */
+public interface DataBufferObserver {
+    void onDataChanged();
+
+    void onDataRangeChanged(int r1, int r2);
+
+    void onDataRangeInserted(int r1, int r2);
+
+    void onDataRangeMoved(int r1, int r2, int r3);
+
+    void onDataRangeRemoved(int r1, int r2);
+}

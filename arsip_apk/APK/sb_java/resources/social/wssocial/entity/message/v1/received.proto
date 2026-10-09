@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package social.wssocial.entity.message.v1;
+
+import "social/wssocial/entity/message/v1/base.proto";
+import "social/wssocial/entity/wsevent/chat/v1/message.proto";
+import "social/wssocial/entity/wsevent/chat/v1/room.proto";
+import "social/wssocial/entity/wsevent/chat/v1/typing_indicator.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/social/wssocial/entity/message/v1;message";
+
+message ReceivedMessage {
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    TYPE_PING = 1;
+    TYPE_SUBSCRIBE = 2;
+    TYPE_UNSUBSCRIBE = 3;
+    // broadcast type is used for sending and receiving event message
+    TYPE_BROADCAST = 4;
+    TYPE_ERROR = 5;
+  }
+
+  Type type = 1;
+  Body body = 2;
+}
+
+message Body {
+  oneof body {
+    Ping ping = 1;
+    Subscription subscription = 2;
+    ReceivedEvent event = 3;
+    Error error = 4;
+  }
+  // reserved for possible future fields outside oneof to avoid field number conflict
+  reserved 10 to 20;
+}
+
+message Ping {
+  enum PingStatus {
+    PING_STATUS_UNSPECIFIED = 0;
+    PING_STATUS_OK = 1;
+  }
+  PingStatus status = 1;
+}
+
+message Subscription {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUBSCRIBED = 1;
+    STATUS_UNSUBSCRIBED = 2;
+  }
+
+  Channel channel = 1;
+  Status status = 2;
+}
+
+message ReceivedEvent {
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    TYPE_CHAT_MESSAGE = 1;
+    TYPE_CHAT_TYPING_INDICATOR = 2;
+    TYPE_CHAT_ROOM_INFO = 3;
+  }
+  Type type = 1;
+
+  message Data {
+    oneof data {
+      social.wssocial.entity.wsevent.chat.v1.ReceivedMessage chat_message = 1;
+      social.wssocial.entity.wsevent.chat.v1.ReceivedTypingIndicator chat_typing_indicator = 2;
+      social.wssocial.entity.wsevent.chat.v1.ReceivedRoomInfo chat_room_info = 3;
+    }
+    // reserved for possible future fields outside oneof to avoid field number conflict
+    reserved 20 to 30;
+  }
+  Data data = 2;
+}
+
+message Error {
+  string message = 1;
+}

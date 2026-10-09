@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:tag="layout/bottom_sheet_day_trade_activated_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20"
+        android:contentDescription="@string/iv_day_trade_activated_icon"
+        app:srcCompat="@drawable/ic_day_trade_activated"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_title_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20"
+        android:text="@string/tv_day_trade_activated"
+        style="@style/TypeStyles.HeadlineRegular"/>
+    <TextView
+        android:textColor="?attr/themeColorTextSecondary"
+        android:gravity="center"
+        android:id="@+id/tv_content_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_12"
+        android:layout_marginBottom="@dimen/spacing_12"
+        style="@style/TypeStyles.BodyRegular"/>
+</LinearLayout>

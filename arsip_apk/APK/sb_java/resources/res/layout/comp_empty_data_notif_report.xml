@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:id="@+id/parentCompEmptyDataNotifRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/ivEmptyImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_gap_l"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_empty_search"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tvtitleEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:layout_marginBottom="@dimen/item_gap_s"
+        android:text="@string/title_notification_report_empty"
+        android:layout_below="@+id/ivEmptyImg"
+        style="@style/SbTextView.PageTitle"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tvSubtitleEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:text="@string/text_notification_report_empty"
+        android:layout_below="@+id/tvtitleEmpty"
+        style="@style/SbTextView.ListSubtitle.Secondary"/>
+</RelativeLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="48dp"
+    android:width="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <group>
+        <clip-path android:pathData="M0,0h48v48h-48z"/>
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M35.587,18.508L27.375,8.771L23.054,8.769"
+            android:strokeColor="#12734f"
+            android:strokeWidth="1.25"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"/>
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M5.078,18.469L13.316,8.757L17.653,8.754"
+            android:strokeColor="#12734f"
+            android:strokeWidth="1.25"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"/>
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M17.343,22.226L23.394,22.222"
+            android:strokeColor="#cccccc"
+            android:strokeWidth="1.25"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"/>
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M31.633,31.349L28.507,31.346C27.154,31.344 25.858,30.806 24.903,29.849C23.948,28.892 23.412,27.595 23.414,26.243L23.419,20.347C23.42,20.076 23.473,19.807 23.577,19.556C23.682,19.305 23.834,19.077 24.027,18.885C24.219,18.694 24.447,18.542 24.698,18.438C24.949,18.334 25.218,18.281 25.49,18.281L34.659,18.29C35.207,18.29 35.733,18.509 36.121,18.897C36.508,19.285 36.726,19.812 36.725,20.36L36.72,26.256C36.718,27.608 36.18,28.904 35.223,29.859C34.266,30.814 32.969,31.35 31.617,31.349L31.633,31.349Z"
+            android:strokeColor="#cccccc"
+            android:strokeWidth="1.25"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"/>
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M6.096,18.268L15.265,18.276C15.537,18.277 15.806,18.33 16.057,18.435C16.308,18.539 16.535,18.691 16.727,18.884C16.919,19.076 17.071,19.304 17.175,19.555C17.279,19.806 17.332,20.075 17.332,20.347L17.326,26.242C17.325,27.583 16.796,28.869 15.853,29.823C14.91,30.776 13.63,31.319 12.289,31.335L9.032,31.332C7.68,31.331 6.383,30.793 5.428,29.836C4.473,28.879 3.937,27.582 3.939,26.23L3.944,20.334C3.945,20.062 3.998,19.794 4.103,19.543C4.207,19.292 4.359,19.064 4.552,18.872C4.744,18.68 4.972,18.528 5.223,18.424C5.474,18.321 5.743,18.267 6.015,18.268L6.096,18.268Z"
+            android:strokeColor="#cccccc"
+            android:strokeWidth="1.25"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"/>
+        <path
+            android:fillColor="#00ab6b"
+            android:pathData="M37.842,41.617C42.61,41.617 46.475,37.752 46.475,32.984C46.475,28.216 42.61,24.352 37.842,24.352C33.075,24.352 29.21,28.216 29.21,32.984C29.21,37.752 33.075,41.617 37.842,41.617Z"
+            android:strokeColor="#121212"
+            android:strokeWidth="1.25"/>
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M34.545,29.922L41.417,35.714"
+            android:strokeColor="#121212"
+            android:strokeWidth="1.25"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"/>
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M37.846,37.47C40.331,37.47 42.346,35.456 42.346,32.97C42.346,30.485 40.331,28.47 37.846,28.47C35.36,28.47 33.346,30.485 33.346,32.97C33.346,35.456 35.36,37.47 37.846,37.47Z"
+            android:strokeColor="#121212"
+            android:strokeWidth="1.25"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"/>
+        <path
+            android:fillColor="#12734f"
+            android:pathData="M20.46,43.005C25.895,43.005 30.3,42.145 30.3,41.085C30.3,40.024 25.895,39.165 20.46,39.165C15.026,39.165 10.62,40.024 10.62,41.085C10.62,42.145 15.026,43.005 20.46,43.005Z"/>
+    </group>
+</vector>

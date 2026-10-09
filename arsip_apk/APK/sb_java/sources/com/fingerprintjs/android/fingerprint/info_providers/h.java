@@ -1,0 +1,12 @@
+package com.fingerprintjs.android.fingerprint.info_providers;
+
+import java.util.List;
+
+/* loaded from: classes4.dex */
+public interface h {
+    boolean a();
+
+    String b();
+
+    List c();
+}

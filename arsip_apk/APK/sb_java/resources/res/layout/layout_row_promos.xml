@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.midtrans.sdk.uikit.widgets.DefaultTextView
+        android:textSize="16sp"
+        android:textColor="@color/promoAmount"
+        android:id="@+id/text_promo_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/amount"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:textSize="14sp"
+        android:textColor="@color/dark_gray_primer"
+        android:id="@+id/check_promo_name"
+        android:paddingRight="@dimen/four_dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/promo"
+        android:layout_toLeftOf="@+id/text_promo_amount"
+        android:layout_centerVertical="true"
+        android:paddingEnd="@dimen/four_dp"
+        android:layout_toStartOf="@+id/text_promo_amount"/>
+</RelativeLayout>

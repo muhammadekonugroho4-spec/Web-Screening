@@ -1,0 +1,11 @@
+package com.stockbit.discoverfriend.suggestion;
+
+/* loaded from: classes8.dex */
+public abstract class u {
+
+    /* renamed from: a, reason: collision with root package name */
+    public static String f80398a = "com.stockbit.discoverfriend.suggestion.DiscoverSuggestionViewModel";
+
+    static {
+    }
+}

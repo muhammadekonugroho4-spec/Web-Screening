@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/kyc_plus_white"
+    app:cardCornerRadius="?attr/digital_identity_spacing_5x"
+    app:cardElevation="0dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="?attr/digital_identity_spacing_5x"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.iab.digitalidentity.ui.text.KycPlusTextView
+            android:id="@+id/text_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Continue your Gopay Jago activation"
+            app:kycPlusTypographyStyle="kyc_plus_title_large_default"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <com.iab.digitalidentity.ui.text.KycPlusTextView
+            android:id="@+id/text_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/digital_identity_spacing_x"
+            android:text="Only three simple questions about you, should be done in a minute!"
+            app:kycPlusTypographyStyle="kyc_plus_body_small_default"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_title"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

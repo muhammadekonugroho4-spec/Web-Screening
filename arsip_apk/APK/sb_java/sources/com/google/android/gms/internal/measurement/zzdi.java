@@ -1,0 +1,8 @@
+package com.google.android.gms.internal.measurement;
+
+/* loaded from: classes5.dex */
+public final /* synthetic */ class zzdi {
+    public static zzdf zza() {
+        return zzdh.zza();
+    }
+}

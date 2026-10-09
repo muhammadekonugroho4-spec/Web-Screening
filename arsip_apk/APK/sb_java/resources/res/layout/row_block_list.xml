@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:tag="layout/row_block_list_0"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/fixed_height"
+    android:paddingStart="@dimen/spacing_16">
+    <TextView
+        android:layout_gravity="start|center_vertical"
+        android:id="@+id/username"
+        android:tag="binding_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingEnd="@dimen/spacing_8"
+        style="@style/SbTextView.ListTitle"/>
+    <com.stockbit.uikit.button.FloatingButton
+        android:id="@+id/delete_button"
+        android:tag="binding_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_unblock"
+        app:floatingButtonColor="red"/>
+</LinearLayout>

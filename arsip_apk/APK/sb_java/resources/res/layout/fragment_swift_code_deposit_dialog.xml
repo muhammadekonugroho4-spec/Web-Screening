@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_swift_code_deposit_dialog_0"
+    android:background="@drawable/bg_white_rounded"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:id="@+id/indicator"
+        android:background="@drawable/bg_gray_collapse"
+        android:layout_width="@dimen/clickable_size_38"
+        android:layout_height="@dimen/item_gap_5"
+        android:layout_marginTop="@dimen/item_gap_11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:textSize="@dimen/text_size_16"
+        android:id="@+id/tv_title_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_20"
+        android:text="@string/deposit_swift_code_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indicator"
+        style="@style/TypeStyles.HeadingLarge"/>
+    <TextView
+        android:textSize="@dimen/text_size_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_28"
+        android:layout_marginBottom="@dimen/item_gap_32"
+        android:text="@string/deposit_swift_code_content"
+        android:layout_marginHorizontal="@dimen/item_gap_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_instruction"
+        style="@style/TypeStyles.ParagraphRegular"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

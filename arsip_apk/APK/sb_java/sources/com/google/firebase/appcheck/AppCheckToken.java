@@ -1,0 +1,11 @@
+package com.google.firebase.appcheck;
+
+/* loaded from: classes6.dex */
+public abstract class AppCheckToken {
+    public AppCheckToken() {
+    }
+
+    public abstract long getExpireTimeMillis();
+
+    public abstract String getToken();
+}

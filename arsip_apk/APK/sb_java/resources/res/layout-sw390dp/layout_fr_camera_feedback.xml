@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.iab.digitalidentity.ui.text.KycPlusTextView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:autoSizeTextType="uniform"
+    android:paddingHorizontal="@dimen/kyc_sdk_8dp"
+    android:autoSizeMaxTextSize="?attr/digital_identity_title_extra_large_font_size"
+    app:kycPlusTypographyStyle="kyc_plus_title_extra_large_static_black"/>

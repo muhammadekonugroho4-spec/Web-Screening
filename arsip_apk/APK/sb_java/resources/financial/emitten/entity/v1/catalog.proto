@@ -1,0 +1,23 @@
+// Copyright (c) 2021-2026 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package financial.emitten.entity.v1;
+
+option go_package = "go.stockbit.io/protos/gen/go/financial/emitten/entity/v1;entity";
+
+enum CatalogType {
+  CATALOG_TYPE_UNSPECIFIED = 0;
+  CATALOG_TYPE_KONGLO = 1;
+}
+
+message Catalog {
+  int64 id = 1;
+  string catalog_code = 2 [json_name = "catalog_code"]; // e.g., "BARITO"
+  string catalog_name = 3 [json_name = "catalog_name"]; // e.g., "Barito Group"
+  CatalogType catalog_type = 4 [json_name = "catalog_type"];
+  string logo_url = 5 [json_name = "logo_url"];
+  string catalog_desc = 6 [json_name = "catalog_desc"];
+  int32 sort_order = 7 [json_name = "sort_order"];
+  repeated string symbols = 8;
+}

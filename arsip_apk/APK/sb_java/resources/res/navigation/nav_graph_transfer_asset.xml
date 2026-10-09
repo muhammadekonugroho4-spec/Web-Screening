@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_transfer_asset"
+    app:startDestination="@+id/transferCashComposeFragment">
+    <fragment
+        android:label="TransferCashComposeFragment"
+        android:name="com.stockbit.feature.transferasset.presentation.fragment.TransferCashComposeFragment"
+        android:id="@+id/transferCashComposeFragment">
+        <argument
+            android:name="currentAccountNo"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
+    <fragment
+        android:label="TransferCashHistoryComposeFragment"
+        android:name="com.stockbit.feature.transferasset.presentation.fragment.TransferCashHistoryComposeFragment"
+        android:id="@+id/transferCashHistoryComposeFragment">
+        <argument
+            android:name="param"
+            app:argType="com.stockbit.feature.transferasset.contract.model.TransferAssetHistoryParam"
+            app:nullable="false"/>
+    </fragment>
+    <fragment
+        android:label="TransferStockComposeFragment"
+        android:name="com.stockbit.feature.transferasset.presentation.fragment.TransferStockComposeFragment"
+        android:id="@+id/transferStockComposeFragment">
+        <argument
+            android:name="currentAccountNo"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
+</navigation>

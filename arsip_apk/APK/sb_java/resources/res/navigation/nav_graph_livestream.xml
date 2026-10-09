@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_livestream"
+    app:startDestination="@+id/livestreamMainFragment">
+    <fragment
+        android:label="LivestreamMainFragment"
+        android:name="com.stockbit.livestream.ui.main.LivestreamMainFragment"
+        android:id="@+id/livestreamMainFragment">
+        <argument
+            android:name="livestreamSource"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true"/>
+        <action
+            android:id="@+id/action_livestreamMainFragment_to_livestreamDetailFragment"
+            app:destination="@+id/livestreamDetailFragment"/>
+    </fragment>
+    <fragment
+        android:label="LivestreamDetailFragment"
+        android:name="com.stockbit.livestream.ui.detail.LivestreamDetailFragment"
+        android:id="@+id/livestreamDetailFragment">
+        <argument
+            android:name="liveStreamId"
+            app:argType="string"/>
+        <argument
+            android:name="liveStreamSource"
+            app:argType="string"/>
+    </fragment>
+</navigation>

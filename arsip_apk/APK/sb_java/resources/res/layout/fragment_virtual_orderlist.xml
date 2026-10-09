@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_virtual_orderlist_0"
+    android:background="?attr/themeContentBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/parentTradingOrderlistHeaderLayout"
+        layout="@layout/comp_trading_orderlist_header"/>
+    <ViewFlipper
+        android:id="@+id/vfFragmentTradingOrderlist"
+        android:tag="binding_1"
+        android:background="?attr/themeContentBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/parentTradingOrderlistHeaderLayout">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sflTradingOrderlistLoading"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/skeleton_item_orderlist"/>
+                <include layout="@layout/skeleton_item_orderlist"/>
+                <include layout="@layout/skeleton_item_orderlist"/>
+                <include layout="@layout/skeleton_item_orderlist"/>
+                <include layout="@layout/skeleton_item_orderlist"/>
+                <include layout="@layout/skeleton_item_orderlist"/>
+                <include layout="@layout/skeleton_item_orderlist"/>
+                <include layout="@layout/skeleton_item_orderlist"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srlFragmentTradingOrderlist"
+            android:tag="binding_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFragmentTradingOrderlist"
+                android:tag="binding_4"
+                android:background="?attr/themeContentBackground"
+                android:scrollbars="vertical"
+                android:clipToPadding="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <include
+            android:layout_gravity="center"
+            android:id="@+id/parentErrorTradingOrderlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/comp_icon_error_view"/>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srlFragmentTradingOrderlistEmptyState"
+            android:tag="binding_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nsvFragmentTradingOrderlist"
+                android:tag="binding_6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <include layout="@layout/comp_empty_data_virtual_orderlist"/>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </ViewFlipper>
+</RelativeLayout>

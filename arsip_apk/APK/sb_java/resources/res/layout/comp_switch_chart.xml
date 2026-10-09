@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/rl_switch_container"
+        android:background="@drawable/bg_switch_chart"
+        android:padding="@dimen/item_gap_3"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="@dimen/width_52"
+        android:layout_height="@dimen/height_28">
+        <View
+            android:id="@+id/v_circle_highlighter"
+            android:background="@drawable/bg_circle_highlighter"
+            android:layout_width="@dimen/item_gap_22"
+            android:layout_height="@dimen/item_gap_22"
+            android:layout_centerVertical="true"
+            android:translationX="0dp"/>
+        <ImageView
+            android:id="@+id/iv_switch_candle_chart"
+            android:layout_width="@dimen/item_gap_24"
+            android:layout_height="@dimen/item_gap_24"
+            android:src="@drawable/ic_chartbit"
+            android:layout_centerVertical="true"
+            android:translationX="-1dp"
+            app:tint="?attr/themeColorSemanticInactive"/>
+        <ImageView
+            android:id="@+id/iv_switch_line_chart"
+            android:layout_width="@dimen/item_gap_14"
+            android:layout_height="@dimen/item_gap_14"
+            android:src="@drawable/ic_line_chart"
+            android:layout_centerVertical="true"
+            android:translationX="-4dp"
+            android:layout_alignParentEnd="true"
+            app:tint="?attr/themeColorSemanticInactive"/>
+    </RelativeLayout>
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/iv_switch_trading_view"
+        android:visibility="gone"
+        android:layout_width="@dimen/spacing_20"
+        android:layout_height="@dimen/spacing_20"
+        android:src="?attr/themeIconCompanyChartbit"/>
+</FrameLayout>

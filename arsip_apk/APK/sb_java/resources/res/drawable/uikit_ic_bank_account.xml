@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="20dp"
+    android:width="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M16.667,14.167H3.333C2.873,14.167 2.5,14.54 2.5,15V16.667C2.5,17.127 2.873,17.5 3.333,17.5H16.667C17.127,17.5 17.5,17.127 17.5,16.667V15C17.5,14.54 17.127,14.167 16.667,14.167Z"
+        android:strokeColor="#969696"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M16.667,8.333H3.333C2.875,8.333 2.5,7.958 2.5,7.5V6.283C2.5,6.008 2.642,5.742 2.875,5.592L9.542,1.142C9.825,0.958 10.183,0.958 10.467,1.142L17.133,5.592C17.367,5.75 17.508,6.008 17.508,6.283V7.5C17.508,7.958 17.133,8.333 16.675,8.333H16.667Z"
+        android:strokeColor="#969696"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M4.67,8.333V14.167"
+        android:strokeColor="#969696"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M15.33,8.333V14.167"
+        android:strokeColor="#969696"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M10,8.333V14.167"
+        android:strokeColor="#969696"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+    <path
+        android:fillColor="#969696"
+        android:pathData="M10.001,6.042C10.576,6.042 11.042,5.575 11.042,5C11.042,4.425 10.576,3.958 10.001,3.958C9.426,3.958 8.959,4.425 8.959,5C8.959,5.575 9.426,6.042 10.001,6.042Z"/>
+</vector>

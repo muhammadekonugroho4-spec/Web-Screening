@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_parent_beneficiary"
+    android:tag="layout/comp_company_profile_beneficiary_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_ultimate_beneficiary_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_22"
+        android:text="@string/title_company_profile_ultimate_beneficiary_owner"
+        android:layout_marginStart="@dimen/item_gap_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.HeadingRegular"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_beneficiary"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_20"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginHorizontal="@dimen/item_gap_16"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ultimate_beneficiary_owner"/>
+    <View
+        android:id="@+id/v_beneficiary_separator"
+        android:background="?attr/themeColorDividerThin"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/item_gap_2"
+        android:layout_marginHorizontal="@dimen/item_gap_16"
+        app:layout_constraintTop_toBottomOf="@+id/rv_beneficiary"
+        app:layout_goneMarginTop="@dimen/item_gap_16"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

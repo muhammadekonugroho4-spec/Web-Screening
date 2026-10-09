@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/row_portfolio_stock_fr_bonds_0"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/portfolio_row_item_height">
+    <include
+        android:id="@+id/v_content"
+        layout="@layout/comp_row_portfolio_stock"/>
+</FrameLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_main_rules_list_row"
+    android:tag="layout/row_screener_rule_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:minHeight="@dimen/clickable_size_48">
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_rules_screener"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/clickable_size_48"
+        android:layout_toLeftOf="@+id/iv_remove_rules_screener"
+        android:layout_alignParentLeft="true"
+        android:paddingHorizontal="@dimen/item_gap_20"
+        android:paddingVertical="@dimen/item_gap_12"
+        style="@style/SbTextView.BodyDefault"/>
+    <ImageView
+        android:id="@+id/iv_remove_rules_screener"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/item_gap_xs"
+        android:layout_width="@dimen/clickable_size_24"
+        android:layout_height="@dimen/clickable_size_24"
+        android:layout_marginRight="@dimen/item_gap_s"
+        android:scaleType="centerInside"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="0x7f08063f"
+        app:tint="?attr/themeIconTintColor"/>
+    <View
+        android:id="@+id/v_divider"
+        android:background="?attr/themeColorDividerThin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gap_xxxs"
+        android:layout_below="@+id/rl_main_rules_list_row"/>
+</RelativeLayout>

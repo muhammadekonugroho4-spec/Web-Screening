@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/comp_livestream_list_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_livestream_chip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_24"
+            android:layout_marginHorizontal="@dimen/spacing_20"
+            app:chipSpacingHorizontal="@dimen/spacing_8"
+            app:singleSelection="true"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_livestream_list"
+            android:scrollbars="vertical"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        <include
+            android:id="@+id/comp_livestream_empty"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/spacing_20"
+            layout="@layout/comp_livestream_empty"/>
+    </LinearLayout>
+    <include
+        android:id="@+id/shimmer_livestream_list"
+        android:visibility="gone"
+        layout="@layout/skeleton_livestream_main"/>
+</FrameLayout>

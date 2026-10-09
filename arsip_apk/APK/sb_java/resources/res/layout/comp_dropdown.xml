@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/comp_dropdown_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:gravity="center_horizontal"
+        android:id="@+id/actv_dropdown_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/SbTextView.Dropdown.Title"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/actv_dropdown_text"
+        android:background="@null"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_8"
+        android:includeFontPadding="false"
+        app:drawableEndCompat="@drawable/ic_dropdown"
+        app:drawableTint="?attr/themeIconTintColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actv_dropdown_label"
+        style="@style/SbTextView.Dropdown.Text"/>
+    <View
+        android:background="?attr/titleTextColorLowgray"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/item_gap_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/actv_dropdown_text"
+        app:layout_constraintTop_toBottomOf="@+id/actv_dropdown_text"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

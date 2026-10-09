@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_form_banner_information"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/item_gap_16"
+    android:paddingHorizontal="@dimen/item_gap_16"
+    android:paddingVertical="@dimen/item_gap_12">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/aciv_form_banner"
+        android:layout_width="@dimen/width_24"
+        android:layout_height="@dimen/height_24"
+        android:src="@drawable/ic_info_circle"
+        android:importantForAccessibility="no"
+        app:tint="?attr/themeColorOrangeDefault"/>
+    <TextView
+        android:id="@+id/tv_form_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_gap_12"
+        style="@style/TypeStyles.BodyXSmall"/>
+</LinearLayout>

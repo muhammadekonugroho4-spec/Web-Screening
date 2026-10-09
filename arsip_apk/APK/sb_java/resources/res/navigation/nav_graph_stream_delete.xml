@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_stream_delete"
+    app:startDestination="@+id/streamDeleteFragment">
+    <fragment
+        android:name="com.stockbit.stream.ui.delete.StreamDeleteFragment"
+        android:id="@+id/streamDeleteFragment">
+        <argument
+            android:name="itemPosition"
+            android:defaultValue="-1"
+            app:argType="integer"/>
+        <argument
+            android:name="postId"
+            android:defaultValue="-1"
+            app:argType="integer"/>
+        <argument
+            android:name="userId"
+            android:defaultValue="0"
+            app:argType="integer"/>
+    </fragment>
+</navigation>

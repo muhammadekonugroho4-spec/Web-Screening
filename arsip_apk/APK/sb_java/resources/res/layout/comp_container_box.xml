@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:id="@+id/ll_container"
+    android:background="@drawable/bg_box_default"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_12">
+    <androidx.appcompat.widget.AppCompatEditText
+        android:textColorHint="?attr/themeColorTextTetriary"
+        android:id="@+id/edt_container"
+        android:background="@android:color/transparent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:paddingVertical="@dimen/spacing_16"
+        style="@style/TypeStyles.BodyRegular"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textColor="?attr/themeColorTextTetriary"
+        android:id="@+id/tv_container_counter"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TypeStyles.BodyRegular"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_container_delete_all"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_12"
+        app:srcCompat="@drawable/uikit_ic_stockbit_search_bar_close_fill"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_container_icon"
+        android:visibility="gone"
+        android:layout_width="@dimen/icon_placeholder_16"
+        android:layout_height="@dimen/icon_placeholder_16"
+        android:layout_marginStart="@dimen/spacing_12"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package social.stream.data.v1;
+
+option go_package = "go.stockbit.io/protos/gen/go/social/stream/data/v1;data";
+
+enum CommenterType {
+  // buf:lint:ignore ENUM_ZERO_VALUE_SUFFIX
+  COMMENTER_TYPE_EVERYONE = 0;
+  COMMENTER_TYPE_FOLLOWING = 1;
+  COMMENTER_TYPE_MENTION = 2;
+  COMMENTER_TYPE_ONLY_YOU = 3;
+}

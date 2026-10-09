@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/item_company_average_0"
+    android:background="@drawable/bg_extended_green10_with_outline_green"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/item_gap_11"
+    android:paddingHorizontal="@dimen/item_gap_16"
+    android:paddingVertical="@dimen/item_gap_6">
+    <TextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_average_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.BodyXSmall"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_gap_4"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_average_type"
+        app:layout_constraintStart_toEndOf="@+id/tv_average_type"
+        app:layout_constraintTop_toTopOf="@+id/tv_average_type"
+        app:srcCompat="@drawable/ic_plus_rounded_green_6px"
+        app:tint="?attr/themeColorTextGreen"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

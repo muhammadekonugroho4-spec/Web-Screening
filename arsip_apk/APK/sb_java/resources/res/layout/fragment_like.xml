@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_like_0"
+    android:background="?attr/themeColorSurfaceDefault"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Sb.Widget.AppBar">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"/>
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_likes"
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"
+                    style="@style/SbTextView.PageTitle"/>
+            </RelativeLayout>
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <View
+        android:id="@+id/border"
+        android:background="?attr/themeColorDividerThin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gap_xxxs"
+        android:layout_below="@+id/appBarLayout"/>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/border">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/sfl_liker_loading"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:tag="binding_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <include layout="@layout/skeleton_people_list"/>
+                    <include layout="@layout/skeleton_people_list"/>
+                    <include layout="@layout/skeleton_people_list"/>
+                    <include layout="@layout/skeleton_people_list"/>
+                    <include layout="@layout/skeleton_people_list"/>
+                    <include layout="@layout/skeleton_people_list"/>
+                    <include layout="@layout/skeleton_people_list"/>
+                    <include layout="@layout/skeleton_people_list"/>
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_static_recycler"
+                android:tag="binding_3"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </FrameLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <TextView
+        android:textSize="18dp"
+        android:textColor="@color/highempasis_light"
+        android:gravity="center_horizontal"
+        android:id="@+id/emptyElement"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Data Found"
+        android:layout_centerInParent="true"
+        style="@style/SbTextView.BodyDefault"/>
+</RelativeLayout>

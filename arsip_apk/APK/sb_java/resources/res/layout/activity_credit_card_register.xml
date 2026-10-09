@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/appbar_payment"/>
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/thirtytwo_dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <ScrollView
+            android:id="@+id/layout_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+            <include layout="@layout/layout_credit_card_register"/>
+        </ScrollView>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/grey_rounded_background"
+            android:padding="@dimen/eight_dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sixteen_dp"
+            android:layout_below="@+id/layout_container">
+            <ImageView
+                android:id="@+id/cc_badge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/four_dp"
+                android:layout_marginRight="@dimen/four_dp"
+                android:src="0x7f080133"
+                android:scaleType="centerInside"
+                android:layout_marginStart="@dimen/four_dp"
+                android:layout_marginEnd="@dimen/four_dp"/>
+        </LinearLayout>
+        <include
+            android:id="@+id/btn_pay_container"
+            layout="@layout/layout_primary_button"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/progress_container"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.93">
+        <include layout="@layout/layout_midtrans_progress"/>
+    </LinearLayout>
+    <include
+        android:layout_gravity="start|bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_sandbox_badge"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/iv_icon_mute_group"
+    android:tag="layout/item_room_mute_group_0"
+    android:layout_width="@dimen/spacing_12"
+    android:layout_height="@dimen/spacing_12"
+    android:src="@drawable/ic_volume_muted"
+    app:layout_constraintBottom_toBottomOf="@+id/message"
+    app:layout_constraintEnd_toStartOf="@+id/barrier_mention"
+    app:layout_constraintTop_toTopOf="@+id/message"
+    app:tint="@color/highgray_light"/>

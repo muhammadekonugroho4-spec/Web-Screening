@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/group_header_title"
+    android:tag="layout/row_history_realized_date_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Space
+        android:id="@+id/sp_top_gap"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_month"
+        android:tag="binding_1"
+        android:background="?attr/themeColorSurfaceVariant"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/spacing_20"
+        android:paddingVertical="@dimen/spacing_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_top_gap"
+        style="@style/TypeStyles.BodyXSmall.Secondary"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_monthly_realized"
+        android:tag="binding_2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/item_gap_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_top_gap"
+        style="@style/TypeStyles.BodyXSmall.Secondary"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

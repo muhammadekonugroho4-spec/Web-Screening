@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package securities.transactional.datafeed.v1;
+
+option java_package = "com.stockbit.protobuf.securities.transactional.datafeed.v1.datafeed";
+option java_multiple_files = true;
+
+message BestBidOffer {
+  BestOrder bid = 1;
+  BestOrder offer = 2;
+  int32 time_left_seconds = 3 [json_name = "time_left_seconds"];
+}
+
+message BestOrder {
+  Value price = 1 [json_name = "price"];
+  Value quantity = 2 [json_name = "quantity"];
+}
+
+message Value {
+  float raw = 1 [json_name = "raw"];
+  string formatted = 2 [json_name = "formatted"];
+}
+
+message BestBidOfferWS {
+  string stock_code = 1 [json_name = "stock_code"];
+  int64 sequence_number = 2 [json_name = "sequence_number"];
+  BestOrder best_bid = 3 [json_name = "best_bid"];
+  BestOrder best_offer = 4 [json_name = "best_offer"];
+  // datetime : RFC3339Nano, 2022-12-07T13:37:13.005633+07:00, formatted time
+  // from itch timestamp
+  string datetime = 5;
+}

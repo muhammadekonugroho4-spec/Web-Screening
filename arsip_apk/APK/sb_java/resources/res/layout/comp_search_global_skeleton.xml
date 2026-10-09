@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/comp_search_global_skeleton_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:background="?attr/themeColorSurfaceVariant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_header_height">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/spacing_16"
+                android:text="@string/text_index"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TypeStyles.HeadingLarge"/>
+        </LinearLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_index"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            style="@style/FBShimmerFrameLayout">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <LinearLayout
+            android:background="?attr/themeColorSurfaceVariant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_header_height">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/spacing_16"
+                android:text="@string/commodities"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TypeStyles.HeadingLarge"/>
+        </LinearLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_commodities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            style="@style/FBShimmerFrameLayout">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <LinearLayout
+            android:background="?attr/themeColorSurfaceVariant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_header_height">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/spacing_16"
+                android:text="@string/currencies"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TypeStyles.HeadingLarge"/>
+        </LinearLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_currencies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            style="@style/FBShimmerFrameLayout">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

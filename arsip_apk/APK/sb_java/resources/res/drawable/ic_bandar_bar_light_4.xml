@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="8dp"
+    android:width="55dp"
+    android:viewportWidth="55"
+    android:viewportHeight="8">
+    <group>
+        <clip-path android:pathData="M0,0h55v8h-55z"/>
+        <path
+            android:fillColor="@drawable/_ic_bandar_bar_light_4__0_res_0x7f080013"
+            android:pathData="M-165,0L162,0A4,4 0,0 1,166 4L166,4A4,4 0,0 1,162 8L-165,8A4,4 0,0 1,-169 4L-169,4A4,4 0,0 1,-165 0z"/>
+    </group>
+</vector>

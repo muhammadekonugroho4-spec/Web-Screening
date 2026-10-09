@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/comp_search_mutualfund_skeleton_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_header_mutual_fund_money_market"
+            android:background="?attr/themeColorSurfaceVariant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_header_height"
+            android:minHeight="@dimen/search_header_height">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/money_market"
+                android:layout_marginStart="@dimen/spacing_20"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TypeStyles.HeadingLarge"/>
+            <ImageView
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:rotation="180"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_alignParentEnd="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_money_market"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            style="@style/FBShimmerFrameLayout">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_header_mutual_fund_obligation"
+            android:background="?attr/themeColorSurfaceVariant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_header_height"
+            android:minHeight="@dimen/search_header_height">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/obligation"
+                android:layout_marginStart="@dimen/spacing_20"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TypeStyles.HeadingLarge"/>
+            <ImageView
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:rotation="180"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_alignParentEnd="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_obligation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            style="@style/FBShimmerFrameLayout">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_header_mutual_fund_syariah"
+            android:background="?attr/themeColorSurfaceVariant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_header_height"
+            android:minHeight="@dimen/search_header_height">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/stock"
+                android:layout_marginStart="@dimen/spacing_20"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TypeStyles.HeadingLarge"/>
+            <ImageView
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:rotation="180"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_alignParentEnd="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_stock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            style="@style/FBShimmerFrameLayout">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_header_mutual_fund_stock"
+            android:background="?attr/themeColorSurfaceVariant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_header_height"
+            android:minHeight="@dimen/search_header_height">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/syariah"
+                android:layout_marginStart="@dimen/spacing_20"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TypeStyles.HeadingLarge"/>
+            <ImageView
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:rotation="180"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_alignParentEnd="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_syariah"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            style="@style/FBShimmerFrameLayout">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+                <include layout="@layout/comp_search_hotlist_item_shimmer"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:tag="layout/item_withdrawal_guide_rule_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/item_gap_24">
+    <TextView
+        android:textSize="@dimen/text_size_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/indicator_dot"
+        android:layout_marginStart="@dimen/item_gap_8"
+        style="@style/TypeStyles.BodyRegular"/>
+    <TextView
+        android:id="@+id/tv_withdrawal_guide_rule"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/item_gap_8"
+        style="@style/TypeStyles.BodyRegular"/>
+</TableRow>

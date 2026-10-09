@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="call_warning_screen_descriptions">
+        <item>Jangan pernah bagikan informasi sensitif (OTP, Password, PIN) kepada siapapun. Stockbit tidak membutuhkan ini.</item>
+        <item>Jika seseorang meminta kamu untuk melakukan pembelian, penjualan, atau penarikan dana, jangan lakukan. Stockbit tidak melakukan hal itu.</item>
+        <item>Jika seseorang meminta kamu untuk screen sharing, jangan lakukan. Stockbit tidak melakukan hal itu.</item>
+    </array>
+    <array name="call_warning_screen_titles">
+        <item>Stockbit Tidak Akan Meminta Informasi Sensitif Kamu</item>
+        <item>Stockbit Tidak Akan Meminta Kamu Melakukan Transaksi</item>
+        <item>Stockbit Tidak Akan Meminta Kamu Melakukan Screen Sharing</item>
+    </array>
+    <array name="payment_methods">
+        <item>Penawaran</item>
+        <item>Kartu Kredit/Debit</item>
+        <item>Mandiri Clickpay</item>
+        <item>CIMB Clicks</item>
+        <item>e-Pay BRI</item>
+        <item>BBM Money</item>
+        <item>Indosat Dompetku</item>
+        <item>Mandiri e-Cash</item>
+        <item>Transfer Bank</item>
+        <item>Mandiri Bill</item>
+        <item>Indomaret</item>
+    </array>
+    <array name="text_setting_freeze_account_content_subtitles">
+        <item>Kamu akan otomatis keluar dari akun di semua perangkat.</item>
+        <item>Tidak ada yang bisa mengakses akun kamu.</item>
+        <item>Semua open dan pending order akan otomatis dibatalkan, kecuali saat sistem sedang dalam perbaikan.</item>
+        <item>Semua transaksi dari Stockbit, Bibit Saham, dan aktivitas terkait RDN akan dinonaktifkan.</item>
+    </array>
+</resources>

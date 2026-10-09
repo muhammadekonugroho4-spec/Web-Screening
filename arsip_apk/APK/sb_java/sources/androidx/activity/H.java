@@ -1,0 +1,10 @@
+package androidx.activity;
+
+import android.view.Window;
+
+/* loaded from: classes.dex */
+public abstract /* synthetic */ class H {
+    public static /* bridge */ /* synthetic */ void a(Window r02, boolean r1) {
+        r02.setStatusBarContrastEnforced(r1);
+    }
+}

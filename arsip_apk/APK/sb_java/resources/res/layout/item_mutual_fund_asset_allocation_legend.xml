@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:tag="layout/item_mutual_fund_asset_allocation_legend_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/clickable_size_32"
+    android:paddingHorizontal="16dp">
+    <View
+        android:id="@+id/view_legend_icon"
+        android:background="@drawable/bg_circle"
+        android:layout_width="@dimen/clickable_size_12"
+        android:layout_height="@dimen/clickable_size_12"/>
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_asset_allocation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:minHeight="@dimen/clickable_size_24"
+        android:layout_weight="1"
+        style="@style/TypeStyles.BodyRegular"/>
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_asset_allocation_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:minHeight="@dimen/clickable_size_24"
+        style="@style/TypeStyles.BodyRegular"/>
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="@dimen/item_gap_18"
+    android:paddingBottom="@dimen/item_gap_20"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/item_gap_20">
+    <View
+        android:id="@+id/viewRoomSkeletonAvatar"
+        android:layout_width="@dimen/avatar_size_default"
+        android:layout_height="@dimen/avatar_size_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/FBShimmerItem.Circular"/>
+    <View
+        android:id="@+id/viewRoomNameSkeleton"
+        android:layout_width="80dp"
+        android:layout_height="@dimen/item_gap_12"
+        android:layout_marginStart="@dimen/item_gap_13"
+        app:layout_constraintStart_toEndOf="@+id/viewRoomSkeletonAvatar"
+        app:layout_constraintTop_toTopOf="@+id/viewRoomSkeletonAvatar"
+        style="@style/FBShimmerItem"/>
+    <View
+        android:id="@+id/viewRoomNameSkeletonSub"
+        android:layout_width="220dp"
+        android:layout_height="@dimen/item_gap_12"
+        android:layout_marginTop="@dimen/item_gap_8"
+        app:layout_constraintBottom_toBottomOf="@+id/viewRoomSkeletonAvatar"
+        app:layout_constraintStart_toStartOf="@+id/viewRoomNameSkeleton"
+        app:layout_constraintTop_toBottomOf="@+id/viewRoomNameSkeleton"
+        style="@style/FBShimmerItem"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_linked_device"
+    app:startDestination="@+id/linkedDeviceListFragment">
+    <fragment
+        android:name="com.stockbit.linkeddevice.ui.devicelist.DeviceListFragment"
+        android:id="@+id/linkedDeviceListFragment">
+        <action
+            android:id="@+id/action_fragmentDeviceList_to_fragmentPasswordConfirmation"
+            app:destination="@+id/fragmentPasswordConfirmation">
+            <argument
+                android:name="uuid"
+                app:argType="string"
+                app:nullable="false"/>
+        </action>
+    </fragment>
+    <fragment
+        android:label="PasswordConfirmationFragment"
+        android:name="com.stockbit.linkeddevice.ui.passwordconfirmation.LinkedDevicePasswordConfirmationFragment"
+        android:id="@+id/fragmentPasswordConfirmation">
+        <argument
+            android:name="uuid"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
+</navigation>

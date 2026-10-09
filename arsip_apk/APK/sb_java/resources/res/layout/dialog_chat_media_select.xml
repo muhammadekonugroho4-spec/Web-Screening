@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/dialog_chat_media_select_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    <RelativeLayout
+        android:id="@+id/parentBaseBottomSheetDialogHeader"
+        android:background="@drawable/bg_top_rounded_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:background="@drawable/bg_rounded_gray_gray_bg"
+            android:layout_width="@dimen/width_38"
+            android:layout_height="@dimen/item_gap_5"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="?attr/themeColorModalsBorder"
+            android:layout_marginVertical="@dimen/spacing_12"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:tag="binding_1"
+        android:background="?attr/themeColorModalsBackground"
+        android:paddingBottom="@dimen/spacing_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/parentBaseBottomSheetDialogHeader">
+        <include
+            android:id="@+id/layout_select_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/comp_chat_media_select"/>
+        <include
+            android:id="@+id/layout_select_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/comp_chat_media_select"/>
+        <include
+            android:id="@+id/layout_select_document"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/comp_chat_media_select"/>
+    </LinearLayout>
+</RelativeLayout>

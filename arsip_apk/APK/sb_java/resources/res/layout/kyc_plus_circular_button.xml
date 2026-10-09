@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <com.iab.digitalidentity.ui.shadow.KycPlusShadowLayout
+        android:id="@+id/shadow_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:kyc_plus_corner_radius="56dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/circular_btn"
+            android:background="@drawable/kyc_plus_circular_button_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            style="?android:attr/borderlessButtonStyle"/>
+    </com.iab.digitalidentity.ui.shadow.KycPlusShadowLayout>
+</merge>

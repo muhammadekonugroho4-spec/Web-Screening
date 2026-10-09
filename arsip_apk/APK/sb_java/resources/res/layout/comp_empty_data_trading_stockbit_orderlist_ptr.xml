@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srl_fragment_trading_orderlist_empty_state"
+    android:tag="layout/comp_empty_data_trading_stockbit_orderlist_ptr_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/empty_state_trading_orderlist"
+        layout="@layout/comp_empty_data_trading_stockbit_orderlist"/>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

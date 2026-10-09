@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_menu_watchlist_black_24dp"
+        android:id="@+id/nav_graph_main_watchlist"
+        android:title="@string/menu_watchlist"
+        android:contentDescription="@string/menu_watchlist"/>
+    <item
+        android:icon="@drawable/ic_menu_stream_black_24dp"
+        android:id="@+id/nav_graph_main_stream"
+        android:title="@string/tab_1"
+        android:contentDescription="@string/tab_1"/>
+    <item
+        android:icon="@drawable/ic_menu_search_black_24dp"
+        android:id="@+id/nav_graph_main_search"
+        android:title="@string/tab_2"
+        android:contentDescription="@string/tab_2"/>
+    <item
+        android:icon="@drawable/ic_menu_chat_black_24dp"
+        android:id="@+id/nav_graph_main_chat"
+        android:title="@string/tab_4"
+        android:contentDescription="@string/tab_4"/>
+    <item
+        android:icon="@drawable/ic_menu_portfolio_black_24dp"
+        android:id="@+id/nav_graph_main_trading"
+        android:title="@string/tab_6"
+        android:contentDescription="@string/tab_6"/>
+</menu>

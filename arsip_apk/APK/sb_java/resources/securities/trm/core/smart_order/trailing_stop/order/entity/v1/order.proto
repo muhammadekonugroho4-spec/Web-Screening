@@ -1,0 +1,18 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package securities.trm.core.smart_order.trailing_stop.order.entity.v1;
+
+option go_package = "go.stockbit.io/protos/gen/go/securities/trm/core/smart_order/trailing_stop/order/entity/v1;tsoentity";
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_READY = 1;
+  ORDER_STATUS_AMENDED = 2;
+  ORDER_STATUS_EXECUTED = 3;
+  ORDER_STATUS_WITHDRAWN = 4;
+  ORDER_STATUS_FORCE_DELETED = 5;
+  ORDER_STATUS_CORP_ACT_DELETED = 6;
+  ORDER_STATUS_EXPIRED = 7;
+}

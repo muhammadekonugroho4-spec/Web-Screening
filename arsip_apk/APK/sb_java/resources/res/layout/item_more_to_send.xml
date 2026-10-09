@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/item_more_to_send_0"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/height_80"
+    android:foreground="?attr/selectableItemBackground"
+    android:minWidth="@dimen/width_60">
+    <FrameLayout
+        android:id="@+id/fl_app"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/iv_avatar"
+            android:background="@drawable/bg_circle_border_modal"
+            android:layout_width="@dimen/avatar_size_inner"
+            android:layout_height="@dimen/avatar_size_inner"
+            android:src="@drawable/ic_chevron_right"
+            android:scaleType="centerInside"/>
+    </FrameLayout>
+    <TextView
+        android:ellipsize="end"
+        android:gravity="center"
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_more"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/TypeStyles.BodyXSmall"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

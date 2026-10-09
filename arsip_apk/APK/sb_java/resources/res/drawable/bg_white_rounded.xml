@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="?attr/themeColorModalsBackground"/>
+    <stroke
+        android:width="@dimen/item_gap_xxxs"
+        android:color="?attr/themeColorBorder"/>
+    <corners
+        android:topLeftRadius="@dimen/clickable_size_20"
+        android:topRightRadius="@dimen/clickable_size_20"/>
+</shape>

@@ -1,0 +1,11 @@
+package com.stockbit.personalamend.ui.forgotphone.confirmpin;
+
+/* loaded from: classes10.dex */
+public abstract class k {
+
+    /* renamed from: a, reason: collision with root package name */
+    public static String f126052a = "com.stockbit.personalamend.ui.forgotphone.confirmpin.ForgotPhoneConfirmPinViewModel";
+
+    static {
+    }
+}

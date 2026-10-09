@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_modular_container"
+    app:startDestination="@+id/container_fragment">
+    <fragment
+        android:name="com.stockbit.navigation.container.ContainerFragment"
+        android:id="@+id/container_fragment">
+        <argument
+            android:name="graph_id"
+            app:argType="integer"/>
+        <argument
+            android:name="destination_id"
+            android:defaultValue="-1"
+            app:argType="integer"/>
+        <argument
+            android:name="start_destination_args"
+            android:defaultValue="@null"
+            app:argType="android.os.Bundle"
+            app:nullable="true"/>
+    </fragment>
+</navigation>

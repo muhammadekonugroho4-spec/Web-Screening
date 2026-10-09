@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:id="@+id/ll_root"
+    android:tag="layout/dialog_blocking_personal_amend_data_change_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/spacing_20">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20"
+        android:src="?attr/themeIconLimitRetryOtp"/>
+    <TextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:gravity="center"
+        android:id="@+id/tv_content_description"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20"
+        android:layout_marginBottom="@dimen/spacing_12"
+        style="@style/TypeStyles.HeadlineRegular"/>
+    <TextView
+        android:textColor="?attr/themeColorTextSecondary"
+        android:gravity="center"
+        android:id="@+id/tv_content_confirmation"
+        android:tag="binding_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_12"
+        android:layout_marginBottom="@dimen/spacing_12"
+        style="@style/TypeStyles.BodyRegular"/>
+</LinearLayout>

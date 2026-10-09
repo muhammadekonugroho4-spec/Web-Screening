@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_gravity="fill"
+    android:orientation="horizontal"
+    android:tag="layout/broker_activity_chart_marker_item_0"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_columnWeight="1"
+    android:paddingVertical="@dimen/spacing_4">
+    <ImageView
+        android:id="@+id/iv_circle"
+        android:layout_width="@dimen/spacing_6"
+        android:layout_height="@dimen/spacing_6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_circle"
+        app:tint="@color/blue_dragon"/>
+    <TextView
+        android:textSize="11sp"
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_2"
+        android:layout_marginEnd="@dimen/spacing_14"
+        app:drawableStartCompat="@drawable/bg_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_value"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/iv_circle"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.HeadingXXXSmall"/>
+    <TextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:id="@+id/tv_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.BodyXXSmall"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

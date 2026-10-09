@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:tag="layout/dialog_violation_warning_0"
+    android:paddingTop="42dp"
+    android:paddingBottom="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_20">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="41dp"
+        android:src="@drawable/ic_stream_violation_warning"
+        android:contentDescription="@string/stream_dialog_title_content_warning"/>
+    <TextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:gravity="center"
+        android:id="@+id/tv_content_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_12"
+        android:text="@string/stream_dialog_title_content_warning"
+        android:lineSpacingExtra="2sp"
+        android:translationY="-1.19sp"
+        android:lineHeight="24sp"
+        style="@style/TypeStyles.HeadlineRegular"/>
+    <TextView
+        android:textColor="?attr/themeColorTextSecondary"
+        android:gravity="center"
+        android:id="@+id/tv_content_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_20"
+        android:text="@string/stream_dialog_message_content_warning"
+        android:lineSpacingExtra="2sp"
+        android:translationY="-0.97sp"
+        style="@style/TypeStyles.BodyRegular"/>
+    <com.stockbit.uikit.button.SecondaryButton
+        android:id="@+id/btn_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stream_dialog_button"
+        app:secondaryButtonColor="red"/>
+</LinearLayout>

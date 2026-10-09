@@ -1,0 +1,22 @@
+package androidx.compose.ui.text.input;
+
+import android.view.inputmethod.CursorAnchorInfo;
+import android.view.inputmethod.ExtractedText;
+
+/* renamed from: androidx.compose.ui.text.input.u, reason: case insensitive filesystem */
+/* loaded from: classes.dex */
+public interface InterfaceC3798u {
+    void a(int r1, int r2, int r3, int r4);
+
+    void b();
+
+    void c(CursorAnchorInfo r1);
+
+    void d();
+
+    void e(int r1, ExtractedText r2);
+
+    void f();
+
+    boolean isActive();
+}

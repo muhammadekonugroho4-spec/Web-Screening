@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/comp_stream_filter_chip_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.stockbit.stream.utils.FadingTabLayout
+        android:id="@+id/ftl_stream_header"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/clickable_size_28"
+        app:contentMarginBottom="@dimen/spacing_0"
+        app:contentMarginEnd="@dimen/spacing_8"
+        app:contentMarginStart="@dimen/spacing_0"
+        app:contentMarginTop="@dimen/spacing_0"
+        app:ftl_fadingLength="@dimen/item_gap_96"
+        app:ftl_fadingSide="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_stream_filter_more"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabContentStart="@dimen/item_gap_32"
+        style="@style/SbTabLayout.ChipStyle"/>
+    <ImageView
+        android:id="@+id/iv_stream_filter_more"
+        android:background="@drawable/bg_border_inactive_chip"
+        android:layout_width="@dimen/item_gap_34"
+        android:layout_height="@dimen/clickable_size_28"
+        android:contentDescription="@string/SHARED_8"
+        android:layout_marginEnd="@dimen/item_gap_16"
+        android:paddingHorizontal="@dimen/item_gap_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/themeIconFilterMore"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

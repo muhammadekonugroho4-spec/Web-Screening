@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/rv_portfolio_allocation"
+    android:tag="layout/comp_portfolio_detail_allocation_0"
+    android:background="@drawable/border_gray_rounded_white_bg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/spacing_48"
+    android:paddingVertical="@dimen/spacing_16">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_portfolio_allocation"
+        android:layout_width="@dimen/spacing_0"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_title_portfolio_allocation"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/spacing_16"
+        style="@style/TypeStyles.BodyRegular"/>
+    <ProgressBar
+        android:id="@+id/pb_percentage_allocation"
+        android:layout_width="@dimen/icon_placeholder_18"
+        android:layout_height="@dimen/icon_placeholder_18"
+        android:max="100"
+        android:progress="31"
+        android:indeterminateOnly="false"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_marginEnd="@dimen/spacing_8"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_percentage_allocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_16"
+        style="@style/TypeStyles.HeadingRegular"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

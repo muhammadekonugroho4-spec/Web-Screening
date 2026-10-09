@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sfl_loading"
+    android:tag="layout/comp_roomlist_shimmer_0"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/id_toolbar_container"
+    style="@style/FBShimmerFrameLayout">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/skeleton_chat_room"/>
+        <include layout="@layout/skeleton_chat_room"/>
+        <include layout="@layout/skeleton_chat_room"/>
+        <include layout="@layout/skeleton_chat_room"/>
+        <include layout="@layout/skeleton_chat_room"/>
+        <include layout="@layout/skeleton_chat_room"/>
+        <include layout="@layout/skeleton_chat_room"/>
+        <include layout="@layout/skeleton_chat_room"/>
+        <include layout="@layout/skeleton_chat_room"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</com.facebook.shimmer.ShimmerFrameLayout>

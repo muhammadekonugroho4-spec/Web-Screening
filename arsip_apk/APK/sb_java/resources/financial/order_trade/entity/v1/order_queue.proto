@@ -1,0 +1,39 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package financial.order_trade.entity.v1;
+
+import "financial/order_trade/entity/v1/entity.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/financial/order_trade/entity/v1;entity";
+
+message OrderQueueWebsocketRequest {
+  string stock_code = 1 [json_name = "stock_code"];
+  float price = 2;
+  BoardType board_type = 3 [json_name = "board_type"];
+  ActionType action_type = 4 [json_name = "action_type"];
+}
+
+message OrderQueueWebsocket {
+  repeated OrderQueueWebsocketData data = 1 [json_name = "data"];
+}
+
+message OrderQueueWebsocketData {
+  message ExchangeOrderNumber {
+    int64 full = 1;
+    string formatted = 2;
+  }
+
+  string stock_code = 1 [json_name = "stock_code"];
+  string time = 2; // with format: yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ ex: 2026-02-05T09:38:06.953650Z
+  ActionType action_type = 3 [json_name = "action_type"];
+  float price = 4;
+  OrderStatus status = 5;
+  float open = 6;
+  float lot = 7;
+  BoardType board_type = 8 [json_name = "board_type"];
+  ExchangeOrderNumber exchange_order_number = 9 [json_name = "exchange_order_number"];
+  int64 order_number = 10 [json_name = "order_number"];
+  float open_change_quantity = 11 [json_name = "open_change_quantity"];
+}

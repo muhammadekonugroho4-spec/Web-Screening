@@ -1,0 +1,103 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package financial.order_trade.entity.v1;
+
+import "financial/order_trade/entity/v1/trade_book.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/financial/order_trade/entity/v1;entity";
+
+enum TypeChart {
+  TYPE_CHART_UNSPECIFIED = 0;
+  TYPE_CHART_VALUE = 1;
+  TYPE_CHART_VOLUME = 2;
+  TYPE_CHART_PRICE = 3;
+}
+
+message Data {
+  string from = 1; // date format: YYYY-MM-DD
+  string to = 2; // date format: YYYY-MM-DD
+  google.protobuf.Timestamp data_last_updated = 3 [json_name = "data_last_updated"];
+  repeated RunningTradeChart price_chart_data = 4 [json_name = "price_chart_data"];
+  repeated ChartData broker_chart_data = 5 [json_name = "broker_chart_data"];
+  string date_session_info = 6 [json_name = "date_session_info"]; // e.g Sesi 1 <strong>&middot;</strong> 18 Jul 25
+}
+
+message ChartData {
+  TypeChart type = 1;
+  repeated string brokers = 2; // ex : ["XL","MG",...]
+  repeated Charts charts = 3;
+}
+
+message Charts {
+  string broker_code = 1 [json_name = "broker_code"];
+  repeated RunningTradeChart chart = 2;
+}
+
+message RunningTradeChart {
+  string date = 1; // ex: "YYYY-MM-DD"
+  string time = 2; // ex: "HH:mm"
+  Value value = 3;
+  string datetime_label = 4; // value can be dynamic as HH:mm / YYYY-MM-DD
+}
+
+// buf:lint:ignore ENUM_VALUE_PREFIX
+enum RunningTradePeriod {
+  RT_PERIOD_UNSPECIFIED = 0;
+  RT_PERIOD_LAST_1_DAY = 1; // latest idx data 3
+  RT_PERIOD_LAST_7_DAYS = 2;
+  RT_PERIOD_LAST_1_MONTH = 3;
+  RT_PERIOD_LAST_1_YEAR = 4;
+  RT_PERIOD_LAST_3_DAYS = 5;
+  RT_PERIOD_LAST_3_MONTHS = 6;
+  RT_PERIOD_YEAR_TO_DATE = 7;
+  RT_PERIOD_YESTERDAY = 8; // h-1 latest idx data 3
+  RT_PERIOD_THIS_MONTH = 9; // month to date, 1st day to today
+  RT_PERIOD_LAST_6_MONTH = 10;
+  RT_PERIOD_PREVIOUS_MONTH = 11;
+}
+
+enum RunningTradeOrderBy {
+  RUNNING_TRADE_ORDER_BY_UNSPECIFIED = 0;
+  RUNNING_TRADE_ORDER_BY_TIME = 1;
+  RUNNING_TRADE_ORDER_BY_LOT = 2;
+}
+
+enum RunningTradeActionType {
+  RUNNING_TRADE_ACTION_TYPE_UNSPECIFIED = 0;
+  RUNNING_TRADE_ACTION_TYPE_ALL = 1;
+  RUNNING_TRADE_ACTION_TYPE_BUY = 2;
+  RUNNING_TRADE_ACTION_TYPE_SELL = 3;
+}
+
+enum FilterBrokerOperator {
+  FILTER_BROKER_OPERATOR_UNSPECIFIED = 0;
+  FILTER_BROKER_OPERATOR_AND = 1;
+  FILTER_BROKER_OPERATOR_OR = 2;
+}
+
+enum BrokerType {
+  BROKER_TYPE_UNSPECIFIED = 0;
+  BROKER_TYPE_FOREIGN = 1;
+  BROKER_TYPE_GOVERNMENT = 2;
+  BROKER_TYPE_LOCAL = 3;
+}
+
+message RunningTradeData {
+  int64 id = 1;
+  string time = 2; // ex: 15:04:05
+  string action = 3;
+  string code = 4; // ex:AALI
+  string price = 5; // ex: 4,030
+  string change = 6; // ex: 5.87%
+  string lot = 7; // ex: 65,879
+  bool is_broker_exists = 8 [json_name = "is_broker_exists"];
+  string buyer = 9; // ex: XL
+  string seller = 10; // ex: XL
+  int64 trade_number = 11 [json_name = "trade_number"];
+  BrokerType buyer_type = 12 [json_name = "buyer_type"];
+  BrokerType seller_type = 13 [json_name = "seller_type"];
+  string market_board = 14;
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:height="@dimen/spacing_12"
+        android:width="@dimen/spacing_12"
+        android:drawable="@drawable/uikit_ic_stockbit_text_field_hide"/>
+</layer-list>

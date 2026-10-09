@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vf_triggered_alert"
+    android:tag="layout/fragment_triggered_alert_0"
+    android:background="?attr/themeColorSurfaceDefault"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/sfl_triggered_alert"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/FBShimmerFrameLayout">
+        <LinearLayout
+            android:orientation="vertical"
+            android:tag="binding_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/skeleton_triggered_alert"/>
+            <include layout="@layout/skeleton_triggered_alert"/>
+            <include layout="@layout/skeleton_triggered_alert"/>
+            <include layout="@layout/skeleton_triggered_alert"/>
+            <include layout="@layout/skeleton_triggered_alert"/>
+            <include layout="@layout/skeleton_triggered_alert"/>
+            <include layout="@layout/skeleton_triggered_alert"/>
+            <include layout="@layout/skeleton_triggered_alert"/>
+            <include layout="@layout/skeleton_triggered_alert"/>
+            <include layout="@layout/skeleton_triggered_alert"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_alert_triggered"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:orientation="vertical"
+            android:id="@+id/rv_alert"
+            android:paddingTop="@dimen/alert_margin_top_list"
+            android:paddingBottom="@dimen/spacing_12"
+            android:scrollbars="vertical"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvMainAlertError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/msg_loading_alert_company_info_error"
+            android:layout_centerHorizontal="true"
+            style="@style/TypeStyles.BodyRegular"/>
+        <com.stockbit.uikit.buttons.FloatingButton
+            android:id="@+id/btnMainAlertReload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_6"
+            android:text="@string/btn_click_to_refresh"
+            android:layout_below="@+id/tvMainAlertError"
+            android:layout_centerHorizontal="true"
+            android:textAllCaps="false"/>
+    </RelativeLayout>
+    <include
+        android:id="@+id/comp_empty_state"
+        layout="@layout/comp_alert_empty_state"/>
+</ViewFlipper>

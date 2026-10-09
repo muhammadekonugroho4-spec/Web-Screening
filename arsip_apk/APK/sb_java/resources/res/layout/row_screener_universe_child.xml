@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_parent_child_universe"
+    android:tag="layout/row_screener_universe_child_0"
+    android:background="?attr/selectableItemBackground"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/clickable_size_48">
+    <androidx.appcompat.widget.AppCompatRadioButton
+        android:id="@+id/rb_child"
+        android:focusable="false"
+        android:layout_width="@dimen/clickable_size_32"
+        android:layout_height="@dimen/clickable_size_32"
+        android:layout_marginLeft="@dimen/clickable_size_40"
+        android:text="@null"
+        android:layout_centerVertical="true"
+        android:buttonTint="@color/green_text"/>
+    <TextView
+        android:gravity="start|center_vertical"
+        android:id="@+id/tv_category_name_child"
+        android:paddingLeft="@dimen/item_gap_m"
+        android:paddingTop="@dimen/item_gap_s"
+        android:paddingRight="@dimen/item_gap_l"
+        android:paddingBottom="@dimen/item_gap_s"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/rb_child"
+        android:layout_centerVertical="true"
+        style="@style/SbTextView.BodyDefault"/>
+</RelativeLayout>

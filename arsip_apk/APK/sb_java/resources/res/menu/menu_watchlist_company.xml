@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_android_report"
+        android:id="@+id/action_watchlist_notification"
+        android:title="@string/lbl_notification"
+        app:actionLayout="@layout/menu_view_report_and_news_badge"
+        app:iconTint="?attr/themeIconTintColor"
+        app:showAsAction="always"/>
+</menu>

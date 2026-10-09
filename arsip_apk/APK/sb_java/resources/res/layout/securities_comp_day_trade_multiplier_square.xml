@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/securities_comp_day_trade_multiplier_square_0"
+    android:background="@drawable/bg_day_trade_multiplier"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/item_gap_2"
+    android:paddingEnd="@dimen/item_gap_4">
+    <ImageView
+        android:id="@+id/iv_day_trade_multiplier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_day_trade_multiplier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_securities_day_trade_multiplier"/>
+    <TextView
+        android:textSize="@dimen/text_size_12"
+        android:textColor="?attr/themeColorFeaturePeriwinkle"
+        android:id="@+id/tv_day_trade_multiplier"
+        android:tag="binding_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:layout_marginStart="@dimen/height_1"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_day_trade_multiplier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_day_trade_multiplier"
+        app:layout_constraintTop_toTopOf="@+id/iv_day_trade_multiplier"
+        style="@style/TypeStyles"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

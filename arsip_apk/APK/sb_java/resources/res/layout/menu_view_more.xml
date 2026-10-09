@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="54dp"
+    android:layout_height="@dimen/clickable_size_32">
+    <ImageButton
+        android:layout_gravity="left"
+        android:id="@+id/ib_menu_view_more"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_width="@dimen/clickable_size_32"
+        android:layout_height="@dimen/clickable_size_32"
+        android:layout_marginStart="@dimen/item_gap_6"
+        app:srcCompat="@drawable/ic_more_border"
+        app:tint="?attr/themeIconTintColor"/>
+</FrameLayout>

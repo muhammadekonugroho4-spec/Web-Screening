@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:tag="layout/comp_stream_header_company_notes_error_state_0"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_note_error_state"
+        android:importantForAccessibility="no"
+        app:tint="?attr/themeColorBorderGreen"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_8"
+        android:text="@string/stream_company_note_error_state_text"
+        style="@style/TypeStyles.BodyRegular"/>
+    <com.stockbit.uikit.button.FloatingButton
+        android:id="@+id/btn_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_30"
+        android:text="@string/stream_company_note_error_state_button"
+        app:floatingButtonIcon="?attr/themeIconRefresh"
+        app:floatingButtonIconPosition="left"
+        app:floatingButtonSize="mediumSize"/>
+</LinearLayout>

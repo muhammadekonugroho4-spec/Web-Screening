@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/fragment_discover_search_0"
+    android:background="?attr/themeContentBackground"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.stockbit.uikit.topbar.TopBarStockbitSearch
+        android:id="@+id/top_bar_stockbit_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_2"
+        app:topBarSearchQueryHint="@string/hint_search_symbol_or_username"
+        app:topBarSearchSuffixIcon="?attr/themeCloseCircle"
+        app:topBarSearchVariant="container_fill"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_bar_stockbit_search">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="vertical"
+            android:id="@+id/ll_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.stockbit.uikit.tabs.TabsStockbit
+                android:id="@+id/tabLayoutActivitySearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="start"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="auto"
+                app:tabsType="Regular"/>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpagerActivitySearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <FrameLayout
+            android:id="@+id/flFragmentRecentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</RelativeLayout>

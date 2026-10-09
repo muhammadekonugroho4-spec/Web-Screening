@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_topstock"
+    app:startDestination="@+id/topStockComposeFragment">
+    <fragment
+        android:label="TopStockComposeFragment"
+        android:name="com.stockbit.feature.topstock.ui.TopStockComposeFragment"
+        android:id="@+id/topStockComposeFragment"/>
+</navigation>

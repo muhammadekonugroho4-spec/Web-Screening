@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/row_portfolio_stock_complete_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/portfolio_row_item_complete_height">
+    <include
+        android:id="@+id/v_action"
+        layout="@layout/comp_row_portfolio_stock_complete_action"/>
+    <include
+        android:id="@+id/v_content"
+        layout="@layout/comp_row_portfolio_stock_complete"/>
+</FrameLayout>

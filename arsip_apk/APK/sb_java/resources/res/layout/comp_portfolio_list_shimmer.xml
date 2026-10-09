@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shimmer_layout"
+    android:tag="layout/comp_portfolio_list_shimmer_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/FBShimmerFrameLayout">
+    <LinearLayout
+        android:orientation="vertical"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/skeleton_header_portfolio_box"/>
+        <View
+            android:background="@drawable/bg_rounded_gray"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_gap_8"
+            android:backgroundTint="?attr/themeColorDividerThick"
+            android:layout_marginVertical="@dimen/item_gap_8"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+        <include layout="@layout/skeleton_item_portfolio"/>
+    </LinearLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>

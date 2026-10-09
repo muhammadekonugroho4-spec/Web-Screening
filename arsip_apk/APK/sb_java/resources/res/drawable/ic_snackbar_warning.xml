@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="26dp"
+    android:width="26dp"
+    android:viewportWidth="26"
+    android:viewportHeight="26">
+    <path
+        android:fillColor="#ed7f32"
+        android:pathData="M13,13m-9,0a9,9 0,1 1,18 0a9,9 0,1 1,-18 0"/>
+    <path
+        android:fillColor="@drawable/_ic_snackbar_warning__0_res_0x7f08005c"
+        android:pathData="M13,13m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"/>
+    <group>
+        <clip-path android:pathData="M7,7h12v12h-12z"/>
+        <path
+            android:fillColor="#ffffff"
+            android:pathData="M17.2426,8.7574C14.8993,6.4142 11.1002,6.4142 8.7574,8.7575C6.4142,11.1007 6.4142,14.8998 8.7575,17.2426C11.1002,19.5858 14.8993,19.5858 17.2426,17.2425C19.5858,14.8998 19.5858,11.1007 17.2426,8.7574ZM16.5355,16.5354C14.5827,18.4882 11.4168,18.4882 9.4646,16.5355C7.5118,14.5832 7.5118,11.4173 9.4646,9.4646C11.4168,7.5118 14.5827,7.5118 16.5355,9.4646C18.4882,11.4173 18.4882,14.5832 16.5355,16.5354Z"/>
+        <path
+            android:fillColor="#ffffff"
+            android:pathData="M12.9999,9.0001C12.7238,9.0001 12.4999,9.2239 12.4999,9.5001V14.5001C12.4999,14.7762 12.7238,15.0001 12.9999,15.0001C13.2761,15.0001 13.4999,14.7762 13.4999,14.5001V9.5001C13.4999,9.2239 13.2761,9.0001 12.9999,9.0001Z"/>
+        <path
+            android:fillColor="#ffffff"
+            android:pathData="M12.9999,16.0001C12.7239,16.0001 12.4999,16.2241 12.4999,16.5001C12.4999,16.7761 12.7239,17 12.9999,17C13.2759,17 13.4999,16.7761 13.4999,16.5001C13.4999,16.2241 13.2759,16.0001 12.9999,16.0001Z"/>
+    </group>
+</vector>

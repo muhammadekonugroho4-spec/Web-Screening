@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp">
+    <View
+        android:id="@+id/itemImage"
+        android:background="@drawable/ic_circle_grey"
+        android:layout_width="@dimen/item_gap_50"
+        android:layout_height="@dimen/item_gap_50"
+        android:layout_margin="4dp"
+        android:scaleType="centerInside"
+        android:layout_marginEnd="2dp"
+        android:backgroundTint="?attr/themeSeparatorGapColor"
+        app:layout_constraintBottom_toTopOf="@+id/viewStreamItemSkeletonUsername"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <View
+        android:id="@+id/viewStreamItemSkeletonUsername"
+        android:background="@drawable/bg_rounded_gray"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/item_gap_l"
+        android:backgroundTint="?attr/themeSeparatorGapColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/itemImage"
+        app:layout_constraintStart_toStartOf="@+id/itemImage"
+        app:layout_constraintTop_toBottomOf="@+id/itemImage"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

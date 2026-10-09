@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:id="@+id/parentCompEmptyDataTradingHistory"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/ivTradingHistoryEmptyImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_gap_l"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_empty_search"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tvTradingHistoryTitleEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:layout_marginBottom="@dimen/item_gap_s"
+        android:text="@string/empty_history_title"
+        android:layout_below="@+id/ivTradingHistoryEmptyImg"
+        style="@style/SbTextView.PageTitle"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tvTradingHistorySubtitleEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:text="@string/empty_history_subtitle"
+        android:layout_below="@+id/tvTradingHistoryTitleEmpty"
+        style="@style/SbTextView.ListSubtitle.Secondary"/>
+</RelativeLayout>

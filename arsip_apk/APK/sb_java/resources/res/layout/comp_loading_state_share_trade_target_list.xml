@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:background="@drawable/bg_rounded_gray"
+            android:layout_width="@dimen/width_100"
+            android:layout_height="@dimen/height_19"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:backgroundTint="?attr/themeSeparatorGapColor"
+            android:layout_marginHorizontal="@dimen/spacing_20"/>
+        <View
+            android:background="@drawable/bg_rounded_gray"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_35"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:layout_marginBottom="@dimen/spacing_16"
+            android:backgroundTint="?attr/themeSeparatorGapColor"
+            android:layout_marginHorizontal="@dimen/spacing_20"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+        <include layout="@layout/skeleton_item_share_trade_target"/>
+    </LinearLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>

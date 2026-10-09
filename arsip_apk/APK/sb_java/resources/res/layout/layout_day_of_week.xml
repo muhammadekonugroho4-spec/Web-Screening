@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="@dimen/day_of_week_text_size"
+    android:textStyle="normal"
+    android:textColor="?attr/titleTextColorHighgray"
+    android:gravity="center"
+    android:id="@+id/txt_day_of_week"
+    android:paddingBottom="@dimen/day_of_week_text_view_padding_bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    style="@style/SbTextView.ListTitle"/>

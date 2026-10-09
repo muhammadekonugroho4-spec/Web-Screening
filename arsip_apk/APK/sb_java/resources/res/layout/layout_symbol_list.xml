@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/llc_list_symbol"
+    android:tag="layout/layout_symbol_list_0"
+    android:background="@drawable/bg_rounded_gray_outline"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/item_gap_40"
+    android:layout_marginStart="@dimen/item_gap_20"
+    android:layout_marginEnd="@dimen/item_gap_20"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_10"
+        android:text="@string/stock_code"
+        android:layout_marginStart="@dimen/item_gap_18"
+        style="@style/SbTextView.Caption.Highempasis.Medium"/>
+    <View
+        android:id="@+id/view_border"
+        android:background="?attr/themeColorDividerThin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gap_xxxs"
+        android:layout_marginTop="@dimen/item_gap_10"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_symbol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

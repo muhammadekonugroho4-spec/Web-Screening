@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:id="@+id/parent_comp_empty_data_trading_orderlist"
+    android:tag="layout/comp_empty_data_trading_stockbit_orderlist_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_trading_orderlist_empty_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="?attr/iconEmptyState"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_trading_orderlist_title_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_16"
+        android:layout_marginTop="@dimen/item_gap_32"
+        android:layout_marginRight="@dimen/spacing_16"
+        android:layout_marginBottom="@dimen/spacing_6"
+        android:text="@string/empty_orderlist_title"
+        android:layout_below="@+id/iv_trading_orderlist_empty_img"
+        style="@style/TypeStyles.HeadingRegular"/>
+    <TextView
+        android:textColor="?attr/titleTextColorHighgray"
+        android:gravity="center"
+        android:id="@+id/tv_trading_orderlist_subtitle_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_16"
+        android:layout_marginRight="@dimen/spacing_16"
+        android:text="@string/empty_history_subtitle"
+        android:layout_below="@+id/tv_trading_orderlist_title_empty"
+        style="@style/TypeStyles.BodySmall"/>
+    <com.stockbit.uikit.button.EllipseButton
+        android:layout_gravity="center"
+        android:id="@+id/add_empty_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_36"
+        android:text="@string/empty_button_orderlist"
+        android:layout_below="@+id/tv_trading_orderlist_subtitle_empty"
+        android:layout_centerHorizontal="true"
+        app:ellipseButtonSize="defaultSize"/>
+</RelativeLayout>

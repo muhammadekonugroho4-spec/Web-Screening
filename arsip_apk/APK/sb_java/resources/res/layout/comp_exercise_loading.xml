@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sfl_stockbit_exercise_loading"
+    android:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/skeleton_item_exercise"/>
+</com.facebook.shimmer.ShimmerFrameLayout>

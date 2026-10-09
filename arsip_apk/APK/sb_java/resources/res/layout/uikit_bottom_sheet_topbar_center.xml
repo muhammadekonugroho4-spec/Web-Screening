@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/top_bar_height"
+    android:paddingHorizontal="@dimen/spacing_20">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:ellipsize="end"
+        android:id="@+id/bottom_sheet_topbar_center_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        style="@style/TypeStyles.HeadingLarge"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textColor="?attr/themeColorTextSecondary"
+        android:ellipsize="end"
+        android:id="@+id/bottom_sheet_topbar_center_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        style="@style/TypeStyles.BodyXXSmall"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

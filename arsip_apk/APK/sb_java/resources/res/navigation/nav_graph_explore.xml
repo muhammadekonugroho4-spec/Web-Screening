@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_explore"
+    app:startDestination="@+id/suggestionUserFragment">
+    <fragment
+        android:name="com.stockbit.explore.ui.people.SuggestionUserFragment"
+        android:id="@+id/suggestionUserFragment">
+        <argument
+            android:name="activeTabSuggestion"
+            app:argType="com.stockbit.explore.contract.DiscoverFriendTab"
+            app:nullable="false"/>
+        <action
+            android:id="@+id/action_suggestionUserFragment_to_connectContactDialog"
+            app:destination="@+id/connectContactDialogFragment"/>
+    </fragment>
+    <dialog
+        android:name="com.stockbit.common.page.connectcontactdialog.ConnectContactDialogFragment"
+        android:id="@+id/connectContactDialogFragment">
+        <argument
+            android:name="useAnimation"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"/>
+    </dialog>
+</navigation>

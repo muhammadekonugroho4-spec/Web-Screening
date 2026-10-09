@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_withdrawal_foreign_swift_code_dialog_0"
+    android:background="@drawable/bg_white_rounded"
+    android:paddingBottom="@dimen/item_gap_32"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:id="@+id/indicator"
+        android:background="@drawable/bg_gray_collapse"
+        android:layout_width="@dimen/clickable_size_38"
+        android:layout_height="@dimen/item_gap_5"
+        android:layout_marginTop="@dimen/item_gap_11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/tv_title_swift_code_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_32"
+        android:text="@string/deposit_swift_code_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indicator"
+        style="@style/TypeStyles.HeadingLarge"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_28"
+        android:text="@string/text_explanation_swift_code"
+        android:layout_marginHorizontal="@dimen/item_gap_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_swift_code_dialog"
+        style="@style/TypeStyles.ParagraphRegular"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,109 @@
+package com.google.crypto.tink.proto;
+
+import com.google.crypto.tink.shaded.protobuf.Internal;
+
+/* loaded from: classes6.dex */
+public enum HpkeKem extends Enum<HpkeKem> implements Internal.EnumLite {
+    private static final /* synthetic */ HpkeKem[] $VALUES = null;
+    public static final HpkeKem DHKEM_P256_HKDF_SHA256 = null;
+    public static final int DHKEM_P256_HKDF_SHA256_VALUE = 2;
+    public static final HpkeKem DHKEM_P384_HKDF_SHA384 = null;
+    public static final int DHKEM_P384_HKDF_SHA384_VALUE = 3;
+    public static final HpkeKem DHKEM_P521_HKDF_SHA512 = null;
+    public static final int DHKEM_P521_HKDF_SHA512_VALUE = 4;
+    public static final HpkeKem DHKEM_X25519_HKDF_SHA256 = null;
+    public static final int DHKEM_X25519_HKDF_SHA256_VALUE = 1;
+    public static final HpkeKem KEM_UNKNOWN = null;
+    public static final int KEM_UNKNOWN_VALUE = 0;
+    public static final HpkeKem UNRECOGNIZED = null;
+    private static final Internal.EnumLiteMap<HpkeKem> internalValueMap = null;
+    private final int value;
+
+    public static final class HpkeKemVerifier implements Internal.EnumVerifier {
+        static final Internal.EnumVerifier INSTANCE = null;
+
+        static {
+            INSTANCE = new HpkeKemVerifier();
+        }
+
+        private HpkeKemVerifier() {
+        }
+
+        @Override // com.google.crypto.tink.shaded.protobuf.Internal.EnumVerifier
+        public boolean isInRange(int r1) {
+            if (HpkeKem.forNumber(r1) == null) goto L6;
+            return true;
+        L6:
+            return false;
+        }
+    }
+
+    static {
+        HpkeKem r02 = new HpkeKem("KEM_UNKNOWN", 0, 0);
+        KEM_UNKNOWN = r02;
+        HpkeKem r1 = new HpkeKem("DHKEM_X25519_HKDF_SHA256", 1, 1);
+        DHKEM_X25519_HKDF_SHA256 = r1;
+        HpkeKem r2 = new HpkeKem("DHKEM_P256_HKDF_SHA256", 2, 2);
+        DHKEM_P256_HKDF_SHA256 = r2;
+        HpkeKem r3 = new HpkeKem("DHKEM_P384_HKDF_SHA384", 3, 3);
+        DHKEM_P384_HKDF_SHA384 = r3;
+        HpkeKem r4 = new HpkeKem("DHKEM_P521_HKDF_SHA512", 4, 4);
+        DHKEM_P521_HKDF_SHA512 = r4;
+        HpkeKem r5 = new HpkeKem("UNRECOGNIZED", 5, -1);
+        UNRECOGNIZED = r5;
+        $VALUES = new HpkeKem[]{r02, r1, r2, r3, r4, r5};
+        internalValueMap = new AnonymousClass1();
+    }
+
+    HpkeKem(String r1, int r2, int r3) {
+        this.value = r3;
+    }
+
+    public static HpkeKem forNumber(int r1) {
+        if (r1 == 0) goto L22;
+        if (r1 == 1) goto L20;
+        if (r1 == 2) goto L18;
+        if (r1 == 3) goto L16;
+        if (r1 == 4) goto L14;
+        return null;
+    L14:
+        return DHKEM_P521_HKDF_SHA512;
+    L16:
+        return DHKEM_P384_HKDF_SHA384;
+    L18:
+        return DHKEM_P256_HKDF_SHA256;
+    L20:
+        return DHKEM_X25519_HKDF_SHA256;
+    L22:
+        return KEM_UNKNOWN;
+    }
+
+    public static Internal.EnumLiteMap<HpkeKem> internalGetValueMap() {
+        return internalValueMap;
+    }
+
+    public static Internal.EnumVerifier internalGetVerifier() {
+        return HpkeKemVerifier.INSTANCE;
+    }
+
+    public static HpkeKem valueOf(String r1) {
+        return (HpkeKem) Enum.valueOf(HpkeKem.class, r1);
+    }
+
+    public static HpkeKem[] values() {
+        return (HpkeKem[]) $VALUES.clone();
+    }
+
+    @Override // com.google.crypto.tink.shaded.protobuf.Internal.EnumLite
+    public final int getNumber() {
+        if (this == UNRECOGNIZED) goto L7;
+        return this.value;
+    L7:
+        throw new IllegalArgumentException("Can't get the number of an unknown enum value.");
+    }
+
+    @Deprecated
+    public static HpkeKem valueOf(int r02) {
+        return forNumber(r02);
+    }
+}

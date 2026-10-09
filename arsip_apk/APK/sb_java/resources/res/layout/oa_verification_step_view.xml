@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_content"
+    android:tag="layout/oa_verification_step_view_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+    <ImageView
+        android:id="@+id/img_status"
+        android:layout_width="@dimen/item_gap_15"
+        android:layout_height="@dimen/item_gap_15"
+        android:src="?attr/imgCheckOaStatus"
+        android:layout_marginStart="@dimen/text_size_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/oa_verification_first"
+        android:layout_marginStart="@dimen/item_gap_10"
+        app:layout_constraintBottom_toBottomOf="@+id/img_status"
+        app:layout_constraintStart_toEndOf="@+id/img_status"
+        app:layout_constraintTop_toTopOf="@+id/img_status"
+        style="@style/TypeStyles.BodyXSmall"/>
+    <View
+        android:id="@+id/gap_cs"
+        android:background="?attr/themeColorDividerThin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gap_xxxs"
+        android:layout_marginTop="@dimen/item_gap_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

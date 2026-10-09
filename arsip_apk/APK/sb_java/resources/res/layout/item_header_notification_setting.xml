@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textColor="?attr/themeColorTextSecondary"
+    android:id="@+id/tv_header"
+    android:tag="layout/item_header_notification_setting_0"
+    android:background="?attr/themeColorSurfaceVariant"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_20"
+    android:paddingVertical="@dimen/spacing_10"
+    style="@style/TypeStyles.BodyRegular"/>

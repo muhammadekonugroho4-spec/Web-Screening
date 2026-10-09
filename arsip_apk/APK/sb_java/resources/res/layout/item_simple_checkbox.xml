@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_content"
+    android:tag="layout/item_simple_checkbox_0"
+    android:paddingTop="@dimen/item_gap_8"
+    android:paddingBottom="@dimen/item_gap_8"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <com.stockbit.uikit.control.ControlCheckbox
+        android:id="@+id/accb"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        app:checkBoxType="round"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/actv_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/actv_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/accb"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.BodyRegular"/>
+    <RelativeLayout
+        android:id="@+id/rl_clickable"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/accb"
+        app:layout_constraintEnd_toEndOf="@+id/actv_label"
+        app:layout_constraintStart_toStartOf="@+id/accb"
+        app:layout_constraintTop_toTopOf="@+id/accb"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

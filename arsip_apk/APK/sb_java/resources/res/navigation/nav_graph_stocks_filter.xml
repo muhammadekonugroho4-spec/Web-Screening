@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_stocks_filter"
+    app:startDestination="@+id/stocksFilterFragment">
+    <fragment
+        android:label="StocksFilterFragment"
+        android:name="com.stockbit.feature.stocksfilter.ui.multiple.StocksFilterFragment"
+        android:id="@+id/stocksFilterFragment">
+        <action
+            android:id="@+id/to_stocksSearchFragment"
+            app:destination="@+id/stocksSearchFragment"/>
+    </fragment>
+    <fragment
+        android:label="SearchStockFragment"
+        android:name="com.stockbit.feature.stocksfilter.ui.search.StocksSearchFragment"
+        android:id="@+id/stocksSearchFragment"/>
+    <fragment
+        android:label="StockFilterFragment"
+        android:name="com.stockbit.feature.stocksfilter.ui.single.StockFilterFragment"
+        android:id="@+id/stockFilterFragment">
+        <argument
+            android:name="current_stocks"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="is_from_order_book"
+            android:defaultValue="false"
+            app:argType="boolean"/>
+    </fragment>
+</navigation>

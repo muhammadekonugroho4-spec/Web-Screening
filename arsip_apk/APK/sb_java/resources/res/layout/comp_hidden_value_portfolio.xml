@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_pnl_hidden_value"
+    android:tag="layout/comp_hidden_value_portfolio_0"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/spacing_6">
+    <View
+        android:background="@drawable/dot_inactive_portfolio_investment"
+        android:layout_width="@dimen/radius_6"
+        android:layout_height="@dimen/radius_6"
+        android:layout_marginEnd="@dimen/spacing_8"/>
+    <View
+        android:background="@drawable/dot_inactive_portfolio_investment"
+        android:layout_width="@dimen/radius_6"
+        android:layout_height="@dimen/radius_6"
+        android:layout_marginEnd="@dimen/spacing_8"/>
+    <View
+        android:background="@drawable/dot_inactive_portfolio_investment"
+        android:layout_width="@dimen/radius_6"
+        android:layout_height="@dimen/radius_6"
+        android:layout_marginEnd="@dimen/spacing_8"/>
+    <View
+        android:background="@drawable/dot_inactive_portfolio_investment"
+        android:layout_width="@dimen/radius_6"
+        android:layout_height="@dimen/radius_6"
+        android:layout_marginEnd="@dimen/spacing_8"/>
+    <View
+        android:background="@drawable/dot_inactive_portfolio_investment"
+        android:layout_width="@dimen/radius_6"
+        android:layout_height="@dimen/radius_6"/>
+</LinearLayout>

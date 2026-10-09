@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package social.stream.data.v1;
+
+option go_package = "go.stockbit.io/protos/gen/go/social/stream/data/v1;data";
+
+enum FrameType {
+  FRAME_TYPE_UNSPECIFIED = 0;
+  FRAME_TYPE_SQUARE = 1;
+  FRAME_TYPE_PORTRAIT = 2;
+  FRAME_TYPE_LANDSCAPE = 3;
+}

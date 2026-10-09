@@ -1,0 +1,51 @@
+package androidx.camera.core.impl;
+
+import com.huawei.hms.framework.network.grs.GrsBaseInfo;
+
+/* loaded from: classes.dex */
+public enum CameraCaptureMetaData$FlashState extends Enum<CameraCaptureMetaData$FlashState> {
+    public static final CameraCaptureMetaData$FlashState FIRED = null;
+    public static final CameraCaptureMetaData$FlashState NONE = null;
+    public static final CameraCaptureMetaData$FlashState READY = null;
+    public static final CameraCaptureMetaData$FlashState UNKNOWN = null;
+
+    /* renamed from: a, reason: collision with root package name */
+    public static final /* synthetic */ CameraCaptureMetaData$FlashState[] f5172a = null;
+
+    static {
+        UNKNOWN = new CameraCaptureMetaData$FlashState(GrsBaseInfo.CountryCodeSource.UNKNOWN, 0);
+        NONE = new CameraCaptureMetaData$FlashState("NONE", 1);
+        READY = new CameraCaptureMetaData$FlashState("READY", 2);
+        FIRED = new CameraCaptureMetaData$FlashState("FIRED", 3);
+        f5172a = a();
+    }
+
+    CameraCaptureMetaData$FlashState(String r1, int r2) {
+    }
+
+    public static /* synthetic */ CameraCaptureMetaData$FlashState[] a() {
+        return new CameraCaptureMetaData$FlashState[]{UNKNOWN, NONE, READY, FIRED};
+    }
+
+    public static CameraCaptureMetaData$FlashState valueOf(String r1) {
+        return (CameraCaptureMetaData$FlashState) Enum.valueOf(CameraCaptureMetaData$FlashState.class, r1);
+    }
+
+    public static CameraCaptureMetaData$FlashState[] values() {
+        return (CameraCaptureMetaData$FlashState[]) f5172a.clone();
+    }
+
+    public int toFlashState() {
+        int r02 = ordinal();
+        if (r02 != 1) goto L5;
+        return 2;
+    L5:
+        if (r02 == 2) goto L10;
+        if (r02 == 3) goto L9;
+        return 0;
+    L9:
+        return 1;
+    L10:
+        return 3;
+    }
+}

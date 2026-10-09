@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/rl_parent_history_transaction"
+    android:background="@drawable/border_gray_rounded_white_bg"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:minHeight="@dimen/spacing_48"
+    android:paddingVertical="@dimen/spacing_16">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_history_transaction_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_title_history_transaction"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/spacing_16"
+        style="@style/TypeStyles.HeadingRegular"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_history_transaction_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_chevron_right_grey"
+        app:tint="?attr/themeIconTintColor"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

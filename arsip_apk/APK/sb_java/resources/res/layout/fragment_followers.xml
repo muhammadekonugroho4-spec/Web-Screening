@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_followers_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ViewStub
+        android:id="@+id/vs_searchbar_follower"
+        android:layout="@layout/comp_search_followers"
+        android:inflatedId="@+id/inflateid_searchbar_follower"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_8"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_search"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="vs_searchbar_follower,inflateid_searchbar_follower"
+        app:layout_constraintTop_toBottomOf="@+id/vs_searchbar_follower"/>
+    <ViewFlipper
+        android:id="@+id/vf_share_holder_main_alert"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier_search">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_follower_loading"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <include layout="@layout/skeleton_people_list"/>
+                <include layout="@layout/skeleton_people_list"/>
+                <include layout="@layout/skeleton_people_list"/>
+                <include layout="@layout/skeleton_people_list"/>
+                <include layout="@layout/skeleton_people_list"/>
+                <include layout="@layout/skeleton_people_list"/>
+                <include layout="@layout/skeleton_people_list"/>
+                <include layout="@layout/skeleton_people_list"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayoutFollowers"
+            android:tag="binding_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_static_recycler"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/comp_followers_empty_state"/>
+    </ViewFlipper>
+</androidx.constraintlayout.widget.ConstraintLayout>

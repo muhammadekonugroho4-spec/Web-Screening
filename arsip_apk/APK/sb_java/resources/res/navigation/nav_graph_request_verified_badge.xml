@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_request_verified_badge"
+    app:startDestination="@+id/requestVerifiedBadgeOnboardingFragment">
+    <fragment
+        android:name="com.stockbit.requestverifiedbadge.onboarding.RequestVerifiedBadgeOnboardingFragment"
+        android:id="@+id/requestVerifiedBadgeOnboardingFragment">
+        <action
+            android:id="@+id/action_requestVerifiedBadgeOnboardingFragment_to_mainRequestBadgeFragment"
+            app:destination="@+id/mainRequestBadgeFragment"/>
+        <action
+            android:id="@+id/action_requestVerifiedBadgeOnboardingFragment_to_profile"
+            app:destination="@+id/nav_graph_profile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="profile"
+                android:defaultValue="@null"
+                app:argType="com.stockbit.domain.model.entity.userprofile.Profile"
+                app:nullable="true"/>
+            <argument
+                android:name="username"
+                android:defaultValue="@null"
+                app:argType="string"
+                app:nullable="true"/>
+            <argument
+                android:name="isForResult"
+                android:defaultValue="false"
+                app:argType="boolean"
+                app:nullable="false"/>
+        </action>
+    </fragment>
+    <fragment
+        android:name="com.stockbit.requestverifiedbadge.requestbadge.MainRequestBadgeFragment"
+        android:id="@+id/mainRequestBadgeFragment">
+        <argument
+            android:name="isKTPAdded"
+            app:argType="boolean"
+            app:nullable="false"/>
+    </fragment>
+    <dialog
+        android:name="com.stockbit.requestverifiedbadge.denieddialog.AccessCameraDeniedDialog"
+        android:id="@+id/accessCameraDeniedDialog"/>
+</navigation>

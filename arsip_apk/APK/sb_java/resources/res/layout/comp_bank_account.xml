@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/comp_bank_account_0"
+    android:layout_width="@dimen/comp_bank_account_width"
+    android:layout_height="@dimen/comp_bank_account_height">
+    <TextView
+        android:textSize="@dimen/tv_bank_account_size"
+        android:textColor="@color/white"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:id="@+id/tv_bank_account"
+        android:background="@drawable/border_blue_dark_rounded"
+        android:paddingTop="@dimen/tv_bank_account_padding_vertical"
+        android:paddingBottom="@dimen/tv_bank_account_padding_vertical"
+        android:layout_width="@dimen/tv_bank_account_width"
+        android:layout_height="@dimen/tv_bank_account_height"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:textAlignment="gravity"
+        android:paddingStart="@dimen/tv_bank_account_padding_horizontal"
+        android:paddingEnd="@dimen/tv_bank_account_padding_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.BodyRegular"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

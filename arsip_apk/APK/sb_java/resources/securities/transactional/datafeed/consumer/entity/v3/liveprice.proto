@@ -1,0 +1,34 @@
+// Copyright (c) 2021-2026 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package securities.transactional.datafeed.consumer.entity.v3;
+
+import "financial/common/v1/decimal_value.proto";
+import "google/protobuf/timestamp.proto";
+import "securities/transactional/datafeed/consumer/entity/v1/entity.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/securities/transactional/datafeed/consumer/entity/v3;datafeed";
+option java_package = "com.stockbit.protobuf.securities.transactional.datafeed.consumer.entity.v3.datafeed";
+// Outer class is pinned because the default ("Liveprice") collides with the "LivePrice" message
+// on case-insensitive filesystems (macOS), clobbering the generated message class.
+option java_outer_classname = "LivePriceOuterClass";
+option java_multiple_files = true;
+
+message LivePrice {
+  string symbol = 1 [json_name = "symbol"];
+  financial.common.v1.DecimalValue lastprice = 2;
+  financial.common.v1.DecimalValue volume = 3;
+  financial.common.v1.DecimalValue high = 4;
+  financial.common.v1.DecimalValue low = 5;
+  financial.common.v1.DecimalValue open = 6;
+  financial.common.v1.DecimalValue average = 7;
+  string date = 8; // format: YYYY-MM-DD
+  financial.common.v1.DecimalValue close = 9;
+  financial.common.v1.DecimalValue previous = 10;
+  financial.common.v1.DecimalValue value = 11;
+  financial.common.v1.DecimalValue change = 12;
+  financial.common.v1.DecimalValue change_percentage = 13;
+  securities.transactional.datafeed.consumer.entity.v1.BoardType board = 14;
+  google.protobuf.Timestamp timestamp = 16 [json_name = "timestamp"];
+}

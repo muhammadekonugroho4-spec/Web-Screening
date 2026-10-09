@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:id="@+id/cp_bg_view"
+    android:tag="layout/dialog_progressive_loading_0"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_gravity="center"
+        android:id="@+id/cp_cardview"
+        android:paddingTop="@dimen/spacing_24"
+        android:paddingBottom="@dimen/spacing_24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="@dimen/spacing_8"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:id="@+id/cp_view"
+            android:background="?attr/themeColorModalsBackground"
+            android:padding="@dimen/spacing_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.stockbit.uikit.control.ControlProgressLoading
+                android:layout_gravity="center"
+                android:id="@+id/cp_loading"
+                android:layout_width="@dimen/spacing_48"
+                android:layout_height="@dimen/spacing_48"
+                app:progressLoadingSize="large"/>
+            <TextView
+                android:id="@+id/tv_title_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_24"
+                style="@style/TypeStyles.HeadingLarge"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

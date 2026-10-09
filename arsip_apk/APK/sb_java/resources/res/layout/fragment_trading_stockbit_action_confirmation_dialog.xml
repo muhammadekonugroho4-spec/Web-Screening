@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:tag="layout/fragment_trading_stockbit_action_confirmation_dialog_0"
+    android:clickable="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    <include
+        android:id="@+id/rl_trading_confirmation_preview_layout"
+        layout="@layout/comp_trading_stockbit_preview"/>
+    <include
+        android:id="@+id/parent_trading_confirmation_success"
+        layout="@layout/comp_trading_confirmation_success"/>
+    <include
+        android:id="@+id/parent_trading_confirmation_error"
+        android:visibility="gone"
+        layout="@layout/comp_trading_confirmation_error"/>
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/cv_order_limit_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_12"/>
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/item_gap_l"
+    android:paddingBottom="@dimen/item_gap_l"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/item_gap_s"
+    android:paddingEnd="@dimen/item_gap_xxxs">
+    <View
+        android:background="@drawable/bg_rounded_gray"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="?attr/themeSeparatorGapColor"/>
+</LinearLayout>

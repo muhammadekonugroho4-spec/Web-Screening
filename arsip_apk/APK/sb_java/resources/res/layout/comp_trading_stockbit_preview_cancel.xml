@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/comp_trading_stockbit_preview_cancel_0"
+    android:background="?attr/themeBottomNavBackground"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:gravity="center"
+        android:id="@+id/iv_cancel"
+        android:paddingBottom="@dimen/spacing_40"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="?attr/iconCancelState"/>
+    <com.stockbit.uikit.button.PrimaryButton
+        android:id="@+id/button_delete"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_12"
+        android:layout_marginBottom="@dimen/spacing_24"
+        android:text="@string/button_cancel"
+        android:layout_marginStart="@dimen/spacing_20"
+        android:layout_marginEnd="@dimen/spacing_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc"
+        app:primaryButtonColor="red"/>
+</LinearLayout>

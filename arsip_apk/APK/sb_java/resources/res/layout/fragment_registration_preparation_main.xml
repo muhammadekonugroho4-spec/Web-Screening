@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/fragment_registration_preparation_main_0"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.stockbit.uikit.topbar.TopbarStockbitTitle
+        android:id="@+id/topbar_pre_securities_registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topBarTitleFourthIcon="?attr/themeIconLiveSupport"
+        app:topBarTitleTitle="@string/title_open_trading_account"/>
+    <androidx.fragment.app.FragmentContainerView
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:id="@+id/nav_host_pre_securities_registration"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph_pre_securities_registration"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/item_notification_network_state_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ProgressBar
+        android:id="@+id/sfl_loading"
+        android:layout_width="@dimen/item_gap_32"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/ll_tap_to_refresh"
+        android:background="?attr/selectableItemBackground"
+        android:paddingLeft="@dimen/item_gap_s"
+        android:paddingRight="@dimen/item_gap_s"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/clickable_size_48"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/iv_refresh"
+            android:layout_width="@dimen/item_gap_l"
+            android:layout_height="@dimen/item_gap_l"
+            android:contentDescription="@string/btn_tap_to_refresh"
+            app:srcCompat="@drawable/ic_loading"
+            app:tint="@color/highempasis_light"/>
+        <TextView
+            android:id="@+id/tv_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_gap_s"
+            style="@style/TypeStyles.BodyXSmall"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

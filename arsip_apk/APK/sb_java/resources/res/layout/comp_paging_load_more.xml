@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vf_row_load_more"
+    android:tag="layout/comp_paging_load_more_0"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/spacing_48">
+    <ProgressBar
+        android:gravity="center"
+        android:id="@+id/pb_row_load_more"
+        android:padding="@dimen/spacing_8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/green_text"/>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/ll_parent_clickable_reload"
+        android:background="?attr/selectableItemBackground"
+        android:paddingLeft="@dimen/spacing_6"
+        android:paddingRight="@dimen/spacing_6"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_48">
+        <ImageView
+            android:id="@+id/iv_refresh_icon"
+            android:layout_width="@dimen/spacing_16"
+            android:layout_height="@dimen/spacing_16"
+            android:contentDescription="@string/btn_tap_to_refresh"
+            app:srcCompat="@drawable/ic_paging_retry"
+            app:tint="@color/highempasis_light"/>
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/tv_error_cause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_6"
+            style="@style/TypeStyles.BodyXSmall"/>
+    </LinearLayout>
+</ViewFlipper>

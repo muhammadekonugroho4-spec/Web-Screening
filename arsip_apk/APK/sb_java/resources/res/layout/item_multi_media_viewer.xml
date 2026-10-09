@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:id="@+id/parent_iv_multi_media_viewer"
+    android:tag="layout/item_multi_media_viewer_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.github.piasy.biv.view.BigImageView
+        android:id="@+id/big_iv_multi_media_viewer"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:failureImage="@drawable/ic_chat_error_img"
+        app:failureImageInitScaleType="center"
+        app:initScaleType="fitCenter"
+        app:optimizeDisplay="true"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_multi_media_gif_viewer"
+        android:tag="binding_2"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:failureImage="@drawable/ic_chat_error_img"
+        app:failureImageInitScaleType="center"
+        app:initScaleType="fitCenter"
+        app:optimizeDisplay="true"/>
+</LinearLayout>

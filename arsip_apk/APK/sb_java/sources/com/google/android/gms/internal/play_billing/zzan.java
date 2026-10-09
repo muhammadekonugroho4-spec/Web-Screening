@@ -1,0 +1,24 @@
+package com.google.android.gms.internal.play_billing;
+
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.RemoteException;
+
+/* loaded from: classes5.dex */
+public abstract class zzan extends zzaq implements zzao {
+    public zzan() {
+        super("com.android.vending.billing.IInAppBillingServiceCallback");
+    }
+
+    @Override // com.google.android.gms.internal.play_billing.zzaq
+    public final boolean zzb(int r1, Parcel r2, Parcel r3, int r4) throws RemoteException {
+        if (r1 != 1) goto L6;
+        Bundle r12 = (Bundle) zzar.zza(r2, Bundle.CREATOR);
+        zzar.zzb(r2);
+        zza(r12);
+        r3.writeNoException();
+        return true;
+    L6:
+        return false;
+    }
+}

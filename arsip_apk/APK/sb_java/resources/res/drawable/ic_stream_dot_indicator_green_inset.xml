@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android" android:insetBottom="@dimen/spacing_8">
+    <shape android:shape="rectangle">
+        <size
+            android:height="@dimen/clickable_size_4"
+            android:width="@dimen/clickable_size_4"/>
+        <corners android:radius="8dp"/>
+        <solid android:color="?attr/themeAccent"/>
+    </shape>
+</inset>

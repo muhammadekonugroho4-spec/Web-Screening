@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/item_gap_20"
+    android:paddingEnd="@dimen/item_gap_20">
+    <View
+        android:id="@+id/view_icon_bank"
+        android:background="@drawable/bg_circle_gray"
+        android:layout_width="@dimen/width_50"
+        android:layout_height="@dimen/height_50"
+        android:layout_centerVertical="true"/>
+    <View
+        android:id="@+id/view_bank_name"
+        android:background="@drawable/bg_rounded_gray"
+        android:layout_width="@dimen/width_50"
+        android:layout_height="@dimen/height_16"
+        android:layout_toRightOf="@+id/view_icon_bank"
+        android:layout_marginStart="@dimen/item_gap_16"/>
+    <View
+        android:id="@+id/view_bank_number"
+        android:background="@drawable/bg_rounded_gray"
+        android:layout_width="@dimen/width_110"
+        android:layout_height="@dimen/height_16"
+        android:layout_marginTop="@dimen/item_gap_4"
+        android:layout_toRightOf="@+id/view_icon_bank"
+        android:layout_below="@+id/view_bank_name"
+        android:layout_marginStart="@dimen/item_gap_16"
+        style="@style/SbTextView.BodyDefault.Bold"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/ic_chevron_right_small"/>
+    <View
+        android:id="@+id/view_separator"
+        android:background="?attr/themeColorDividerThin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gap_xxxs"
+        android:layout_marginTop="@dimen/item_gap_20"
+        android:layout_below="@+id/view_icon_bank"/>
+</RelativeLayout>

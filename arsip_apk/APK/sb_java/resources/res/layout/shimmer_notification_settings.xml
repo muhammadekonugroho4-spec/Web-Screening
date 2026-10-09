@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sfl_loading"
+    android:tag="layout/shimmer_notification_settings_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/FBShimmerFrameLayout">
+    <include layout="@layout/item_shimmer_notification_settings"/>
+</com.facebook.shimmer.ShimmerFrameLayout>

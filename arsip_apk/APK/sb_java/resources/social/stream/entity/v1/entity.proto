@@ -1,0 +1,224 @@
+syntax = "proto3";
+
+package social.stream.entity.v1;
+
+import "google/protobuf/timestamp.proto";
+import "social/stream/data/v1/image.proto";
+import "social/stream/data/v1/spam.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/social/stream/entity/v1;streamentity";
+
+message Polling {
+  int32 id = 1;
+  int32 status = 2;
+  string created_date = 3 [json_name = "created_date"];
+  string start_date = 4 [json_name = "start_date"];
+  string end_date = 5 [json_name = "end_date"];
+  string question = 6;
+  repeated PollingOptions options = 7;
+  bool expired = 8;
+  string message_expired = 9 [json_name = "message_expired"];
+  int32 total_voters = 10 [json_name = "total_voters"];
+  int32 my_vote = 11 [json_name = "my_vote"];
+  int32 ispinned = 12;
+}
+
+message ImageData {
+  string image = 1;
+  int32 width = 2;
+  int32 height = 3;
+  double ratio = 4;
+  string frame = 5;
+  social.stream.data.v1.FrameType frame_type = 6 [json_name = "frame_type"];
+}
+
+message PollingOptions {
+  int32 id = 1;
+  string value = 2;
+  int32 count_voters = 3 [json_name = "count_voters"];
+}
+
+message TargetPrice {
+  int32 id = 1;
+  string voted = 2;
+  string symbol = 3;
+  string symbol2 = 4;
+  string name = 5;
+  int32 tradeable = 6;
+  double last_price = 7 [json_name = "last_price"];
+  double current_price = 8 [json_name = "current_price"];
+  double target_price = 9 [json_name = "target_price"];
+  int32 duration = 10;
+  int32 day_left = 11 [json_name = "day_left"];
+  int32 agree = 12;
+  int32 disagree = 13;
+  int32 hit = 14;
+}
+
+message MaskHtml {
+  string mask = 1;
+  string tag = 2;
+  string text = 3;
+  MaskAttr attr = 4;
+}
+
+message MaskAttr {
+  string class = 1;
+  string data_company = 2 [json_name = "data_company"];
+  string data_user = 3 [json_name = "data_user"];
+  string data_insider = 4 [json_name = "data_insider"];
+  string href = 5;
+  string target = 6;
+}
+
+message ReplyContent {
+  string titleurl = 1;
+  string title = 2;
+  string content = 3;
+  string content_original = 4 [json_name = "content_original"];
+  string created = 5;
+  string created_display = 6 [json_name = "created_display"];
+  int32 userid = 7;
+  string username = 8;
+  string fullname = 9;
+  string avatar = 10;
+  repeated string images = 11;
+  repeated string topics = 12;
+  repeated MaskHtml mask_html = 13 [json_name = "mask_html"];
+  repeated ImageData images_data = 14 [json_name = "images_data"];
+  social.stream.data.v1.FrameType image_frame_type = 15 [json_name = "image_frame_type"];
+}
+
+message Analytics {
+  int32 impression = 1;
+  AnalyticsEngagement engagement = 2;
+}
+
+message AnalyticsEngagement {
+  int32 like = 1;
+  int32 reply = 2;
+  int32 share = 3;
+  int32 profile_view = 4 [json_name = "profile_view"];
+  int32 sign_click = 5 [json_name = "sign_click"];
+  int32 media_click = 6 [json_name = "media_click"];
+}
+
+message Reports {
+  string type = 1;
+}
+
+message Stream {
+  int32 id = 1;
+  string titleurl = 2;
+  string title = 3;
+  string content = 4;
+  string content_original = 5 [json_name = "content_original"];
+  google.protobuf.Timestamp created = 6;
+  repeated MaskHtml mask_html = 7 [json_name = "mask_html"];
+  repeated ImageData images_data = 8 [json_name = "images_data"];
+  social.stream.data.v1.FrameType image_frame_type = 9 [json_name = "image_frame_type"];
+  repeated string attachments = 10;
+  int32 parent_id = 11 [json_name = "parent_id"];
+  User user = 12;
+}
+
+message User {
+  int32 id = 1;
+  string username = 2;
+  string country = 3;
+  string avatar = 4;
+}
+
+message ReplyInfo {
+  User user = 1;
+}
+
+message SpamStream {
+  int32 stream_id = 1 [json_name = "stream_id"];
+  string post_url = 2 [json_name = "post_url"];
+  google.protobuf.Timestamp created_at = 3 [json_name = "created_at"];
+  social.stream.data.v1.SpamStatus status = 4;
+  string content = 5;
+  User user = 6;
+  repeated ImageData images_data = 7 [json_name = "images_data"];
+  string reason = 8;
+}
+
+message Pagination {
+  int32 current_page = 1 [json_name = "current_page"];
+  int32 total_data_in_page = 2 [json_name = "total_data_in_page"];
+  int32 total_data = 3 [json_name = "total_data"];
+}
+
+message Liker {
+  int32 id = 1;
+  string username = 2;
+  string email = 3;
+  string fullname = 4;
+  string avatar = 5;
+  string about = 6;
+  bool followed = 7;
+  bool is_verified = 8;
+}
+
+message FollowingActivity {
+  repeated User users = 1;
+  string info = 2;
+}
+
+message News {
+  int32 id = 1;
+  string title = 2;
+  string source = 3;
+  string source_url = 4 [json_name = "source_url"];
+  // dynamic text: x waktu yang lalu atau DD MMM YYY HH:mm WIB
+  // example: 30 menit yang lalu, 7 jam yang lalu, 15 Mei 20222 08:27 WIB
+  string created_at = 5 [json_name = "created_at"];
+  string image = 6;
+}
+
+message Research {
+  int32 id = 1;
+  string title = 2;
+  string category_label = 3 [json_name = "category_label"];
+  // image url is the thumbnail image
+  string image_url = 4 [json_name = "image_url"];
+  // url denotes deeplink url
+  string url = 5;
+  // describe research's volume, or date published, or module especially
+  // for unboxing and academy
+  string description = 6;
+  string icon_url = 7 [json_name = "icon_url"];
+  // using research created_at to maintain its order on stream
+  google.protobuf.Timestamp created_at = 8 [json_name = "created_at"];
+}
+
+message Insider {
+  string symbol = 1;
+  // format DD MMM YY, i.e. 17 Aug 22
+  string date = 2;
+
+  message Shareholder {
+    string name = 1;
+    int32 id = 2;
+  }
+  Shareholder shareholder = 3;
+
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    TYPE_LOCAL = 1;
+    TYPE_FOREIGN = 2;
+  }
+  Type type = 4;
+
+  enum Action {
+    ACTION_UNSPECIFIED = 0;
+    ACTION_BOUGHT = 1;
+    ACTION_SOLD = 2;
+  }
+  Action action = 5;
+  string change = 6;
+  string current = 7;
+  string previous = 8;
+  string corp_action = 9;
+}

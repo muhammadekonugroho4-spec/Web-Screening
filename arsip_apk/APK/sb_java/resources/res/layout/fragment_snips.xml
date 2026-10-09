@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/fragment_snips_0"
+    android:background="?attr/themeContentBackground"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/tv_title_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stream_snip"
+            style="@style/TypeStyles.HeadingLarge"/>
+    </androidx.appcompat.widget.Toolbar>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/sfl_shimmer_snips"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SBShimmerLayout">
+        <LinearLayout
+            android:orientation="vertical"
+            android:tag="binding_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/skeleton_snips"/>
+            <include layout="@layout/skeleton_snips"/>
+            <include layout="@layout/skeleton_snips"/>
+            <include layout="@layout/skeleton_snips"/>
+            <include layout="@layout/skeleton_snips"/>
+            <include layout="@layout/skeleton_snips"/>
+            <include layout="@layout/skeleton_snips"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <com.stockbit.stream.utils.pulltorefresh.PullRefreshLayout
+        android:id="@+id/prl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:progressSize="23"
+        app:pullThreshold="60"
+        app:topMargin="22">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_stream_snips"
+            android:tag="binding_2"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    </com.stockbit.stream.utils.pulltorefresh.PullRefreshLayout>
+    <include
+        android:id="@+id/comp_snip_empty"
+        android:visibility="gone"
+        layout="@layout/comp_stream_research_empty"/>
+</LinearLayout>

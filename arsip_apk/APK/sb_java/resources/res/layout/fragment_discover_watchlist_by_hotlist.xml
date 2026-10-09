@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentFragmentDiscoverWatchlistByHotlist"
+    android:tag="layout/fragment_discover_watchlist_by_hotlist_0"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/search_bar"
+        layout="@layout/comp_search_bar_discover_watchlist"/>
+    <View
+        android:id="@+id/viewFragmentDiscoverWatchlistByHotlist"
+        android:background="?attr/themeColorDividerThin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gap_xxxs"
+        android:layout_below="@+id/parentCompSearchBarRoot"/>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutFragmentDiscoverWatchlistByHotlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/viewFragmentDiscoverWatchlistByHotlist">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFragmentDiscoverWatchlistByHotlist"
+            android:paddingBottom="@dimen/item_gap_l"
+            android:scrollbars="vertical"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</RelativeLayout>

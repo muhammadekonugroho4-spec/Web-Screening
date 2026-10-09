@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/row_list_discover_search_item_sectors_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_sector_title"
+        android:paddingTop="@dimen/item_gap_m"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/clickable_size_48"
+        android:text="@string/catalog_title"
+        android:textAlignment="gravity"
+        android:paddingStart="@dimen/item_gap_20"
+        android:paddingEnd="@dimen/item_gap_l"
+        style="@style/TypeStyles.HeadlineRegular"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:orientation="horizontal"
+        android:id="@+id/rv_search_item_sector"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/item_gap_20"
+        android:paddingEnd="@dimen/item_gap_14"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</LinearLayout>

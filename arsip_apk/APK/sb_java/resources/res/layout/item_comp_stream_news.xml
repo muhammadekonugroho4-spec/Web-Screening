@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/item_comp_stream_news_0"
+    android:background="?attr/themeColorSurfaceDefault"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include
+        android:id="@+id/comp_stream_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20"
+        android:layout_marginHorizontal="@dimen/spacing_20"
+        layout="@layout/comp_stream_content_news"/>
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/compose_view_stream_emoji_reaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.stockbit.uikit.divider.SBDivider
+        android:id="@+id/v_border_stream"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20"
+        app:dividerVariant="thick_grey"/>
+</LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_create_portfolio"
+    android:tag="layout/row_create_new_portfolio_0"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/height_28"
+    android:layout_marginBottom="@dimen/spacing_20"
+    android:layout_marginHorizontal="@dimen/spacing_20"
+    app:cardBackgroundColor="@color/transparent"
+    app:cardElevation="0dp">
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_border_dashed_modal_default"
+        android:padding="@dimen/spacing_12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_add_new_portfolio"
+            android:layout_width="@dimen/spacing_20"
+            android:layout_height="@dimen/spacing_20"
+            android:src="@drawable/ic_add_new_portfolio"
+            android:layout_marginEnd="@dimen/spacing_8"/>
+        <TextView
+            android:id="@+id/tv_add_new_portfolio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_create_new_portfolio"
+            style="@style/TypeStyles.HeadingRegular"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:tag="layout/dialog_debt_ratio_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_20">
+    <com.stockbit.feature.portfolio.component.DebtRatioGaugeView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/gauge_debt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_24"
+        android:text="@string/desc_deb_ratio_detail"
+        style="@style/TypeStyles.BodyRegular"/>
+    <include
+        android:id="@+id/comp_debt_ratio_detail_calculation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_12"
+        layout="@layout/comp_debt_ratio_detail_calculation"/>
+    <TextView
+        android:id="@+id/tv_info_auto_force_selling"
+        android:background="@drawable/bg_periwinkle_rounded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_12"
+        android:layout_marginBottom="@dimen/height_32"
+        android:paddingHorizontal="@dimen/spacing_16"
+        android:paddingVertical="@dimen/spacing_12"
+        style="@style/TypeStyles.BodyXSmall"/>
+</LinearLayout>

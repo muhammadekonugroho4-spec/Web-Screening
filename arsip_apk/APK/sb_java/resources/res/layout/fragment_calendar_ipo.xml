@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_calendar_ipo_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:orientation="horizontal"
+                        android:id="@+id/llc_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/item_gap_12"
+                        android:paddingStart="@dimen/item_gap_20"
+                        android:paddingEnd="@dimen/item_gap_20"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:textSize="@dimen/calendar_table_title_text_size"
+                            android:layout_width="@dimen/company_symbol_name_width"
+                            android:layout_height="wrap_content"
+                            android:text="Company Name"
+                            style="@style/SbTextView.ListTitle.Highempasis.Bold"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:textSize="@dimen/calendar_table_title_text_size"
+                            android:gravity="end"
+                            android:layout_width="@dimen/company_shares_width"
+                            android:layout_height="wrap_content"
+                            android:text="Price"
+                            android:layout_weight="1"
+                            style="@style/SbTextView.ListTitle.Highempasis.Bold"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:textSize="@dimen/calendar_table_title_text_size"
+                            android:gravity="end"
+                            android:layout_width="@dimen/company_shares_width"
+                            android:layout_height="wrap_content"
+                            android:text="Shares"
+                            android:layout_weight="1"
+                            style="@style/SbTextView.ListTitle.Highempasis.Bold"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:textSize="@dimen/calendar_table_title_text_size"
+                            android:gravity="end"
+                            android:layout_width="@dimen/company_date_recording_width"
+                            android:layout_height="wrap_content"
+                            android:text="Offer Start"
+                            android:layout_weight="1"
+                            style="@style/SbTextView.ListTitle.Highempasis.Bold"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:textSize="@dimen/calendar_table_title_text_size"
+                            android:gravity="end"
+                            android:layout_width="@dimen/company_date_recording_width"
+                            android:layout_height="wrap_content"
+                            android:text="Offer End"
+                            android:layout_weight="1"
+                            style="@style/SbTextView.ListTitle.Highempasis.Bold"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:textSize="@dimen/calendar_table_title_text_size"
+                            android:gravity="end"
+                            android:layout_width="@dimen/company_date_recording_width"
+                            android:layout_height="wrap_content"
+                            android:text="Listing Date"
+                            android:layout_weight="1"
+                            style="@style/SbTextView.ListTitle.Highempasis.Bold"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <View
+                        android:background="?attr/themeColorDividerThin"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/item_gap_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/llc_content"
+                        app:layout_constraintStart_toStartOf="@+id/llc_content"
+                        app:layout_constraintTop_toBottomOf="@+id/llc_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_content"
+                    android:tag="binding_1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_header"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </HorizontalScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:padding="@dimen/item_gap_20"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:tag="binding_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/skeleton_calendar_column"/>
+            <include layout="@layout/skeleton_calendar_column"/>
+            <include layout="@layout/skeleton_calendar_column"/>
+            <include layout="@layout/skeleton_calendar_column"/>
+            <include layout="@layout/skeleton_calendar_column"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <include
+        android:id="@+id/layout_error"
+        layout="@layout/comp_error_state"/>
+</ViewFlipper>

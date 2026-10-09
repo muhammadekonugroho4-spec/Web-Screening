@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package social.chat.entity.v2;
+
+import "google/protobuf/timestamp.proto";
+import "social/chat/entity/v2/attachment.proto";
+import "social/chat/entity/v2/member.proto";
+import "social/chat/entity/v2/message_content.proto";
+import "social/chat/entity/v2/text_mask.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/social/chat/entity/v2;entity";
+
+enum MessageBodyType {
+  MESSAGE_BODY_TYPE_UNSPECIFIED = 0;
+  MESSAGE_BODY_TYPE_CONVERSATION = 1;
+  MESSAGE_BODY_TYPE_EVENT = 2;
+}
+
+message Message {
+  int32 id = 1;
+
+  MessageBodyType body_type = 2;
+  MessageBody body = 3;
+
+  google.protobuf.Timestamp created_at = 4;
+}
+
+message MessageBody {
+  oneof body {
+    MessageConversation conversation = 1;
+    MessageEvent event = 2;
+  }
+}
+
+message MessageEvent {
+  string text = 1;
+  TextFormat format = 2;
+}
+
+message MessageConversation {
+  string text = 1;
+  social.chat.entity.v2.MaskedText masked_text = 2;
+
+  MessageContent content = 3; // Deprecated: use attachment and replied_message instead
+
+  social.chat.entity.v2.MessageSender sender = 4;
+
+  MessageStatus status = 5;
+  MessageFlag flag = 6;
+
+  Message replied_message = 7;
+  social.chat.entity.v2.AttachmentType attachment_type = 8;
+  social.chat.entity.v2.AttachmentV2 attachment = 9;
+}
+
+message MessageFlag {
+  bool is_reply = 1;
+  bool is_forwarded = 2;
+  // timestamp isn't displayed if timespan between last message < 1 minute
+  bool is_time_displayed = 3;
+  bool is_deleted = 4;
+}
+
+message MessageSender {
+  enum DisplayedAs {
+    DISPLAYED_AS_UNSPECIFIED = 0;
+    DISPLAYED_AS_SENDER = 1;
+    DISPLAYED_AS_RECEIVER = 2;
+  }
+  MemberUser user = 1;
+  string color = 2;
+  DisplayedAs displayed_as = 3;
+  bool is_active_member = 4;
+}
+
+message MessageContent {
+  Attachment attachment = 1;
+  SharedContentPreview shared_content = 2;
+  Message replied_message = 3;
+}
+
+enum MessageStatus {
+  MESSAGE_STATUS_UNSPECIFIED = 0;
+  MESSAGE_STATUS_SENT = 1;
+  MESSAGE_STATUS_READ = 2;
+}
+
+enum CursorDirection {
+  // Default direction will fetch list of data based on latest id/cursor
+  CURSOR_DIRECTION_UNSPECIFIED = 0;
+  CURSOR_DIRECTION_IN_FRONT = 1;
+  CURSOR_DIRECTION_BEHIND = 2;
+  // Between direction will return list of data with specified cursor_id as its center
+  // Example: request with cursor_id = "10" & limit = 5 will return [8, 9, 10, 11, 12]
+  // Returned data won't be as much as specified limit if limit range reaches beginning/end position
+  // This direction will use default limit if limit is 0 or unspecified,
+  // and if limit is an even number, it will shift cursor position one step forward
+  CURSOR_DIRECTION_BETWEEN = 3;
+}

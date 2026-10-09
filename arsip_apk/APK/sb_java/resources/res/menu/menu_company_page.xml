@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_company_write_post"
+        android:title="@string/btn_company_toolbar_write_post"
+        app:actionLayout="@layout/menu_view_write_post"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_company_set_price_alert"
+        android:title="@string/btn_company_toolbar_create_alert"
+        app:actionLayout="@layout/menu_view_price_alert"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_company_share"
+        android:title="@string/lbl_share"
+        app:actionLayout="@layout/menu_view_company_share"
+        app:iconTint="?attr/themeIconTintColor"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_company_add_to_watchlist"
+        android:title="@string/lbl_watchlist_add_symbol"
+        app:actionLayout="@layout/menu_view_add_to_watchlist"
+        app:showAsAction="always"/>
+</menu>

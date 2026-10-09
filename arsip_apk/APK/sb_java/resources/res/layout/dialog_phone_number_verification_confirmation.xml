@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:id="@+id/ll_root"
+    android:tag="layout/dialog_phone_number_verification_confirmation_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/spacing_20">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20"
+        android:src="?attr/themeIconPhoneVerification"/>
+    <TextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:gravity="center"
+        android:id="@+id/tv_content_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20"
+        android:layout_marginBottom="@dimen/spacing_12"
+        android:text="@string/personal_amend_title_phone_verification_required"
+        style="@style/TypeStyles.HeadlineRegular"/>
+    <TextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:gravity="center"
+        android:id="@+id/tv_content_confirmation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_12"
+        android:layout_marginBottom="@dimen/spacing_12"
+        android:text="@string/personal_amend_description_phone_verification_required"
+        style="@style/TypeStyles.BodyRegular"/>
+</LinearLayout>

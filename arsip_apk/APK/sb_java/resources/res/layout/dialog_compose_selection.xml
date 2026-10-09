@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/dialog_compose_selection_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_20"
+    android:paddingVertical="@dimen/spacing_6">
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_compose_stream"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stream_company_note_compose_stream"
+        android:drawablePadding="@dimen/spacing_16"
+        android:paddingStart="@dimen/spacing_8"
+        android:paddingVertical="@dimen/spacing_8"
+        app:drawableStartCompat="@drawable/ic_menu_stream_black_24dp"
+        app:drawableTint="?attr/themeColorIconDefault"
+        style="@style/TypeStyles.BodyRegular"/>
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_compose_note"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_16"
+        android:text="@string/stream_company_note_compose_note"
+        android:drawablePadding="@dimen/spacing_16"
+        android:paddingStart="@dimen/spacing_8"
+        android:paddingVertical="@dimen/spacing_8"
+        app:drawableStartCompat="@drawable/ic_notes"
+        app:drawableTint="?attr/themeColorIconDefault"
+        style="@style/TypeStyles.BodyRegular"/>
+</LinearLayout>

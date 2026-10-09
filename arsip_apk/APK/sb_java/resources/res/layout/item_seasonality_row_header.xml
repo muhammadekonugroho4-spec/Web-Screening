@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cl_row_header"
+    android:tag="layout/item_seasonality_row_header_0"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_gap_40"
+    android:paddingStart="@dimen/spacing_20">
+    <TextView
+        android:gravity="center_vertical"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/TypeStyles.BodyXSmall"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

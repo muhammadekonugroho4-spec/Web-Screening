@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sfl_livestream_list"
+    android:tag="layout/skeleton_livestream_main_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll_shimmer_chip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:background="@drawable/bg_rounded_gray_radius_16"
+                android:layout_width="@dimen/livestream_main_width_88"
+                android:layout_height="@dimen/clickable_size_28"
+                android:layout_marginStart="@dimen/spacing_20"
+                android:backgroundTint="?attr/themeShimmer"
+                android:layout_marginVertical="@dimen/spacing_8"/>
+            <View
+                android:background="@drawable/bg_rounded_gray_radius_16"
+                android:layout_width="@dimen/livestream_main_width_88"
+                android:layout_height="@dimen/clickable_size_28"
+                android:layout_marginStart="@dimen/spacing_8"
+                android:backgroundTint="?attr/themeShimmer"
+                android:layout_marginVertical="@dimen/spacing_8"/>
+        </LinearLayout>
+        <include layout="@layout/item_skeleton_livestream_main"/>
+        <include layout="@layout/item_skeleton_livestream_main"/>
+        <include layout="@layout/item_skeleton_livestream_main"/>
+        <include layout="@layout/item_skeleton_livestream_main"/>
+        <include layout="@layout/item_skeleton_livestream_main"/>
+        <include layout="@layout/item_skeleton_livestream_main"/>
+    </LinearLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>

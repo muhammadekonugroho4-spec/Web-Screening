@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:tag="layout/fragment_amend_bank_basic_dialog_0"
+    android:background="?attr/themeDialogBackgroundColor"
+    android:paddingTop="@dimen/spacing_16"
+    android:paddingBottom="@dimen/item_gap_32"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_20">
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tvBasicDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/spacing_16"
+        android:text="@string/setting_amend_bank_verifivation_title"
+        style="@style/TypeStyles.HeadlineRegular"/>
+    <TextView
+        android:gravity="center_horizontal"
+        android:id="@+id/tvBasicDialogContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/spacing_12"
+        android:text="@string/setting_amend_bank_verifivation_content"
+        style="@style/TypeStyles.ParagraphRegular"/>
+</LinearLayout>

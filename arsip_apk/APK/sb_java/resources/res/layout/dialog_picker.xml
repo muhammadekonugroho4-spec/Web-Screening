@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/dialog_picker_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:background="@drawable/bg_top_rounded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/v_handle"
+            android:background="@drawable/bg_rounded_gray_gray_bg"
+            android:layout_width="@dimen/clickable_size_64"
+            android:layout_height="@dimen/item_gap_4"
+            android:alpha="0.5"
+            android:layout_marginVertical="@dimen/item_gap_16"/>
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_gap_14"
+            style="@style/SbTextView.ListTitle"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_items"
+            android:paddingBottom="@dimen/item_gap_10"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

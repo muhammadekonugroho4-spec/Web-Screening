@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:name="vector"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:name="inactive"
+        android:pathData="M 9.03 4.536 L 9.03 4.536 L 15.023 4.536 C 16.213 4.536 17.357 5.007 18.2 5.85 C 19.042 6.697 19.516 7.837 19.516 9.03 L 19.516 15.023 C 19.516 16.213 19.042 17.357 18.2 18.2 C 17.357 19.042 16.213 19.516 15.023 19.516 L 9.03 19.516 C 7.837 19.516 6.697 19.042 5.85 18.2 C 5.007 17.357 4.536 16.213 4.536 15.023 L 4.536 9.03 C 4.536 7.837 5.007 6.697 5.85 5.85 C 6.697 5.007 7.837 4.536 9.03 4.536 Z"
+        android:strokeColor="?attr/digital_identity_fill_inactive_primary"
+        android:strokeWidth="1"
+        android:fillAlpha="0"/>
+    <path
+        android:name="active"
+        android:fillColor="?attr/digital_identity_fill_active_primary"
+        android:pathData="M 8.848 4.062 L 8.848 4.062 L 15.231 4.062 C 16.5 4.062 17.718 4.564 18.616 5.462 C 19.513 6.363 20.018 7.578 20.018 8.848 L 20.018 15.231 C 20.018 16.5 19.513 17.718 18.616 18.616 C 17.718 19.513 16.5 20.018 15.231 20.018 L 8.848 20.018 C 7.578 20.018 6.363 19.513 5.462 18.616 C 4.564 17.718 4.062 16.5 4.062 15.231 L 4.062 8.848 C 4.062 7.578 4.564 6.363 5.462 5.462 C 6.363 4.564 7.578 4.062 8.848 4.062 Z"/>
+    <path
+        android:name="path"
+        android:fillColor="?attr/digital_identity_fill_background_primary"
+        android:pathData="M 7.602 12.364 C 7.532 12.292 7.498 12.183 7.498 12.11 C 7.498 12.038 7.532 11.927 7.602 11.854 L 8.087 11.343 C 8.224 11.196 8.434 11.196 8.569 11.343 L 8.606 11.378 L 10.511 13.534 C 10.58 13.606 10.684 13.606 10.753 13.534 L 15.393 8.459 L 15.427 8.459 C 15.566 8.313 15.773 8.313 15.913 8.459 L 16.397 8.971 C 16.536 9.118 16.536 9.336 16.397 9.482 L 10.858 15.541 C 10.787 15.614 10.719 15.65 10.615 15.65 C 10.511 15.65 10.441 15.614 10.372 15.541 L 7.672 12.474 Z"/>
+</vector>

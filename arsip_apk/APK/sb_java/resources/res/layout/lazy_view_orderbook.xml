@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.stockbit.component.orderbook.CollapsibleOrderbookView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_orderbook"
+    android:tag="layout/lazy_view_orderbook_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>

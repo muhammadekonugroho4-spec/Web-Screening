@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_clickable_caption"
+    android:tag="layout/comp_clickable_caption_0"
+    android:background="@drawable/bg_registration_form_tooltip"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/spacing_12"
+    android:paddingVertical="@dimen/spacing_8">
+    <TextView
+        android:textColor="?attr/themeColorSpecialTextSecondary"
+        android:id="@+id/tv_text_field_caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.BodyXSmall.Secondary"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/aciv_seen"
+        android:layout_width="@dimen/spacing_16"
+        android:layout_height="@dimen/spacing_16"
+        android:src="0x7f0804cf"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/themeColorIconDefault"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

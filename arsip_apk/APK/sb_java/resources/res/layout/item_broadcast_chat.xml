@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/item_broadcast_chat_0"
+    android:layout_width="@dimen/spacing_12"
+    android:layout_height="@dimen/spacing_12"
+    app:srcCompat="@drawable/ic_broadcast_chat"/>

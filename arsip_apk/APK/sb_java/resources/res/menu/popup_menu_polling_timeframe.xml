@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/popup_action_polling_end_one_hour"
+        android:title="@string/menu_polling_end_one_hour"/>
+    <item
+        android:id="@+id/popup_action_polling_end_three_hours"
+        android:title="@string/menu_polling_end_three_hours"/>
+    <item
+        android:id="@+id/popup_action_polling_end_one_day"
+        android:title="@string/menu_polling_end_one_day"/>
+    <item
+        android:id="@+id/popup_action_polling_end_one_week"
+        android:title="@string/menu_polling_end_one_week"/>
+    <item
+        android:id="@+id/popup_action_polling_end_never"
+        android:title="@string/menu_polling_end_never"/>
+    <item
+        android:id="@+id/popup_action_polling_end_specific"
+        android:title="@string/menu_polling_end_custom"/>
+</menu>

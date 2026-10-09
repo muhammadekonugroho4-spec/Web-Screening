@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/item_board_director_and_commissioner_0"
+    android:background="?attr/themeContentBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/item_gap_20">
+    <View
+        android:id="@+id/v_background"
+        android:background="@drawable/bg_circle_surface_variant"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:textColor="?attr/themeColorTextSecondary"
+        android:id="@+id/tv_name_initial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/v_background"
+        app:layout_constraintEnd_toEndOf="@+id/v_background"
+        app:layout_constraintStart_toStartOf="@+id/v_background"
+        app:layout_constraintTop_toTopOf="@+id/v_background"
+        style="@style/TypeStyles.BodyRegular"/>
+    <TextView
+        android:id="@+id/tv_board_commissioner_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_gap_14"
+        app:layout_constraintBottom_toTopOf="@+id/tv_board_commissioner_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/v_background"
+        app:layout_constraintTop_toTopOf="@+id/v_background"
+        app:layout_constraintVertical_chainStyle="spread"
+        style="@style/TypeStyles.HeadingXSmall"/>
+    <TextView
+        android:textColor="?attr/themeColorTextSecondary"
+        android:id="@+id/tv_board_commissioner_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_board_commissioner_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_board_commissioner_name"
+        style="@style/TypeStyles.BodySmall"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

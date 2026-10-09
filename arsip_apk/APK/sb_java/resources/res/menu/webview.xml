@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_webview_control"
+        android:title="@string/btn_reload_webview"
+        app:actionLayout="@layout/menu_view_webview_control"
+        app:iconTint="?attr/themeContentTextColor"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_more_menu"
+        android:title="@string/action_open_on_browser"
+        app:iconTint="?attr/themeContentTextColor"
+        app:showAsAction="never"/>
+</menu>

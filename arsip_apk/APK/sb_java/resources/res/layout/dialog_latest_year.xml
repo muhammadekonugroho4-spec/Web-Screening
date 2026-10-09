@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/dialog_latest_year_0"
+    android:background="@drawable/bg_top_rounded"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/item_gap_20"
+    android:paddingVertical="@dimen/item_gap_16">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/rectangle_dialog"/>
+    <TextView
+        android:textSize="@dimen/text_size_16"
+        android:textColor="?attr/themeTextChatInputColor"
+        android:id="@+id/tv_period_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_10"
+        android:text="@string/title_seasonality_period"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_line"
+        style="@style/SbTextView.PageTitle"/>
+    <NumberPicker
+        android:theme="@style/DefaultNumberPickerTheme"
+        android:id="@+id/np_latest_year"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/item_gap_10"
+        android:showDividers="none"
+        app:layout_constraintTop_toBottomOf="@+id/tv_period_label"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

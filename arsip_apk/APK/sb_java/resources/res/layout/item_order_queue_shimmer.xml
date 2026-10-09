@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:tag="layout/item_order_queue_shimmer_0"
+    android:background="?attr/themeColorSurfaceDefault"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/order_queue_item_shimmer_height">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/sfl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/order_queue_item_shimmer_height"
+        android:paddingHorizontal="@dimen/spacing_20"
+        android:paddingVertical="@dimen/item_gap_9">
+        <View
+            android:background="@drawable/bg_order_queue_item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</FrameLayout>

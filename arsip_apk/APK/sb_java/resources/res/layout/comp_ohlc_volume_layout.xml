@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include
+        android:id="@+id/comp_ohlc_vol_o"
+        layout="@layout/comp_ohlc_volume_info"/>
+    <View
+        android:id="@+id/spacer_1"
+        android:layout_width="@dimen/item_gap_13"
+        android:layout_height="0dp"/>
+    <include
+        android:id="@+id/comp_ohlc_vol_h"
+        layout="@layout/comp_ohlc_volume_info"/>
+    <View
+        android:id="@+id/spacer_2"
+        android:layout_width="@dimen/item_gap_13"
+        android:layout_height="0dp"/>
+    <include
+        android:id="@+id/comp_ohlc_vol_l"
+        layout="@layout/comp_ohlc_volume_info"/>
+    <View
+        android:id="@+id/spacer_3"
+        android:layout_width="@dimen/item_gap_13"
+        android:layout_height="0dp"/>
+    <include
+        android:id="@+id/comp_ohlc_vol_c"
+        layout="@layout/comp_ohlc_volume_info"/>
+    <View
+        android:id="@+id/spacer_4"
+        android:layout_width="@dimen/item_gap_13"
+        android:layout_height="0dp"/>
+    <include
+        android:id="@+id/comp_ohlc_vol_vol"
+        layout="@layout/comp_ohlc_volume_info"/>
+</LinearLayout>

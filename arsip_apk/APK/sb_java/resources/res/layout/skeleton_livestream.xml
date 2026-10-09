@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sfl_detail_livestream"
+    android:tag="layout/skeleton_livestream_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/view_livestream_skeleton_content"
+            android:background="@drawable/bg_rounded_gray"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_youtube_livestream"
+            android:layout_marginTop="@dimen/item_gap_10"
+            android:layout_marginBottom="@dimen/item_gap_20"
+            android:backgroundTint="?attr/themeShimmer"
+            android:layout_marginHorizontal="@dimen/item_gap_20"/>
+        <View
+            android:background="@drawable/bg_rounded_gray"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_54"
+            android:layout_marginBottom="@dimen/item_gap_20"
+            android:layout_marginStart="@dimen/item_gap_20"
+            android:layout_marginEnd="@dimen/item_gap_20"
+            android:backgroundTint="?attr/themeShimmer"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:tag="binding_2"
+            android:background="@drawable/border_gray_rounded_transparent_bg"
+            android:paddingTop="@dimen/item_gap_20"
+            android:paddingBottom="@dimen/item_gap_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_gap_20"
+            android:layout_marginEnd="@dimen/item_gap_20">
+            <include layout="@layout/skeleton_livestream_content"/>
+            <View
+                android:background="?attr/themeColorDividerThin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_gap_xxxs"
+                android:layout_marginTop="@dimen/item_gap_10"
+                android:layout_marginBottom="@dimen/item_gap_10"
+                android:layout_marginStart="@dimen/item_gap_16"
+                android:layout_marginEnd="@dimen/item_gap_16"/>
+            <include layout="@layout/skeleton_livestream_content"/>
+        </LinearLayout>
+        <include layout="@layout/skeleton_livestream_desc"/>
+    </LinearLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>

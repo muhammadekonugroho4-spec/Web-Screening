@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/parentScreenerClickableEmpty"
+    android:tag="layout/comp_empty_state_screener_view_0"
+    android:background="?attr/themeColorSurfaceDefault"
+    android:padding="@dimen/item_gap_l"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/ivScreenerEmptyIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/btn_tap_to_refresh"
+        android:layout_marginStart="@dimen/item_gap_l"/>
+    <TextView
+        android:textColor="@color/gray_text"
+        android:id="@+id/tvScreenerErrorCause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:text="@string/n_dash"
+        style="@style/SbTextView.BodyDefault"/>
+    <Button
+        android:textColor="@color/white"
+        android:id="@+id/btnEmptyScreener"
+        android:paddingLeft="@dimen/item_gap_32"
+        android:paddingRight="@dimen/item_gap_32"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/clickable_size_32"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:text="@string/n_dash"
+        style="@style/SbBtn.PrimaryFullWidthFloating"/>
+</LinearLayout>

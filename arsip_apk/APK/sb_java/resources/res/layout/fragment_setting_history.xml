@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/fragment_setting_history_0"
+    android:background="?attr/themeColorSurfaceDefault"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/settingActivityToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:layout_scrollFlags="enterAlways|scroll">
+        <TextView
+            android:textSize="@dimen/text_size_16"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_trading_transaction_history"
+            style="@style/SbTextView.BodyDefault.Bold"/>
+    </androidx.appcompat.widget.Toolbar>
+    <com.google.android.material.tabs.TabLayout
+        android:gravity="center"
+        android:id="@+id/tl_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/clickable_size_32"
+        app:tabGravity="fill"
+        app:tabIndicator="@drawable/bg_tab_indicator"
+        app:tabIndicatorColor="?attr/themeAccent"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/green_text"
+        app:tabTextAppearance="@style/TypeStyles.HeadingRegular"
+        app:tabTextColor="@color/light_type_textsecondary"/>
+    <View
+        android:background="?attr/themeColorDividerThin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gap_xxxs"/>
+    <com.stockbit.common.uikit.ExViewPager
+        android:id="@+id/vp_history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

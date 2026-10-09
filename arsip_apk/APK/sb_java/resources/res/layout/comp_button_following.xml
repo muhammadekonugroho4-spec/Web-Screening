@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="@dimen/text_size_12"
+    android:textColor="?attr/themeButtonFollowing"
+    android:layout_gravity="center"
+    android:tag="layout/comp_button_following_0"
+    android:background="@drawable/btn_following_bordered"
+    android:paddingTop="@dimen/item_gap_8"
+    android:paddingBottom="@dimen/spacing_8"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/clickable_size_32"
+    android:text="@string/following"
+    android:paddingStart="@dimen/spacing_16"
+    android:paddingEnd="@dimen/spacing_16"
+    style="@style/SbBtnBorderless.Small"/>

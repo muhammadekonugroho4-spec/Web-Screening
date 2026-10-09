@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/kyc_plus_white"
+    app:cardCornerRadius="?attr/digital_identity_spacing_5x"
+    app:cardElevation="0dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="?attr/digital_identity_spacing_5x"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.iab.digitalidentity.ui.text.KycPlusTextView
+            android:id="@+id/text_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/jago_one_kyc_widget_verification_title"
+            app:kycPlusTypographyStyle="kyc_plus_title_large_default"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon_step_one_status"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="?attr/digital_identity_spacing_4x"
+            android:tint="?attr/digital_identity_border_active"
+            app:layout_constraintBottom_toBottomOf="@+id/kyc_personal_details_status_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/kyc_personal_details_status_view"
+            app:srcCompat="@drawable/kyc_plus_ic_label_16_loading"/>
+        <com.iab.digitalidentity.sdk.widget.views.OneKycWidgetInProcessStepView
+            android:id="@+id/kyc_personal_details_status_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="?attr/digital_identity_spacing_5x"
+            android:layout_marginTop="?attr/digital_identity_spacing_6x"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon_step_one_status"
+            app:layout_constraintTop_toBottomOf="@+id/text_title"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

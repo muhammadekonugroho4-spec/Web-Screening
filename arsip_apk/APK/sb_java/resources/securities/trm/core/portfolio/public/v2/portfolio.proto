@@ -1,0 +1,58 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package securities.trm.core.portfolio.public.v2;
+
+import "securities/trm/core/portfolio/entity/v2/portfolio.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/securities/trm/core/portfolio/public/v2;portfolio";
+option java_package = "securities.trm.core.portfolio.publics.v2";
+
+// OrderDetailRequest defines request to obtain order detail
+message OrderDetailRequest {
+  string acc_no = 1;
+  string order_id = 2;
+}
+
+// OrderDetailResponse defines response when got order detail
+message OrderDetailResponse {
+  string message = 1; // required
+  securities.trm.core.portfolio.entity.v2.OrderDetail data = 2; // required
+}
+
+// OrderListRequest defines response to obtain order list
+message OrderListRequest {
+  string acc_no = 1; // required
+}
+
+// OrderListResponse defines response when got order list
+message OrderListResponse {
+  string message = 1;
+  repeated securities.trm.core.portfolio.entity.v2.Order data = 2;
+}
+
+// ListRequest defines request to obtain portfolio list
+message ListRequest {
+  string acc_no = 1;
+}
+
+// ListResponse defines response when got portfolio list
+message ListResponse {
+  string message = 1;
+  securities.trm.core.portfolio.entity.v2.PortfolioList data = 2;
+}
+
+message DetailRequest {
+  string stock_code = 1;
+}
+
+message DetailResponse {
+  message Data {
+    securities.trm.core.portfolio.entity.v2.PortfolioDetail result = 1;
+    securities.trm.core.portfolio.entity.v2.PortfolioDetail day_trade = 2;
+  }
+
+  string message = 1;
+  Data data = 2;
+}

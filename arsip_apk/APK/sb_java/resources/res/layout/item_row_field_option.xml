@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:tag="layout/item_row_field_option_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_8"
+    android:paddingVertical="@dimen/spacing_8">
+    <TextView
+        android:id="@+id/tv_company_title"
+        android:tag="binding_1"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/spacing_40"
+        android:layout_marginEnd="@dimen/spacing_8"
+        style="@style/TypeStyles.HeadingRegular"/>
+    <TextView
+        android:ellipsize="end"
+        android:id="@+id/tv_company_desc"
+        android:tag="binding_2"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:layout_weight="1"
+        style="@style/TypeStyles.BodyRegular"/>
+</LinearLayout>

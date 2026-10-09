@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_base_bottom_sheet_dialog_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    <RelativeLayout
+        android:id="@+id/parentBaseBottomSheetDialogHeader"
+        android:background="@drawable/bg_top_rounded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/item_gap_l">
+        <View
+            android:id="@+id/viewSharePost"
+            android:background="@drawable/bg_rounded_gray_gray_bg"
+            android:layout_width="@dimen/clickable_size_38"
+            android:layout_height="@dimen/item_gap_xs"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:layout_centerHorizontal="true"
+            android:alpha="0.5"/>
+        <TextView
+            android:id="@+id/tvSharePostTitle"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_share_post"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            style="@style/SbTextView.TitleSmall"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/parentBaseBottomSheetDialogBody"
+        android:background="?attr/themeDialogBackgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/clickable_size_72"
+        android:layout_below="@+id/parentBaseBottomSheetDialogHeader">
+        <ViewStub
+            android:id="@+id/viewStubBaseBottomSheetDialogBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</RelativeLayout>

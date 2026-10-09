@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textColor="?attr/themeColorTextSecondary"
+    android:tag="layout/item_suggested_section_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/chat_suggested"
+    android:paddingHorizontal="@dimen/item_gap_20"
+    android:paddingVertical="@dimen/item_gap_12"
+    style="@style/TypeStyles.HeadingXSmall"/>

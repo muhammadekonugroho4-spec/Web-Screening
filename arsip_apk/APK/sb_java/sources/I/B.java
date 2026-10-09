@@ -1,0 +1,7 @@
+package I;
+
+/* loaded from: classes.dex */
+public abstract class B {
+    public B() {
+    }
+}

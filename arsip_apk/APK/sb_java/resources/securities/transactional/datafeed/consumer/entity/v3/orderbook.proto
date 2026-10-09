@@ -1,0 +1,27 @@
+// Copyright (c) 2021-2026 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package securities.transactional.datafeed.consumer.entity.v3;
+
+import "financial/common/v1/decimal_value.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/securities/transactional/datafeed/consumer/entity/v3;datafeed";
+option java_package = "com.stockbit.protobuf.securities.transactional.datafeed.consumer.entity.v3.datafeed";
+option java_multiple_files = true;
+
+message Orderbook {
+  string symbol = 1;
+  repeated OrderBookData bid = 2;
+  repeated OrderBookData offer = 3;
+  OrderBookData total_bid = 4 [json_name = "total_bid"];
+  OrderBookData total_offer = 5 [json_name = "total_offer"];
+  google.protobuf.Timestamp timestamp = 6;
+}
+
+message OrderBookData {
+  financial.common.v1.DecimalValue volume = 1;
+  financial.common.v1.DecimalValue price = 2;
+  financial.common.v1.DecimalValue frequency = 3;
+}

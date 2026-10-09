@@ -1,0 +1,14 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package financial.order_trade.entity.v1;
+
+option go_package = "go.stockbit.io/protos/gen/go/financial/order_trade/entity/v1;entity";
+
+enum InvestorType {
+  INVESTOR_TYPE_UNSPECIFIED = 0;
+  INVESTOR_TYPE_ALL = 1;
+  INVESTOR_TYPE_DOMESTIC = 2;
+  INVESTOR_TYPE_FOREIGN = 3;
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:tag="layout/item_stream_suggested_user_friend_not_connected_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/spacing_20"
+    android:paddingVertical="@dimen/item_gap_45">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_connect_contact"
+        style="@style/TypeStyles.HeadingLarge"/>
+    <TextView
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_10"
+        android:text="@string/text_connect_contact"
+        android:layout_marginHorizontal="@dimen/spacing_32"
+        style="@style/TypeStyles.BodySmall"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:textColor="@color/white"
+        android:id="@+id/btnConnect"
+        android:background="@drawable/bg_rounded_50_green"
+        android:paddingTop="@dimen/item_gap_12"
+        android:paddingBottom="@dimen/item_gap_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_20"
+        android:text="@string/lbl_connect"
+        android:textAllCaps="false"
+        android:paddingStart="@dimen/item_gap_36"
+        android:paddingEnd="@dimen/item_gap_36"
+        style="@style/SbTextView.Button.Regular"/>
+</LinearLayout>

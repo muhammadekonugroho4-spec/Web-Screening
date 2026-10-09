@@ -1,0 +1,33 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package securities.transactional.negoengine.entity.v1;
+
+option go_package = "go.stockbit.io/protos/gen/go/securities/transactional/negoengine/entity/v1;entityv1pb";
+
+// Multi user identifiers for the Nego Engine.
+message UserID {
+  // Required. Securities/trading account number which actually place the order,
+  // can contains letters, if user has multiple sub accounts, this field will
+  // refer the sub account.
+  //
+  // Example: "011732L"
+  string account_no = 1;
+
+  // Required. Securities/trading account number, can contains letters, this
+  // field always refer to the main account no.
+  //
+  // Example: "0117323"
+  string main_account_no = 2;
+
+  // Required. Social user identifier, always a number.
+  //
+  // Example: "1185446"
+  uint64 user_id = 3;
+
+  // Required. Social username identifier, can alphanumeric.
+  //
+  // Example: "johndoe", "janedoe123"
+  string username = 4;
+}

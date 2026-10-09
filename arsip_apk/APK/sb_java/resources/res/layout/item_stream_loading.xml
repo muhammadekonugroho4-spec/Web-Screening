@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/item_stream_loading_0"
+    android:background="?attr/themeColorSurfaceDefault"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/sfl_stream_loading"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SBShimmerLayout">
+        <include layout="@layout/skeleton_stream_item"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/parentClickableReload"
+        android:paddingLeft="@dimen/item_gap_s"
+        android:paddingRight="@dimen/item_gap_s"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/clickable_size_48"
+        android:foreground="?attr/selectableItemBackground">
+        <ImageView
+            android:id="@+id/ivRefreshIcon"
+            android:layout_width="@dimen/item_gap_l"
+            android:layout_height="@dimen/item_gap_l"
+            android:tint="?attr/themeIconTintColor"
+            android:contentDescription="@string/btn_tap_to_refresh"
+            app:srcCompat="@drawable/ic_loading"/>
+        <TextView
+            android:id="@+id/tvErrorCause"
+            android:tag="binding_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_gap_s"
+            style="@style/SbTextView.Caption.Bold"/>
+    </LinearLayout>
+</LinearLayout>

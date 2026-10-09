@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/ll_field_check_box"
+    android:tag="layout/comp_field_check_box_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.stockbit.uikit.control.ControlCheckbox
+        android:id="@+id/ccb_field_check_box"
+        android:layout_width="@dimen/clickable_size_24"
+        android:layout_height="@dimen/clickable_size_24"/>
+    <TextView
+        android:id="@+id/tv_field_check_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_8"
+        style="@style/TypeStyles.BodySmall"/>
+</LinearLayout>

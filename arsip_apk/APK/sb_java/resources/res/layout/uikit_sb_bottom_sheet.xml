@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/sb_bottom_sheet_ll_container"
+    android:background="@drawable/uikit_bg_bottom_sheet_collapsed"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    <View
+        android:layout_gravity="center"
+        android:id="@+id/v_handle"
+        android:background="@drawable/bg_bottomsheetdialog_handle"
+        android:layout_width="@dimen/uikit_bottomsheet_handle_width"
+        android:layout_height="@dimen/uikit_bottomsheet_handle_height"
+        android:contentDescription="btnDragHandle"
+        android:layout_marginVertical="@dimen/spacing_12"/>
+    <FrameLayout
+        android:id="@+id/fl_container_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <FrameLayout
+        android:id="@+id/fl_container_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <FrameLayout
+        android:id="@+id/fl_container_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

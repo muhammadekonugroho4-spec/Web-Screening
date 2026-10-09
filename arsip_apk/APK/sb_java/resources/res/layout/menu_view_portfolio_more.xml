@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/clickable_size_40"
+    android:layout_height="@dimen/clickable_size_48">
+    <ImageButton
+        android:layout_gravity="start|center_vertical"
+        android:id="@+id/ib_more_portfolio"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_width="@dimen/clickable_size_24"
+        android:layout_height="@dimen/clickable_size_48"
+        android:contentDescription="@string/button_more"
+        app:srcCompat="@drawable/ic_sort_stock"
+        app:tint="?attr/themeIconTintColor"/>
+</FrameLayout>

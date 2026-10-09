@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_banner"
+    android:tag="layout/row_keystats_info_banner_0"
+    android:background="@drawable/bg_extended_green5_with_outline_radius4"
+    android:padding="@dimen/item_gap_12"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/item_gap_20"
+    android:layout_marginHorizontal="@dimen/item_gap_20"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+    <ImageView
+        android:id="@+id/iv_green_dot"
+        android:paddingTop="@dimen/item_gap_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_banner_desc"
+        app:srcCompat="@drawable/ic_green_dot"/>
+    <TextView
+        android:id="@+id/tv_banner_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_gap_6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_green_dot"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.BodyXSmall"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

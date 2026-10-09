@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_calendar"
+    app:startDestination="@+id/calendarMainFragment">
+    <fragment
+        android:name="com.stockbit.calendar.ui.main.CalendarMainFragment"
+        android:id="@+id/calendarMainFragment">
+        <argument
+            android:name="detailPage"
+            android:defaultValue=""
+            app:argType="string"/>
+        <argument
+            android:name="isFromDeeplink"
+            android:defaultValue="false"
+            app:argType="boolean"/>
+    </fragment>
+</navigation>

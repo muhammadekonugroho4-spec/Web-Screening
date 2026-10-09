@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textColor="?attr/themeColorTextSecondary"
+        android:gravity="center"
+        android:id="@android:id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_tabs_counter"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.BodySmall"/>
+    <TextView
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:id="@+id/tv_tabs_counter"
+        android:background="@drawable/bg_circle"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/width_16"
+        android:minHeight="@dimen/height_16"
+        android:translationX="-4dp"
+        android:paddingHorizontal="@dimen/spacing_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@android:id/text1"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.BodyXXSmall"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,15 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package social.verified_badge.enum.v1;
+
+option go_package = "go.stockbit.io/protos/gen/go/social/verified_badge/enum/v1;verifiedbadgeenumv1";
+option java_package = "social.verified_badge.enums.v1";
+
+enum VerifiedStatus {
+  // buf:lint:ignore ENUM_ZERO_VALUE_SUFFIX
+  VERIFIED_STATUS_UNVERIFIED = 0;
+  VERIFIED_STATUS_IDENTITY = 1;
+  VERIFIED_STATUS_COMMUNITY = 2;
+}

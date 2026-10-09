@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_notification"
+    app:startDestination="@+id/notificationWatchlistFragment">
+    <fragment
+        android:name="com.stockbit.notif.ui.watchlist.NotificationWatchlistFragment"
+        android:id="@+id/notificationWatchlistFragment"/>
+    <fragment
+        android:name="com.stockbit.notif.ui.stream.NotificationStreamFragment"
+        android:id="@+id/notificationStreamFragment"/>
+</navigation>

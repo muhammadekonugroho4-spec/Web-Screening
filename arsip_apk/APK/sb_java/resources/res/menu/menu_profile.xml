@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_notif_profile"
+        android:title="@string/lbl_notification"
+        app:actionLayout="@layout/menu_view_notification_profile"
+        app:iconTint="?attr/themeIconTintColor"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_profile"
+        android:title="@string/menu_profile_menu"
+        app:actionLayout="@layout/menu_view_more"
+        app:iconTint="?attr/themeIconTintColor"
+        app:showAsAction="always"/>
+</menu>

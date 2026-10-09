@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:tag="layout/item_chart_filter_0"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/clickable_size_32">
+    <TextView
+        android:textSize="@dimen/text_size_13"
+        android:textColor="@color/color_single_choice_chart_filter"
+        android:gravity="center"
+        android:id="@+id/tv_filter_title"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingLeft="@dimen/item_gap_l"
+        android:paddingTop="@dimen/item_gap_m"
+        android:paddingRight="@dimen/item_gap_l"
+        android:paddingBottom="@dimen/item_gap_m"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TypeStyles.BodySmall"/>
+    <View
+        android:id="@+id/view_filter_underline"
+        android:background="@color/green_text"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_gap_null"
+        android:layout_alignLeft="@+id/tv_filter_title"
+        android:layout_alignRight="@+id/tv_filter_title"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

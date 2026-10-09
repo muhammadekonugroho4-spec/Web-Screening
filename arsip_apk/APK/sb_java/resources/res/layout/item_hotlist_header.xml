@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentRowHeaderHotlistRoot"
+    android:tag="layout/item_hotlist_header_0"
+    android:background="?attr/themeSeparatorGapColor"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/clickable_size_38"
+    android:foreground="?attr/selectableItemBackground"
+    android:minHeight="@dimen/clickable_size_48">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textSize="@dimen/text_size_16"
+        android:gravity="center_vertical"
+        android:id="@+id/tvRowHotlistHeaderTitle"
+        android:tag="binding_1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/SbTextView.ListTitle"/>
+    <ImageView
+        android:id="@+id/ivRowHotlistHeaderArrow"
+        android:layout_width="@dimen/clickable_size_32"
+        android:layout_height="@dimen/clickable_size_48"
+        android:layout_marginRight="@dimen/item_gap_s"
+        android:scaleType="centerInside"
+        android:layout_alignParentRight="true"
+        android:rotation="180"
+        android:layout_marginEnd="@dimen/item_gap_s"
+        android:layout_alignParentEnd="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

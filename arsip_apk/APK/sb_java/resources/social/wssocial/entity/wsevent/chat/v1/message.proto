@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package social.wssocial.entity.wsevent.chat.v1;
+
+import "social/chat/entity/v2/message.proto";
+import "social/chat/entity/v2/room.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/social/wssocial/entity/wsevent/chat/v1;event";
+
+message ReceivedMessage {
+  ReceivedMessageV1 v1 = 1;
+}
+
+message ReceivedMessageV1 {
+  string reference_id = 1;
+  social.chat.entity.v2.BaseRoom room = 2;
+
+  message RoomStatus {
+    bool is_muted = 1;
+    bool is_mentioned = 2;
+  }
+  RoomStatus room_status = 3;
+  social.chat.entity.v2.Message message = 4;
+  repeated string mentioned_usernames = 5;
+}

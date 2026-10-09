@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_crisp"
+    app:startDestination="@+id/crispActivity">
+    <activity
+        android:name="com.stockbit.support.CrispActivity"
+        android:id="@+id/crispActivity">
+        <argument
+            android:name="EXTRA_LAUNCH_LIVE_SUPPORT"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="EXTRA_LAUNCH_LIVE_SUPPORT_MESSAGE"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"/>
+    </activity>
+</navigation>

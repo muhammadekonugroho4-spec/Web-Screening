@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_discover_friend_0"
+    android:background="?attr/themeContentBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_friend"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ViewFlipper
+            android:tag="binding_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                android:id="@+id/empty_friend"
+                layout="@layout/comp_empty_state_friends"/>
+            <include
+                android:id="@+id/not_found_friend"
+                layout="@layout/comp_not_found_state_friends"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/sfl_follower_loading"
+                    android:tag="binding_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:tag="binding_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                        <include layout="@layout/skeleton_people_list"/>
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFriends"
+                android:tag="binding_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </ViewFlipper>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

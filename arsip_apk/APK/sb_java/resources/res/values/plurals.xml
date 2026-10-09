@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="chat_accept_message_request_description">
+        <item quantity="one">Are you sure want to accept %1$d message?</item>
+        <item quantity="other">Are you sure want to accept %1$d messages?</item>
+    </plurals>
+    <plurals name="chat_delete_message_request_description">
+        <item quantity="one">Are you sure want to delete %1$d message?</item>
+        <item quantity="other">Are you sure want to delete %1$d messages?</item>
+    </plurals>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">%d new notification</item>
+        <item quantity="other">%d new notifications</item>
+    </plurals>
+    <plurals name="personal_amend_title_hour">
+        <item quantity="one">%1$d Hour</item>
+        <item quantity="other">%1$d Hours</item>
+    </plurals>
+    <plurals name="personal_amend_title_minutes">
+        <item quantity="one">%1$d Minute</item>
+        <item quantity="other">%1$d Minutes</item>
+    </plurals>
+    <plurals name="text_number_stocks">
+        <item quantity="one">%d Stock</item>
+        <item quantity="other">%d Stocks</item>
+    </plurals>
+    <plurals name="text_prediction_day">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <plurals name="text_prediction_duration">
+        <item quantity="one">%d day left</item>
+        <item quantity="other">%d days left</item>
+    </plurals>
+    <plurals name="text_stream_comment">
+        <item quantity="one">%d Comment</item>
+        <item quantity="other">%d Comments</item>
+    </plurals>
+    <plurals name="title_seasonality_period_last_year">
+        <item quantity="one">Last %1$d Year</item>
+        <item quantity="other">Last %1$d Years</item>
+    </plurals>
+    <plurals name="title_seasonality_period_year">
+        <item quantity="one">%1$d Year</item>
+        <item quantity="other">%1$d Years</item>
+    </plurals>
+</resources>

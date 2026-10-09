@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_liveness"
+    app:startDestination="@+id/livenessPreparationFragment">
+    <fragment
+        android:name="com.stockbit.liveness.livenessprep.LivenessPreparationFragment"
+        android:id="@+id/livenessPreparationFragment">
+        <action
+            android:id="@+id/action_livenessPreparationFragment_to_livenessLimitDialogFragment"
+            app:destination="@+id/livenessLimitDialogFragment"/>
+        <argument
+            android:name="identityImageUrl"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false"/>
+        <argument
+            android:name="bankAmendData"
+            android:defaultValue="@null"
+            app:argType="com.stockbit.domain.model.entity.amendbank.BankAmendData"
+            app:nullable="true"/>
+    </fragment>
+    <dialog
+        android:name="com.stockbit.liveness.livenessprep.LivenessLimitDialog"
+        android:id="@+id/livenessLimitDialogFragment">
+        <argument
+            android:name="backToHomePage"
+            android:defaultValue="false"
+            app:argType="boolean"
+            app:nullable="false"/>
+    </dialog>
+</navigation>

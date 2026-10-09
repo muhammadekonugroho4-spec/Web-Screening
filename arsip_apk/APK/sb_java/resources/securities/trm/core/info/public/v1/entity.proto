@@ -1,0 +1,182 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package securities.trm.core.info.public.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option java_package = "securities.trm.core.info.publics.v1";
+option go_package = "go.stockbit.io/protos/gen/go/securities/trm/core/info/public/v1;entity";
+option java_multiple_files = true;
+
+enum EventType {
+  EVENT_TYPE_UNSPECIFIED = 0;
+  EVENT_TYPE_DISABLE_OUTSIDE_MARKET_HOURS = 1;
+  EVENT_TYPE_DISABLE_EXCEED_DEBT_RATIO = 2;
+}
+
+// DayTrade defines data on response DayTradeInfoResponse
+message DayTrade {
+  message DebtRatioRules {
+    double force_sell = 1;
+    double caution = 2;
+  }
+
+  int32 countdown_start = 1; // unit in second
+  int32 remaining_trading_close = 2; // unit in second
+  string trading_open = 3; // time open, eg: 00:00:00
+  string trading_close = 4; // time close, eg: 15:30:00
+  EventType event_type = 5;
+  DebtRatioRules debt_ratio_rules = 6;
+}
+
+// SplitOrder defines data on response DayTradeInfoResponse
+message SplitOrder {
+  int32 remaining_trading_open = 1; // unit in second
+  int32 remaining_trading_close = 2; // unit in second
+  string trading_open = 3; // time open, eg: 09:00:00
+  string trading_close = 4; // time close, eg: 16:00:00
+  int32 max_order = 5; // max split order
+  double max_lot_per_order = 6; // it is fine to use lot since only for display
+}
+
+// FIXMetadata defines metadata used on FIX Protocol for FIX Trading
+message FIXMetadata {
+  message Sender {
+    string comp_id = 1; // example: XL
+    string sub_id = 2; // example: xlft1001
+  }
+  message Target {
+    string comp_id = 1; // example: IDX
+  }
+  string code = 1; // example: IDXEQ
+  string name = 2; // example: XL_01
+  Sender sender = 3; // sender information
+  Target target = 4; // target information
+}
+
+enum CashSweepStatus {
+  CASH_SWEEP_STATUS_UNSPECIFIED = 0; // Default value - status is unknown or not set.
+  CASH_SWEEP_STATUS_NOT_ELIGIBLE = 1; // User is not eligible for cash sweep, typically due to insufficient
+  // equity or unsupported RDN account.
+  CASH_SWEEP_STATUS_ELIGIBLE = 2; // User meets eligibility criteria (sufficient
+  // equity and supported RDN Account)
+  CASH_SWEEP_STATUS_ACTIVATED = 3; // User meets eligibility criteria and has activated cash sweep
+}
+
+message CashSweep {
+  bool is_shown = 1; // whether cash sweep menu is shown
+  CashSweepStatus status = 2;
+  string ineligibility_reason = 3; // reason why cash sweep is not eligible
+}
+
+message MarginTrading {
+  // At Risk Ratio Threshold will be based on less than percentage (ex: 5%) of Margin Call Ratio Threshold
+  double at_risk_ratio_threshold = 1; // percentage of debt ratio to trigger at risk condition
+
+  // Margin Call Ratio Threshold will depends on the user's limit condition
+  double margin_call_ratio_threshold = 2; // percentage of debt ratio to trigger margin call condition
+
+  // Margin Call Consecutive Days will be provided by the configuration, it should be the same for all users
+  int32 margin_call_consecutive_days = 3; // number of consecutive days of margin call before force sell
+
+  // Force Sell Ratio Threshold will depends on the user's limit condition
+  double force_sell_ratio_threshold = 4; // percentage of debt ratio to trigger force sell
+
+  // Active Margin Call counter is the number of margin call that has been triggered
+  int32 active_margin_call_counter = 5; // margin call counter from risk-engine service
+}
+
+message IndependentAdvisor {
+  bool is_linked_account = 1;
+}
+
+message MarketCycle {
+  enum AllocationName {
+    // Proto numbers may become unordered if there are changes in the market
+    // cycle from IDX. However, this should not be an issue.
+    ALLOCATION_NAME_UNSPECIFIED = 0;
+    ALLOCATION_NAME_PRE_OPENING = 1;
+    ALLOCATION_NAME_PRE_OPENING_BREAK = 2;
+    ALLOCATION_NAME_FIRST_TRADING_SESSION = 3;
+    ALLOCATION_NAME_MARKET_BREAK = 4;
+    ALLOCATION_NAME_SECOND_TRADING_SESSION = 5;
+    ALLOCATION_NAME_PRE_CLOSING = 6;
+    ALLOCATION_NAME_CLOSING = 7;
+    ALLOCATION_NAME_POST_CLOSING_1 = 8;
+    ALLOCATION_NAME_POST_CLOSING_2 = 9;
+    ALLOCATION_NAME_MARKET_CLOSE = 10;
+  }
+
+  message Allocation {
+    AllocationName name = 1;
+    google.protobuf.Timestamp start_at = 3;
+    google.protobuf.Timestamp end_at = 4;
+  }
+
+  Allocation market_cycle_allocation = 1; // Will be ALLOCATION_NAME_MARKET_CLOSE when holiday
+  FullCallAuctionCycle full_call_auction_cycle = 2;
+}
+
+message FullCallAuctionCycle {
+  enum SessionType {
+    SESSION_TYPE_UNSPECIFIED = 0;
+    SESSION_TYPE_SESSION_1 = 1;
+    SESSION_TYPE_SESSION_2 = 2;
+    SESSION_TYPE_SESSION_3 = 3;
+    SESSION_TYPE_SESSION_4 = 4;
+    SESSION_TYPE_SESSION_5 = 5;
+    SESSION_TYPE_MARKET_BREAK = 6;
+    SESSION_TYPE_POST_CLOSING = 7;
+    SESSION_TYPE_MARKET_CLOSE = 8;
+  }
+
+  enum SessionPhase {
+    SESSION_PHASE_UNSPECIFIED = 0;
+    SESSION_PHASE_ORDER_COLLECTION = 1;
+    SESSION_PHASE_RANDOM_CLOSING = 2;
+    SESSION_PHASE_ORDER_MATCHING = 3;
+  }
+
+  message Banner {
+    string formatted_msg = 1; // e.g Order kamu akan diprocess pukul <b>09:55 - 10:00 WIB</b>
+  }
+
+  SessionType session_type = 1;
+  SessionPhase session_phase = 2;
+  Banner banner = 3;
+}
+
+message OrderCountLimit {
+  message SoftLimit {
+    int32 phase_1 = 1; // e.g. 2000
+    int32 phase_2 = 2; // e.g. 2500
+  }
+  SoftLimit soft_limit = 1;
+  int32 hard_limit = 2; // e.g. 3000
+  int32 user_order_count = 3; // e.g. 10, only for regular account
+  int32 user_daytrade_order_count = 4; // only for main account that has dayTrade virtual-account, for sub-account (multiporto) will be empty
+}
+
+// specify where to response trading info
+enum Feature {
+  // do not use
+  FEATURE_UNSPECIFIED = 0;
+  // feature specify for day trade
+  FEATURE_DAY_TRADE = 1;
+  // feature specify for split order
+  FEATURE_SPLIT_ORDER = 2;
+  // feature specify for trading metadata
+  FEATURE_FIX_METADATA = 3;
+  // feature specify for cash sweep
+  FEATURE_CASH_SWEEP = 4;
+  // feature specify for market cycle
+  FEATURE_MARKET_CYCLE = 5;
+  // feature specify for margin trading
+  FEATURE_MARGIN_TRADING = 6;
+  // feature specify for IFA
+  FEATURE_INDEPENDENT_ADVISOR = 7; // or IFA (independent financial advisors)
+  // feature specify for order count limit
+  FEATURE_ORDER_COUNT_LIMIT = 8;
+}

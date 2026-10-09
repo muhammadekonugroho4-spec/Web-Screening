@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_android_compose"
+        android:id="@+id/action_create_new_stream_post"
+        android:title="@string/btn_write_new_post"
+        app:actionLayout="@layout/menu_view_create_stream_post"
+        app:iconTint="?attr/themeIconTintColor"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/ic_android_notification"
+        android:id="@+id/action_notification"
+        android:title="@string/lbl_notification"
+        app:actionLayout="@layout/menu_view_notification_badge"
+        app:iconTint="?attr/themeIconTintColor"
+        app:showAsAction="ifRoom"/>
+</menu>

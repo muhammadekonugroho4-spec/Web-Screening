@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_user_auth_sms_otp"
+    app:startDestination="@+id/smsOTPFragment">
+    <include app:graph="@navigation/nav_graph_register_oa"/>
+    <include app:graph="@navigation/nav_graph_register_country_select"/>
+    <fragment
+        android:label="SmsOTPFragment"
+        android:name="com.stockbit.userauth.ui.smsotp.SmsOTPFragment"
+        android:id="@+id/smsOTPFragment">
+        <argument
+            android:name="smsOtpType"
+            app:argType="com.stockbit.domain.model.type.otp.SmsOTPType"
+            app:nullable="false"/>
+        <action
+            android:id="@+id/action_smsOTPFragment_to_navGraphVerifyEmail"
+            app:destination="@+id/nav_graph_verify_email"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/nav_graph_verify_email"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="EXTRA_EMAIL_VERIFICATION"
+                android:defaultValue="@null"
+                app:argType="com.stockbit.domain.model.entity.EmailVerificationArg"
+                app:nullable="true"/>
+        </action>
+        <action
+            android:id="@+id/action_smsOTPFragment_to_navGraphRegisterOA"
+            app:destination="@+id/nav_graph_register_oa"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_smsOTPFragment_popUp"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popUpTo="@+id/smsOTPFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/openLoginPage"
+            app:destination="@+id/fragmentLogin"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/fragmentRegister"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/openTradingOpeningAccount"
+            app:destination="@+id/nav_graph_register_oa"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+</navigation>

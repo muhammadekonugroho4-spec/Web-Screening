@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/item_metric_option_0"
+    android:paddingTop="@dimen/item_gap_12"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_metric_option_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/item_gap_12"
+        app:layout_constraintBottom_toBottomOf="@+id/rb_metric_option"
+        app:layout_constraintEnd_toStartOf="@+id/rb_metric_option"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rb_metric_option"
+        style="@style/TypeStyles.BodyRegular"/>
+    <com.stockbit.uikit.control.ControlRadioButton
+        android:id="@+id/rb_metric_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:radioType="tick"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

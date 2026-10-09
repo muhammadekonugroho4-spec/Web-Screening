@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/top_bar_height">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:ellipsize="end"
+        android:id="@+id/bottom_sheet_topbar_left_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/spacing_20"
+        android:layout_marginEnd="@dimen/spacing_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TypeStyles.HeadingLarge"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bottom_sheet_topbar_left_iv_action_4"
+        android:visibility="gone"
+        android:layout_width="@dimen/icon_placeholder_24"
+        android:layout_height="@dimen/icon_placeholder_24"
+        android:layout_marginEnd="@dimen/spacing_16"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bottom_sheet_topbar_left_iv_action_3"
+        android:visibility="gone"
+        android:layout_width="@dimen/icon_placeholder_24"
+        android:layout_height="@dimen/icon_placeholder_24"
+        android:layout_marginEnd="@dimen/spacing_16"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bottom_sheet_topbar_left_iv_action_2"
+        android:visibility="gone"
+        android:layout_width="@dimen/icon_placeholder_24"
+        android:layout_height="@dimen/icon_placeholder_24"
+        android:layout_marginEnd="@dimen/spacing_16"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bottom_sheet_topbar_left_iv_action_1"
+        android:visibility="gone"
+        android:layout_width="@dimen/icon_placeholder_24"
+        android:layout_height="@dimen/icon_placeholder_24"
+        android:layout_marginEnd="@dimen/spacing_20"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

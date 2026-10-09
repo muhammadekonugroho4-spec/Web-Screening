@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_more_horizontal_light"
+        android:id="@+id/menu_more"
+        android:visible="true"
+        android:title="@string/lbl_more"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:icon="@drawable/ic_android_search"
+        android:id="@+id/menu_search"
+        android:visible="false"
+        android:title="@string/lbl_more"
+        app:showAsAction="ifRoom"/>
+</menu>

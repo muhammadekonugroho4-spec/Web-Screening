@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:tag="layout/layout_portfolio_filter_0"
+    android:background="?attr/themeColorSurfaceVariant"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="192dp">
+    <include
+        android:id="@+id/layout_item_stocks"
+        layout="@layout/item_portfolio_filter"/>
+    <com.stockbit.uikit.divider.SBDivider
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <include
+        android:id="@+id/layout_item_bonds"
+        layout="@layout/item_portfolio_filter"/>
+    <com.stockbit.uikit.divider.SBDivider
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <include
+        android:id="@+id/layout_item_portfolio"
+        layout="@layout/item_portfolio_filter"/>
+</LinearLayout>

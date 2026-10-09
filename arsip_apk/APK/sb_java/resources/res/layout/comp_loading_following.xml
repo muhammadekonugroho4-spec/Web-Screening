@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center"
+    android:id="@+id/progress_follow_status"
+    android:tag="layout/comp_loading_following_0"
+    android:focusable="false"
+    android:clickable="false"
+    android:layout_width="@dimen/spacing_24"
+    android:layout_height="@dimen/spacing_24"
+    android:indeterminate="true"
+    android:indeterminateTint="@color/green_text"/>

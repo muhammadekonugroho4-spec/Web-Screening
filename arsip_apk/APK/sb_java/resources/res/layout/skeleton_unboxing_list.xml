@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sfl_unboxing_stock"
+    android:tag="layout/skeleton_unboxing_list_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll_shimmer_chip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:background="@drawable/bg_rounded_gray"
+                android:layout_width="@dimen/spacing_48"
+                android:layout_height="@dimen/clickable_size_28"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:layout_marginBottom="@dimen/spacing_24"
+                android:layout_marginStart="@dimen/spacing_20"
+                android:backgroundTint="?attr/themeShimmer"/>
+            <View
+                android:background="@drawable/bg_rounded_gray"
+                android:layout_width="@dimen/height_68"
+                android:layout_height="@dimen/clickable_size_28"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:layout_marginBottom="@dimen/spacing_24"
+                android:layout_marginStart="@dimen/spacing_8"
+                android:backgroundTint="?attr/themeShimmer"/>
+            <View
+                android:background="@drawable/bg_rounded_gray"
+                android:layout_width="@dimen/height_68"
+                android:layout_height="@dimen/clickable_size_28"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:layout_marginBottom="@dimen/spacing_24"
+                android:layout_marginStart="@dimen/spacing_8"
+                android:backgroundTint="?attr/themeShimmer"/>
+        </LinearLayout>
+        <include layout="@layout/skeleton_unboxing_content"/>
+        <include layout="@layout/skeleton_unboxing_content"/>
+        <include layout="@layout/skeleton_unboxing_content"/>
+        <include layout="@layout/skeleton_unboxing_content"/>
+        <include layout="@layout/skeleton_unboxing_content"/>
+        <include layout="@layout/skeleton_unboxing_content"/>
+        <include layout="@layout/skeleton_unboxing_content"/>
+    </LinearLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>

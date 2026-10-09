@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:left="@dimen/item_gap_m"
+        android:top="@dimen/item_gap_s"
+        android:right="@dimen/item_gap_m"
+        android:bottom="@dimen/item_gap_s">
+        <selector>
+            <item
+                android:state_checked="true"
+                android:drawable="@drawable/ic_check_circle_green_24dp"/>
+            <item
+                android:state_checked="false"
+                android:drawable="@drawable/ic_radio_button_unchecked_black_24dp"/>
+        </selector>
+    </item>
+</layer-list>

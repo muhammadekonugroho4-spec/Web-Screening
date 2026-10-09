@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/skeleton_horizontal_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:shimmer_auto_start="true">
+    <View
+        android:background="@drawable/bg_rounded_gray"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_16"
+        android:backgroundTint="?attr/themeSeparatorGapColor"/>
+</com.facebook.shimmer.ShimmerFrameLayout>

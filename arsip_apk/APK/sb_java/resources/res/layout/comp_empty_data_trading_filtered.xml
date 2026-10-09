@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/parent_clickable_reset"
+    android:tag="layout/comp_empty_data_trading_filtered_0"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:padding="@dimen/item_gap_l"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_reset_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:textSize="@dimen/text_size_18"
+        android:gravity="center"
+        android:id="@+id/tv_tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_14"
+        android:text="@string/msg_no_results_found"
+        style="@style/TypeStyles.HeadlineRegular"/>
+    <TextView
+        android:textSize="@dimen/text_size_16"
+        android:textColor="?attr/themeColorTextSecondary"
+        android:gravity="center"
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_8"
+        android:text="@string/empty_message_order_list_filtered"
+        style="@style/TypeStyles.BodyLarge"/>
+    <com.stockbit.uikit.button.EllipseButton
+        android:id="@+id/btn_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_14"
+        android:text="@string/btn_tap_to_reset_filter"/>
+</LinearLayout>

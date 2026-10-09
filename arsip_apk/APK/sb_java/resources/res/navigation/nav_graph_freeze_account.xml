@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_freeze_account"
+    app:startDestination="@+id/freezeAccountFragment">
+    <fragment
+        android:label="FreezeAccountFragment"
+        android:name="com.stockbit.feature.freezeaccount.FreezeAccountFragment"
+        android:id="@+id/freezeAccountFragment">
+        <action
+            android:id="@+id/action_freezeAccountFragment_to_freezeAccountSuccessFragment"
+            app:destination="@+id/freezeAccountSuccessFragment"/>
+        <argument
+            android:name="securitiesMaintenanceParam"
+            app:argType="com.stockbit.feature.freezeaccount.contract.FreezeAccountSecuritiesMaintenanceParam"/>
+    </fragment>
+    <fragment
+        android:label="FreezeAccountSuccessFragment"
+        android:name="com.stockbit.feature.freezeaccount.FreezeAccountSuccessFragment"
+        android:id="@+id/freezeAccountSuccessFragment"/>
+</navigation>

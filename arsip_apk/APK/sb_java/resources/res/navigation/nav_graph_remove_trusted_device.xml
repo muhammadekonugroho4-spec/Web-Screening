@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_remove_trusted_device"
+    app:startDestination="@+id/removeCompletionFragment">
+    <fragment
+        android:label="RemoveCompletionFragment"
+        android:name="com.stockbit.feature.trusteddevice.ui.remove.completion.RemoveCompletionFragment"
+        android:id="@+id/removeCompletionFragment">
+        <argument
+            android:name="removalToken"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
+</navigation>

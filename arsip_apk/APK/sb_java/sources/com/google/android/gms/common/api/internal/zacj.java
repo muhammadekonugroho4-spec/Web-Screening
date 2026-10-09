@@ -1,0 +1,17 @@
+package com.google.android.gms.common.api.internal;
+
+/* loaded from: classes5.dex */
+public final /* synthetic */ class zacj implements Runnable {
+    public static final /* synthetic */ zacj zaa = null;
+
+    static {
+        zaa = new zacj();
+    }
+
+    private /* synthetic */ zacj() {
+    }
+
+    @Override // java.lang.Runnable
+    public final void run() {
+    }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.stockbit.uikit.topbar.TopBarStockbitSearch xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_search_bar_rounded_searching"
+    android:tag="layout/comp_search_followers_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/transparent"
+    app:topBarSearchPrefixIcon="@drawable/uikit_ic_stockbit_search_bar_search"
+    app:topBarSearchQueryHint="@string/text_hint_search_friend"
+    app:topBarSearchQueryImeOptions="actionSearch"
+    app:topBarSearchSuffixIcon="@drawable/ic_search_profile_clear_text"
+    app:topBarSearchVariant="container_fill"/>

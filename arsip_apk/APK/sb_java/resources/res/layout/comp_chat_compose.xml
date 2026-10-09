@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/comp_chat_compose_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <MultiAutoCompleteTextView
+        android:textAppearance="@style/TypeStyles.BodyRegular"
+        android:textColor="?attr/themeColorTextPrimary"
+        android:textColorHint="?attr/themeColorTextTetriary"
+        android:gravity="center_vertical"
+        android:id="@+id/et_chat_compose"
+        android:background="@drawable/bg_rounded_grey_with_border_and_radius_20"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/chat_compose_hint"
+        android:maxLines="12"
+        android:inputType="textMultiLine"
+        android:paddingStart="@dimen/spacing_16"
+        android:paddingEnd="@dimen/item_gap_44"
+        android:paddingVertical="@dimen/item_gap_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+        android:id="@+id/iv_chat_compose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_sticker_active"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:layout_marginVertical="@dimen/item_gap_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

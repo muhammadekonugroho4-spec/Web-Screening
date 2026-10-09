@@ -1,0 +1,17 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package financial.company_price_feed.entity.v2;
+
+option go_package = "go.stockbit.io/protos/gen/go/financial/company_price_feed/entity/v2;entity";
+
+message IEPIEV {
+  string stock_code = 1 [json_name = "stock_code"];
+  double iep = 2;
+  double iev = 3;
+  int64 sequence_number = 4 [json_name = "sequence_number"];
+  string datetime = 5;
+  double iep_change = 6;
+  double iep_change_percentage = 7;
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_parent_more_report_unboxing"
+    android:tag="layout/item_more_report_unboxing_0"
+    android:layout_width="@dimen/width_150"
+    android:layout_height="@dimen/height_200"
+    app:cardCornerRadius="@dimen/shape_radius_6"
+    app:cardElevation="0dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:background="?attr/themeColorSurfaceVariant"
+        android:paddingTop="@dimen/spacing_12"
+        android:paddingBottom="@dimen/spacing_16"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/spacing_16">
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_unboxing_see_other"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/TypeStyles.HeadingRegular"/>
+        <com.google.android.material.button.MaterialButton
+            android:textColor="@color/white"
+            android:id="@+id/btn_more_unboxing"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/clickable_size_38"
+            android:text="@string/button_see_all"
+            android:textAllCaps="false"
+            android:letterSpacing="0"
+            app:backgroundTint="@color/green_text"
+            app:cornerRadius="@dimen/clickable_size_50"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/TypeStyles.HeadingXSmall"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

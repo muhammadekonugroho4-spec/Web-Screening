@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_main_list_0"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/item_gap_null"
+        style="@style/Sb.Widget.AppBar">
+        <com.stockbit.uikit.topbar.TopbarStockbitTitle
+            android:id="@+id/tb_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_price_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/green_text"
+            app:tabMode="fixed"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextColor="?attr/themeColorTextPrimary"
+            app:tabTextAppearance="@style/AppTabTextAppearance.PriceAlert"
+            app:tabTextColor="?attr/themeColorTextSecondary"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.stockbit.common.uikit.ExViewPager
+        android:id="@+id/vp_price_alert"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    <include
+        android:id="@+id/dialog_paywall"
+        android:visibility="gone"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        layout="@layout/dialog_bottom_sheet_info"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

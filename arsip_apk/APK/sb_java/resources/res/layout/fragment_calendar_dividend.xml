@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/fragment_calendar_dividend_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.evrencoskun.tableview.TableView
+        android:id="@+id/tv_content"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:row_header_width="@dimen/width_100"
+        app:selected_color="@color/transparent"
+        app:show_vertical_separator="false"
+        app:unselected_color="@color/transparent"/>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:tag="binding_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:tag="binding_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/skeleton_calendar_column"/>
+            <include layout="@layout/skeleton_calendar_column"/>
+            <include layout="@layout/skeleton_calendar_column"/>
+            <include layout="@layout/skeleton_calendar_column"/>
+            <include layout="@layout/skeleton_calendar_column"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <include
+        android:id="@+id/layout_error"
+        layout="@layout/comp_error_state"/>
+</ViewFlipper>

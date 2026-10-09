@@ -1,0 +1,7 @@
+package io.sentry.ndk;
+
+/* loaded from: classes3.dex */
+public final class NativeModuleListLoader {
+    public NativeModuleListLoader() {
+    }
+}

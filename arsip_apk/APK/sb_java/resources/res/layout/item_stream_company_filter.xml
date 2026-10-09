@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/item_stream_company_filter_0"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <com.google.android.material.chip.Chip
+        android:textAppearance="@style/SdChipText"
+        android:gravity="center"
+        android:id="@+id/chip_stream_filter"
+        android:padding="@dimen/spacing_6"
+        android:focusable="false"
+        android:clickable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/clickable_size_38"
+        android:checkable="false"
+        android:textAlignment="gravity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/SbChipGreenBackground"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lav_notification_sparkles"
+        android:visibility="gone"
+        android:layout_width="@dimen/spacing_0"
+        android:layout_height="@dimen/spacing_0"
+        app:layout_constraintBottom_toBottomOf="@+id/chip_stream_filter"
+        app:layout_constraintEnd_toEndOf="@+id/chip_stream_filter"
+        app:layout_constraintStart_toStartOf="@+id/chip_stream_filter"
+        app:layout_constraintTop_toTopOf="@+id/chip_stream_filter"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/lottie_anim_chip_particles"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

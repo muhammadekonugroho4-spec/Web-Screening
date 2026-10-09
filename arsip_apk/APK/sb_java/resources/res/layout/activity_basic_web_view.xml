@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/activity_basic_web_view_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.stockbit.uikit.topbar.TopbarStockbitTitle
+        android:id="@+id/toolbar_webview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topBarType="CenterTitle"/>
+    <com.stockbit.component.webview.component.SbWebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

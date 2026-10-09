@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:tag="layout/comp_company_error_state_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="@dimen/item_gap_20">
+    <ImageView
+        android:id="@+id/iv_error_wv_chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_gap_30"
+        app:srcCompat="?attr/themeIconNetworkErrorInternalServer"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_gap_8"
+        android:text="@string/uikit_generic_network_error_title_internal_server"
+        style="@style/TypeStyles.HeadingRegular"/>
+    <TextView
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_gap_20"
+        android:text="@string/uikit_generic_network_error_desc_internal_server"
+        android:layout_marginHorizontal="@dimen/spacing_50"
+        style="@style/TypeStyles.BodyXSmall"/>
+    <com.stockbit.uikit.button.EllipseButton
+        android:id="@+id/btn_try_again"
+        android:tag="binding_1"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_40"
+        android:text="@string/common_try_again_en"
+        android:textAllCaps="false"
+        style="@style/TypeStyles.HeadingSmall"/>
+</LinearLayout>

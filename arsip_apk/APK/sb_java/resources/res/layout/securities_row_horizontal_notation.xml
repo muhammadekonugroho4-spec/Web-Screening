@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_row_horizontal_notation"
+    android:tag="layout/securities_row_horizontal_notation_0"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_row_horizontal_notation_icon"
+        android:layout_width="@dimen/width_12"
+        android:layout_height="@dimen/avatar_size_11.5"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/item_gap_xxs"
+        android:layout_marginEnd="@dimen/item_gap_xxs"/>
+</RelativeLayout>

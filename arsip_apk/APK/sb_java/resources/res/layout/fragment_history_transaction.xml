@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:tag="layout/fragment_history_transaction_0"
+    android:background="?attr/themeColorSurfaceDefault"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="?attr/themeColorSurfaceDefault"
+        android:paddingLeft="@dimen/spacing_0"
+        android:paddingRight="@dimen/spacing_0"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetLeft="@dimen/spacing_0"
+        app:contentInsetStart="@dimen/spacing_0"
+        app:contentInsetStartWithNavigation="@dimen/spacing_0"
+        app:elevation="@dimen/spacing_0">
+        <RelativeLayout
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/parent_toolbar_history_transaction"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minHeight="?attr/actionBarSize">
+            <TextView
+                android:ellipsize="middle"
+                android:gravity="center"
+                android:id="@+id/tv_title_history_transaction"
+                android:paddingLeft="@dimen/spacing_16"
+                android:paddingRight="@dimen/spacing_16"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/lbl_title_history_transaction"
+                android:singleLine="true"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="gravity"
+                style="@style/SbTextView.PageTitle"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <include
+        android:id="@+id/parent_trading_history_stockbit_header_layout"
+        layout="@layout/comp_trading_history_transaction_stockbit_header"/>
+    <ViewFlipper
+        android:id="@+id/vf_fragment_trading_history_stockbit"
+        android:tag="binding_1"
+        android:background="?attr/themeColorSurfaceDefault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_trading_history_stockbit_loading"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:tag="binding_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/skeleton_item_history_stockbit"/>
+                <include layout="@layout/skeleton_item_history_stockbit"/>
+                <include layout="@layout/skeleton_item_history_stockbit"/>
+                <include layout="@layout/skeleton_item_history_stockbit"/>
+                <include layout="@layout/skeleton_item_history_stockbit"/>
+                <include layout="@layout/skeleton_item_history_stockbit"/>
+                <include layout="@layout/skeleton_item_history_stockbit"/>
+                <include layout="@layout/skeleton_item_history_stockbit"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_fragment_trading_history_stockbit"
+            android:tag="binding_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_fragment_trading_history_stockbit"
+                android:background="?attr/themeColorSurfaceDefault"
+                android:scrollbars="vertical"
+                android:clipToPadding="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <include
+            android:layout_gravity="center"
+            android:id="@+id/parent_error_trading_history_stockbit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/comp_icon_error_view"/>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_fragment_trading_history_stockbit_empty_state"
+            android:tag="binding_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nsv_fragment_trading_history_stockbit"
+                android:tag="binding_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <include layout="@layout/comp_empty_data_trading_stockbit_history_transaction"/>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </ViewFlipper>
+</LinearLayout>

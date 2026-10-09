@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:tag="layout/item_calendar_economic_corner_0"
+    android:background="?attr/themeContentBackground"
+    android:layout_width="@dimen/width_100"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_corp_date"
+        android:lines="1"
+        android:layout_marginHorizontal="@dimen/spacing_16"
+        android:layout_marginVertical="@dimen/item_gap_13"
+        style="@style/TypeStyles.HeadingSmall"/>
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:textAppearance="@style/TypeStyles.BodyXSmall"
+    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="@dimen/clickable_size_38"
+    android:minHeight="@dimen/clickable_size_28"
+    android:textAlignment="gravity"
+    android:paddingHorizontal="@dimen/spacing_16"
+    app:chipCornerRadius="@dimen/item_gap_15"
+    style="@style/SbChipGreenBackground"/>

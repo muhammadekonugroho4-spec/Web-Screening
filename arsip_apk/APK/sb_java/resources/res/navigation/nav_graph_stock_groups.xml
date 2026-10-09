@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_stock_groups"
+    app:startDestination="@+id/stockGroupFragment">
+    <fragment
+        android:label="StockGroupFragment"
+        android:name="com.stockbit.stockgroups.ui.main.StockGroupFragment"
+        android:id="@+id/stockGroupFragment">
+        <argument
+            android:name="pageType"
+            app:argType="com.stockbit.stockgroups.contract.model.StockGroupPageType"/>
+        <argument
+            android:name="sourceType"
+            app:argType="com.stockbit.stockgroups.contract.model.StockGroupNavSourceType"/>
+        <argument
+            android:name="groupCode"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="groupName"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="catalogId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="groups"
+            app:argType="com.stockbit.stockgroups.contract.model.StockGroupTab[]"/>
+    </fragment>
+</navigation>

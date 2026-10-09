@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.midtrans.sdk.uikit.widgets.DefaultTextView
+        android:textColor="@color/black"
+        android:ellipsize="end"
+        android:id="@+id/item_name"
+        android:padding="@dimen/eight_dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_weight="5"/>
+    <com.midtrans.sdk.uikit.widgets.DefaultTextView
+        android:textColor="@color/black"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:id="@+id/item_quantity"
+        android:paddingTop="@dimen/eight_dp"
+        android:paddingBottom="@dimen/eight_dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+    <com.midtrans.sdk.uikit.widgets.BoldTextView
+        android:textColor="@color/black"
+        android:ellipsize="end"
+        android:gravity="right"
+        android:id="@+id/item_price"
+        android:padding="@dimen/eight_dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_weight="3"/>
+</LinearLayout>

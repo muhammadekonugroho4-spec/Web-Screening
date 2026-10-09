@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vf_content"
+    android:tag="layout/fragment_notification_list_0"
+    android:background="?attr/themeColorSurfaceDefault"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/sfl_notif_loading"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:tag="binding_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+            <include layout="@layout/skeleton_item_notification"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:background="?attr/themeColorSurfaceDefault"
+            android:scrollbars="vertical"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <include
+        android:layout_gravity="center"
+        android:id="@+id/comp_error_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/comp_icon_error_view"/>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_empty"
+        android:tag="binding_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/comp_empty_data_notif"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_empty_report"
+        android:tag="binding_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/comp_empty_data_notif_report"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</ViewFlipper>

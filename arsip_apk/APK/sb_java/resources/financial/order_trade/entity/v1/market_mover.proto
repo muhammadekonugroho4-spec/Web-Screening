@@ -1,0 +1,148 @@
+// Copyright (c) 2021-2025 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package financial.order_trade.entity.v1;
+
+import "financial/emitten/entity/v1/catalog.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/financial/order_trade/entity/v1;entity";
+
+enum MoverCategory {
+  // Unspecified type. DO NOT USE THIS TYPE.
+  MOVER_CATEGORY_UNSPECIFIED = 0;
+  MOVER_CATEGORY_MARKET_MOVER = 1; // for TOP_VALUE, TOP_VOLUME, etc
+  MOVER_CATEGORY_IEPIEV_MOVER = 2; // for IEV, IEVAL, etc
+}
+
+enum MoverType {
+  // Unspecified movers type. DO NOT USE THIS TYPE.
+  MOVER_TYPE_UNSPECIFIED = 0;
+  MOVER_TYPE_TOP_VALUE = 1;
+  MOVER_TYPE_TOP_VOLUME = 2;
+  MOVER_TYPE_TOP_FREQUENCY = 3;
+  MOVER_TYPE_TOP_GAINER = 4;
+  MOVER_TYPE_TOP_LOSER = 5;
+  MOVER_TYPE_NET_FOREIGN_BUY = 6;
+  MOVER_TYPE_NET_FOREIGN_SELL = 7;
+  MOVER_TYPE_IEP_CURRENT_TOP_GAINER = 8;
+  MOVER_TYPE_IEP_CURRENT_TOP_LOSER = 9;
+  MOVER_TYPE_IEV_TOP_GAINER = 10;
+  MOVER_TYPE_IEV_TOP_LOSER = 11;
+  MOVER_TYPE_IEVAL_TOP_GAINER = 12;
+  MOVER_TYPE_IEVAL_TOP_LOSER = 13;
+  MOVER_TYPE_IEP_PREV_TOP_GAINER = 14;
+  MOVER_TYPE_IEP_PREV_TOP_LOSER = 15;
+  MOVER_TYPE_BIG_MONEY_NET_VALUE = 16; // big money net sell desc
+  MOVER_TYPE_CATALOG = 17; // curated catalog (e.g., Konglo, Sector)
+  MOVER_TYPE_BIG_MONEY_NET_SELL = 18; // big money net sell asc
+  MOVER_TYPE_CATALOG_KONGLO_MCAP_CHANGE = 19; // catalog sort by market cap change
+  MOVER_TYPE_CATALOG_KONGLO_MCAP_PCHANGE = 20; // catalog sort by market cap percentage change
+}
+
+enum FilterStocksType {
+  // Unspecified stock type. DO NOT USE THIS TYPE.
+  FILTER_STOCKS_TYPE_UNSPECIFIED = 0;
+  FILTER_STOCKS_TYPE_MAIN_BOARD = 1;
+  FILTER_STOCKS_TYPE_DEVELOPMENT_BOARD = 2;
+  FILTER_STOCKS_TYPE_ACCELERATION_BOARD = 3;
+  FILTER_STOCKS_TYPE_NEW_ECONOMY_BOARD = 4;
+  FILTER_STOCKS_TYPE_SPECIAL_MONITORING_BOARD = 5;
+  FILTER_STOCKS_TYPE_WARRANT_AND_RIGHT = 6;
+  FILTER_STOCKS_TYPE_SHARIA = 7;
+}
+
+message MarketMover {
+  message NotationDetail {
+    string code = 1; // ex: 'X'
+    string description = 2; // ex: 'Efek Bersifat Ekuitas Dalam Pemantauan Khusus'
+  }
+
+  message CorpactionDetail {
+    bool active = 1;
+    string icon_url = 2 [json_name = "icon_url"];
+    string text = 3;
+  }
+
+  message StockDetail {
+    string code = 1; // ex: 'TLKM'
+    string name = 2; // ex: 'Bank Central Asia Tbk'
+    string icon_url = 3 [json_name = "icon_url"]; // ex: 'https://cdn.stockbit.com/stock-icon/TLKM.png'
+    bool has_uma = 4 [json_name = "has_uma"];
+    repeated NotationDetail notations = 5;
+    CorpactionDetail corpaction = 6;
+  }
+
+  message IEPIEVDetail {
+    MoverValue iep = 1;
+    MoverValue iev = 2;
+    MoverValue ieval = 3;
+    MoverValue iep_change = 4 [json_name = "iep_change"];
+    MoverValue iep_change_prev = 5 [json_name = "iep_change_prev"];
+    MoverValue iep_price_diff = 6 [json_name = "iep_price_diff"];
+    MoverValue iep_prev_price_diff = 7 [json_name = "iep_prev_price_diff"];
+  }
+
+  message CatalogDetail {
+    string code = 1; // ex: 'BARITO'
+    string name = 2; // ex: 'Barito Group'
+    string icon_url = 3 [json_name = "icon_url"]; // ex: 'https://cdn.stockbit.com/stock-icon/TLKM.png'
+    int32 up_count = 4 [json_name = "up_count"];
+    int32 down_count = 5 [json_name = "down_count"];
+    int32 unchanged_count = 6 [json_name = "unchanged_count"];
+    int32 stock_count = 7 [json_name = "stock_count"];
+    int64 catalog_id = 8 [json_name = "catalog_id"];
+  }
+
+  StockDetail stock_detail = 1 [json_name = "stock_detail"];
+  double price = 2;
+  Change change = 3;
+  MoverValue value = 4;
+  MoverValue volume = 5;
+  MoverValue frequency = 6;
+  MoverValue net_foreign_buy = 7 [json_name = "net_foreign_buy"];
+  MoverValue net_foreign_sell = 8 [json_name = "net_foreign_sell"];
+  MoverValue net_buy = 9 [json_name = "net_buy"];
+  MoverValue net_sell = 10 [json_name = "net_sell"];
+  IEPIEVDetail iepiev_detail = 11 [json_name = "iepiev_detail"];
+  MoverValue big_money_net_value = 12 [json_name = "big_money_net_value"];
+  double buy_value_percentage = 13 [json_name = "buy_value_percentage"];
+  double sell_value_percentage = 14 [json_name = "sell_value_percentage"];
+  double big_money_buy_value_percentage = 15 [json_name = "big_money_buy_value_percentage"];
+  double big_money_sell_value_percentage = 16 [json_name = "big_money_sell_value_percentage"];
+  double bid_percent = 17 [json_name = "bid_percent"]; // %Bid = Total Bid Volume / (Total Bid + Total Offer) × 100%
+  CatalogDetail catalog_detail = 18 [json_name = "catalog_detail"];
+  MarketCapInfo market_cap = 19 [json_name = "market_cap"];
+}
+
+message MarketMoverBatch {
+  repeated MarketMover batch = 1;
+  MoverType mover_type = 2 [json_name = "mover_type"];
+  repeated FilterStocksType filter_stocks = 3 [json_name = "filter_stocks"];
+  financial.emitten.entity.v1.CatalogType catalog_type = 4 [json_name = "catalog_type"];
+  int64 catalog_id = 5 [json_name = "catalog_id"];
+}
+
+message Change {
+  double value = 1;
+  double percentage = 2;
+}
+
+message MoverValue {
+  double raw = 1;
+  string formatted = 2; // ex: '1.25 M' or '3.75 B'
+}
+
+message MarketMoverWebsocketRequest {
+  MoverType mover_type = 1 [json_name = "mover_type"];
+  repeated FilterStocksType filter_stocks = 2 [json_name = "filter_stocks"];
+  financial.emitten.entity.v1.CatalogType catalog_type = 3 [json_name = "catalog_type"];
+  int64 catalog_id = 4 [json_name = "catalog_id"];
+}
+
+message MarketCapInfo {
+  MoverValue current = 1;
+  MoverValue previous = 2;
+  MoverValue change = 3; // value change = current - previous
+  double percentage = 4;
+}

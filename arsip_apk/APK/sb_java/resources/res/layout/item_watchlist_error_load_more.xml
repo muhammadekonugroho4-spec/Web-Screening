@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:id="@+id/ll_parent"
+    android:tag="layout/item_watchlist_error_load_more_0"
+    android:background="?attr/selectableItemBackground"
+    android:paddingLeft="@dimen/item_gap_s"
+    android:paddingRight="@dimen/item_gap_s"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/height_16">
+    <ImageView
+        android:layout_width="@dimen/item_gap_l"
+        android:layout_height="@dimen/item_gap_l"
+        android:contentDescription="@string/btn_tap_to_refresh"
+        app:srcCompat="@drawable/ic_loading"
+        app:tint="@color/highempasis_light"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_s"
+        android:text="@string/btn_tap_to_refresh"
+        style="@style/SbTextView.Caption.Bold"/>
+</LinearLayout>

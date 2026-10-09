@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_broker"
+    android:tag="layout/row_broker_0"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/item_gap_s"
+    android:layout_marginBottom="@dimen/item_gap_8"
+    app:cardBackgroundColor="?attr/themeColorSurfaceDefault"
+    app:cardCornerRadius="@dimen/item_gap_8"
+    app:cardElevation="1dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/bg_rounded_outline_component_light_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/clickable_size_60">
+        <TextView
+            android:id="@+id/tv_broker_name"
+            android:tag="binding_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_gap_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/SbTextView.ListTitle.Highempasis.Bold"/>
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/ivNextIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/item_gap_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_broker_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_broker_name"
+            app:srcCompat="@drawable/ic_chevron_right_green"
+            app:tint="?attr/themeNeutral"
+            style="@style/SbTextView.BodyDefault"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

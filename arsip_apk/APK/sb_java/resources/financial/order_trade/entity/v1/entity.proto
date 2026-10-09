@@ -1,0 +1,132 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package financial.order_trade.entity.v1;
+
+import "financial/order_trade/entity/v1/broker.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "go.stockbit.io/protos/gen/go/financial/order_trade/entity/v1;entity";
+
+enum ActionType {
+  // Unspecified action type. DO NOT USE THIS TYPE. WON'T BE PROCESSED.
+  ACTION_TYPE_UNSPECIFIED = 0;
+
+  // Action type for buy.
+  ACTION_TYPE_BUY = 1;
+
+  // Action type for sell.
+  ACTION_TYPE_SELL = 2;
+
+  // Action type for all.
+  ACTION_TYPE_ALL = 3;
+}
+
+enum OrderStatus {
+  // Unspecified order status. DO NOT USE THIS STATUS. WON'T BE PROCESSED.
+  ORDER_STATUS_UNSPECIFIED = 0;
+
+  // Order status for open order.
+  ORDER_STATUS_OPEN = 1;
+
+  // Order status for full match order.
+  ORDER_STATUS_FULL_MATCH = 2;
+
+  // Order status for withdrawn order.
+  ORDER_STATUS_WITHDRAWN = 3;
+
+  // Order status for partial match order.
+  ORDER_STATUS_PARTIAL_MATCH = 4;
+
+  // Order status for amend order.
+  ORDER_STATUS_AMEND = 5;
+
+  // Order status for all order.
+  ORDER_STATUS_ALL = 6;
+}
+
+enum BoardType {
+  // Unspecified board type. DO NOT USE THIS TYPE. WON'T BE PROCESSED.
+  BOARD_TYPE_UNSPECIFIED = 0;
+
+  // Type for board RG.
+  BOARD_TYPE_REGULAR = 1;
+
+  // Type for board NG.
+  BOARD_TYPE_NEGOTIATION = 2;
+
+  // Type for board TN.
+  BOARD_TYPE_CASH = 3;
+
+  // Type for all board.
+  BOARD_TYPE_ALL = 4;
+}
+
+enum SortBy {
+  // Unspecified sort by. DO NOT USE THIS TYPE. WON'T BE PROCESSED.
+  SORT_BY_UNSPECIFIED = 0;
+
+  // Sort by time.
+  SORT_BY_TIME = 1;
+
+  // Sort by open.
+  SORT_BY_OPEN = 2;
+
+  // Sort by lot.
+  SORT_BY_LOT = 3;
+
+  // Sort by queue.
+  SORT_BY_QUEUE = 4;
+
+  // Sort by price.
+  SORT_BY_PRICE = 5;
+
+  // Sort by exchange order number.
+  SORT_BY_EXCHANGE_ORDER_NUMBER = 6;
+}
+
+enum SortDirection {
+  // Unspecified sort direction. DO NOT USE THIS DIRECTION. WON'T BE PROCESSED.
+  SORT_DIRECTION_UNSPECIFIED = 0;
+
+  // Sort direction ascending.
+  SORT_DIRECTION_ASC = 1;
+
+  // Sort direction descending.
+  SORT_DIRECTION_DESC = 2;
+}
+
+// buf:lint:ignore ENUM_VALUE_PREFIX
+enum OrderBy {
+  ORDER_BY_UNSPECIFIED = 0;
+  ORDER_BY_ASC = 1;
+  ORDER_BY_DESC = 2;
+}
+
+message Order {
+  message ExchangeOrderNumber {
+    int64 full = 1;
+    string formatted = 2;
+  }
+
+  int64 id = 1;
+  int64 queue_number = 2 [json_name = "queue_number"];
+  string stock_code = 3 [json_name = "stock_code"];
+  google.protobuf.Timestamp time = 4;
+  ActionType action_type = 5 [json_name = "action_type"];
+  float price = 6;
+  OrderStatus status = 7;
+  float open = 8;
+  float lot = 9;
+  BoardType board_type = 10 [json_name = "board_type"];
+  string broker_code = 11 [json_name = "broker_code"];
+  ExchangeOrderNumber exchange_order_number = 12 [json_name = "exchange_order_number"];
+  float queue_lot = 13 [json_name = "queue_lot"];
+  BrokerGroup broker_group = 14 [json_name = "broker_group"];
+  int64 order_number = 15 [json_name = "order_number"];
+}
+
+message Pagination {
+  bool has_next_page = 1 [json_name = "has_next_page"];
+}

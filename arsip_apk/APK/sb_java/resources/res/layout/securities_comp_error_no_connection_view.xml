@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/parent_clickable_reload"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:padding="@dimen/spacing_16"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_refresh_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/btn_tap_to_refresh"
+        app:srcCompat="0x7f080dbf"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_error_tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_14"
+        android:text="@string/error_message_no_connection"
+        style="@style/SbTextView.PageTitle"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_8"
+        android:text="@string/error_message_no_connection_subtitle"
+        style="@style/TypeStyles.BodyLarge"/>
+    <com.stockbit.uikit.buttons.StickyButton
+        android:id="@+id/pb_button_reload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_14"
+        android:text="@string/btn_tap_to_reload"
+        android:paddingHorizontal="@dimen/spacing_48"/>
+</LinearLayout>

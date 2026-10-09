@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:id="@+id/pb_load_more"
+    android:tag="layout/item_watchlist_load_more_0"
+    android:padding="@dimen/item_gap_8"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/clickable_size_48"
+    android:indeterminate="true"
+    android:indeterminateTint="@color/green_text"/>

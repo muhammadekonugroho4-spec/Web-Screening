@@ -1,0 +1,76 @@
+// Copyright (c) 2021-2024 Stockbit All rights reserved.
+
+syntax = "proto3";
+
+package social.chat.entity.v2;
+
+
+option go_package = "go.stockbit.io/protos/gen/go/social/chat/entity/v2;entity";
+
+message MaskedText {
+  string text = 1;
+
+  map<string, TextMaskValue> masks = 2;
+}
+
+message TextMaskValue {
+  TextFormat format = 1;
+  string text = 2;
+  TextLink link = 3;
+}
+
+enum TextFormat {
+  // buf:lint:ignore ENUM_ZERO_VALUE_SUFFIX
+  TEXT_FORMAT_REGULAR = 0;
+  TEXT_FORMAT_BOLD = 1;
+  TEXT_FORMAT_ITALIC = 2;
+}
+
+message TextLink {
+  enum LinkType {
+    LINK_TYPE_UNSPECIFIED = 0;
+    LINK_TYPE_USER = 1;
+    LINK_TYPE_SYMBOL = 2;
+    // stockbit.com domain or another whitelisted host url
+    LINK_TYPE_KNOWN_URL = 3;
+    LINK_TYPE_URL = 4;
+  }
+
+  LinkType type = 1;
+
+  message LinkRef {
+    oneof val {
+      string username = 1;
+      string symbol = 2;
+      string url = 3;
+    }
+  }
+  LinkRef ref = 2;
+}
+
+message PlaceholderMaskedText {
+  string masked_text = 1;
+
+  map<string, PlaceholderMask> masks = 2;
+}
+
+message PlaceholderMask {
+  // used to determine "username" and "to be" based on the user's point of view
+  // First person point of view example: "You are an admin now"
+  // Third person point of view example: "StockbitUser is an admin now"
+  enum PlaceholderType {
+    PLACEHOLDER_TYPE_UNSPECIFIED = 0;
+    PLACEHOLDER_TYPE_USERNAME = 1;
+    PLACEHOLDER_TYPE_TO_BE = 2;
+  }
+
+  PlaceholderType type = 1;
+
+  string placeholder = 2;
+
+  message Reference {
+    int32 user_id = 1;
+  }
+
+  Reference reference = 3;
+}

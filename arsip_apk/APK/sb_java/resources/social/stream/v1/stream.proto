@@ -1,0 +1,840 @@
+syntax = "proto3";
+
+package social.stream.v1;
+
+import "social/stream/data/v1/comment.proto";
+import "social/stream/data/v1/image.proto";
+import "social/stream/entity/v1/entity.proto";
+import "social/stream/entity/v1/sharetrade.proto";
+
+message GetUploadTokenRequest {
+  string bucket = 1;
+}
+
+message GetUploadTokenResponse {
+  string message = 1;
+  DataUploadTokenResponse data = 2;
+}
+
+message DataUploadTokenResponse {
+  string key = 1;
+  string aws_access_key_id = 2 [json_name = "aws_access_key_id"];
+  string success_action_redirect = 3 [json_name = "success_action_redirect"];
+  string policy = 4;
+  string signature = 5;
+  string content_type = 6 [json_name = "content_type"];
+}
+
+message GetUploadTokensRequest {
+  repeated string filenames = 1;
+}
+
+message GetUploadTokensResponse {
+  string message = 1;
+  GetUploadTokenData data = 2;
+}
+
+message GetUploadTokenData {
+  string url = 1;
+  repeated GetUploadTokenInfo tokens = 2;
+}
+
+message GetUploadTokenInfo {
+  message Fields {
+    string key = 1;
+    string value = 2;
+  }
+
+  repeated Fields fields = 1;
+  string view_url = 2 [json_name = "view_url"];
+}
+
+message ProcessUploadSuccessRequest {
+  string bucket = 1;
+  string key = 2;
+}
+
+message ProcessUploadSuccessResponse {
+  string message = 1;
+  ProcessUploadSuccessData data = 2;
+}
+
+message ProcessUploadSuccessData {
+  string url = 1;
+  string url_bit = 2 [json_name = "url_bit"];
+  string key = 3;
+}
+
+message WriteStreamRequest {
+  string content = 1;
+  string image = 2;
+  string file = 3;
+  string target_symbol = 4 [json_name = "target_symbol"];
+  double target_price = 5 [json_name = "target_price"];
+  int32 target_duration = 6 [json_name = "target_duration"];
+  string linkpreview = 7;
+  int32 sharefacebook = 8;
+  int32 sharetwitter = 9;
+  int32 noreply = 10;
+  int64 polling_end = 11 [json_name = "polling_end"];
+  string polling_options = 12 [json_name = "polling_options"];
+  int32 polling_pin = 13 [json_name = "polling_pin"];
+  repeated string images = 14;
+  bool share_portfolio = 15 [json_name = "share_portfolio"];
+  social.stream.data.v1.CommenterType commenter_type = 16 [json_name = "commenter_type"];
+}
+
+message WriteStreamResponse {
+  string message = 1;
+  PostStreamResponse data = 2;
+}
+
+message ReplyStreamResponse {
+  string message = 1;
+  PostStreamResponse data = 2;
+}
+
+message SaveNewsStreamResponse {
+  string message = 1;
+  PostStreamResponse data = 2;
+}
+
+message SaveInsiderStreamResponse {
+  string message = 1;
+  PostStreamResponse data = 2;
+}
+
+message SaveEmitenReportStreamResponse {
+  string message = 1;
+  PostStreamResponse data = 2;
+}
+
+message UpdateStreamResponse {
+  string message = 1;
+  PostStreamResponse data = 2;
+}
+
+message LikeStreamResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message UnlikeStreamResponse {
+  string message = 1;
+  GetStreamResponse data = 2;
+}
+
+message DislikeStreamResponse {
+  string message = 1;
+  PostStreamResponse data = 2;
+}
+
+message SaveStreamResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message UnsaveStreamResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message ReportStreamResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message FollowStreamResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message UnfollowStreamResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message PinStreamResponse {
+  string message = 1;
+  repeated GetStreamOldResponse data = 2;
+}
+
+message UnpinStreamResponse {
+  string message = 1;
+  repeated GetStreamOldResponse data = 2;
+}
+
+message ShareStreamResponse {
+  string message = 1;
+  PostStreamResponse data = 2;
+}
+
+message PostStreamResponse {
+  int32 postid = 1;
+  string titleurl = 2;
+  string title = 3;
+  string content = 4;
+  string content_original = 5 [json_name = "content_original"];
+  string created = 6;
+  string created_display = 7 [json_name = "created_display"];
+  string updated = 8;
+  int32 userid = 9;
+  int32 is_author = 10 [json_name = "is_author"];
+  string username = 11;
+  string fullname = 12;
+  string avatar = 13;
+  int32 official = 14;
+  int32 ispro = 15;
+  int32 lastid = 16;
+  string country = 17;
+  int32 ispinned = 18;
+  int32 trending = 19;
+  string replies = 20;
+  int32 noreply = 21;
+  int32 likes = 22;
+  int32 dislikes = 23;
+  int32 reposted = 24;
+  GetStreamOldResponse repostedfrom = 25;
+  int32 liked = 26;
+  int32 saved = 27;
+  repeated string images = 28;
+  string shorten_url = 29 [json_name = "shorten_url"];
+  repeated string attachment = 30;
+  int32 parent_postid = 31 [json_name = "parent_postid"];
+  int32 disliked = 32;
+  int32 follow = 33;
+  repeated Reports reports = 34;
+  string newsfeed_source = 35 [json_name = "newsfeed_source"];
+  string newsfeed_label = 36 [json_name = "newsfeed_label"];
+  string newsfeed_img = 37 [json_name = "newsfeed_img"];
+  string linkpreview = 38;
+  string tradeshare = 39;
+  string replyto = 40;
+  ReplyContent reply_content = 41 [json_name = "reply_content"];
+  string likers = 42;
+  string total_share = 43 [json_name = "total_share"];
+  repeated TargetPrice target_price = 44 [json_name = "target_price"];
+  Analytics analytics = 45;
+  int32 isnews = 46;
+  int32 isreport = 47;
+  repeated string topics = 48;
+  int32 ischart = 49;
+  repeated MaskHtml mask_html = 50 [json_name = "mask_html"];
+  repeated Polling polling = 51;
+  int32 user_priv = 52 [json_name = "user_priv"];
+  repeated ImagesData images_data = 53 [json_name = "images_data"];
+  social.stream.data.v1.FrameType image_frame_type = 54 [json_name = "image_frame_type"];
+  social.stream.entity.v1.ReplyInfo replying_to = 55 [json_name = "replying_to"];
+}
+
+message Polling {
+  int32 id = 1;
+  int32 status = 2;
+  string created_date = 3 [json_name = "created_date"];
+  string start_date = 4 [json_name = "start_date"];
+  string end_date = 5 [json_name = "end_date"];
+  string question = 6;
+  repeated PollingOptions options = 7;
+  bool expired = 8;
+  string message_expired = 9 [json_name = "message_expired"];
+  int32 total_voters = 10 [json_name = "total_voters"];
+  int32 my_vote = 11 [json_name = "my_vote"];
+  int32 ispinned = 12;
+}
+
+message ImagesData {
+  string image = 1;
+  int32 width = 2;
+  int32 height = 3;
+  double ratio = 4;
+  string frame = 5;
+  social.stream.data.v1.FrameType frame_type = 6 [json_name = "frame_type"];
+}
+
+message PollingOptions {
+  int32 id = 1;
+  string value = 2;
+  int32 count_voters = 3 [json_name = "count_voters"];
+}
+
+message TargetPrice {
+  int32 id = 1;
+  string voted = 2;
+  string symbol = 3;
+  string symbol2 = 4;
+  string name = 5;
+  int32 tradeable = 6;
+  double last_price = 7 [json_name = "last_price"];
+  double current_price = 8 [json_name = "current_price"];
+  double target_price = 9 [json_name = "target_price"];
+  int32 duration = 10;
+  int32 day_left = 11 [json_name = "day_left"];
+  int32 agree = 12;
+  int32 disagree = 13;
+  int32 hit = 14;
+}
+
+message MaskHtml {
+  string mask = 1;
+  string tag = 2;
+  string text = 3;
+  MaskAttr attr = 4;
+}
+
+message MaskAttr {
+  string class = 1;
+  string data_company = 2 [json_name = "data_company"];
+  string data_user = 3 [json_name = "data_user"];
+  string data_insider = 4 [json_name = "data_insider"];
+  string href = 5;
+  string target = 6;
+}
+
+message ReplyContent {
+  string titleurl = 1;
+  string title = 2;
+  string content = 3;
+  string content_original = 4 [json_name = "content_original"];
+  string created = 5;
+  string created_display = 6 [json_name = "created_display"];
+  int32 userid = 7;
+  string username = 8;
+  string fullname = 9;
+  string avatar = 10;
+  repeated string images = 11;
+  repeated string topics = 12;
+  repeated MaskHtml mask_html = 13 [json_name = "mask_html"];
+  repeated ImagesData images_data = 14 [json_name = "images_data"];
+  social.stream.data.v1.FrameType image_frame_type = 15 [json_name = "image_frame_type"];
+}
+
+message Analytics {
+  int32 impression = 1;
+  AnalyticsEngagement engagement = 2;
+}
+
+message AnalyticsEngagement {
+  int32 like = 1;
+  int32 reply = 2;
+  int32 share = 3;
+  int32 profile_view = 4 [json_name = "profile_view"];
+  int32 sign_click = 5 [json_name = "sign_click"];
+  int32 media_click = 6 [json_name = "media_click"];
+}
+
+message Reports {
+  string type = 1;
+}
+
+message ReplyStreamRequest {
+  int64 postid = 1;
+  string content = 2;
+  string image = 3;
+  string file = 4;
+  int32 sharefacebook = 5;
+  int32 sharetwitter = 6;
+  int64 replyto = 7;
+  repeated string images = 8;
+}
+
+message SaveNewsStreamRequest {
+  string content = 1;
+  string url = 2;
+  string title = 3;
+  int64 user_id_sender = 4 [json_name = "user_id_sender"];
+}
+
+message SaveEmitenReportStreamRequest {
+  string content = 1;
+  string url = 2;
+  string title = 3;
+  int64 user_id_sender = 4 [json_name = "user_id_sender"];
+}
+
+message SaveInsiderStreamRequest {
+  repeated MaskHtml mask_html = 1 [json_name = "mask_html"];
+  string content_mask = 2 [json_name = "content_mask"];
+  string content_original = 3 [json_name = "content_original"];
+  int64 user_id_sender = 4 [json_name = "user_id_sender"];
+}
+
+message UpdateStreamRequest {
+  int64 postid = 1;
+  string content = 2;
+  string image = 3;
+  string file = 4;
+  string target_symbol = 5 [json_name = "target_symbol"];
+  double target_price = 6 [json_name = "target_price"];
+  int32 target_duration = 7 [json_name = "target_duration"];
+  string linkpreview = 8;
+  int32 noreply = 9;
+  int32 sharefacebook = 10;
+  int32 sharetwitter = 11;
+  repeated string images = 12;
+  social.stream.data.v1.CommenterType commenter_type = 13 [json_name = "commenter_type"];
+}
+
+message LikeStreamRequest {
+  int64 postid = 1;
+}
+
+message UnlikeStreamRequest {
+  int64 postid = 1;
+}
+
+message DislikeStreamRequest {
+  int64 postid = 1;
+}
+
+message SaveStreamRequest {
+  int64 postid = 1;
+}
+
+message UnsaveStreamRequest {
+  int64 postid = 1;
+}
+
+message PinStreamRequest {
+  int64 postid = 1;
+  string symbol = 2;
+}
+
+message UnpinStreamRequest {
+  int64 postid = 1;
+  string symbol = 2;
+}
+
+message ShareStreamRequest {
+  int64 postid = 1;
+  string content = 2;
+  string image = 3;
+  string file = 4;
+  string linkpreview = 5;
+  int32 facebook = 6;
+  int32 twitter = 7;
+  int32 stockbit = 8;
+  repeated string images = 9;
+  social.stream.data.v1.CommenterType commenter_type = 10 [json_name = "commenter_type"];
+}
+
+message ReportStreamRequest {
+  int64 postid = 1;
+  string message = 2;
+  string type = 3;
+}
+
+message FollowStreamRequest {
+  int64 postid = 1;
+}
+
+message UnfollowStreamRequest {
+  int64 postid = 1;
+}
+
+message UpdateCommenterTypeRequest {
+  int64 stream_id = 1;
+  social.stream.data.v1.CommenterType commenter_type = 2 [json_name = "commenter_type"];
+}
+
+message UpdateCommenterTypeResponse {
+  string message = 1;
+}
+
+message DeleteStreamRequest {
+  int64 postid = 1;
+  string reason = 2;
+  bool send_email = 3 [json_name = "send_email"];
+}
+
+message DeleteStreamResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message DeleteStreamsRequest {
+  int64 user_id = 1 [json_name = "user_id"];
+  string period = 2;
+  string reason = 3;
+  bool send_email = 4 [json_name = "send_email"];
+}
+
+message DeleteStreamsResponse {
+  string message = 1;
+}
+
+message UndeleteStreamRequest {
+  int64 postid = 1;
+  string key = 2;
+}
+
+message UndeleteStreamResponse {
+  string message = 1;
+}
+
+message DeleteOwnStreamRequest {
+  int64 stream_id = 1 [json_name = "stream_id"];
+}
+
+message DeleteOwnStreamResponse {
+  string message = 1;
+}
+
+message DeleteOwnCommentRequest {
+  int64 stream_id = 1 [json_name = "stream_id"];
+  string reason = 2;
+}
+
+message DeleteOwnCommentResponse {
+  string message = 1;
+}
+
+message AddVoteRequest {
+  int64 tp_id = 1 [json_name = "tp_id"];
+  bool agree = 2;
+}
+
+message AddVoteResponse {
+  string message = 1;
+  GetStreamResponse data = 2;
+}
+
+message ManipulateStreamRequest {
+  int64 postid = 1;
+  int32 like = 2;
+  int32 dislike = 3;
+}
+
+message ManipulateStreamResponse {
+  string message = 1;
+}
+
+message GetGenericStreamRequest {
+  string category = 1;
+  bool beforelastpost = 2;
+  int64 beforetimestamp = 3;
+  int64 lastpost = 4;
+  string keyword = 5;
+  string from = 6;
+  string to = 7;
+  int32 limit = 8;
+  string filter = 9;
+  string reporttype = 10;
+}
+
+message GetUserStreamRequest {
+  string username = 1;
+  string category = 2;
+  bool beforelastpost = 3;
+  int64 lastpost = 4;
+  string keyword = 5;
+  string from = 6;
+  string to = 7;
+  int32 limit = 8;
+}
+
+message GetSymbolStreamRequest {
+  string symbol = 1;
+  string category = 2;
+  int32 beforelastpost = 3;
+  int64 lastpost = 4;
+  string keyword = 5;
+  string from = 6;
+  string to = 7;
+  int32 limit = 8;
+  string reporttype = 9;
+}
+
+message GetGenericStreamResponse {
+  string message = 1;
+  repeated GetStreamResponse data = 2;
+}
+
+message GetSymbolStreamResponse {
+  string message = 1;
+  repeated GetStreamResponse data = 2;
+}
+
+message GetStreamResponse {
+  int32 postid = 1;
+  string titleurl = 2;
+  string title = 3;
+  string content = 4;
+  string content_original = 5 [json_name = "content_original"];
+  string created = 6;
+  string created_display = 7 [json_name = "created_display"];
+  string updated = 8;
+  int32 userid = 9;
+  int32 is_author = 10 [json_name = "is_author"];
+  string username = 11;
+  string fullname = 12;
+  string avatar = 13;
+  int32 official = 14;
+  int32 user_priv = 15 [json_name = "user_priv"];
+  int32 ispro = 16;
+  int32 ispinned = 17;
+  int32 trending = 18;
+  string replies = 19;
+  int32 noreply = 20;
+  int32 likes = 21;
+  int32 dislikes = 22;
+  int32 reposted = 23;
+  GetStreamOldResponse repostedfrom = 24;
+  int32 liked = 25;
+  string likers = 26;
+  int32 saved = 27;
+  repeated string images = 28;
+  repeated Polling polling = 29;
+  repeated string attachment = 30;
+  int32 parent_postid = 31 [json_name = "parent_postid"];
+  int32 disliked = 32;
+  int32 follow = 33;
+  repeated Reports reports = 34;
+  string newsfeed_source = 35 [json_name = "newsfeed_source"];
+  string newsfeed_label = 36 [json_name = "newsfeed_label"];
+  string newsfeed_img = 37 [json_name = "newsfeed_img"];
+  string linkpreview = 38;
+  int32 total_view = 39 [json_name = "total_view"];
+  string tradeshare = 40;
+  string total_share = 41 [json_name = "total_share"];
+  repeated TargetPrice target_price = 42 [json_name = "target_price"];
+  Analytics analytics = 43;
+  string country = 44;
+  int32 last_reply_date = 45 [json_name = "last_reply_date"];
+  int32 isnews = 46;
+  int32 isreport = 47;
+  repeated string topics = 48;
+  int32 ischart = 49;
+  GetStreamResponse last_reply = 50 [json_name = "last_reply"];
+  repeated MaskHtml mask_html = 51 [json_name = "mask_html"];
+  repeated ImagesData images_data = 52 [json_name = "images_data"];
+  social.stream.data.v1.FrameType image_frame_type = 53 [json_name = "image_frame_type"];
+  social.stream.entity.v1.ReplyInfo replying_to = 54 [json_name = "replying_to"];
+  social.stream.data.v1.CommenterType commenter_type = 55 [json_name = "commenter_type"];
+  social.stream.entity.v1.FollowingActivity following_activity = 56 [json_name = "following_activity"];
+  social.stream.entity.v1.ShareTradeInfo sharetrade_info = 57 [json_name = "sharetrade_info"];
+}
+
+message GetUserStreamResponse {
+  string message = 1;
+  repeated GetStreamOldResponse data = 2;
+}
+
+message GetTrendingStreamResponse {
+  string message = 1;
+  repeated GetStreamOldResponse data = 2;
+}
+
+message GetStreamOldResponse {
+  int32 postid = 1;
+  string titleurl = 2;
+  string title = 3;
+  string content = 4;
+  string content_original = 5 [json_name = "content_original"];
+  string created = 6;
+  string created_display = 7 [json_name = "created_display"];
+  string updated = 8;
+  int32 userid = 9;
+  int32 is_author = 10 [json_name = "is_author"];
+  string username = 11;
+  string fullname = 12;
+  string avatar = 13;
+  int32 official = 14;
+  int32 ispro = 15;
+  int32 user_priv = 16 [json_name = "user_priv"];
+  string country = 17;
+  int32 ispinned = 18;
+  int32 trending = 19;
+  string replies = 20;
+  int32 noreply = 21;
+  int32 likes = 22;
+  int32 dislikes = 23;
+  int32 reposted = 24;
+  GetStreamOldResponse repostedfrom = 25;
+  int32 liked = 26;
+  int32 saved = 27;
+  repeated string images = 28;
+  repeated Polling polling = 29;
+  repeated string attachment = 30;
+  int32 parent_postid = 31 [json_name = "parent_postid"];
+  int32 disliked = 32;
+  int32 follow = 33;
+  repeated Reports reports = 34;
+  string newsfeed_source = 35 [json_name = "newsfeed_source"];
+  string newsfeed_label = 36 [json_name = "newsfeed_label"];
+  string newsfeed_img = 37 [json_name = "newsfeed_img"];
+  string linkpreview = 38;
+  int32 total_view = 39 [json_name = "total_view"];
+  string tradeshare = 40;
+  string replyto = 41;
+  ReplyContent reply_content = 42 [json_name = "reply_content"];
+  string likers = 43;
+  string total_share = 44 [json_name = "total_share"];
+  repeated TargetPrice target_price = 45 [json_name = "target_price"];
+  Analytics analytics = 46;
+  int32 isnews = 47;
+  int32 isreport = 48;
+  repeated string topics = 49;
+  int32 ischart = 50;
+  repeated MaskHtml mask_html = 51 [json_name = "mask_html"];
+  bool is_verified = 52 [json_name = "is_verified"];
+  repeated ImagesData images_data = 53 [json_name = "images_data"];
+  social.stream.data.v1.FrameType image_frame_type = 54 [json_name = "image_frame_type"];
+  social.stream.entity.v1.ReplyInfo replying_to = 55 [json_name = "replying_to"];
+  social.stream.data.v1.CommenterType commenter_type = 56 [json_name = "commenter_type"];
+  bool is_unavailable = 57 [json_name = "is_unavailable"];
+  social.stream.entity.v1.FollowingActivity following_activity = 58 [json_name = "following_activity"];
+  social.stream.entity.v1.ShareTradeInfo sharetrade_info = 59 [json_name = "sharetrade_info"];
+}
+
+message GetSentimentCompanyNewsRequest {
+  string symbol = 1;
+}
+
+message GetSentimentCompanyNewsResponse {
+  Sentiment data = 1;
+  string message = 2;
+}
+
+message Sentiment {
+  int32 start_value = 1 [json_name = "start_value"];
+  int32 end_value = 2 [json_name = "end_value"];
+  double value = 3;
+  string periode = 4;
+}
+
+message GetConversationStreamRequest {
+  int64 convo_parentid = 1 [json_name = "convo_parentid"];
+  int64 streamid = 2;
+  int32 limit = 3;
+}
+
+message GetConversationStreamResponse {
+  string message = 1;
+  GetConversationStreamModel data = 2;
+}
+
+message GetConversationStreamModel {
+  bool more = 1;
+  bool next = 2;
+  bool prev = 3;
+  GetStreamOldResponse parent = 4;
+  repeated GetStreamOldResponse replies = 5;
+  repeated SinceMessage since_message = 6 [json_name = "since_message"];
+  string total_replies = 7 [json_name = "total_replies"];
+  social.stream.data.v1.CommenterType commenter_type = 8 [json_name = "commenter_type"];
+  bool is_commentable = 9 [json_name = "is_commentable"];
+}
+
+message SinceMessage {
+  int64 streamid = 1;
+  string symbol = 2;
+  string price = 3;
+  double change = 4;
+  double pchange = 5;
+  string company_name = 6 [json_name = "company_name"];
+  IfeedPrice latest = 7;
+}
+
+message IfeedPrice {
+  string previous = 1;
+  string lastprice = 2;
+  string change = 3;
+  double pchange = 4;
+  int32 volume = 5;
+  string avgvolume = 6;
+  string date = 7;
+}
+
+message GetMoreConversationStreamRequest {
+  int64 postid = 1;
+  bool beforelastpost = 2;
+  int32 limit = 3;
+}
+
+message GetMoreConversationStreamResponse {
+  string message = 1;
+  GetMoreConversationStreamModel data = 2;
+}
+
+message GetMoreConversationStreamModel {
+  bool more = 1;
+  repeated GetStreamOldResponse replies = 2;
+}
+
+message GetTrendingStreamRequest {
+  string date = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message GetPinnedStreamUserRequest {
+  string username = 1;
+}
+
+message GetPinnedStreamUserResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message GetPinnedStreamCompanyRequest {
+  string symbol = 1;
+}
+
+message GetPinnedStreamCompanyResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message GetSingleStreamPostRequest {
+  int64 postid = 1;
+}
+
+message GetSingleStreamPostResponse {
+  string message = 1;
+  GetStreamOldResponse data = 2;
+}
+
+message GetLikersRequest {
+  int64 postid = 1;
+  int32 page = 2;
+}
+
+message GetLikersResponse {
+  string message = 1;
+  GetLikersData data = 2;
+}
+
+message GetLikersData {
+  bool more = 1;
+  repeated social.stream.entity.v1.Liker likers = 2;
+}
+
+message GetAnnouncementRequest {
+  string value = 1;
+}
+
+message GetAnnouncementResponse {
+  string message = 1;
+  repeated GetAnnouncementData data = 2;
+}
+
+message GetAnnouncementData {
+  int32 id = 1;
+  int32 company_id = 2 [json_name = "company_id"];
+  string posted_on = 3 [json_name = "posted_on"];
+  string headline = 4;
+  string title = 5;
+  string attachment = 6;
+  string retrieved_on = 7 [json_name = "retrieved_on"];
+  string symbol = 8;
+  string name = 9;
+  string company_icon_url = 10 [json_name = "company_icon_url"];
+}
+
+message UntagTopicRequest {
+  int64 stream_id = 1 [json_name = "stream_id"];
+}
+
+message UntagTopicResponse {
+  string message = 1;
+}

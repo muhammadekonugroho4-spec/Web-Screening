@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/comp_list_item_announcement_banner_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_announcement_banner_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/uikit_margin_top_announcement_banner_image"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="@dimen/uikit_max_width_announcement_banner_image"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:gravity="center"
+        android:id="@+id/tv_announcement_banner_title"
+        android:tag="binding_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_24"
+        android:layout_marginHorizontal="@dimen/spacing_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_announcement_banner_content"
+        style="@style/TypeStyles.HeadlineRegular"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textColor="?attr/themeColorTextPrimary"
+        android:gravity="center"
+        android:id="@+id/tv_announcement_banner_description"
+        android:tag="binding_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_12"
+        android:layout_marginHorizontal="@dimen/spacing_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_announcement_banner_title"
+        style="@style/TypeStyles.ParagraphRegular"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="layout/dialog_error_jago_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_error_jago_icon"
+        android:layout_width="@dimen/width_160"
+        android:layout_height="@dimen/height_120"
+        android:layout_marginTop="@dimen/item_gap_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_error_jago_in_verification_light"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_error_jago_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_20"
+        android:textAlignment="gravity"
+        android:layout_marginHorizontal="@dimen/item_gap_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_error_jago_icon"
+        style="@style/TypeStyles.HeadlineRegular"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_error_jago_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap_12"
+        android:layout_marginBottom="@dimen/item_gap_32"
+        android:textAlignment="gravity"
+        android:layout_marginHorizontal="@dimen/item_gap_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_error_jago_title"
+        style="@style/TypeStyles.BodyRegular"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

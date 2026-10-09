@@ -1,0 +1,21 @@
+package androidx.work.impl.constraints.trackers;
+
+import androidx.work.r;
+import kotlin.jvm.internal.p;
+
+/* loaded from: classes4.dex */
+public abstract class b {
+
+    /* renamed from: a, reason: collision with root package name */
+    public static final String f29369a = null;
+
+    static {
+        String r02 = r.i("BatteryChrgTracker");
+        p.k(r02, "tagWithPrefix(\"BatteryChrgTracker\")");
+        f29369a = r02;
+    }
+
+    public static final /* synthetic */ String a() {
+        return f29369a;
+    }
+}
