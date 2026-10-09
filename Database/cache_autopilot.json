@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-08 16:00:01",
+    "stempel_data": "2026-10-09 15:20:02",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "BLTA",
-            "MPXL",
-            "WIDI",
-            "ARII",
-            "PGLI"
+            "PCAR",
+            "DKHH",
+            "STRK",
+            "TEBE",
+            "OMED"
         ],
         "RUMUS 2": [
-            "IDEA",
-            "DGNS",
-            "INCI",
-            "DEWI",
-            "BDKR"
+            "NAYZ",
+            "KKES",
+            "JECX",
+            "ASMI",
+            "TAXI"
         ],
         "RUMUS 3": [
-            "BLTA",
-            "MPXL",
-            "KLBF",
-            "MCAS",
-            "ARII"
+            "KLAS",
+            "FLMC",
+            "SOSS",
+            "KBAG",
+            "GTBO"
         ],
         "RUMUS 4": [
-            "BLTA",
-            "WIDI",
-            "MPXL",
-            "IDEA",
-            "PGLI"
+            "PCAR",
+            "NAYZ",
+            "STRK",
+            "DKHH",
+            "TEBE"
         ],
         "RUMUS 5": [
-            "BLTA",
+            "PCAR",
+            "NAYZ",
+            "TEBE",
             "IDEA",
-            "MPXL",
-            "VICI",
-            "GEMS"
+            "POLA"
         ],
         "RUMUS 6": [
-            "MMIX",
-            "ULTJ",
-            "VICI",
-            "PLAN",
-            "DGNS"
+            "TEBE",
+            "OMED",
+            "JECX",
+            "GWSA",
+            "BPFI"
         ],
         "RUMUS 7": [
-            "INCI",
-            "GEMS",
+            "TEBE",
             "MMIX",
+            "DEWA",
             "DADA",
             ""
         ],
         "RUMUS 8": [
-            "PURA",
-            "BLTA",
-            "AKKU",
-            "IDEA",
-            "MPXL"
+            "PCAR",
+            "NAYZ",
+            "DKHH",
+            "IKAI",
+            "STRK"
         ],
         "RUMUS 9": [
-            "PSSI",
-            "FORU",
-            "UDNG",
-            "TCPI",
-            "MIKA"
+            "MAHA",
+            "EAST",
+            "MTDL",
+            "SCCO",
+            "BTON"
         ]
     }
 }
