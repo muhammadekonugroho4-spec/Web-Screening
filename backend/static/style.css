@@ -1,0 +1,25 @@
+/* === WEB-SCREENING Opsi A — CSS === */
+:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--txt:#cbd5e1;--hi:#f8fafc;--acc:#38bdf8;--up:#22c55e;--dn:#ef4444;--muted:#94a3b8}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6}
+.wrap{max-width:1200px;margin:0 auto;padding:20px}
+nav{display:flex;gap:8px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line);margin-bottom:20px}
+nav a{color:var(--muted);text-decoration:none;padding:7px 12px;border-radius:7px;cursor:pointer}
+nav a:hover,nav a.aktif{background:var(--card);color:var(--acc)}
+.kartu{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:10px 0}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.besar{font-size:2rem;font-weight:700;color:var(--hi)}
+.up{color:var(--up)}.dn{color:var(--dn)}
+table.data{width:100%;border-collapse:collapse;font-size:.85rem}
+table.data th{background:#1a2332;color:var(--hi);padding:8px 10px;text-align:left;border-bottom:2px solid var(--line)}
+table.data td{padding:6px 10px;border-bottom:1px solid var(--line)}
+.num{text-align:right}
+.tombol{background:var(--acc);color:#0f172a;border:0;border-radius:7px;padding:8px 16px;font-weight:700;cursor:pointer;display:inline-block;text-decoration:none}
+.tombol.merah{background:var(--dn)}.tombol:disabled{opacity:.5}
+form{display:flex;flex-direction:column;gap:10px;max-width:320px;margin:20px auto}
+input{background:var(--card);color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:10px;font-size:1rem}
+.tag{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.75rem;background:#334155}
+.tag.beli{background:var(--up);color:#052e16}
+.error{color:var(--dn);padding:10px;background:#2a1215;border:1px solid var(--dn);border-radius:7px;margin:8px 0}
+.loading{color:var(--muted);padding:30px;text-align:center}
+#user-info{font-size:.85rem;color:var(--acc);margin-left:auto}
