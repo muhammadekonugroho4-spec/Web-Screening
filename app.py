@@ -10,10 +10,10 @@
 # PART 07 : PRESET & LOAD DATA SAHAM
 # PART 08 : HEADER & SIDEBAR
 # PART 09 : FORMATTER & PEWARNAAN TABEL
-# PART 10 : TAB 1 - MARKET OVERVIEW
-# PART 11 : TAB 2 - SCREENER UTAMA
-# PART 12 : TAB 3 - ASISTEN AI (RUMUS v5.2 + RADAR LIVE)
-# PART 14 : TAB 5 - DETEKTIF LEDAKAN
+# PART 10 : TAB 2 - MARKET OVERVIEW
+# PART 11 : TAB 3 - SCREENER UTAMA
+# PART 12 : TAB 4 - ASISTEN AI (RUMUS v5.2 + RADAR LIVE)
+# PART 14 : TAB 6 - DETEKTIF LEDAKAN
 # =====================================================================
 
 
@@ -748,7 +748,24 @@ def muat_arsip_harian(tanggal):
 # =====================================================================
 # >>> PART 05 : PENGATURAN UI/UX & CSS <<<
 # =====================================================================
-st.set_page_config(page_title="Screener Saham IHSG", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="WEB-SCREENING — AlgoTrade IHSG", layout="wide", initial_sidebar_state="expanded")
+
+st.markdown("""
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WS Screener">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="application-name" content="WEB-SCREENING">
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/static/service-worker.js");
+      }
+    </script>
+""", unsafe_allow_html=True)
 
 st.markdown("""
     <style>
@@ -1155,6 +1172,7 @@ if not df_hasil.empty and "Terakhir Update" in df_hasil.columns:
 st.sidebar.caption(f"📡 Sumber Data: {SUMBER_DATA}")
 if SUMBER_FUND:
     st.sidebar.caption(SUMBER_FUND)
+st.sidebar.caption("📱 WEB-SCREENING v1.0.0 · PWA ready")
 
 if st.sidebar.button("🔃 Sync & Muat Ulang Data Server", use_container_width=True):
     with st.spinner("Memuat data terbaru..."):
@@ -1235,17 +1253,72 @@ def render_strategy_table(df_subset, file_name):
 
 
 # =====================================================================
-# >>> PART 10 : TAB 1 - MARKET OVERVIEW <<<
+# >>> PART 10 : TAB 2 - MARKET OVERVIEW <<<
 # =====================================================================
 if not df_hasil.empty:
-    tab1, tab2, tab3, tab5 = st.tabs([
-        "📊 Market Overview", 
-        "📌 Screener Utama", 
-        "🤖 Asisten AI Spesial", 
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+        "🏠 Beranda",
+        "📊 Market Overview",
+        "📌 Screener Utama",
+        "🤖 Asisten AI Spesial",
+        "💼 Portofolio Bot",
         "🕵️ Detektif Ledakan & Chat"
     ])
     
     with tab1:
+        st.markdown("# 🏠 Beranda — WEB-SCREENING")
+        st.caption(f"v1.0.0 · Data diperbarui setiap 5 menit (hari bursa)")
+
+        col_intro, col_stat = st.columns([2, 1])
+        with col_intro:
+            st.markdown("""
+### 📋 Tentang Aplikasi Ini
+**WEB-SCREENING** adalah screener saham IHSG berbasis data publik & indikator teknikal.
+Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (uang virtual).
+
+### ⚠️ Keterbatasan yang Wajib Kamu Tahu
+1. **Data delay ±15 menit** dari harga real-time bursa (sumber: Yahoo Finance)
+2. **Volume & broker summary** butuh token Stockbit yang diperbarui manual (~24 jam)
+3. **Fundamental Exodus** hanya update sekali sehari (~16:15 WIB)
+4. **Tidak terhubung ke akun broker** — semua transaksi adalah simulasi
+5. **Tidak ada eksekusi trade otomatis** — beli/jual manual via tombol
+6. **Indikator teknikal** dihitung dari data harian (daily candle)
+7. **Sabtu/Minggu** tidak ada update data (bursa tutup)
+
+### 🔒 Keamanan
+- Tidak menyimpan data pribadi pengguna
+- Tidak ada login/registrasi
+- Portfolio = simulator, bukan akun riil
+- Tidak ada cookie tracking
+            """)
+
+        with col_stat:
+            total = len(df_hasil) if hasattr(df_hasil, "__len__") else 0
+            naik = len(df_hasil[df_hasil['Change (%)'] > 0]) if 'Change (%)' in df_hasil.columns and not df_hasil.empty else 0
+            turun = len(df_hasil[df_hasil['Change (%)'] < 0]) if 'Change (%)' in df_hasil.columns and not df_hasil.empty else 0
+            st.metric("📈 Saham Dipantau", total)
+            st.metric("🚀 Naik", naik)
+            st.metric("🔻 Turun", turun)
+            st.caption("Update: " + (str(df_hasil["Terakhir Update"].iloc[0]) if not df_hasil.empty and "Terakhir Update" in df_hasil.columns else "-") + " WIB")
+
+        st.markdown("---")
+        st.markdown("### ⚡ Menu Cepat")
+        c1, c2, c3, c4 = st.columns(4)
+        with c1: st.page_link("app.py", label="📊 Market Overview", use_container_width=True, icon=None)
+        with c2: st.page_link("app.py", label="📌 Screener", use_container_width=True, icon=None)
+        with c3: st.page_link("app.py", label="🤖 Asisten AI", use_container_width=True, icon=None)
+        with c4: st.page_link("app.py", label="💼 Portofolio", use_container_width=True, icon=None)
+
+        st.markdown("---")
+        with st.expander("📱 Install Aplikasi (PWA)", expanded=False):
+            st.markdown("""
+- **Android:** Chrome → ⋮ → Add to Home Screen
+- **iPhone:** Safari → Share → Add to Home Screen
+- **Windows:** Edge/Chrome → Install icon di address bar
+- Update otomatis: cukup refresh app — tidak perlu download ulang
+""")
+    
+    with tab2:
         st.markdown("### 📊 Ringkasan Pasar IHSG")
         
         total_saham = len(df_hasil)
@@ -1308,9 +1381,9 @@ if not df_hasil.empty:
 
 
 # =====================================================================
-# >>> PART 11 : TAB 2 - SCREENER UTAMA <<<
+# >>> PART 11 : TAB 3 - SCREENER UTAMA <<<
 # =====================================================================
-    with tab2:
+    with tab3:
         def reset_semua_filter():
             for k, info in MASTER_FILTERS.items():
                 if f"main_{k}" in st.session_state:
@@ -1724,7 +1797,7 @@ if not df_hasil.empty:
 
 
 # =====================================================================
-# >>> PART 12 : TAB 3 - ASISTEN AI SPESIAL (RUMUS v5.2 + RADAR LIVE) <<<
+# >>> PART 12 : TAB 4 - ASISTEN AI SPESIAL (RUMUS v5.2 + RADAR LIVE) <<<
 # =====================================================================
     VERSI_SIDANG = "v5.2"
     MAX_CHANGE_BELI = 20.0  # saringan keras BSJP (sinkron dengan sidang_lib.py)
@@ -1740,7 +1813,7 @@ if not df_hasil.empty:
         except Exception:
             pass
 
-    with tab3:
+    with tab4:
         st.markdown("## 🦅 Radar BSJP & Asisten AI")
         st.markdown("<div class='bandar-box-green'><b>💡 INFO:</b> Gunakan kotak pilihan (Dropdown) di bawah ini untuk beralih antar strategi atau mode AI agar tampilan lebih rapi.</div>", unsafe_allow_html=True)
         
@@ -2123,10 +2196,136 @@ if not df_hasil.empty:
                         pass
 
 # =====================================================================
-# =====================================================================
-# >>> PART 14 : TAB 5 - DETEKTIF LEDAKAN (HANYA BACA) + CHAT AI <<<
-# =====================================================================
+
     with tab5:
+        st.markdown("## 💼 Portofolio Bot — 9 Arena Simulator")
+        st.caption("Modal awal Rp 100 jt per rumus · fee beli 0,15% · fee jual 0,25% · Ini simulator, bukan akun broker riil.")
+
+        # PIN lock untuk aksi beli/jual
+        if "pin_porto" not in st.session_state:
+            st.session_state.pin_porto = False
+
+        if not st.session_state.pin_porto:
+            pin_input = st.text_input("🔐 Masukkan PIN untuk akses beli/jual (6 digit)", type="password", max_chars=6, key="pin_input_porto")
+            if st.button("🔓 Buka", key="pin_unlock_porto"):
+                if pin_input == "123456":
+                    st.session_state.pin_porto = True
+                    st.rerun()
+                else:
+                    st.error("PIN salah. Coba lagi.")
+            st.info("Tanpa PIN: tampilan read-only. PIN default: 123456 (ubah di sini nanti).")
+        else:
+            if st.button("🔒 Kunci kembali", key="pin_lock_porto"):
+                st.session_state.pin_porto = False
+                st.rerun()
+
+        col_beli, col_jual = st.columns(2)
+        with col_beli:
+            if st.session_state.pin_porto and st.button("🛒 EKSEKUSI BELI Semua Sinyal!", type="primary", use_container_width=True):
+                import subprocess, sys
+                with st.spinner("Bot mengeksekusi pembelian..."):
+                    try:
+                        proses = subprocess.run([sys.executable, "bot_simulator.py", "--beli-only"], capture_output=True, text=True, timeout=1800)
+                        if proses.returncode != 0:
+                            st.error("❌ Gagal. Log:")
+                            st.code(proses.stderr[-2000:], language="bash")
+                        else:
+                            st.success("✅ Pembelian selesai!")
+                            st.code(proses.stdout[-2000:], language="bash")
+                            st.cache_data.clear()
+                            time.sleep(1)
+                            st.rerun()
+                    except Exception as e:
+                        st.error(f"Error: {e}")
+        with col_jual:
+            if st.session_state.pin_porto and st.button("💸 JUAL SORE Semua Posisi!", use_container_width=True):
+                import subprocess, sys
+                with st.spinner("Bot mengeksekusi penjualan..."):
+                    try:
+                        proses = subprocess.run([sys.executable, "bot_simulator.py", "--jual-only"], capture_output=True, text=True, timeout=1800)
+                        if proses.returncode != 0:
+                            st.error("❌ Gagal. Log:")
+                            st.code(proses.stderr[-2000:], language="bash")
+                        else:
+                            st.success("✅ Jual sore selesai!")
+                            st.code(proses.stdout[-2000:], language="bash")
+                            st.cache_data.clear()
+                            time.sleep(1)
+                            st.rerun()
+                    except Exception as e:
+                        st.error(f"Error: {e}")
+
+        if not st.session_state.pin_porto:
+            st.info("Masukkan PIN di atas untuk mengaktifkan tombol beli/jual.")
+
+        st.markdown("---")
+
+        # Load portfolio data
+        ARENA_LABEL = {1: "Smart Money Menyelam", 2: "Pantulan Jarum Bawah", 3: "Tutup Kuat Bandar Hajar",
+                       4: "Golden Cross Muda", 5: "Momentum Likuid Sehat", 6: "Ledakan Volume Senyap",
+                       7: "Anomali ML", 8: "Momentum Tembus MA20", 9: "MACD Momentum Terukur"}
+
+        pilihan_arena = st.selectbox("📂 Pilih Arena:", [f"Rumus {i} — {ARENA_LABEL[i]}" for i in range(1, 10)])
+        rumus_id = pilihan_arena.split(" ")[1]
+
+        def _baca_csv_safe(path, cols):
+            if os.path.exists(path):
+                try:
+                    df = pd.read_csv(path)
+                    return df
+                except: pass
+            return pd.DataFrame(columns=cols)
+
+        df_porto = _baca_csv_safe(f"Database/portofolio_aktif_rumus_{rumus_id}.csv",
+                                  ["Tanggal_Beli","Ticker","Harga_Beli","Lot","Total_Modal","Target_TP","Target_CL"])
+        df_hist = _baca_csv_safe(f"Database/histori_transaksi_rumus_{rumus_id}.csv",
+                                 ["Tanggal_Beli","Tanggal_Jual","Ticker","Harga_Beli","Harga_Jual","Status","Total_Return_Rp","Return_%"])
+        df_sinyal = _baca_csv_safe(f"Database/sinyal_ai_rumus_{rumus_id}.csv",
+                                   ["Ticker","Target_TP","Target_CL","Stempel"])
+
+        total_profit = df_hist["Total_Return_Rp"].sum() if not df_hist.empty and "Total_Return_Rp" in df_hist.columns else 0
+        modal_terpakai = df_porto["Total_Modal"].sum() if not df_porto.empty and "Total_Modal" in df_porto.columns else 0
+        saldo = 100000000 + total_profit - modal_terpakai
+        total_aset = saldo + modal_terpakai
+
+        m1, m2, m3, m4 = st.columns(4)
+        m1.metric("💵 Saldo Kas", f"Rp {saldo:,.0f}".replace(",","."))
+        m2.metric("📦 Modal Terpakai", f"Rp {modal_terpakai:,.0f}".replace(",","."))
+        m3.metric("💰 Total Aset", f"Rp {total_aset:,.0f}".replace(",","."))
+        m4.metric("📊 P/L Realized", f"Rp {total_profit:,.0f}".replace(",","."),
+                  delta=f"{total_profit/100000000*100:.1f}%", delta_color="normal")
+
+        st.markdown("---")
+        sub1, sub2, sub3 = st.tabs(["📝 Sinyal Antrean", "🟢 Posisi Aktif", "📚 Histori Transaksi"])
+
+        with sub1:
+            if not df_sinyal.empty:
+                st.success(f"🔥 {len(df_sinyal)} sinyal siap dieksekusi.")
+                st.dataframe(df_sinyal, use_container_width=True, hide_index=True)
+            else:
+                st.info("Kosong. Tidak ada sinyal.")
+
+        with sub2:
+            if not df_porto.empty:
+                df_t = df_porto.copy()
+                if "Harga_Beli" in df_t: df_t["Harga_Beli"] = df_t["Harga_Beli"].apply(lambda x: f"Rp {x:,.0f}".replace(",","."))
+                if "Target_TP" in df_t: df_t["Target_TP"] = df_t["Target_TP"].apply(lambda x: f"Rp {x:,.0f}".replace(",","."))
+                if "Target_CL" in df_t: df_t["Target_CL"] = df_t["Target_CL"].apply(lambda x: f"Rp {x:,.0f}".replace(",","."))
+                st.dataframe(df_t, use_container_width=True, hide_index=True)
+            else:
+                st.info("📦 Gudang kosong. Belum ada posisi aktif.")
+
+        with sub3:
+            if not df_hist.empty:
+                df_h = df_hist.sort_values("Tanggal_Jual", ascending=False) if "Tanggal_Jual" in df_hist.columns else df_hist
+                st.dataframe(df_h, use_container_width=True, hide_index=True)
+            else:
+                st.info("📭 Belum ada riwayat penjualan.")
+
+# =====================================================================
+# >>> PART 14 : TAB 6 - DETEKTIF LEDAKAN (HANYA BACA) + CHAT AI <<<
+# =====================================================================
+    with tab6:
         st.markdown("## 🕵️ Detektif Ledakan & Ruang Obrolan AI")
         st.caption("Angka dihitung LOKAL dari arsip intraday (snapshot 5-menitan) + Buku Besar Harian (50 hari, gzip ±1MB). AI gratis hanya menyusun narasi — tidak berhitung.")
         st.caption("🔒 **Pagar keamanan:** Tab ini hanya MEMBACA & MENGANALISIS — tidak pernah membeli, menjual, atau mengubah portofolio/sinyal Anda.")
