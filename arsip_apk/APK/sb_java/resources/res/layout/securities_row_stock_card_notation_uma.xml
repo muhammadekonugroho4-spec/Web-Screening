@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/iv_notation_icon"
-    android:tag="layout/securities_row_stock_card_notation_uma_0"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/icon_placeholder_16"
-    android:layout_marginStart="@dimen/spacing_4"
-    android:paddingVertical="@dimen/spacing_2"
-    app:srcCompat="?attr/themeIconNotationUmaOrderPage"/>

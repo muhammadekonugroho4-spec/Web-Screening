@@ -1,0 +1,8 @@
+*.apk
+sb_dex/
+sb_java/
+commandlinetools-linux-*
+gradle.zip
+gradle-home/
+android-sdk/
+node_modules/

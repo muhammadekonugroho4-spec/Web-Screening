@@ -1,9 +1,0 @@
-package com.google.firebase.auth;
-
-/* loaded from: classes6.dex */
-public abstract class ActionCodeMultiFactorInfo extends ActionCodeInfo {
-    public ActionCodeMultiFactorInfo() {
-    }
-
-    public abstract MultiFactorInfo getMultiFactorInfo();
-}

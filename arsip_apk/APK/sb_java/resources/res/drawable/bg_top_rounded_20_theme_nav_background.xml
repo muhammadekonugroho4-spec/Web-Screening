@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:tint="?attr/themeBottomNavBackground"
-    android:shape="rectangle">
-    <solid android:color="?attr/themeBottomNavBackground"/>
-    <corners
-        android:topLeftRadius="@dimen/item_gap_20"
-        android:topRightRadius="@dimen/item_gap_20"/>
-</shape>

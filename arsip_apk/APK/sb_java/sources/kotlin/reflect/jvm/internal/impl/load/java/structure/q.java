@@ -1,6 +1,0 @@
-package kotlin.reflect.jvm.internal.impl.load.java.structure;
-
-/* loaded from: classes3.dex */
-public interface q extends d, s, t {
-    g B();
-}

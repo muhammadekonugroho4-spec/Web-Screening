@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/iv_row_notation_icon"
-    android:tag="layout/row_portfolio_notation_0"
-    android:layout_width="@dimen/icon_placeholder_12"
-    android:layout_height="@dimen/icon_placeholder_12"
-    android:layout_marginStart="@dimen/spacing_4"/>
