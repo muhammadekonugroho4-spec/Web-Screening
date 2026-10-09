@@ -2271,52 +2271,66 @@ Bukan rekomendasi investasi — semua portfolio adalah **simulator edukasi** (ua
 # =====================================================================
 
     with tab5:
+        logged_in = st.session_state.get("username") is not None
+
         st.markdown("## 💼 Portofolio Bot — 9 Arena Simulator")
         st.caption("Modal awal Rp 100 jt per rumus · fee beli 0,15% · fee jual 0,25% · Ini simulator, bukan akun broker riil.")
 
-        # PIN lock untuk aksi beli/jual (mengikuti PIN sidebar)
-        pin_aktif = st.session_state.get("pin_login", False)
+        if logged_in:
+            col_beli, col_jual, col_reset = st.columns([2, 2, 3])
+            with col_beli:
+                if st.button("🛒 EKSEKUSI BELI Semua Sinyal!", type="primary", use_container_width=True):
+                    import subprocess, sys
+                    with st.spinner("Bot mengeksekusi pembelian..."):
+                        try:
+                            proses = subprocess.run([sys.executable, "bot_simulator.py", "--beli-only"], capture_output=True, text=True, timeout=1800)
+                            if proses.returncode != 0:
+                                st.error("❌ Gagal. Log:")
+                                st.code(proses.stderr[-2000:], language="bash")
+                            else:
+                                st.success("✅ Pembelian selesai!")
+                                st.code(proses.stdout[-2000:], language="bash")
+                                st.cache_data.clear(); time.sleep(1); st.rerun()
+                        except Exception as e:
+                            st.error(f"Error: {e}")
+            with col_jual:
+                if st.button("💸 JUAL SORE Semua Posisi!", use_container_width=True):
+                    import subprocess, sys
+                    with st.spinner("Bot mengeksekusi penjualan..."):
+                        try:
+                            proses = subprocess.run([sys.executable, "bot_simulator.py", "--jual-only"], capture_output=True, text=True, timeout=1800)
+                            if proses.returncode != 0:
+                                st.error("❌ Gagal. Log:")
+                                st.code(proses.stderr[-2000:], language="bash")
+                            else:
+                                st.success("✅ Jual sore selesai!")
+                                st.code(proses.stdout[-2000:], language="bash")
+                                st.cache_data.clear(); time.sleep(1); st.rerun()
+                        except Exception as e:
+                            st.error(f"Error: {e}")
+            with col_reset:
+                if st.button("🔄 Reset Semua Arena ke Rp 100 Juta", use_container_width=True, type="secondary"):
+                    import subprocess, sys
+                    if st.session_state.get("konf_reset"):
+                        try:
+                            hr = subprocess.run([sys.executable, "reset_porto.py", "--yes"], capture_output=True, text=True, timeout=120)
+                            if hr.returncode == 0:
+                                st.session_state["konf_reset"] = False
+                                st.success("✅ Reset selesai! 9 arena kembali Rp 100 juta.")
+                                st.code(hr.stdout[-1500:], language="bash")
+                                st.cache_data.clear(); time.sleep(1); st.rerun()
+                            else:
+                                st.error("❌ Reset gagal.")
+                        except Exception as e:
+                            st.error(f"Error: {e}")
+                    else:
+                        st.session_state["konf_reset"] = True
+                        st.warning("Klik sekali lagi untuk konfirmasi reset.")
 
-        col_beli, col_jual = st.columns(2)
-        with col_beli:
-            if pin_aktif and st.button("🛒 EKSEKUSI BELI Semua Sinyal!", type="primary", use_container_width=True):
-                import subprocess, sys
-                with st.spinner("Bot mengeksekusi pembelian..."):
-                    try:
-                        proses = subprocess.run([sys.executable, "bot_simulator.py", "--beli-only"], capture_output=True, text=True, timeout=1800)
-                        if proses.returncode != 0:
-                            st.error("❌ Gagal. Log:")
-                            st.code(proses.stderr[-2000:], language="bash")
-                        else:
-                            st.success("✅ Pembelian selesai!")
-                            st.code(proses.stdout[-2000:], language="bash")
-                            st.cache_data.clear()
-                            time.sleep(1)
-                            st.rerun()
-                    except Exception as e:
-                        st.error(f"Error: {e}")
-        with col_jual:
-            if pin_aktif and st.button("💸 JUAL SORE Semua Posisi!", use_container_width=True):
-                import subprocess, sys
-                with st.spinner("Bot mengeksekusi penjualan..."):
-                    try:
-                        proses = subprocess.run([sys.executable, "bot_simulator.py", "--jual-only"], capture_output=True, text=True, timeout=1800)
-                        if proses.returncode != 0:
-                            st.error("❌ Gagal. Log:")
-                            st.code(proses.stderr[-2000:], language="bash")
-                        else:
-                            st.success("✅ Jual sore selesai!")
-                            st.code(proses.stdout[-2000:], language="bash")
-                            st.cache_data.clear()
-                            time.sleep(1)
-                            st.rerun()
-                    except Exception as e:
-                        st.error(f"Error: {e}")
-
-        if not pin_aktif:
-            st.info("🔐 Masukkan PIN di sidebar (kiri) untuk mengaktifkan tombol beli/jual.")
-
-        st.markdown("---")
+            st.markdown("---")
+            st.info("💡 Saham suspend otomatis dijual saat cron TP/SL (harga beli, fee only). Untuk jual manual, gunakan tombol JUAL SORE di atas.")
+        else:
+            st.info("🔐 Login dulu di sidebar untuk mengakses tombol beli/jual/reset.")
 
         # Load portfolio data
         ARENA_LABEL = {1: "Smart Money Menyelam", 2: "Pantulan Jarum Bawah", 3: "Tutup Kuat Bandar Hajar",
