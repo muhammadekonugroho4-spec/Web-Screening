@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-09 15:20:02",
+    "stempel_data": "2026-10-09 16:00:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "PCAR",
-            "DKHH",
             "STRK",
-            "TEBE",
-            "OMED"
+            "IKAI",
+            "TOWR",
+            "TEBE"
         ],
         "RUMUS 2": [
             "NAYZ",
-            "KKES",
             "JECX",
-            "ASMI",
-            "TAXI"
+            "GWSA",
+            "ISSP",
+            "TAMU"
         ],
         "RUMUS 3": [
             "KLAS",
-            "FLMC",
-            "SOSS",
-            "KBAG",
-            "GTBO"
+            "VERN",
+            "GULA",
+            "AVIA",
+            "MGRO"
         ],
         "RUMUS 4": [
-            "PCAR",
             "NAYZ",
             "STRK",
-            "DKHH",
-            "TEBE"
+            "PCAR",
+            "IKAI",
+            "TOWR"
         ],
         "RUMUS 5": [
-            "PCAR",
             "NAYZ",
-            "TEBE",
-            "IDEA",
-            "POLA"
+            "PCAR",
+            "STRK",
+            "TOWR",
+            "SEMA"
         ],
         "RUMUS 6": [
             "TEBE",
             "OMED",
             "JECX",
-            "GWSA",
-            "BPFI"
+            "GPRA",
+            "TRST"
         ],
         "RUMUS 7": [
             "TEBE",
             "MMIX",
             "DEWA",
-            "DADA",
+            "",
             ""
         ],
         "RUMUS 8": [
-            "PCAR",
             "NAYZ",
-            "DKHH",
+            "PCAR",
+            "STRK",
             "IKAI",
-            "STRK"
+            "TOWR"
         ],
         "RUMUS 9": [
             "MAHA",
-            "EAST",
+            "MPMX",
             "MTDL",
-            "SCCO",
-            "BTON"
+            "SIDO",
+            "SCCO"
         ]
     }
 }
