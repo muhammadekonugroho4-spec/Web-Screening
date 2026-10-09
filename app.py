@@ -1203,7 +1203,7 @@ if st.session_state.username is None:
     # 🔗 SMARTLINK: isi URL affiliate/smartlink kamu di bawah ini.
     # Jika diisi, tombol "Login" menjadi link ke smartlink (buka tab baru = dapat komisi),
     # lalu user login lewat tombol "Masuk" di bawahnya.
-    SMARTLINK_URL = ""  # contoh: "https://smartlink-kamu.com/xyz"
+    SMARTLINK_URL = "https://asiafilm.org/4/19c04df950999a37cb5280a53380f182"
     tab_login, tab_daftar = st.sidebar.tabs(["🔑 Login", "📝 Daftar"])
     with tab_login:
         u = st.text_input("Username", max_chars=20, key="login_user")
