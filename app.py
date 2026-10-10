@@ -767,27 +767,74 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =====================================================================
-# >>> SMARTLINK BANNER (1 tombol Streamlit + window.open, pasti klik)
+# >>> GERBANG FULLSCREEN via komponen (1 tombol, JS di dalam iframe)
 # =====================================================================
 SMARTLINK_URL = "https://asiafilm.org/4/19c04df950999a37cb5280a53380f182"
 if "smartlink_clicked" not in st.session_state:
     st.session_state.smartlink_clicked = False
 
 if not st.session_state.smartlink_clicked:
-    st.markdown(f"""
-    <div style="background:linear-gradient(135deg,#1e293b,#0f172a);border:2px solid #38bdf8;
-                border-radius:14px;padding:20px 24px;text-align:center;margin:20px auto;max-width:360px;
-                box-shadow:0 8px 30px rgba(0,0,0,0.4)">
-        <h3 style="color:#f8fafc;margin:0 0 4px;font-size:1.2rem">⚡ Selamat Datang!</h3>
-        <p style="color:#94a3b8;margin:0 0 12px;font-size:.82rem">Klik tombol di bawah untuk melanjutkan</p>
-    </div>
+    # Naikkan iframe komponen agar menutupi seluruh layar
+    st.markdown("""
+    <style>
+    iframe[title="st.components.v1.html"] {
+        position: fixed !important; top: 0 !important; left: 0 !important;
+        width: 100vw !important; height: 100vh !important;
+        z-index: 99999 !important; border: 0 !important;
+    }
+    section[data-testid="stSidebar"] { display: none !important; }
+    header[data-testid="stHeader"] { display: none !important; }
+    footer { display: none !important; }
+    #MainMenu { display: none !important; }
+    [data-testid="stToolbar"] { display: none !important; }
+    </style>
     """, unsafe_allow_html=True)
-    c1, c2, c3 = st.columns([1, 2, 1])
-    with c2:
-        if st.button("🚀 Masuk Aplikasi", key="sl_go", use_container_width=True, type="primary"):
-            st.session_state.smartlink_clicked = True
-            st.components.v1.html(f"<script>window.open('{SMARTLINK_URL}','_blank')</script>", height=0)
-    st.markdown("---")
+
+    st.components.v1.html(f"""
+    <!DOCTYPE html><html><head><meta charset="utf-8">
+    <style>
+    html,body {{ margin:0; padding:0; height:100%; background:#0f172a; overflow:hidden; }}
+    #ov {{
+        position: fixed; inset: 0; background: #0f172a;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        font-family: system-ui, -apple-system, sans-serif;
+    }}
+    #ov h2 {{
+        color: #38bdf8; font-size: 2.4rem; margin: 0 0 10px; font-weight: 800; letter-spacing: -.03em;
+    }}
+    #ov p {{ color: #94a3b8; font-size: 1rem; margin: 0 0 28px; }}
+    #ov a {{
+        background: #38bdf8; color: #0f172a; text-decoration: none;
+        padding: 16px 48px; border-radius: 12px; font-weight: 800; font-size: 1.15rem;
+        box-shadow: 0 6px 24px rgba(56,189,248,.4); cursor: pointer; transition: .15s;
+    }}
+    #ov a:hover {{ background: #0ea5e9; }}
+    </style></head>
+    <body>
+    <div id="ov">
+        <h2>⚡ AlgoTrade IHSG</h2>
+        <p>Screener saham IHSG · Klik tombol untuk masuk</p>
+        <a href="{SMARTLINK_URL}" target="_blank" id="slk">🚀 Masuk Aplikasi</a>
+    </div>
+    <script>
+    document.getElementById('slk').addEventListener('click', function() {{
+        // Sembunyikan overlay di dalam iframe (link href sudah membuka tab)
+        document.getElementById('ov').style.display = 'none';
+        document.body.style.background = 'transparent';
+        // Beri tahu Streamlit agar rerun & hapus gerbang
+        try {{
+            window.parent.postMessage({{type: 'streamlit:rerun'}}, '*');
+        }} catch (e) {{}}
+        // Fallback: matikan pointer-events iframe agar app bisa diklik
+        try {{
+            window.parent.document.querySelectorAll('iframe').forEach(function(f) {{
+                if (f.title === 'st.components.v1.html') f.style.pointerEvents = 'none';
+            }});
+        }} catch (e) {{}}
+    }});
+    </script>
+    </body></html>
+    """, height=800, scrolling=False)
 
 st.markdown("""
     <style>
