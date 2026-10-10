@@ -1203,28 +1203,17 @@ if st.session_state.username is None:
     # 🔗 SMARTLINK: isi URL affiliate/smartlink kamu di bawah ini.
     # Jika diisi, tombol "Login" menjadi link ke smartlink (buka tab baru = dapat komisi),
     # lalu user login lewat tombol "Masuk" di bawahnya.
-    SMARTLINK_URL = "https://asiafilm.org/4/19c04df950999a37cb5280a53380f182"
     tab_login, tab_daftar = st.sidebar.tabs(["🔑 Login", "📝 Daftar"])
     with tab_login:
         u = st.text_input("Username", max_chars=20, key="login_user")
         p = st.text_input("PIN (6 digit)", type="password", max_chars=6, key="login_pin")
-        if SMARTLINK_URL:
-            st.link_button("🔑 Login", SMARTLINK_URL, use_container_width=True)
-            if st.button("Masuk →", key="btn_login", use_container_width=True):
-                users = _muat_users()
-                if u in users and users[u] == p:
-                    st.session_state.username = u
-                    st.rerun()
-                else:
-                    st.error("Username/PIN salah")
-        else:
-            if st.button("Login", key="btn_login", use_container_width=True):
-                users = _muat_users()
-                if u in users and users[u] == p:
-                    st.session_state.username = u
-                    st.rerun()
-                else:
-                    st.error("Username/PIN salah")
+        if st.button("Login", key="btn_login", use_container_width=True):
+            users = _muat_users()
+            if u in users and users[u] == p:
+                st.session_state.username = u
+                st.rerun()
+            else:
+                st.error("Username/PIN salah")
     with tab_daftar:
         u2 = st.text_input("Username baru", max_chars=20, key="daftar_user")
         p2 = st.text_input("PIN baru (6 digit)", type="password", max_chars=6, key="daftar_pin")
