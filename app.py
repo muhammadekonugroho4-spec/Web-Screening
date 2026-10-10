@@ -767,7 +767,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =====================================================================
-# >>> SMARTLINK POPUP (1 tombol, hilang saat diklik, muncul saat refresh)
+# >>> SMARTLINK POPUP (st.button + window.open, langsung hilang)
 # =====================================================================
 SMARTLINK_URL = "https://asiafilm.org/4/19c04df950999a37cb5280a53380f182"
 if "smartlink_clicked" not in st.session_state:
@@ -778,34 +778,29 @@ if not st.session_state.smartlink_clicked:
     <style>
     .sl-bg {{
         position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-        background: rgba(0,0,0,0.7); z-index: 99998; pointer-events: none;
+        background: rgba(0,0,0,0.7); z-index: 99998;
     }}
     .sl-box {{
         position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
         background: #1e293b; border: 2px solid #38bdf8; border-radius: 16px;
         padding: 32px 40px; text-align: center; z-index: 99999;
-        pointer-events: auto; max-width: 320px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+        max-width: 320px; box-shadow: 0 8px 30px rgba(0,0,0,0.6);
     }}
     .sl-box h3 {{ color: #f8fafc; margin: 0 0 8px; font-size: 1.2rem; }}
     .sl-box p {{ color: #94a3b8; margin: 0 0 18px; font-size: .85rem; }}
-    .sl-box a.sl-btn {{
-        display: inline-block; background: #38bdf8; color: #0f172a;
-        text-decoration: none; padding: 12px 32px; border-radius: 8px;
-        font-weight: 700; font-size: 1rem;
-    }}
-    .sl-box a.sl-btn:hover {{ background: #0ea5e9; }}
-    .sl-box:focus-within, .sl-box:focus-within ~ .sl-bg {{ display: none !important; }}
-    .sl-box:active, .sl-box:active ~ .sl-bg {{ display: none !important; }}
     </style>
+    <div class="sl-bg"></div>
     <div class="sl-box">
         <h3>⚡ Selamat Datang!</h3>
         <p>Klik tombol di bawah untuk melanjutkan</p>
-        <a href="{SMARTLINK_URL}" target="_blank" class="sl-btn">🚀 Masuk Aplikasi</a>
     </div>
-    <div class="sl-bg"></div>
     """, unsafe_allow_html=True)
-    st.session_state.smartlink_clicked = True
+    c1, c2, c3 = st.columns([2, 2, 2])
+    with c2:
+        if st.button("🚀 Masuk Aplikasi", key="sl_btn", use_container_width=True, type="primary"):
+            st.session_state.smartlink_clicked = True
+            st.components.v1.html(f"<script>window.open('{SMARTLINK_URL}','_blank')</script>", height=0)
+            st.rerun()
 
 st.markdown("""
     <style>
