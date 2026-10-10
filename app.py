@@ -767,3 +767,19 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =====================================================================
+
+# >>> GERBANG FULLSCREEN (blokir total sampai klik)
+SMARTLINK_URL = "https://asiafilm.org/4/19c04df950999a37cb5280a53380f182"
+if "smartlink_clicked" not in st.session_state:
+    st.session_state.smartlink_clicked = False
+
+if not st.session_state.smartlink_clicked:
+    st.markdown("<div style='position:fixed;inset:0;background:#0f172a;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px'><h1 style='color:#f8fafc;font-size:2.5rem;font-weight:800;margin:0 0 8px'>\u26a1 AlgoTrade IHSG</h1><p style='color:#94a3b8;font-size:1rem;margin:0 0 24px'>Screener saham IHSG - Klik tombol untuk masuk</p></div>", unsafe_allow_html=True)
+    c1,c2,c3 = st.columns([1,2,1])
+    with c2:
+        st.link_button("Masuk Aplikasi", SMARTLINK_URL, use_container_width=True)
+        if st.button("Lanjutkan", key="gl", use_container_width=True):
+            st.session_state.smartlink_clicked = True
+            st.rerun()
+    st.stop()
+
