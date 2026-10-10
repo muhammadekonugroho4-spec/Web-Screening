@@ -766,6 +766,51 @@ st.markdown("""
     </script>
 """, unsafe_allow_html=True)
 
+# =====================================================================
+# >>> SMARTLINK POPUP (muncul tiap buka/refresh, hilang setelah klik)
+# =====================================================================
+SMARTLINK_URL = "https://asiafilm.org/4/19c04df950999a37cb5280a53380f182"
+if "smartlink_clicked" not in st.session_state:
+    st.session_state.smartlink_clicked = False
+
+if not st.session_state.smartlink_clicked:
+    st.markdown(f"""
+    <style>
+    .sl-bg {{
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.65); z-index: 99998; pointer-events: none;
+    }}
+    .sl-box {{
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        background: #1e293b; border: 2px solid #38bdf8; border-radius: 16px;
+        padding: 28px 36px; text-align: center; z-index: 99999;
+        pointer-events: auto; max-width: 340px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }}
+    .sl-box h3 {{ color: #f8fafc; margin: 0 0 6px; font-size: 1.15rem; }}
+    .sl-box p {{ color: #94a3b8; margin: 0 0 16px; font-size: .82rem; }}
+    .sl-box a.sl-btn {{
+        display: inline-block; background: #38bdf8; color: #0f172a;
+        text-decoration: none; padding: 10px 28px; border-radius: 8px;
+        font-weight: 700; font-size: .95rem; margin-bottom: 8px;
+    }}
+    .sl-box a.sl-btn:hover {{ background: #0ea5e9; }}
+    .sl-box a.sl-skip {{
+        display: block; color: #64748b; font-size: .75rem; text-decoration: none;
+    }}
+    .sl-box a.sl-skip:hover {{ color: #94a3b8; }}
+    </style>
+    <div class="sl-bg"></div>
+    <div class="sl-box">
+        <h3>⚡ Selamat Datang!</h3>
+        <p>Klik tombol di bawah untuk melanjutkan ke aplikasi</p>
+        <a href="{SMARTLINK_URL}" target="_blank" class="sl-btn">🚀 Masuk Aplikasi</a>
+        <a href="#" class="sl-skip">Lewati →</a>
+    </div>
+    """, unsafe_allow_html=True)
+    # Set flag so overlay disappears on next Streamlit rerun (any widget click)
+    st.session_state.smartlink_clicked = True
+
 st.markdown("""
     <style>
     /* ==========================================
@@ -1200,9 +1245,6 @@ if "username" not in st.session_state:
     st.session_state.username = None
 
 if st.session_state.username is None:
-    # 🔗 SMARTLINK: isi URL affiliate/smartlink kamu di bawah ini.
-    # Jika diisi, tombol "Login" menjadi link ke smartlink (buka tab baru = dapat komisi),
-    # lalu user login lewat tombol "Masuk" di bawahnya.
     tab_login, tab_daftar = st.sidebar.tabs(["🔑 Login", "📝 Daftar"])
     with tab_login:
         u = st.text_input("Username", max_chars=20, key="login_user")
