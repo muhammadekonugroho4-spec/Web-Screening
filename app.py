@@ -955,6 +955,70 @@ st.markdown("""
 
 
 # =====================================================================
+# >>> PART 05B : AD GATE SMARTLINK — GERBANG IKLAN SEBELUM MASUK APP <<<
+# Dipasang: 2026-10-10 | Tujuan: gerbang iklan (smartlink) sekali per session.
+# Mode A (default): <a target="_blank"> + st.button + countdown server-side + st.stop().
+# =====================================================================
+SMARTLINK_URL = "https://asiafilm.org/4/19c04df950999a37cb5280a53380f182"
+TEKS_TOMBOL_IKLAN = "Klik Untuk Masuk"
+DETIK_MINIMUM_TUNGGU = 5
+GATE_LOG_CSV = os.path.join("Database", "ad_gate_log.csv")
+GATE_MODE = "A"  # "A" = andal (link + tombol). "B" = komponen kustom (opsional).
+
+if "gate_passed" not in st.session_state:
+    st.session_state.gate_passed = False
+if "gate_shown_at" not in st.session_state:
+    st.session_state.gate_shown_at = time.time()
+if "gate_sid" not in st.session_state:
+    st.session_state.gate_sid = f"{random.getrandbits(32):08x}"
+
+if not st.session_state.gate_passed:
+    if AUTOREFRESH_OK:
+        st_autorefresh(interval=1000, key="gate_autorefresh")
+        sisa = max(0, DETIK_MINIMUM_TUNGGU - int(time.time() - st.session_state.gate_shown_at))
+    else:
+        sisa = 0
+
+    st.markdown(
+        f"""
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:16px;">
+          <h1 style="margin-bottom:4px;">⚡ WEB-SCREENING</h1>
+          <p style="color:#94a3b8;margin-bottom:28px;">
+            Untuk masuk, klik tombol di bawah ini.<br>
+            Iklan terbuka di <b>tab baru</b>. Kembali ke tab ini, lalu tekan <b>MASUK APLIKASI</b>.
+          </p>
+          <a href="{SMARTLINK_URL}" target="_blank" rel="noopener noreferrer"
+             style="display:inline-block;padding:16px 42px;border-radius:12px;
+                    background:linear-gradient(135deg,#ef4444,#b91c1c);
+                    color:#ffffff;font-weight:800;font-size:1.15rem;text-decoration:none;
+                    box-shadow:0 6px 18px rgba(239,68,68,.35);">
+             📺 {TEKS_TOMBOL_IKLAN}
+          </a>
+          <p style="color:#64748b;font-size:.8rem;margin-top:26px;">
+            Dukungan iklan Anda menjaga server ini tetap gratis. 🙏
+          </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    label_masuk = "✅ MASUK APLIKASI" if sisa == 0 else f"⏳ Tunggu {sisa} detik lagi..."
+    if st.button(label_masuk, type="primary", disabled=(sisa != 0), key="gate_btn_masuk"):
+        st.session_state.gate_passed = True
+        try:
+            os.makedirs("Database", exist_ok=True)
+            baru = not os.path.exists(GATE_LOG_CSV)
+            with open(GATE_LOG_CSV, "a") as f:
+                if baru:
+                    f.write("waktu_wib,sid\n")
+                f.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')},{st.session_state.gate_sid}\n")
+        except Exception:
+            pass
+        st.rerun()
+    st.stop()
+# <<< AKHIR PART 05B >>>
+
+# =====================================================================
 # >>> PART 06 : LOAD KONFIGURASI JSON (MASTER FILTERS) <<<
 # =====================================================================
 FILE_CONFIG = "config_web.json"
