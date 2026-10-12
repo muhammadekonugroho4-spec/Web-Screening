@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-09 16:00:01",
+    "stempel_data": "2026-10-12 15:15:02",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "PCAR",
+            "DKHH",
+            "BIKE",
+            "TFCO",
             "STRK",
-            "IKAI",
-            "TOWR",
-            "TEBE"
+            "ZONE"
         ],
         "RUMUS 2": [
-            "NAYZ",
-            "JECX",
-            "GWSA",
-            "ISSP",
-            "TAMU"
+            "DUTI",
+            "FMII",
+            "DRMA",
+            "GLVA",
+            ""
         ],
         "RUMUS 3": [
-            "KLAS",
-            "VERN",
-            "GULA",
-            "AVIA",
-            "MGRO"
-        ],
-        "RUMUS 4": [
-            "NAYZ",
-            "STRK",
-            "PCAR",
-            "IKAI",
-            "TOWR"
-        ],
-        "RUMUS 5": [
-            "NAYZ",
-            "PCAR",
-            "STRK",
-            "TOWR",
-            "SEMA"
-        ],
-        "RUMUS 6": [
-            "TEBE",
-            "OMED",
-            "JECX",
-            "GPRA",
+            "LOPI",
+            "BTON",
+            "IFSH",
+            "GTBO",
             "TRST"
         ],
+        "RUMUS 4": [
+            "DKHH",
+            "BIKE",
+            "STRK",
+            "TFCO",
+            "ZONE"
+        ],
+        "RUMUS 5": [
+            "DKHH",
+            "STRK",
+            "BIKE",
+            "PCAR",
+            "HATM"
+        ],
+        "RUMUS 6": [
+            "TRST",
+            "DUTI",
+            "INTP",
+            "BPFI",
+            "SMRA"
+        ],
         "RUMUS 7": [
-            "TEBE",
-            "MMIX",
-            "DEWA",
+            "GTBO",
+            "",
+            "",
             "",
             ""
         ],
         "RUMUS 8": [
-            "NAYZ",
-            "PCAR",
             "STRK",
-            "IKAI",
-            "TOWR"
+            "DKHH",
+            "BIKE",
+            "ASPI",
+            "ZONE"
         ],
         "RUMUS 9": [
-            "MAHA",
-            "MPMX",
-            "MTDL",
-            "SIDO",
-            "SCCO"
+            "SMRA",
+            "BEER",
+            "GPSO",
+            "MLPT",
+            "SCNP"
         ]
     }
 }
