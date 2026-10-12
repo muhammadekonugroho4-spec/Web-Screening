@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-12 15:15:02",
+    "stempel_data": "2026-10-12 16:00:02",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "DKHH",
-            "BIKE",
-            "TFCO",
             "STRK",
-            "ZONE"
+            "DKHH",
+            "MINE",
+            "ASPI",
+            "BIKE"
         ],
         "RUMUS 2": [
-            "DUTI",
-            "FMII",
-            "DRMA",
-            "GLVA",
-            ""
+            "TOWR",
+            "OMED",
+            "TCPI",
+            "NINE",
+            "DRMA"
         ],
         "RUMUS 3": [
+            "MINE",
+            "PKPK",
             "LOPI",
-            "BTON",
             "IFSH",
-            "GTBO",
-            "TRST"
+            "GTBO"
         ],
         "RUMUS 4": [
-            "DKHH",
-            "BIKE",
             "STRK",
-            "TFCO",
-            "ZONE"
+            "DKHH",
+            "ASPI",
+            "BIKE",
+            "NANO"
         ],
         "RUMUS 5": [
-            "DKHH",
-            "STRK",
             "BIKE",
+            "STRK",
+            "DKHH",
             "PCAR",
             "HATM"
         ],
         "RUMUS 6": [
-            "TRST",
-            "DUTI",
             "INTP",
-            "BPFI",
-            "SMRA"
+            "MIDI",
+            "SMRA",
+            "DRMA",
+            "MCOL"
         ],
         "RUMUS 7": [
-            "GTBO",
+            "",
             "",
             "",
             "",
             ""
         ],
         "RUMUS 8": [
+            "ASPI",
+            "BIKE",
             "STRK",
             "DKHH",
-            "BIKE",
-            "ASPI",
             "ZONE"
         ],
         "RUMUS 9": [
             "SMRA",
-            "BEER",
             "GPSO",
             "MLPT",
-            "SCNP"
+            "BAPA",
+            "BAIK"
         ]
     }
 }
