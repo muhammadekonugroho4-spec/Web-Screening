@@ -1,8 +1,9 @@
 import os, json, sqlite3
 from datetime import datetime
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -11,8 +12,38 @@ from backend.auth import pwd_ctx, create_access_token, DB_DIR, USERS_DB, get_cur
 BASE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(BASE)
 
-app = FastAPI(title="WEB-SCREENING API (Opsi A)", version="1.0.0")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+# Logika murni hasil Langkah 2 (tanpa Streamlit) — siap dipakai endpoint nanti
+from backend.core import (
+    load_data_saham_raw, _muat_fundamental_exodus_raw, muat_sinyal_arena_raw,
+    muat_keranjang_radar_raw, format_skor, format_pct, format_angka,
+    muat_arsip, muat_buku_besar_raw,
+)
+
+app = FastAPI(
+    title="WEB-SCREENING API",
+    description="Backend FastAPI untuk migrasi dari Streamlit",
+    version="0.1.0",
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Static files
+app.mount("/static", StaticFiles(directory=os.path.join(BASE, "static")), name="static")
+
+# Templates (Jinja2) — cache template dimatikan
+# (cache Jinja2 bermasalah di Python 3.14: TypeError tuple-as-dict-key)
+import jinja2
+_env = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.join(BASE, "templates")),
+    autoescape=True,
+    cache_size=0,
+)
+templates = Jinja2Templates(env=_env)
 
 def init_db():
     os.makedirs(DB_DIR, exist_ok=True)
@@ -91,7 +122,37 @@ def me(username: str = __import__("fastapi").Depends(get_current_user)):
 from backend.routes.api import router as api_router
 app.include_router(api_router)
 
-app.mount("/static", StaticFiles(directory=os.path.join(BASE, "static")), name="static")
+@app.get("/health")
+async def health():
+    """Health check endpoint."""
+    return {"status": "ok", "version": "0.1.0"}
+
+@app.get("/api/info")
+async def info():
+    """Info tentang migrasi."""
+    return {
+        "message": "FastAPI backend untuk WEB-SCREENING",
+        "status": "development",
+        "streamlit_port": 8501,
+        "fastapi_port": 8100,
+        "core_modules": ["ai_service", "data_loader", "formatter", "archive"],
+        "next_steps": [
+            "Pindahkan halaman Market Overview",
+            "Pindahkan Screener",
+            "Pindahkan AI features",
+            "Pindahkan Portfolio"
+        ]
+    }
+
+@app.get("/status", response_class=HTMLResponse)
+async def status_page(request: Request):
+    """Halaman status migrasi (Langkah 3) — Jinja2 + Tailwind."""
+    df = load_data_saham_raw()
+    return templates.TemplateResponse(request, "status.html", {
+        "jumlah_saham": len(df),
+        "jumlah_arsip": len(muat_arsip()),
+        "waktu": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    })
 
 @app.get("/")
 def root():

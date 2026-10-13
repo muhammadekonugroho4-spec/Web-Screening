@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB-SCREENING — FastAPI Backend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center">
+    <div class="max-w-2xl mx-auto p-8 text-center">
+        <h1 class="text-4xl font-bold mb-4 text-blue-400">⚡ WEB-SCREENING</h1>
+        <h2 class="text-2xl mb-6">FastAPI Backend (Development)</h2>
+
+        <div class="bg-gray-800 rounded-lg p-6 mb-6">
+            <h3 class="text-xl font-semibold mb-4">Status Migrasi</h3>
+            <ul class="text-left space-y-2">
+                <li>✅ Langkah 1: Inventaris & Backup</li>
+                <li>✅ Langkah 2: Isolasi Logika Murni</li>
+                <li class="text-green-400">🔄 Langkah 3: Kerangka FastAPI (sedang dikerjakan)</li>
+                <li class="text-gray-500">⏳ Langkah 4: Pindahkan Market Overview</li>
+                <li class="text-gray-500">⏳ Langkah 5: Pindahkan Screener</li>
+                <li class="text-gray-500">⏳ Langkah 6: Pindahkan AI & Portfolio</li>
+                <li class="text-gray-500">⏳ Langkah 7: Deploy & Smartlink</li>
+            </ul>
+        </div>
+
+        <div class="bg-gray-800 rounded-lg p-6 mb-6">
+            <h3 class="text-xl font-semibold mb-4">Data Lokal (via backend.core)</h3>
+            <ul class="text-left space-y-2 text-sm">
+                <li>Saham terpantau: <strong class="text-blue-300">{{ jumlah_saham }}</strong> baris (load_data_saham_raw)</li>
+                <li>Arsip harian: <strong class="text-blue-300">{{ jumlah_arsip }}</strong> file (muat_arsip)</li>
+                <li>Dibaca pada: <span class="text-gray-400">{{ waktu }}</span></li>
+            </ul>
+        </div>
+
+        <div class="bg-gray-800 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">API Endpoints</h3>
+            <ul class="text-left space-y-2 text-sm">
+                <li><code class="bg-gray-700 px-2 py-1 rounded">GET /health</code> — Health check</li>
+                <li><code class="bg-gray-700 px-2 py-1 rounded">GET /api/info</code> — Info migrasi</li>
+                <li><code class="bg-gray-700 px-2 py-1 rounded">GET /api/market</code> — Ringkasan market</li>
+                <li><code class="bg-gray-700 px-2 py-1 rounded">GET /docs</code> — Swagger UI</li>
+            </ul>
+        </div>
+
+        <p class="mt-6 text-gray-400 text-sm">
+            Streamlit app tetap jalan di port 8501. FastAPI ini di port 8100.
+        </p>
+    </div>
+</body>
+</html>
