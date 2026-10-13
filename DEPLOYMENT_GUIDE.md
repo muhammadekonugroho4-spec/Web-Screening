@@ -154,3 +154,58 @@ Hasil CSV di-commit → Railway/Render redeploy otomatis (aktifkan **Auto-Deploy
 - [ ] `LANDING_PAGE.html` → `APP_URL` menunjuk domain produksi
 - [ ] Uptime monitor aktif pada `/health`
 - [ ] Uji end-to-end: register → login → screener → AI → portfolio → detective
+
+---
+
+## 11. Railway Volume (Persistensi Database) — Fase E
+
+Tanpa Volume, `Database/` (termasuk `users.db` akun) ter-reset tiap deploy. Dengan Volume, data tersimpan permanen di server Railway.
+
+### Langkah setup (±5 menit, di dashboard Railway)
+
+1. Buka project → service **Web-Screening** → tab **Volumes** → **+ New Volume**
+2. **Mount path**: `/app/Database` ← persis seperti ini (folder data aplikasi)
+3. **Size**: 1 GB (cukup bertahun-tahun untuk CSV + SQLite)
+4. Klik **Add Volume** → Railway akan **redeploy** sekali
+5. **Seed data awal** (sekali saja): setelah deploy naik, data CSV dari repo TIDAK otomatis masuk volume.
+   Salin dari repo ke volume lewat salah satu cara:
+   - **Railway Shell** (tab service → Shell): `cp -n /app/Database.bak/* /app/Database/ 2>/dev/null || true` (jika Anda membuat image dengan salan awal), atau
+   - **Download-upload**: unduh `hasil_screener.csv`, `data_akuisisi.csv`, `fundamental_exodus.csv`, `cache_autopilot.json`, `radar_snapshot*.json` dari repo → upload lewat Railway Shell `cat > file` / curl, atau
+   - **Terima kosong** lalu jalankan cron laptop sore hari → push → redeploy 17:30 → data terisi.
+
+   > Cara paling gampang: biarkan kosong, lalu tunggu **deploy trigger 17:30 pertama** — tapi trigger hanya mengubah 1 file trigger... maka untuk seed pertama, jalankan sekali manual:
+   > Railway Shell: `python -c "import urllib.request; [urllib.request.urlretrieve(f'https://raw.githubusercontent.com/muhammadekonugroho4-spec/Web-Screening/main/Database/{f}', f'Database/{f}') for f in ['hasil_screener.csv','data_akuisisi.csv','fundamental_exodus.csv','cache_autopilot.json','radar_snapshot.json']]"`
+
+### Dampak setelah Volume aktif
+
+| Hal | Sebelum | Sesudah |
+|---|---|---|
+| Akun user | reset tiap deploy | **permanen** |
+| Data CSV | ikut commit Git | **stabil di server** (cron laptop opsional sebagai cadangan) |
+| Deploy | build membawa data | build hanya kode |
+
+### Penyesuaian cron laptop setelah Volume aktif (opsional)
+
+Pipeline data bisa dipindah ke Railway (Railway Cron) atau tetap di laptop. Jika tetap di laptop:
+- `jalankan_bot.sh` tak perlu lagi `git push` data (data hidup di volume) — cukup dipakai sebagai *backup* harian.
+
+---
+
+## 12. Domain Kustom + SSL — Fase E
+
+### Railway (SSL otomatis Let's Encrypt)
+
+1. Beli domain (mis. di Namecheap/Cloudflare: `webscreening.id`)
+2. Railway → service → **Settings → Networking → Custom Domain** → masukkan `app.domainanda.com`
+3. Railway menampilkan **CNAME target** (mis. `xxx.up.railway.app`)
+4. Di DNS provider: buat record `CNAME` → `app` → `xxx.up.railway.app` (proxied **OFF** dulu untuk verifikasi pertama)
+5. Tunggu DNS propagate (5–30 menit) → Railway otomatis menerbitkan sertifikat SSL
+6. Update `APP_URL` di `LANDING_PAGE.html` → `https://app.domainanda.com/`
+7. (Opsional) redirect domain root → subdomain app
+
+### Checklist pasca-domain
+
+- [ ] `https://app.domainanda.com/health` → 200
+- [ ] Ganti `APP_URL` di LANDING_PAGE
+- [ ] Uptime monitor arahkan ke domain baru
+- [ ] MIGRATION_PLAN.md: sebar domain baru ke user
