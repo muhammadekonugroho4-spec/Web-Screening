@@ -1,9 +1,21 @@
 from fastapi import APIRouter, Depends, Query, HTTPException
+from pydantic import BaseModel
+from typing import Dict, List, Optional
 from backend.loader import muat_screener, muat_fundamental, ringkasan_market, data_portofolio, data_radar
 from backend.auth import get_current_user
 import pandas as pd, json
 
 router = APIRouter(prefix="/api")
+
+# Path config (relatif ke root project — sama seperti dipakai app.py PART 06)
+CONFIG_PATH = "config_web.json"
+
+
+def _muat_master_filters():
+    """Load MASTER_FILTERS dari config_web.json (tanpa Streamlit session_state)."""
+    with open(CONFIG_PATH) as f:
+        config = json.load(f)
+    return config["MASTER_FILTERS"]
 
 @router.get("/market")
 def market():
@@ -122,4 +134,112 @@ async def market_overview():
         "top_losers": top_losers,
         "top_volume": top_volume,
         "top_value": top_value,
+    }
+
+
+# =====================================================================
+# SCREENER UTAMA (Langkah 5)
+# =====================================================================
+class ScreenerRequest(BaseModel):
+    filters: Dict[str, str]  # {"Kategori": "Big Cap (Lapis 1)", "RSI (14D)": "> 50 (Bullish)"}
+    numeric_filters: Dict[str, Dict[str, float]]  # {"PER (x)": {"min": 0, "max": 20}}
+    search_ticker: Optional[str] = ""
+    search_broker: Optional[str] = ""
+    price_min: Optional[float] = 0
+    price_max: Optional[float] = 0
+    per_page: Optional[int] = 50
+    page: Optional[int] = 1
+
+
+@router.get("/screener/config")
+async def screener_config():
+    """Return MASTER_FILTERS untuk dropdown (Langkah 5)."""
+    return _muat_master_filters()
+
+
+@router.post("/screener")
+async def screener(request: ScreenerRequest):
+    """Filter saham dengan berbagai kriteria (Langkah 5).
+    Sumber: backend.core.data_loader.load_data_saham_raw + config_web.json."""
+    from backend.core.data_loader import load_data_saham_raw
+
+    df = load_data_saham_raw()
+    if df.empty:
+        return {"error": "Data saham belum tersedia", "data": [], "total": 0}
+
+    # 1. Filter dropdown
+    df_filtered = df.copy()
+    for key, value in request.filters.items():
+        if value == "Semua" or not value:
+            continue
+
+        if key == "RSI (14D)":
+            if "RSI (14D)" in df_filtered.columns:
+                rsi = pd.to_numeric(df_filtered["RSI (14D)"], errors="coerce")
+                if "Bullish" in value:
+                    df_filtered = df_filtered[rsi > 50]
+                else:
+                    df_filtered = df_filtered[rsi <= 50]
+        elif key == "Total Score":
+            if "Total Score" in df_filtered.columns:
+                df_filtered = df_filtered[pd.to_numeric(df_filtered["Total Score"], errors="coerce") == int(value)]
+        elif key == "Kategori" and value == "Mid Cap (Lapis 2) + Small Cap (Lapis 3)":
+            if "Kategori" in df_filtered.columns:
+                df_filtered = df_filtered[df_filtered["Kategori"].isin(["Mid Cap (Lapis 2)", "Small Cap (Lapis 3)"])]
+        elif key == "Kelas Perubahan":
+            if "Change (%)" in df_filtered.columns:
+                chg = pd.to_numeric(df_filtered["Change (%)"], errors="coerce")
+                if "ARA" in value:
+                    df_filtered = df_filtered[chg > 10]
+                elif "Naik Kuat" in value:
+                    df_filtered = df_filtered[(chg >= 5) & (chg <= 10)]
+                elif "Naik Tipis" in value:
+                    df_filtered = df_filtered[(chg > 0) & (chg < 5)]
+                elif "Stagnan" in value:
+                    df_filtered = df_filtered[chg == 0]
+                elif "Turun Tipis" in value:
+                    df_filtered = df_filtered[(chg <= 0) & (chg >= -5)]
+                elif "Turun Tajam" in value:
+                    df_filtered = df_filtered[chg < -5]
+        elif key in df_filtered.columns:
+            df_filtered = df_filtered[df_filtered[key] == value]
+
+    # 2. Filter numerik
+    for col, range_filter in request.numeric_filters.items():
+        if col not in df_filtered.columns:
+            continue
+        col_numeric = pd.to_numeric(df_filtered[col], errors="coerce")
+        if range_filter.get("min") is not None:
+            df_filtered = df_filtered[col_numeric >= range_filter["min"]]
+        if range_filter.get("max") is not None:
+            df_filtered = df_filtered[col_numeric <= range_filter["max"]]
+
+    # 3. Search ticker & broker
+    if request.search_ticker:
+        df_filtered = df_filtered[df_filtered["Ticker"].astype(str).str.contains(request.search_ticker.upper(), na=False)]
+    if request.search_broker and "Broksum" in df_filtered.columns:
+        df_filtered = df_filtered[df_filtered["Broksum"].astype(str).str.contains(request.search_broker.upper(), na=False)]
+
+    # 4. Filter harga
+    if request.price_min and request.price_min > 0:
+        df_filtered = df_filtered[pd.to_numeric(df_filtered["Harga (Rp)"], errors="coerce") >= request.price_min]
+    if request.price_max and request.price_max > 0:
+        df_filtered = df_filtered[pd.to_numeric(df_filtered["Harga (Rp)"], errors="coerce") <= request.price_max]
+
+    # Pagination
+    total = len(df_filtered)
+    per_page = request.per_page or 50
+    page = request.page or 1
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    df_page = df_filtered.iloc[start_idx:end_idx]
+
+    data = df_page.to_dict("records")
+
+    return {
+        "data": data,
+        "total": total,
+        "page": page,
+        "per_page": per_page,
+        "total_pages": (total + per_page - 1) // per_page,
     }

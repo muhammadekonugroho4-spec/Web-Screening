@@ -159,6 +159,11 @@ async def market_page(request: Request):
     """Halaman Market Overview (Langkah 4)."""
     return templates.TemplateResponse(request, "market.html", {})
 
+@app.get("/screener", response_class=HTMLResponse)
+async def screener_page(request: Request):
+    """Halaman Screener Utama (Langkah 5)."""
+    return templates.TemplateResponse(request, "screener.html", {})
+
 @app.get("/")
 def root():
     return FileResponse(os.path.join(BASE, "templates", "index.html"))

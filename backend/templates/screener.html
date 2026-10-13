@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screener Utama — WEB-SCREENING</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: #f8fafc; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #1e293b; padding: 10px 12px; text-align: left; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; white-space: nowrap; position: sticky; top: 0; }
+        td { padding: 8px 12px; border-bottom: 1px solid #2d3b54; white-space: nowrap; font-size: 0.85rem; }
+        tr:nth-child(even) { background: rgba(30, 41, 59, 0.35); }
+        tr:hover { background: rgba(56, 189, 248, 0.08); }
+        .text-green { color: #22c55e; }
+        .text-red { color: #ef4444; }
+        select, input[type="number"], input[type="text"] {
+            background: #1e293b; border: 1px solid #334155; border-radius: 6px;
+            padding: 6px 8px; color: #f8fafc; font-size: 0.8rem; width: 100%;
+        }
+        select:focus, input:focus { outline: 1px solid #38bdf8; }
+        .filter-group { background: #16213a; border: 1px solid #27354f; border-radius: 8px; padding: 10px; }
+        .filter-group h4 { font-size: 0.7rem; text-transform: uppercase; color: #94a3b8; margin-bottom: 6px; font-weight: 700; }
+        .badge-page { min-width: 34px; }
+        #tableWrap { max-height: 65vh; overflow: auto; }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="max-w-[95rem] mx-auto p-4 md:p-6">
+        <!-- Header -->
+        <div class="mb-4">
+            <a href="/" class="text-blue-400 hover:text-blue-300 inline-block mb-2">← Kembali ke Beranda</a>
+            <h1 class="text-2xl md:text-3xl font-bold">📌 Screener Utama</h1>
+            <p class="text-gray-400 text-sm">38 filter + numerik + pencarian — <span id="stempel">loading...</span></p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            <!-- Panel Filter -->
+            <div class="lg:col-span-1 space-y-3">
+                <!-- Pencarian & Harga -->
+                <div class="filter-group">
+                    <h4>🔍 Pencarian & Harga</h4>
+                    <input type="text" id="search_ticker" placeholder="Cari Ticker..." class="mb-2">
+                    <input type="text" id="search_broker" placeholder="Cari Broker (Broksum)..." class="mb-2">
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="number" id="price_min" placeholder="Harga ≥" min="0">
+                        <input type="number" id="price_max" placeholder="Harga ≤" min="0">
+                    </div>
+                </div>
+
+                <!-- Dropdown filters diisi otomatis -->
+                <div class="filter-group">
+                    <h4>🎛️ Filter Kategori (38 dropdown)</h4>
+                    <div id="dropdowns" class="space-y-2 max-h-96 overflow-y-auto pr-1"></div>
+                </div>
+
+                <!-- Filter numerik -->
+                <div class="filter-group">
+                    <h4>🔢 Filter Numerik</h4>
+                    <div id="numeric_filters" class="space-y-2"></div>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="resetFilters()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-3 rounded text-sm">↺ Reset</button>
+                    <button onclick="downloadCSV()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-3 rounded text-sm">⬇ CSV</button>
+                </div>
+            </div>
+
+            <!-- Tabel -->
+            <div class="lg:col-span-3">
+                <!-- Toolbar -->
+                <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <div>
+                        <label class="text-xs text-gray-400 mr-2">Tampilan:</label>
+                        <select id="view_mode" class="!w-auto" onchange="applyFilters()">
+                            <option value="ringkasan">Ringkasan</option>
+                            <option value="bandarmologi">Bandarmologi</option>
+                            <option value="teknikal">Teknikal</option>
+                            <option value="fundamental">Fundamental</option>
+                            <option value="semua">Semua Kolom</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-400 mr-2">Per halaman:</label>
+                        <select id="per_page" class="!w-auto" onchange="applyFilters(true)">
+                            <option>20</option>
+                            <option selected>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                    <span class="text-sm text-gray-300 ml-auto" id="total_info">-</span>
+                </div>
+
+                <div id="tableWrap" class="rounded-lg border border-slate-700">
+                    <table id="tbl">
+                        <thead><tr id="thead"></tr></thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex items-center justify-center gap-2 mt-4" id="pagination"></div>
+            </div>
+        </div>
+    </div>
+
+<script>
+// ============ State ============
+let MASTER_FILTERS = {};
+let currentPage = 1;
+let lastData = [];      // baris halaman aktif (untuk CSV)
+let lastAllFiltered = null; // cache hasil filter lengkap untuk CSV
+let numericCols = ['PER (x)', 'PBV (x)', 'Change (%)', 'Volume', 'Harga (Rp)', 'RSI (14D)', 'Total Score', 'Streak Harian'];
+
+// 5 mode tampilan
+const VIEW_COLS = {
+    ringkasan: ['Ticker', 'Harga (Rp)', 'Change (%)', 'Volume', 'Total Score', 'Rekomendasi', 'Auto Trading Plan'],
+    bandarmologi: ['Ticker', 'Harga (Rp)', 'Change (%)', 'Tekanan Bandar', 'Kekuatan A/D', 'Kondisi Supply', 'Fase Siklus Bandar', 'Status Bandar', 'Sinyal Cuci Barang', 'Karakter Gorengan', 'Broksum'],
+    teknikal: ['Ticker', 'Harga (Rp)', 'Change (%)', 'RSI (14D)', 'MA Signal', 'MA Cross', 'MACD', 'Trend MA (5,20,50)', 'Status BB', 'Status Stochastic', 'Pola Candle', 'Posisi VWAP', 'Status Fibonacci', 'Support', 'Resistance'],
+    fundamental: ['Ticker', 'Harga (Rp)', 'Valuasi', 'PER (x)', 'PBV (x)', 'Likuiditas', 'Kelas Transaksi', 'Status Akuisisi'],
+    semua: null // semua kolom
+};
+
+// ============ Format (mirror backend.core.formatter) ============
+function formatAngka(v) { if (v == null || isNaN(v)) return '-'; return Math.round(v).toLocaleString('id-ID'); }
+function formatPct(v) { if (v == null || isNaN(v)) return '-'; if (v === 0) return '0.00%'; return (v > 0 ? '▲ ' : '▼ ') + v.toFixed(2) + '%'; }
+function formatSingkatVol(v) { if (v == null || isNaN(v)) return '-'; if (v >= 1e6) return (v/1e6).toFixed(2)+' M Lot'; if (v >= 1e3) return (v/1e3).toFixed(2)+' K Lot'; return Math.round(v)+' Lot'; }
+
+// ============ Init ============
+async function init() {
+    try {
+        MASTER_FILTERS = await (await fetch('/api/screener/config')).json();
+    } catch (e) {
+        document.getElementById('dropdowns').innerHTML = '<p class="text-red-400 text-xs">Gagal memuat config: '+e+'</p>';
+        return;
+    }
+    const dd = document.getElementById('dropdowns');
+    for (const [key, spec] of Object.entries(MASTER_FILTERS)) {
+        const label = spec.label || key;
+        const opts = (spec.options || []).map(o => `<option value="${String(o).replace(/"/g,'&quot;')}">${String(o)}</option>`).join('');
+        dd.insertAdjacentHTML('beforeend',
+            `<div><label class="text-[0.68rem] text-gray-400">${label}</label>
+             <select data-filter-key="${key.replace(/"/g,'&quot;')}" onchange="applyFilters(true)">${opts}</select></div>`);
+    }
+    const nf = document.getElementById('numeric_filters');
+    for (const col of numericCols) {
+        nf.insertAdjacentHTML('beforeend',
+            `<div><label class="text-[0.68rem] text-gray-400">${col}</label>
+             <div class="grid grid-cols-2 gap-2">
+                <input type="number" data-num-key="${col}" data-num-side="min" placeholder="min" oninput="applyFiltersDebounced()">
+                <input type="number" data-num-key="${col}" data-num-side="max" placeholder="max" oninput="applyFiltersDebounced()">
+             </div></div>`);
+    }
+    applyFilters(true);
+}
+
+// ============ Kumpulkan filter ============
+function collectRequest() {
+    const filters = {};
+    document.querySelectorAll('select[data-filter-key]').forEach(s => {
+        if (s.value && s.value !== 'Semua') filters[s.dataset.filterKey] = s.value;
+    });
+    const numeric_filters = {};
+    document.querySelectorAll('input[data-num-key]').forEach(inp => {
+        const k = inp.dataset.numKey, side = inp.dataset.numSide, v = parseFloat(inp.value);
+        if (!isNaN(v)) {
+            numeric_filters[k] = numeric_filters[k] || {};
+            numeric_filters[k][side] = v;
+        }
+    });
+    return {
+        filters,
+        numeric_filters,
+        search_ticker: document.getElementById('search_ticker').value.trim(),
+        search_broker: document.getElementById('search_broker').value.trim(),
+        price_min: parseFloat(document.getElementById('price_min').value) || 0,
+        price_max: parseFloat(document.getElementById('price_max').value) || 0,
+        per_page: parseInt(document.getElementById('per_page').value) || 50,
+        page: currentPage
+    };
+}
+
+// ============ Fetch & render ============
+async function applyFilters(resetPage) {
+    if (resetPage) currentPage = 1;
+    const req = collectRequest();
+    try {
+        const res = await fetch('/api/screener', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(req)
+        });
+        const d = await res.json();
+        if (d.error) { document.getElementById('tbody').innerHTML = `<tr><td class="text-red-400">${d.error}</td></tr>`; return; }
+        lastData = d.data;
+        renderTable(d.data);
+        document.getElementById('total_info').textContent =
+            `Total ${d.total.toLocaleString('id-ID')} saham — hal ${d.page}/${d.total_pages}`;
+        renderPagination(d.page, d.total_pages);
+    } catch (e) {
+        document.getElementById('tbody').innerHTML = `<tr><td class="text-red-400">Error: ${e}</td></tr>`;
+    }
+}
+
+function renderTable(rows) {
+    const mode = document.getElementById('view_mode').value;
+    const cols = VIEW_COLS[mode] || Object.keys(rows[0] || {});
+    const thead = document.getElementById('thead');
+    const tbody = document.getElementById('tbody');
+    thead.innerHTML = cols.map(c => `<th>${c}</th>`).join('');
+    if (!rows.length) { tbody.innerHTML = '<tr><td colspan="99" class="text-gray-500">Tidak ada data yang cocok.</td></tr>'; return; }
+    tbody.innerHTML = rows.map(r => '<tr>' + cols.map(c => `<td>${fmtCell(c, r[c])}</td>`).join('') + '</tr>').join('');
+}
+
+function fmtCell(col, v) {
+    if (v === null || v === undefined) return '-';
+    if (col === 'Change (%)') {
+        const cls = v > 0 ? 'text-green' : (v < 0 ? 'text-red' : '');
+        return `<span class="${cls}">${formatPct(v)}</span>`;
+    }
+    if (col === 'Volume') return formatSingkatVol(v);
+    if (col === 'Harga (Rp)' || col === 'Support' || col === 'Resistance' || col === 'Harga MA20') return formatAngka(v);
+    if (col === 'PER (x)' || col === 'PBV (x)' || col === 'RSI (14D)') return (v == null || isNaN(v)) ? '-' : Number(v).toFixed(2);
+    if (col === 'Total Score') return v != null && !isNaN(v) ? '⭐'.repeat(Number(v)) : '-';
+    return String(v);
+}
+
+function renderPagination(page, totalPages) {
+    const el = document.getElementById('pagination');
+    if (totalPages <= 1) { el.innerHTML = ''; return; }
+    let btn = (p, label, active, dis) =>
+        `<button ${dis ? 'disabled' : ''} onclick="goPage(${p})"
+          class="badge-page py-1 px-2 rounded text-sm ${active ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'} ${dis ? 'opacity-40 cursor-not-allowed' : ''}">${label}</button>`;
+    let html = btn(page-1, '‹', false, page <= 1);
+    const start = Math.max(1, page-2), end = Math.min(totalPages, page+2);
+    if (start > 1) html += btn(1, '1', false, false) + '<span class="text-gray-500">…</span>';
+    for (let p = start; p <= end; p++) html += btn(p, p, p === page, false);
+    if (end < totalPages) html += '<span class="text-gray-500">…</span>' + btn(totalPages, totalPages, false, false);
+    html += btn(page+1, '›', false, page >= totalPages);
+    el.innerHTML = html;
+}
+
+function goPage(p) { currentPage = p; applyFilters(false); window.scrollTo(0, 0); }
+
+function resetFilters() {
+    document.querySelectorAll('select[data-filter-key]').forEach(s => s.selectedIndex = 0);
+    document.querySelectorAll('input[type="number"]').forEach(i => i.value = '');
+    document.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+    applyFilters(true);
+}
+
+// ============ Download CSV ============
+async function downloadCSV() {
+    // Ambil SEMUA baris hasil filter (bukan hanya halaman aktif)
+    const req = collectRequest(); req.per_page = 100000; req.page = 1;
+    const res = await fetch('/api/screener', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(req) });
+    const d = await res.json();
+    if (!d.data || !d.data.length) { alert('Tidak ada data untuk diunduh.'); return; }
+    const mode = document.getElementById('view_mode').value;
+    const cols = VIEW_COLS[mode] || Object.keys(d.data[0]);
+    const csv = [cols.join(';')].concat(d.data.map(r =>
+        cols.map(c => { const v = r[c]; return (v == null ? '' : String(v).replace(/;/g, ',')); }).join(';')
+    )).join('\n');
+    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'screener_hasil.csv';
+    a.click(); URL.revokeObjectURL(a.href);
+}
+
+// ============ Debounce 500ms ============
+let debounceTimer = null;
+function applyFiltersDebounced() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => applyFilters(true), 500);
+}
+document.getElementById('search_ticker').addEventListener('input', applyFiltersDebounced);
+document.getElementById('search_broker').addEventListener('input', applyFiltersDebounced);
+document.getElementById('price_min').addEventListener('input', applyFiltersDebounced);
+document.getElementById('price_max').addEventListener('input', applyFiltersDebounced);
+
+// ============ Stempel ============
+fetch('/api/market-overview').then(r => r.json()).then(d => {
+    if (d.ringkasan) document.getElementById('stempel').textContent = d.ringkasan.stempel + ' WIB';
+}).catch(() => {});
+
+init();
+</script>
+</body>
+</html>
