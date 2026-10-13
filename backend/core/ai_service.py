@@ -292,21 +292,25 @@ def ai_grand_final_top5(data_saham_dict, api_key):
     raise Exception("🚨 KRITIS: Semua 7 model AI Gemini sedang mengalami limit maksimal atau server sibuk. Mohon jeda turnamen 1-2 menit sebelum mencoba lagi.")
 
 
+_DAFTAR_MODEL_GEMINI_STATIS = [
+    # Estafet flash/lite dulu (cepat & rate-limit rendah), lalu pro sebagai cadangan.
+    # (Fase E1: menggantikan genai.list_models() yang membuat container Railway free
+    #  512MB crash saat sidang — chat tanpa list_models terbukti aman.)
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-1.5-flash-latest",
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-8b",
+    "gemini-1.5-pro-latest",
+    "gemini-1.0-pro",
+]
+
+
 def radar_model_gemini_cepat(api_key):
-    """Asal: app.py PART 03 (baris 320-333). Tanpa adaptasi (0x st.)."""
-    genai.configure(api_key=api_key)
-    cepat, cadangan = [], []
-    try:
-        for m in genai.list_models():
-            if 'generateContent' in m.supported_generation_methods:
-                nama = m.name.replace("models/", "")
-                if ("flash" in nama.lower()) or ("lite" in nama.lower()):
-                    cepat.append(nama)
-                else:
-                    cadangan.append(nama)
-    except Exception:
-        pass
-    return cepat + cadangan
+    """Asal: app.py PART 03 (baris 320-333).
+    Fase E1 adaptasi: TIDAK memanggil genai.list_models() (penyebab crash
+    container 512MB) — return daftar model statis terurut cepat→cadangan."""
+    return list(_DAFTAR_MODEL_GEMINI_STATIS)
 
 
 def panggil_ai_teks(prompt):

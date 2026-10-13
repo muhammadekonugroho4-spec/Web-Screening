@@ -331,12 +331,14 @@ async def get_ai_rumus(user: str = Depends(get_current_user)):
 
 
 @router.post("/ai/sidang")
-async def run_ai_sidang(user: str = Depends(get_current_user)):
-    """Jalankan sidang AI Top-5 untuk semua rumus (Langkah 6).
-    Butuh GEMINI_API_KEY di environment variable."""
+async def run_ai_sidang(rumus: Optional[int] = None, user: str = Depends(get_current_user)):
+    """Jalankan sidang AI Top-5 untuk SATU rumus (Langkah 6 + Fase E1).
+    Query param `rumus` (1-9): sidang rumus itu saja — hemat memori, aman dari
+    OOM crash container Railway free (512MB). Frontend memanggil 9x bertahap.
+    Tanpa param `rumus`: seluruh 9 rumus (perilaku lama — rawan OOM di free tier)."""
     from backend.core.ai_service import jalankan_sidang_autopilot
     from backend.core.data_loader import load_data_saham_raw
-    import os
+    import asyncio
 
     GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
     if not GEMINI_API_KEY:
@@ -347,8 +349,26 @@ async def run_ai_sidang(user: str = Depends(get_current_user)):
         return {"error": "Data saham belum tersedia"}
 
     rumus_data = _hitung_9_rumus(df)
-    daftar_rumus = {i: rumus_data[i]["df"] for i in range(1, 10)}
 
+    if request_rumus is not None:
+        # --- MODE PER-RUMUS (hemat memori, max_workers=1) ---
+        if request_rumus not in range(1, 10):
+            return {"error": f"Rumus {request_rumus} tidak valid (harus 1-9)"}
+        daftar_rumus = {i: (rumus_data[i]["df"] if i == request_rumus else pd.DataFrame()) for i in range(1, 10)}
+        keranjang, error, laporan = await asyncio.to_thread(
+            jalankan_sidang_autopilot,
+            daftar_rumus, df, GEMINI_API_KEY,
+            None, None, False
+        )
+        if error:
+            return {"error": error}
+        return {
+            "keranjang": {f"RUMUS {request_rumus}": keranjang[f"RUMUS {request_rumus}"]},
+            "laporan": {request_rumus: laporan[request_rumus]},
+        }
+
+    # --- MODE SEMUA RUMUS (perilaku lama) ---
+    daftar_rumus = {i: rumus_data[i]["df"] for i in range(1, 10)}
     keranjang, error, laporan = jalankan_sidang_autopilot(
         daftar_rumus, df, GEMINI_API_KEY,
         progress_bar=None, status_teks=None, tulis_sinyal=False

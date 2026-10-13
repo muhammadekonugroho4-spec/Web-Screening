@@ -132,34 +132,51 @@ function renderRumus() {
         : '<tr><td colspan="9" class="text-gray-500">Tidak ada saham yang lolos rumus ini.</td></tr>';
 }
 
-// ============ Sidang AI ============
+// ============ Sidang AI (Fase E1: per-rumus bertahap, aman OOM) ============
 async function jalankanSidang() {
     const btn = document.getElementById('btn_sidang');
     const st = document.getElementById('sidang_status');
+    const bar = document.getElementById('sidang_bar');
     btn.disabled = true;
-    st.innerHTML = '<span class="spin">⏳</span> Sidang paralel berjalan (2 hakim AI, bisa 1-5 menit)...';
     document.getElementById('sidang_progress').classList.remove('hidden');
-    document.getElementById('sidang_bar').style.width = '30%';
-    try {
-        const r = await fetch('/api/ai/sidang', { method: 'POST', headers: authHeaders });
-        document.getElementById('sidang_bar').style.width = '100%';
-        const d = await r.json();
-        if (d.detail) { st.textContent = '❌ ' + d.detail; }
-        else if (d.error) { st.textContent = '❌ ' + d.error; }
-        else {
-            st.textContent = '✅ Sidang selesai!';
-            document.getElementById('sidang_hasil').innerHTML = Object.entries(d.keranjang).map(([k, v]) => {
-                const lap = (d.laporan[k.replace('RUMUS ', '')] || {});
-                return `<div class="rumus-card">
-                    <h4 class="font-bold text-purple-300">${k}</h4>
-                    <p class="text-xs text-gray-400 mb-1">${lap.status || ''} — ${lap.detail || ''}</p>
-                    <p class="font-mono text-sm">${(v.filter(t => t).join(', ')) || '—'}</p>
-                </div>`;
-            }).join('');
+    document.getElementById('sidang_hasil').innerHTML = '';
+    let semuaKeranjang = {}, semuaLaporan = {}, gagal = 0;
+
+    for (let r = 1; r <= 9; r++) {
+        st.innerHTML = `<span class="spin">⏳</span> Sidang RUMUS ${r}/9 (1 hakim AI per rumus)...`;
+        bar.style.width = ((r - 1) / 9 * 100) + '%';
+        try {
+            const res = await fetch(`/api/ai/sidang?rumus=${r}`, { method: 'POST', headers: authHeaders });
+            if (res.status === 401) { location.href = '/'; return; }
+            const d = await res.json();
+            if (d.detail || d.error) {
+                gagal++;
+                semuaLaporan[r] = { status: '❌ Gagal', detail: (d.detail || d.error || '').slice(0, 100) };
+                semuaKeranjang[`RUMUS ${r}`] = ['', '', '', '', ''];
+            } else {
+                Object.assign(semuaKeranjang, d.keranjang);
+                Object.assign(semuaLaporan, d.laporan);
+            }
+        } catch (e) {
+            gagal++;
+            semuaLaporan[r] = { status: '❌ Gagal', detail: String(e).slice(0, 100) };
+            semuaKeranjang[`RUMUS ${r}`] = ['', '', '', '', ''];
         }
-    } catch (e) { st.textContent = '❌ Error: ' + e; }
+        // render progresif: tampilkan kartu rumus yang sudah selesai
+        bar.style.width = (r / 9 * 100) + '%';
+        document.getElementById('sidang_hasil').innerHTML = Object.entries(semuaKeranjang).map(([k, v]) => {
+            const lap = (semuaLaporan[k.replace('RUMUS ', '')] || {});
+            return `<div class="rumus-card">
+                <h4 class="font-bold text-purple-300">${k}</h4>
+                <p class="text-xs text-gray-400 mb-1">${lap.status || ''} — ${lap.detail || ''}</p>
+                <p class="font-mono text-sm">${(v.filter(t => t).join(', ')) || '—'}</p>
+            </div>`;
+        }).join('');
+    }
+    st.textContent = gagal ? `⚠️ Sidang selesai — ${9 - gagal}/9 sukses, ${gagal} gagal.` : '✅ Sidang selesai — 9/9 sukses!';
     btn.disabled = false;
     setTimeout(() => document.getElementById('sidang_progress').classList.add('hidden'), 1500);
+    loadRadar(); // refresh radar dengan hasil terbaru
 }
 
 // ============ Radar Live ============
