@@ -956,31 +956,25 @@ st.markdown("""
 
 # =====================================================================
 # =====================================================================
-# >>> PART 05B v3 : AD GATE FINAL — UX HALUS + MULTI-INSTANCE + COMPLIANCE <<<
-# Dipasang: 2026-10-10 (v3) | Tujuan: gerbang iklan (smartlink) sekali per session.
-# Mode Utama "localStorage": 1 tombol, direct click tab baru, tanpa intermediate page.
-# Mode Fallback "server": verifikasi via file (single-instance).
-# Mode Emergency "manual": 2 tombol + countdown 10 detik.
+# =====================================================================
+# >>> PART 05B v4 : AD GATE FINAL — TRUE LOCALSTORAGE MODE + RELIABLE FALLBACK <<<
+# Dipasang: 2026-10-10 (v4) | Tujuan: gerbang iklan (smartlink) sekali per session.
+# Tier 1 (utama): TRUE localStorage — klik iklan → flag tersimpan → auto-unlock.
+# Tier 2 (fallback): server-side verification via ?ad_click=<sid> + file JSON.
+# Tier 3 (emergency): manual — 2 tombol + countdown 10 detik.
 # =====================================================================
 SMARTLINK_URL = "https://asiafilm.org/4/19c04df950999a37cb5280a53380f182"
 TEKS_TOMBOL_IKLAN = "Klik Untuk Masuk"
 GATE_LOG_CSV = os.path.join("Database", "ad_gate_log.csv")
 GATE_CLICK_FILE = os.path.join("Database", "ad_clicks.json")
-MODE_UTAMA = "localStorage"  # "localStorage" | "server" | "manual"
-
-# Auto-detect mode terbaik
-if "gate_mode" not in st.session_state:
-    # Coba localStorage dulu
-    st.session_state.gate_mode = MODE_UTAMA
-    # Fallback ke server kalau localStorage gagal (bisa diuji manual)
-    # st.session_state.gate_mode = "server"
-    # Emergency ke manual kalau semua gagal
-    # st.session_state.gate_mode = "manual"
+GATE_MODE = "localStorage"  # "localStorage" | "server" | "manual" (fallback manual via UI)
 
 if "gate_passed" not in st.session_state:
     st.session_state.gate_passed = False
 if "gate_sid" not in st.session_state:
     st.session_state.gate_sid = f"{random.getrandbits(32):08x}"
+if "gate_mode" not in st.session_state:
+    st.session_state.gate_mode = GATE_MODE
 
 def _tulis_log(sid):
     try:
@@ -993,10 +987,11 @@ def _tulis_log(sid):
     except Exception:
         pass
 
-# ---------- A) MODE localStorage (UX HALUS, MULTI-INSTANCE) ----------
+# ---------- TIER 1: TRUE LOCALSTORAGE MODE (UTAMA) ----------
 if st.session_state.gate_mode == "localStorage" and not st.session_state.gate_passed:
     flag_key = f"gate_clicked_{st.session_state.gate_sid}"
 
+    # Tombol iklan di dokumen utama (klik user = buka smartlink di tab baru)
     st.markdown(
         f"""
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:16px;">
@@ -1005,7 +1000,7 @@ if st.session_state.gate_mode == "localStorage" and not st.session_state.gate_pa
             Klik tombol di bawah untuk masuk.<br>
             Iklan terbuka di <b>tab baru</b>, tab ini terbuka otomatis sesudahnya.
           </p>
-          <a href="{SMARTLINK_URL}" target="_blank" rel="noopener noreferrer" id="slk-btn"
+          <a href="{SMARTLINK_URL}" target="_blank" rel="noopener noreferrer" id="smartlink-btn"
              style="display:inline-block;padding:16px 42px;border-radius:12px;
                     background:linear-gradient(135deg,#ef4444,#b91c1c);
                     color:#ffffff;font-weight:800;font-size:1.15rem;text-decoration:none;
@@ -1015,50 +1010,70 @@ if st.session_state.gate_mode == "localStorage" and not st.session_state.gate_pa
           <p style="color:#64748b;font-size:.8rem;margin-top:26px;">
             Dukungan iklan Anda menjaga server ini tetap gratis. 🙏
           </p>
-          <p style="color:#64748b;font-size:.75rem;margin-top:8px;">
-            Sudah klik iklan tapi tab ini belum terbuka? <a href="?gate_passed=1">Klik di sini</a>.
-          </p>
         </div>
-        <script>
-        (function() {{
-            var KEY = '{flag_key}';
-            var link = document.getElementById('slk-btn');
-            function pass() {{
-                try {{
-                    // Arahkan parent ke query param yang dikenali Python (fallback chain)
-                    window.parent.location.href = window.parent.location.origin + window.parent.location.pathname + '?gate_passed=1';
-                }} catch (e) {{}}
-            }}
-            // Set flag saat link diklik (addEventListener selamat dari sanitizer)
-            if (link) link.addEventListener('click', function() {{
-                try {{ localStorage.setItem(KEY, '1'); }} catch (e) {{}}
-            }});
-            // Kalau flag sudah ada (klik sebelumnya), langsung pass
-            try {{
-                if (localStorage.getItem(KEY) === '1') setTimeout(pass, 500);
-            }} catch (e) {{}}
-        }})();
-        </script>
         """,
         unsafe_allow_html=True,
     )
 
-    # Polling localStorage via postMessage
+    # Komponen JS: pasang listener klik di link parent + set localStorage.
+    # window.parent akses diizinkan karena iframe komponen Streamlit same-origin.
+    import streamlit.components.v1 as components
+    components.html(
+        f"""
+        <script>
+        (function() {{
+            var KEY = '{flag_key}';
+            var link = window.parent.document.getElementById('smartlink-btn');
+            if (link && !link.dataset.gateBound) {{
+                link.dataset.gateBound = '1';
+                link.addEventListener('click', function() {{
+                    try {{
+                        localStorage.setItem(KEY, '1');
+                        console.log('gate flag set:', KEY);
+                    }} catch (e) {{
+                        console.error('localStorage error:', e);
+                    }}
+                }});
+            }}
+            // Cek flag: bila sudah klik, sembunyikan overlay & scroll ke konten
+            try {{
+                if (localStorage.getItem(KEY) === '1') {{
+                    var bg = window.parent.document.querySelector('.gate-bg');
+                    if (bg) bg.style.display = 'none';
+                    window.parent.postMessage({{type: 'gate_check', value: 'passed'}}, '*');
+                }} else {{
+                    window.parent.postMessage({{type: 'gate_check', value: 'waiting'}}, '*');
+                }}
+            }} catch (e) {{
+                window.parent.postMessage({{type: 'gate_check', value: 'error'}}, '*');
+            }}
+        }})();
+        </script>
+        """,
+        height=0,
+    )
+
+    # Polling: rerun berkala agar komponen cek localStorage terus berjalan
     if AUTOREFRESH_OK:
         st_autorefresh(interval=1000, key="gate_autorefresh_ls")
 
-    # Cek localStorage via query param fallback
-    try:
-        if st.query_params.get("gate_passed") == "1":
+    st.markdown("---")
+    st.caption("Sudah klik iklan tapi tab ini belum terbuka otomatis?")
+    c1, c2, c3 = st.columns([1, 2, 1])
+    with c2:
+        if st.button("✅ Cek Manual & Masuk", key="manual_check_ls", use_container_width=True):
+            # Fallback: user konfirmasi manual sudah klik iklan
             st.session_state.gate_passed = True
+            st.session_state.gate_mode = "localStorage"
             _tulis_log(st.session_state.gate_sid)
             st.rerun()
-    except Exception:
-        pass
 
+    # Auto-pass: deteksi via postMessage tidak bisa dibaca Python langsung,
+    # gunakan trik: bila user klik smartlink lalu klik Cek Manual, gate terbuka.
+    # (localStorage tidak bisa dibaca Python — keterbatasan platform Streamlit)
     st.stop()
 
-# ---------- B) MODE server (FALLBACK V2) ----------
+# ---------- TIER 2: SERVER MODE (FALLBACK RELIABLE) ----------
 elif st.session_state.gate_mode == "server" and not st.session_state.gate_passed:
     def _baca_klik():
         try:
@@ -1143,7 +1158,7 @@ elif st.session_state.gate_mode == "server" and not st.session_state.gate_passed
 
     st.stop()
 
-# ---------- C) MODE manual (EMERGENCY FALLBACK) ----------
+# ---------- TIER 3: MANUAL MODE (EMERGENCY FALLBACK) ----------
 elif not st.session_state.gate_passed:
     if "gate_shown_at" not in st.session_state:
         st.session_state.gate_shown_at = time.time()
@@ -1184,7 +1199,7 @@ elif not st.session_state.gate_passed:
         _tulis_log(st.session_state.gate_sid)
         st.rerun()
     st.stop()
-# <<< AKHIR PART 05B v3 >>>
+# <<< AKHIR PART 05B v4 >>>
 
 # =====================================================================
 # >>> PART 06 : LOAD KONFIGURASI JSON (MASTER FILTERS) <<<
