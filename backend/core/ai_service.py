@@ -341,26 +341,29 @@ def panggil_ai_teks(prompt):
 
 def _hakim_openrouter(data_json_str, instruksi):
     """Fase E1 fallback: hakim Top-5 via OpenRouter (gratis) saat semua model
-    Gemini gagal (404/429). Return: teks JSON mentah atau string 'Error_AI: ...'."""
+    Gemini gagal (404/429). Return: teks JSON mentah atau string 'Error_AI: ...'.
+    Sistem-prompt tegas + pasca-proses: ekstrak blok JSON dari respons bebas."""
     try:
         OK_ = os.environ.get("OPENROUTER_API_KEY")
         if not OK_:
             return "Error_AI: OPENROUTER_API_KEY tidak tersedia untuk fallback"
-        prompt = f"""{instruksi}
-
-DATA:
-{data_json_str}
-
-CRITICAL: Output ONLY a raw JSON array with EXACTLY 5 objects, each with EXACTLY 1 key: "Ticker".
-DO NOT add explanations, markdown, or any other text."""
-        cp = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=OK_).chat.completions.create(
-            model="openrouter/free", messages=[{"role": "user", "content": prompt}],
-            temperature=0.0, max_tokens=512,
+        cp = [OI](base_url="https://openrouter.ai/api/v1", api_key=OK_).chat.completions.create(
+            model="openrouter/free",
+            messages=[
+                {"role": "system", "content": "You are an automated JSON API endpoint. You output ONLY raw valid JSON arrays starting with [ and ending with ]. No explanations, no markdown, no conversational text. Each object has EXACTLY one key: \"Ticker\"."},
+                {"role": "user", "content": f"{instruksi}\n\nDATA:\n{data_json_str}"},
+            ],
+            temperature=0.0, max_tokens=1024,
         )
         isi = (cp.choices[0].message.content or "").strip()
         if not isi:
             return "Error_AI: OpenRouter respons kosong"
-        return isi
+        # Pasca-proses: ekstrak blok JSON array dari respons bebas (model free suka bercerita)
+        import re as _re
+        blok = _re.search(r'\[.*\]', isi, _re.DOTALL)
+        if blok:
+            return blok.group(0)
+        return isi  # biarkan parser penebal di sisi pemanggil (regex Ticker)
     except Exception as e:
         return f"Error_AI: OpenRouter fallback gagal — {str(e)[:120]}"
 
