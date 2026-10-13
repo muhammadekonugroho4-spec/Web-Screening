@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Bot — WEB-SCREENING</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: #f8fafc; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #1e293b; padding: 10px 12px; text-align: left; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; position: sticky; top: 0; }
+        td { padding: 8px 12px; border-bottom: 1px solid #2d3b54; font-size: 0.85rem; white-space: nowrap; }
+        tr:nth-child(even) { background: rgba(30, 41, 59, 0.35); }
+        tr:hover { background: rgba(56, 189, 248, 0.08); }
+        .text-green { color: #22c55e; }
+        .text-red { color: #ef4444; }
+        select { background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 8px 10px; color: #f8fafc; }
+        .metric-card { background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 10px; padding: 16px 14px; text-align: center; }
+        #dataWrap { max-height: 60vh; overflow: auto; }
+        .spin { display: inline-block; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="max-w-[95rem] mx-auto p-4 md:p-6">
+        <div class="mb-4">
+            <a href="/" class="text-blue-400 hover:text-blue-300 inline-block mb-2">← Kembali ke Beranda</a>
+            <h1 class="text-2xl md:text-3xl font-bold">💼 Portofolio Bot</h1>
+            <p class="text-gray-400 text-sm">9 Arena Simulator BSJP (modal awal Rp 100 jt/arena) — <span id="userinfo" class="text-yellow-400"></span></p>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <select id="pilih_rumus" onchange="loadPortfolio()" class="!w-auto font-bold">
+                <option value="1">Arena 1</option><option value="2">Arena 2</option><option value="3">Arena 3</option>
+                <option value="4">Arena 4</option><option value="5">Arena 5</option><option value="6">Arena 6</option>
+                <option value="7">Arena 7</option><option value="8">Arena 8</option><option value="9">Arena 9</option>
+            </select>
+            <button onclick="aksi('beli')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm">🛒 EKSEKUSI BELI</button>
+            <button onclick="aksi('jual')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded text-sm">💰 JUAL SORE</button>
+            <button onclick="konfirmReset()" id="btn_reset" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded text-sm">🧨 Reset Semua Arena</button>
+        </div>
+        <div id="aksi_status" class="text-sm mb-3"></div>
+
+        <!-- 4 Metric Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+            <div class="metric-card"><h3 class="text-xs text-gray-400 mb-1">💵 Saldo Kas</h3><h2 class="text-xl font-bold" id="m_saldo">-</h2></div>
+            <div class="metric-card"><h3 class="text-xs text-gray-400 mb-1">📦 Modal Terpakai</h3><h2 class="text-xl font-bold" id="m_modal">-</h2></div>
+            <div class="metric-card"><h3 class="text-xs text-gray-400 mb-1">🏦 Total Aset</h3><h2 class="text-xl font-bold" id="m_aset">-</h2></div>
+            <div class="metric-card"><h3 class="text-xs text-gray-400 mb-1">📈 P/L Realized</h3><h2 class="text-xl font-bold" id="m_profit">-</h2></div>
+        </div>
+
+        <!-- 3 Tab data -->
+        <div class="flex gap-2 mb-3">
+            <button id="t_sinyal" onclick="showTab('sinyal')" class="px-4 py-2 rounded-t-lg font-bold text-sm bg-yellow-600 text-white">📡 Sinyal Antrean</button>
+            <button id="t_posisi" onclick="showTab('posisi')" class="px-4 py-2 rounded-t-lg font-bold text-sm bg-gray-700 text-gray-300">📦 Posisi Aktif</button>
+            <button id="t_histori" onclick="showTab('histori')" class="px-4 py-2 rounded-t-lg font-bold text-sm bg-gray-700 text-gray-300">📜 Histori Transaksi</button>
+        </div>
+        <div id="dataWrap" class="rounded-lg border border-slate-700">
+            <table>
+                <thead><tr id="thead"></tr></thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
+    </div>
+
+<script>
+const TOKEN = localStorage.getItem('ws_token');
+if (!TOKEN) { location.href = '/'; }
+const authHeaders = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN };
+
+let PORTO = null;
+let tabAktif = 'sinyal';
+
+async function cekLogin() {
+    try {
+        const r = await fetch('/api/auth/me', { headers: authHeaders });
+        if (!r.ok) throw 0;
+        const d = await r.json();
+        document.getElementById('userinfo').textContent = '@' + d.username;
+    } catch (e) { location.href = '/'; }
+}
+
+function rp(v) { if (v == null || isNaN(v)) return '-'; return 'Rp ' + Math.round(v).toLocaleString('id-ID'); }
+function pct(v) { if (v == null || isNaN(v)) return '-'; return (v > 0 ? '+' : '') + Number(v).toFixed(2) + '%'; }
+
+function showTab(t) {
+    tabAktif = t;
+    ['sinyal', 'posisi', 'histori'].forEach(x => {
+        document.getElementById('t_' + x).className = 'px-4 py-2 rounded-t-lg font-bold text-sm ' + (x === t ? 'bg-yellow-600 text-white' : 'bg-gray-700 text-gray-300');
+    });
+    renderData();
+}
+
+async function loadPortfolio() {
+    const id = document.getElementById('pilih_rumus').value;
+    document.getElementById('tbody').innerHTML = '<tr><td class="text-gray-400">Memuat...</td></tr>';
+    try {
+        const r = await fetch('/api/portfolio/' + id, { headers: authHeaders });
+        if (r.status === 401) { location.href = '/'; return; }
+        PORTO = await r.json();
+        document.getElementById('m_saldo').textContent = rp(PORTO.saldo);
+        document.getElementById('m_modal').textContent = rp(PORTO.modal_terpakai);
+        document.getElementById('m_aset').textContent = rp(PORTO.total_aset);
+        const pl = document.getElementById('m_profit');
+        pl.textContent = (PORTO.total_profit >= 0 ? '+' : '') + rp(PORTO.total_profit).replace('Rp ', 'Rp ') + ' (' + pct(PORTO.profit_pct) + ')';
+        pl.className = 'text-xl font-bold ' + (PORTO.total_profit >= 0 ? 'text-green' : 'text-red');
+        renderData();
+    } catch (e) {
+        document.getElementById('tbody').innerHTML = `<tr><td class="text-red-400">Error: ${e}</td></tr>`;
+    }
+}
+
+function renderData() {
+    if (!PORTO) return;
+    const map = { sinyal: 'sinyal', posisi: 'posisi_aktif', histori: 'histori' };
+    const rows = PORTO[map[tabAktif]] || [];
+    document.getElementById('thead').innerHTML = rows.length
+        ? Object.keys(rows[0]).map(c => `<th>${c}</th>`).join('')
+        : '';
+    document.getElementById('tbody').innerHTML = rows.length
+        ? rows.map(r => '<tr>' + Object.entries(r).map(([c, v]) => {
+            let out = (v === null || v === undefined) ? '-' : String(v);
+            if ((c === 'Total_Return_Rp' || c === 'Return_%') && !isNaN(v)) {
+                out = `<span class="${v > 0 ? 'text-green' : (v < 0 ? 'text-red' : '')}">${c === 'Return_%' ? pct(v) : rp(v)}</span>`;
+            }
+            return `<td>${out}</td>`;
+        }).join('') + '</tr>').join('')
+        : '<tr><td class="text-gray-500">Tidak ada data.</td></tr>';
+}
+
+async function aksi(jenis) {
+    const st = document.getElementById('aksi_status');
+    st.innerHTML = `<span class="spin">⏳</span> Menjalankan ${jenis}... (bisa beberapa detik)`;
+    try {
+        const r = await fetch('/api/portfolio/' + jenis, { method: 'POST', headers: authHeaders });
+        const d = await r.json();
+        if (d.success) { st.innerHTML = `<span class="text-green">✅ ${jenis} selesai.</span><pre class="text-xs text-gray-400 mt-1 whitespace-pre-wrap">${(d.log || '').slice(-500)}</pre>`; }
+        else { st.innerHTML = `<span class="text-red-400">❌ ${d.error || 'gagal'}<pre class="text-xs mt-1 whitespace-pre-wrap">${(d.log || '').slice(-500)}</pre></span>`; }
+        loadPortfolio();
+    } catch (e) { st.innerHTML = `<span class="text-red-400">❌ Error: ${e}</span>`; }
+}
+
+let resetTahap = 0;
+function konfirmReset() {
+    const btn = document.getElementById('btn_reset');
+    const st = document.getElementById('aksi_status');
+    if (resetTahap === 0) {
+        resetTahap = 1;
+        btn.textContent = '⚠️ YAKIN? Klik lagi untuk reset';
+        btn.className = 'bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded text-sm animate-pulse';
+        st.innerHTML = '<span class="text-red-400">⚠️ Semua 9 arena akan DIARSIPKAN dan dikosongkan ke Rp 100 juta. Klik sekali lagi untuk konfirmasi.</span>';
+        setTimeout(() => { if (resetTahap === 1) batalReset(); }, 5000);
+    } else {
+        resetTahap = 0;
+        btn.textContent = '🧨 Reset Semua Arena';
+        btn.className = 'bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded text-sm';
+        aksi('reset');
+    }
+}
+function batalReset() {
+    resetTahap = 0;
+    const btn = document.getElementById('btn_reset');
+    btn.textContent = '🧨 Reset Semua Arena';
+    btn.className = 'bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded text-sm';
+}
+
+cekLogin().then(loadPortfolio);
+</script>
+</body>
+</html>

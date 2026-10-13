@@ -3,12 +3,15 @@ from pydantic import BaseModel
 from typing import Dict, List, Optional
 from backend.loader import muat_screener, muat_fundamental, ringkasan_market, data_portofolio, data_radar
 from backend.auth import get_current_user
-import pandas as pd, json
+import pandas as pd, json, os, sys
 
 router = APIRouter(prefix="/api")
 
 # Path config (relatif ke root project — sama seperti dipakai app.py PART 06)
 CONFIG_PATH = "config_web.json"
+
+# Context username untuk subprocess (bot_simulator/reset_porto) — diisi sebelum eksekusi
+_USER_CTX = {"username": ""}
 
 
 def _muat_master_filters():
@@ -243,3 +246,223 @@ async def screener(request: ScreenerRequest):
         "per_page": per_page,
         "total_pages": (total + per_page - 1) // per_page,
     }
+
+
+# =====================================================================
+# TAB 4: ASISTEN AI SPESIAL (Langkah 6)
+# =====================================================================
+def _hitung_9_rumus(df):
+    """Hitung 9 rumus BSJP (mirror logika preset dari app.py PART 12).
+    Return: dict {int rumus_id: {"nama": str, "icon": str, "df": DataFrame}}."""
+    def kolom(nama):
+        return df[nama] if nama in df.columns else pd.Series([""] * len(df), index=df.index)
+
+    chg = pd.to_numeric(kolom('Change (%)'), errors='coerce').fillna(0)
+    vol = pd.to_numeric(kolom('Volume'), errors='coerce').fillna(0)
+    skor = pd.to_numeric(kolom('Total Score'), errors='coerce').fillna(0)
+    rsi = pd.to_numeric(kolom('RSI (14D)'), errors='coerce')
+    harga = pd.to_numeric(kolom('Harga (Rp)'), errors='coerce').fillna(0)
+    streak = pd.to_numeric(kolom('Streak Harian'), errors='coerce').fillna(0)
+
+    vwap = kolom('Posisi VWAP')
+    ad = kolom('Kekuatan A/D')
+    supply = kolom('Kondisi Supply')
+    bandar = kolom('Status Bandar')
+    tekanan = kolom('Tekanan Bandar')
+    rvol = kolom('RVOL (Anomali Vol)')
+    gorengan = kolom('Karakter Gorengan')
+    candle = kolom('Pola Candle')
+    ma_sig = kolom('MA Signal')
+    ma_cross = kolom('MA Cross')
+    macd = kolom('MACD')
+    trend_ma = kolom('Trend MA (5,20,50)')
+    bb = kolom('Status BB')
+    likuid = kolom('Likuiditas')
+    vwap_kuat = vwap == 'Di Atas VWAP (Kuat)'
+    akumulasi_pro = ad == 'Akumulasi Pro (Smart Money)'
+    supply_banjir = supply.astype(str).str.contains('Banjir', na=False)
+    supply_kering = supply.astype(str).str.contains('Kering', na=False)
+
+    peta = {
+        1: ("Smart Money Menyelam", "🕵️",
+            akumulasi_pro & (bandar == 'Akumulasi Kuat') & vwap_kuat & ~supply_banjir),
+        2: ("Pantulan Jarum Bawah", "🪡",
+            candle.astype(str).str.contains('Hammer', na=False) & (chg < 0) & (rsi < 40) & supply_kering),
+        3: ("Tutup Kuat Bandar Hajar", "🔨",
+            (tekanan == 'Dominan Beli (Hajar Kanan)') & (chg > 0) & (chg < 10) & vwap_kuat & ~supply_banjir),
+        4: ("Golden Cross Muda", "✨",
+            ma_cross.astype(str).str.contains('Golden', na=False) & akumulasi_pro & vwap_kuat),
+        5: ("Momentum Likuid Sehat", "🌊",
+            (likuid == '> 1 Miliar') & (chg >= 1) & (chg <= 7) & (skor >= 7) & ~supply_banjir),
+        6: ("Ledakan Volume Senyap", "💥",
+            rvol.astype(str).str.contains('Ekstrem', na=False) & (chg.abs() < 3) & akumulasi_pro),
+        7: ("Anomali ML", "🤖",
+            kolom('Prediksi Machine Learning').astype(str).str.contains('Naik|Beli|Strong', case=False, na=False) & (skor >= 6)),
+        8: ("Momentum Tembus MA20", "🚀",
+            ma_sig == 'Uptrend' & False if False else ma_sig.eq('Uptrend') & (harga > pd.to_numeric(kolom('Harga MA20'), errors='coerce').fillna(0)) & (harga > 0) & vwap_kuat),
+        9: ("MACD Momentum Terukur", "📐",
+            macd.astype(str).str.contains('Bullish|Golden|Positif', case=False, na=False) & (streak <= 2) & akumulasi_pro),
+    }
+    out = {}
+    for i, (nama, icon, mask) in peta.items():
+        out[i] = {"nama": nama, "icon": icon, "df": df[mask]}
+    return out
+
+
+@router.get("/ai/rumus")
+async def get_ai_rumus(user: str = Depends(get_current_user)):
+    """Return 9 rumus BSJP dengan data saham yang lolos (Langkah 6)."""
+    from backend.core.data_loader import load_data_saham_raw
+
+    df = load_data_saham_raw()
+    if df.empty:
+        return {"error": "Data saham belum tersedia"}
+
+    rumus = _hitung_9_rumus(df)
+    return {
+        str(i): {
+            "nama": r["nama"],
+            "icon": r["icon"],
+            "jumlah": len(r["df"]),
+            "data": r["df"].fillna("-").to_dict('records'),
+        }
+        for i, r in rumus.items()
+    }
+
+
+@router.post("/ai/sidang")
+async def run_ai_sidang(user: str = Depends(get_current_user)):
+    """Jalankan sidang AI Top-5 untuk semua rumus (Langkah 6).
+    Butuh GEMINI_API_KEY di environment variable."""
+    from backend.core.ai_service import jalankan_sidang_autopilot
+    from backend.core.data_loader import load_data_saham_raw
+    import os
+
+    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+    if not GEMINI_API_KEY:
+        raise HTTPException(status_code=400, detail="GEMINI_API_KEY belum dipasang")
+
+    df = load_data_saham_raw()
+    if df.empty:
+        return {"error": "Data saham belum tersedia"}
+
+    rumus_data = _hitung_9_rumus(df)
+    daftar_rumus = {i: rumus_data[i]["df"] for i in range(1, 10)}
+
+    keranjang, error, laporan = jalankan_sidang_autopilot(
+        daftar_rumus, df, GEMINI_API_KEY,
+        progress_bar=None, status_teks=None, tulis_sinyal=False
+    )
+
+    if error:
+        return {"error": error}
+
+    return {
+        "keranjang": keranjang,
+        "laporan": laporan,
+    }
+
+
+@router.get("/ai/radar")
+async def get_radar_live(user: str = Depends(get_current_user)):
+    """Return data Radar Live dari cache_autopilot.json (Langkah 6)."""
+    from backend.core.data_loader import muat_keranjang_radar_raw, load_data_saham_raw
+
+    df = load_data_saham_raw()
+    stempel = str(df["Terakhir Update"].iloc[0]) if "Terakhir Update" in df.columns else ""
+
+    keranjang, status = muat_keranjang_radar_raw(stempel, "v5.2")
+
+    return {
+        "keranjang": keranjang,
+        "status": status,
+        "stempel": stempel,
+    }
+
+
+# =====================================================================
+# TAB 5: PORTOFOLIO BOT (Langkah 6)
+# =====================================================================
+MODAL_AWAL_PORTO = 100000000  # Rp 100 juta per arena
+
+
+def _user_dir(username):
+    d = os.path.join("Database", "users", username)
+    os.makedirs(d, exist_ok=True)
+    return d
+
+
+@router.get("/portfolio/{rumus_id}")
+async def get_portfolio(rumus_id: int, user: str = Depends(get_current_user)):
+    """Return data portfolio untuk rumus tertentu (Langkah 6).
+    Data per-user di Database/users/{username}/."""
+    username = user
+    udir = _user_dir(username)
+
+    df_porto = pd.DataFrame()
+    df_hist = pd.DataFrame()
+    df_sinyal = pd.DataFrame()
+
+    porto_file = os.path.join(udir, f"portofolio_aktif_rumus_{rumus_id}.csv")
+    hist_file = os.path.join(udir, f"histori_transaksi_rumus_{rumus_id}.csv")
+    sinyal_file = os.path.join(udir, f"sinyal_ai_rumus_{rumus_id}.csv")
+
+    if os.path.exists(porto_file):
+        df_porto = pd.read_csv(porto_file)
+    if os.path.exists(hist_file):
+        df_hist = pd.read_csv(hist_file)
+    if os.path.exists(sinyal_file):
+        df_sinyal = pd.read_csv(sinyal_file)
+
+    total_profit = float(df_hist["Total_Return_Rp"].sum()) if not df_hist.empty and "Total_Return_Rp" in df_hist.columns else 0
+    modal_terpakai = float(df_porto["Total_Modal"].sum()) if not df_porto.empty and "Total_Modal" in df_porto.columns else 0
+    saldo = MODAL_AWAL_PORTO + total_profit - modal_terpakai
+    total_aset = saldo + modal_terpakai
+
+    return {
+        "saldo": saldo,
+        "modal_terpakai": modal_terpakai,
+        "total_aset": total_aset,
+        "total_profit": total_profit,
+        "profit_pct": (total_profit / MODAL_AWAL_PORTO * 100) if total_profit else 0,
+        "sinyal": df_sinyal.fillna("-").to_dict('records'),
+        "posisi_aktif": df_porto.fillna("-").to_dict('records'),
+        "histori": df_hist.sort_values("Tanggal_Jual", ascending=False).fillna("-").to_dict('records') if not df_hist.empty else [],
+    }
+
+
+def _jalankan_skrip(args, timeout):
+    """Jalankan script Python (bot_simulator/reset_porto) dengan --user."""
+    import subprocess
+    username = _USER_CTX.get("username", "")
+    cmd = [sys.executable] + args + (["--user", username] if username else [])
+    try:
+        proses = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        if proses.returncode != 0:
+            return {"error": f"Gagal eksekusi {args[0]}", "log": (proses.stderr or "")[-2000:]}
+        return {"success": True, "log": (proses.stdout or "")[-2000:]}
+    except subprocess.TimeoutExpired:
+        return {"error": f"Timeout ({timeout // 60} menit)"}
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@router.post("/portfolio/beli")
+async def execute_beli(user: str = Depends(get_current_user)):
+    """Eksekusi beli semua sinyal via bot_simulator.py --beli-only --user (Langkah 6)."""
+    _USER_CTX["username"] = user
+    return _jalankan_skrip(["bot_simulator.py", "--beli-only"], 1800)
+
+
+@router.post("/portfolio/jual")
+async def execute_jual(user: str = Depends(get_current_user)):
+    """Eksekusi jual sore semua posisi via bot_simulator.py --jual-only --user (Langkah 6)."""
+    _USER_CTX["username"] = user
+    return _jalankan_skrip(["bot_simulator.py", "--jual-only"], 1800)
+
+
+@router.post("/portfolio/reset")
+async def reset_portfolio(user: str = Depends(get_current_user)):
+    """Reset semua arena ke Rp 100 juta via reset_porto.py --yes --user (Langkah 6)."""
+    _USER_CTX["username"] = user
+    return _jalankan_skrip(["reset_porto.py", "--yes"], 120)

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asisten AI Spesial — WEB-SCREENING</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: #f8fafc; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #1e293b; padding: 10px 12px; text-align: left; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; position: sticky; top: 0; }
+        td { padding: 8px 12px; border-bottom: 1px solid #2d3b54; font-size: 0.85rem; white-space: nowrap; }
+        tr:nth-child(even) { background: rgba(30, 41, 59, 0.35); }
+        tr:hover { background: rgba(56, 189, 248, 0.08); }
+        .text-green { color: #22c55e; }
+        .text-red { color: #ef4444; }
+        select { background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 8px 10px; color: #f8fafc; }
+        .rumus-card { background: #16213a; border: 1px solid #27354f; border-radius: 8px; padding: 10px 14px; cursor: pointer; transition: all .15s; }
+        .rumus-card:hover, .rumus-card.aktif { border-color: #a855f7; background: #1e293b; }
+        #tableWrap { max-height: 60vh; overflow: auto; }
+        .spin { display: inline-block; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="max-w-[95rem] mx-auto p-4 md:p-6">
+        <div class="mb-4">
+            <a href="/" class="text-blue-400 hover:text-blue-300 inline-block mb-2">← Kembali ke Beranda</a>
+            <h1 class="text-2xl md:text-3xl font-bold">🤖 Asisten AI Spesial</h1>
+            <p class="text-gray-400 text-sm">9 Rumus BSJP + Sidang AI Top-5 + Radar Live — <span id="userinfo" class="text-purple-400"></span></p>
+        </div>
+
+        <!-- 2 Tab -->
+        <div class="flex gap-2 mb-4">
+            <button id="tab_screener" onclick="showTab('screener')" class="px-4 py-2 rounded-t-lg font-bold bg-purple-600 text-white">🎯 Screener Spesial</button>
+            <button id="tab_ai" onclick="showTab('ai')" class="px-4 py-2 rounded-t-lg font-bold bg-gray-700 text-gray-300">🧠 Asisten AI</button>
+        </div>
+
+        <!-- ============ TAB 1: SCREENER SPESIAL ============ -->
+        <div id="panel_screener">
+            <div class="flex flex-wrap items-center gap-3 mb-3">
+                <select id="pilih_rumus" onchange="renderRumus()" class="!w-auto font-bold"></select>
+                <span class="text-sm text-gray-300" id="rumus_info"></span>
+            </div>
+            <div id="tableWrap" class="rounded-lg border border-slate-700">
+                <table>
+                    <thead><tr id="thead"></tr></thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ============ TAB 2: ASISTEN AI ============ -->
+        <div id="panel_ai" class="hidden">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+                <button onclick="jalankanSidang()" id="btn_sidang"
+                    class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-5 rounded disabled:opacity-50">
+                    ⚡ Sidang AI Top-5 Semua Rumus
+                </button>
+                <span class="text-sm text-gray-400" id="sidang_status"></span>
+            </div>
+            <div id="sidang_progress" class="hidden w-full bg-gray-800 rounded-full h-3 mb-4">
+                <div id="sidang_bar" class="bg-purple-500 h-3 rounded-full transition-all" style="width:0%"></div>
+            </div>
+            <div id="sidang_hasil" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6"></div>
+
+            <!-- Radar Live -->
+            <h3 class="text-xl font-bold mb-2">📡 Radar Live <span class="text-sm text-gray-400" id="radar_stempel"></span></h3>
+            <div id="radar" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+        </div>
+    </div>
+
+<script>
+// ============ Auth guard ============
+const TOKEN = localStorage.getItem('ws_token');
+if (!TOKEN) { location.href = '/'; }
+const authHeaders = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN };
+
+async function cekLogin() {
+    try {
+        const r = await fetch('/api/auth/me', { headers: authHeaders });
+        if (!r.ok) throw 0;
+        const d = await r.json();
+        document.getElementById('userinfo').textContent = '@' + d.username;
+    } catch (e) { location.href = '/'; }
+}
+
+// ============ Tabs ============
+function showTab(t) {
+    document.getElementById('panel_screener').classList.toggle('hidden', t !== 'screener');
+    document.getElementById('panel_ai').classList.toggle('hidden', t !== 'ai');
+    document.getElementById('tab_screener').className = 'px-4 py-2 rounded-t-lg font-bold ' + (t === 'screener' ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300');
+    document.getElementById('tab_ai').className = 'px-4 py-2 rounded-t-lg font-bold ' + (t === 'ai' ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300');
+    if (t === 'ai') loadRadar();
+}
+
+// ============ Format ============
+function formatAngka(v) { if (v == null || isNaN(v)) return '-'; return Math.round(v).toLocaleString('id-ID'); }
+function formatPct(v) { if (v == null || isNaN(v)) return '-'; if (v === 0) return '0.00%'; return (v > 0 ? '▲ ' : '▼ ') + v.toFixed(2) + '%'; }
+function fmtCell(col, v) {
+    if (v === null || v === undefined || v === '-') return '-';
+    if (col === 'Change (%)') { const cls = v > 0 ? 'text-green' : (v < 0 ? 'text-red' : ''); return `<span class="${cls}">${formatPct(v)}</span>`; }
+    if (col === 'Volume') { if (isNaN(v)) return v; return v >= 1e6 ? (v/1e6).toFixed(2)+' M' : (v >= 1e3 ? (v/1e3).toFixed(2)+' K' : Math.round(v)); }
+    if (col === 'Harga (Rp)') return formatAngka(v);
+    if (col === 'Total Score') return !isNaN(v) ? '⭐'.repeat(Number(v)) : v;
+    return String(v);
+}
+const KOLOM = ['Ticker', 'Harga (Rp)', 'Change (%)', 'Volume', 'Total Score', 'Rekomendasi', 'Status Bandar', 'Tekanan Bandar'];
+
+// ============ Screener Spesial (9 rumus) ============
+let RUMUS = {};
+async function loadRumus() {
+    try {
+        const r = await fetch('/api/ai/rumus', { headers: authHeaders });
+        if (r.status === 401) { location.href = '/'; return; }
+        RUMUS = await r.json();
+        if (RUMUS.error) { document.getElementById('rumus_info').textContent = RUMUS.error; return; }
+        const sel = document.getElementById('pilih_rumus');
+        for (const [id, r] of Object.entries(RUMUS)) {
+            sel.insertAdjacentHTML('beforeend', `<option value="${id}">${r.icon} RUMUS ${id}: ${r.nama} (${r.jumlah})</option>`);
+        }
+        renderRumus();
+    } catch (e) { document.getElementById('rumus_info').textContent = 'Error: ' + e; }
+}
+function renderRumus() {
+    const id = document.getElementById('pilih_rumus').value;
+    const r = RUMUS[id] || { data: [], jumlah: 0, nama: '' };
+    document.getElementById('rumus_info').textContent = `${r.jumlah} saham lolos`;
+    document.getElementById('thead').innerHTML = KOLOM.map(c => `<th>${c}</th>`).join('');
+    document.getElementById('tbody').innerHTML = r.data.length
+        ? r.data.map(row => '<tr>' + KOLOM.map(c => `<td>${fmtCell(c, row[c])}</td>`).join('') + '</tr>').join('')
+        : '<tr><td colspan="9" class="text-gray-500">Tidak ada saham yang lolos rumus ini.</td></tr>';
+}
+
+// ============ Sidang AI ============
+async function jalankanSidang() {
+    const btn = document.getElementById('btn_sidang');
+    const st = document.getElementById('sidang_status');
+    btn.disabled = true;
+    st.innerHTML = '<span class="spin">⏳</span> Sidang paralel berjalan (2 hakim AI, bisa 1-5 menit)...';
+    document.getElementById('sidang_progress').classList.remove('hidden');
+    document.getElementById('sidang_bar').style.width = '30%';
+    try {
+        const r = await fetch('/api/ai/sidang', { method: 'POST', headers: authHeaders });
+        document.getElementById('sidang_bar').style.width = '100%';
+        const d = await r.json();
+        if (d.detail) { st.textContent = '❌ ' + d.detail; }
+        else if (d.error) { st.textContent = '❌ ' + d.error; }
+        else {
+            st.textContent = '✅ Sidang selesai!';
+            document.getElementById('sidang_hasil').innerHTML = Object.entries(d.keranjang).map(([k, v]) => {
+                const lap = (d.laporan[k.replace('RUMUS ', '')] || {});
+                return `<div class="rumus-card">
+                    <h4 class="font-bold text-purple-300">${k}</h4>
+                    <p class="text-xs text-gray-400 mb-1">${lap.status || ''} — ${lap.detail || ''}</p>
+                    <p class="font-mono text-sm">${(v.filter(t => t).join(', ')) || '—'}</p>
+                </div>`;
+            }).join('');
+        }
+    } catch (e) { st.textContent = '❌ Error: ' + e; }
+    btn.disabled = false;
+    setTimeout(() => document.getElementById('sidang_progress').classList.add('hidden'), 1500);
+}
+
+// ============ Radar Live ============
+async function loadRadar() {
+    try {
+        const r = await fetch('/api/ai/radar', { headers: authHeaders });
+        const d = await r.json();
+        document.getElementById('radar_stempel').textContent = d.stempel ? '(' + d.stempel + ' WIB)' : '';
+        const el = document.getElementById('radar');
+        if (!d.keranjang) { el.innerHTML = '<p class="text-gray-500 text-sm">Belum ada data radar (' + d.status + '). Jalankan sidang AI dulu.</p>'; return; }
+        el.innerHTML = Object.entries(d.keranjang).map(([k, v]) => `<div class="rumus-card">
+            <h4 class="font-bold text-cyan-300">${k}</h4>
+            <p class="font-mono text-sm">${(v.filter(t => t).join(', ')) || '—'}</p>
+        </div>`).join('');
+    } catch (e) { document.getElementById('radar').innerHTML = '<p class="text-red-400 text-sm">Error: ' + e + '</p>'; }
+}
+
+cekLogin().then(loadRumus);
+</script>
+</body>
+</html>

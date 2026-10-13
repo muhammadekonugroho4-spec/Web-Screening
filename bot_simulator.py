@@ -11,7 +11,20 @@ MODAL_AWAL = 100000000.0  # Rp 100 Juta per Rumus
 FEE_BELI = 0.0015         # 0.15%
 FEE_JUAL = 0.0025         # 0.25%
 FILE_MARKET = "Database/hasil_screener.csv"
-DIR_DB = "Database"       
+DIR_DB = "Database"
+
+def _parse_user_arg():
+    """Langkah 6: dukung multi-user via --user <username>.
+    Jika ada, semua file porto/histori/sinyal diarahkan ke Database/users/<username>/.
+    Tanpa --user → perilaku lama (Database/)."""
+    global DIR_DB
+    args = sys.argv[1:]
+    if "--user" in args:
+        idx = args.index("--user")
+        if idx + 1 < len(args):
+            DIR_DB = os.path.join("Database", "users", args[idx + 1])
+            os.makedirs(DIR_DB, exist_ok=True)
+_parse_user_arg()
 # ==========================================
 def auto_save_github():
     print("\n🔄 Memulai pencadangan (Auto-Save) permanen ke GitHub...")
@@ -141,6 +154,10 @@ def jalankan_bot():
         print(f"🔒 GEMBOK DATA BASI AKTIF: data market berusia {usia_data} hari — bot hanya evaluasi jual, tidak membeli.")
 
     # ----------------------------------------------------
+    # (Langkah 6 fix) Inisialisasi is_square_off_time: variabel ini baru
+    # di-assign di blok mode di bawah, tapi dibaca di sini — jika mode
+    # cron klasik (bukan tp-sl/beli-only/jual-only), nilainya belum ada.
+    is_square_off_time = jam_sekarang >= jam_square_off
     if is_square_off_time:
         print("🧹 WAKTU SQUARE OFF / SORE HARI! Evaluasi jual paksa diaktifkan.")
 

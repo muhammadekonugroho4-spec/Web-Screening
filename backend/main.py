@@ -164,6 +164,16 @@ async def screener_page(request: Request):
     """Halaman Screener Utama (Langkah 5)."""
     return templates.TemplateResponse(request, "screener.html", {})
 
+@app.get("/ai", response_class=HTMLResponse)
+async def ai_page(request: Request):
+    """Halaman Asisten AI Spesial (Langkah 6) — wajib login via frontend guard."""
+    return templates.TemplateResponse(request, "ai.html", {})
+
+@app.get("/portfolio", response_class=HTMLResponse)
+async def portfolio_page(request: Request):
+    """Halaman Portofolio Bot (Langkah 6) — wajib login via frontend guard."""
+    return templates.TemplateResponse(request, "portfolio.html", {})
+
 @app.get("/")
 def root():
     return FileResponse(os.path.join(BASE, "templates", "index.html"))
