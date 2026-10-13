@@ -350,11 +350,11 @@ async def run_ai_sidang(rumus: Optional[int] = None, user: str = Depends(get_cur
 
     rumus_data = _hitung_9_rumus(df)
 
-    if request_rumus is not None:
+    if rumus is not None:
         # --- MODE PER-RUMUS (hemat memori, max_workers=1) ---
-        if request_rumus not in range(1, 10):
-            return {"error": f"Rumus {request_rumus} tidak valid (harus 1-9)"}
-        daftar_rumus = {i: (rumus_data[i]["df"] if i == request_rumus else pd.DataFrame()) for i in range(1, 10)}
+        if rumus not in range(1, 10):
+            return {"error": f"Rumus {rumus} tidak valid (harus 1-9)"}
+        daftar_rumus = {i: (rumus_data[i]["df"] if i == rumus else pd.DataFrame()) for i in range(1, 10)}
         keranjang, error, laporan = await asyncio.to_thread(
             jalankan_sidang_autopilot,
             daftar_rumus, df, GEMINI_API_KEY,
@@ -363,8 +363,8 @@ async def run_ai_sidang(rumus: Optional[int] = None, user: str = Depends(get_cur
         if error:
             return {"error": error}
         return {
-            "keranjang": {f"RUMUS {request_rumus}": keranjang[f"RUMUS {request_rumus}"]},
-            "laporan": {request_rumus: laporan[request_rumus]},
+            "keranjang": {f"RUMUS {rumus}": keranjang[f"RUMUS {rumus}"]},
+            "laporan": {rumus: laporan[rumus]},
         }
 
     # --- MODE SEMUA RUMUS (perilaku lama) ---
