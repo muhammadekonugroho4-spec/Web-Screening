@@ -18,14 +18,30 @@ import random
 
 import pandas as pd
 from openai import OpenAI
-import google.generativeai as genai
+from google import genai as ggenai
+from google.genai import types as gtypes
 
+
+def _client_gemini(api_key):
+    """Fase E2: helper client SDK baru google-genai (pengganti genai.configure)."""
+    return ggenai.Client(api_key=api_key)
+
+
+_DAFTAR_MODEL_GEMINI_STATIS = [
+    # Estafet flash dulu (cepat), pro terakhir. Hanya nama yang terverifikasi ada
+    # di API v1beta. (Fase E1: menggantikan genai.list_models() yang membuat
+    # container Railway free 512MB crash saat sidang.)
+    "gemini-1.5-flash-latest",
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-8b-latest",
+    "gemini-1.5-pro-latest",
+]
 
 def ai_hakim_klasemen(data_top15, api_key):
-    """Asal: app.py PART 02 (baris 50-97). Tanpa adaptasi (0x st.)."""
-    import google.generativeai as genai
+    """Asal: app.py PART 02 (baris 50-97). Fase E2: migrasi SDK google-genai.
+    List models dihindari (penyebab crash 512MB) — pakai estafet statis."""
     import time
-    genai.configure(api_key=api_key)
+    client = _client_gemini(api_key)
 
     prompt = f"""
     Select EXACTLY 5 Tickers that have the highest combination of 'Score' and 'Volume' from the data below.
@@ -37,32 +53,19 @@ def ai_hakim_klasemen(data_top15, api_key):
     Output a JSON array containing objects with EXACTLY 3 keys: "Ticker", "Target_TP", "Target_CL".
     """
 
-    daftar_model_aktif = []
-    try:
-        for m in genai.list_models():
-            if 'generateContent' in m.supported_generation_methods:
-                nama_bersih = m.name.replace("models/", "")
-                if "1.5" in nama_bersih:
-                    daftar_model_aktif.insert(0, nama_bersih)
-                else:
-                    daftar_model_aktif.append(nama_bersih)
-    except Exception as e:
-        return f"Error_AI (Gagal menyalakan radar): {e}"
-
-    if not daftar_model_aktif:
-        return "Error_AI: Tidak ada satupun model Gemini yang online untuk API Key ini."
+    daftar_model_aktif = list(_DAFTAR_MODEL_GEMINI_STATIS)
 
     pesan_error_terakhir = ""
     for nama_model in daftar_model_aktif:
         try:
-            model = genai.GenerativeModel(
-                nama_model,
-                generation_config=genai.types.GenerationConfig(
+            response = client.models.generate_content(
+                model=nama_model,
+                contents=prompt,
+                config=gtypes.GenerateContentConfig(
                     temperature=0.0,
-                    response_mime_type="application/json"
-                )
+                    response_mime_type="application/json",
+                ),
             )
-            response = model.generate_content(prompt)
             return response.text
         except Exception as e:
             pesan_error_terakhir = str(e)
@@ -195,7 +198,7 @@ def ai_penyisihan_turnamen(data_grup_dict, api_key):
         'gemini-3.1-flash-lite',
         'gemini-flash-lite-latest'
     ]
-    genai.configure(api_key=api_key)
+    client = _client_gemini(api_key)
     payload_text = ""
     for ticker, data in data_grup_dict.items():
         payload_text += f"\n- {ticker}: Harga {data['harga']}, Vol {data['volume']}, Tekanan {data['tekanan_bandar']}, Supply {data['supply']}"
@@ -213,9 +216,8 @@ def ai_penyisihan_turnamen(data_grup_dict, api_key):
 
     for nama_model in daftar_model_estafet:
         try:
-            model = genai.GenerativeModel(nama_model)
-            response = model.generate_content(prompt)
-            raw_content = response.text.upper()
+            response = client.models.generate_content(model=nama_model, contents=prompt)
+            raw_content = (response.text or "").upper()
 
             semua_kata = re.findall(r'[A-Z]+', raw_content)
             lolos = []
@@ -248,7 +250,7 @@ def ai_grand_final_top5(data_saham_dict, api_key):
         'gemini-3.1-flash-lite',
         'gemini-flash-lite-latest'
     ]
-    genai.configure(api_key=api_key)
+    client = _client_gemini(api_key)
 
     payload_text = ""
     for ticker, data in data_saham_dict.items():
@@ -278,8 +280,7 @@ def ai_grand_final_top5(data_saham_dict, api_key):
 
     for nama_model in daftar_model_estafet:
         try:
-            model = genai.GenerativeModel(nama_model)
-            response = model.generate_content(prompt)
+            response = client.models.generate_content(model=nama_model, contents=prompt)
             raw_content = response.text or ""
 
             clean_content = raw_content.replace('```json', '').replace('```', '').strip()
@@ -291,16 +292,6 @@ def ai_grand_final_top5(data_saham_dict, api_key):
 
     raise Exception("🚨 KRITIS: Semua 7 model AI Gemini sedang mengalami limit maksimal atau server sibuk. Mohon jeda turnamen 1-2 menit sebelum mencoba lagi.")
 
-
-_DAFTAR_MODEL_GEMINI_STATIS = [
-    # Estafet flash dulu (cepat), pro terakhir. Hanya nama yang terverifikasi ada
-    # di API v1beta. (Fase E1: menggantikan genai.list_models() yang membuat
-    # container Railway free 512MB crash saat sidang.)
-    "gemini-1.5-flash-latest",
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-8b-latest",
-    "gemini-1.5-pro-latest",
-]
 
 
 def radar_model_gemini_cepat(api_key):
@@ -318,10 +309,10 @@ def panggil_ai_teks(prompt):
     try:
         GK = os.environ.get("GEMINI_API_KEY")
         if GK:
-            genai.configure(api_key=GK)
+            client_gk = _client_gemini(GK)
             for mn in ["gemini-1.5-flash-latest", "gemini-1.5-flash", "gemini-1.0-pro"]:
                 try:
-                    r = genai.GenerativeModel(mn).generate_content(prompt)
+                    r = client_gk.models.generate_content(model=mn, contents=prompt)
                     if r.text: return r.text, f"Gemini ({mn})"
                 except Exception:
                     continue
@@ -371,7 +362,7 @@ def _hakim_openrouter(data_json_str, instruksi):
 def ai_hakim_klasemen_cepat(data_top15, api_key, daftar_model):
     """Asal: app.py PART 03 (baris 360-395).
     Fase E1: jika semua model Gemini gagal → fallback hakim OpenRouter."""
-    genai.configure(api_key=api_key)
+    client = _client_gemini(api_key)
     prompt = f"""
     Select EXACTLY 5 Tickers that have the highest combination of 'Score' and 'Volume' from the data below.
 
@@ -384,15 +375,15 @@ def ai_hakim_klasemen_cepat(data_top15, api_key, daftar_model):
     pesan_error_terakhir = ""
     for nama_model in daftar_model:
         try:
-            model = genai.GenerativeModel(
-                nama_model,
-                generation_config=genai.types.GenerationConfig(
+            response = client.models.generate_content(
+                model=nama_model,
+                contents=prompt,
+                config=gtypes.GenerateContentConfig(
                     temperature=0.0,
                     response_mime_type="application/json",
                     max_output_tokens=1024,
-                )
+                ),
             )
-            response = model.generate_content(prompt)
             teks = response.text or ""
             if not teks.strip():
                 pesan_error_terakhir = "Respons kosong dari model"
@@ -416,7 +407,7 @@ def ai_hakim_klasemen_cepat(data_top15, api_key, daftar_model):
 def ai_top5_dari_daftar(data_dict, api_key, daftar_model, suhu=0.4):
     """Asal: app.py PART 03 (baris 400-437). Tanpa adaptasi (0x st.).
     AI memilih Top 5 dari daftar saham dengan JSON murni (tanpa penjelasan)."""
-    genai.configure(api_key=api_key)
+    client = _client_gemini(api_key)
     payload_text = ""
     for ticker, d in data_dict.items():
         payload_text += (f"\n- {ticker}: Harga {d['harga']} | Change {d['change']}% | Vol {d['volume']} | Score {d['skor']} | "
@@ -433,15 +424,15 @@ def ai_top5_dari_daftar(data_dict, api_key, daftar_model, suhu=0.4):
     pesan_terakhir = ""
     for nama_model in daftar_model:
         try:
-            model = genai.GenerativeModel(
-                nama_model,
-                generation_config=genai.types.GenerationConfig(
+            response = client.models.generate_content(
+                model=nama_model,
+                contents=prompt,
+                config=gtypes.GenerateContentConfig(
                     temperature=suhu,
                     response_mime_type="application/json",
                     max_output_tokens=512,
-                )
+                ),
             )
-            response = model.generate_content(prompt)
             teks = response.text or ""
             if not teks.strip():
                 pesan_terakhir = "Respons kosong"
