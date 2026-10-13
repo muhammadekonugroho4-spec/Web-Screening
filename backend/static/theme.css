@@ -1,0 +1,181 @@
+/* ============================================================
+   WEB-SCREENING — Design System v2.0
+   Tema: "Midnight Terminal" — dark finance-grade, aksen teal/amber
+   ============================================================ */
+:root {
+  --bg-0: #070b14;          /* paling gelap (page) */
+  --bg-1: #0c1220;          /* panel */
+  --bg-2: #121a2e;          /* kartu */
+  --bg-3: #1a2440;          /* hover / elevated */
+  --line: #223050;          /* border default */
+  --line-soft: #18233d;     /* border halus */
+  --tx-1: #f1f5fb;          /* teks utama */
+  --tx-2: #9aa8c7;          /* teks sekunder */
+  --tx-3: #5c6b8f;          /* teks redup */
+  --acc: #2dd4bf;           /* teal — aksen utama (beli/naik/navigasi) */
+  --acc-dim: #14b8a6;
+  --gold: #f5b942;          /* amber — highlight skema/aksi penting */
+  --up: #34d399;            /* hijau naik */
+  --down: #f8717a;          /* merah turun */
+  --flat: #94a3b8;          /* abu stagnan */
+  --danger: #ef4444;
+  --up-bg: rgba(52, 211, 153, .10);
+  --down-bg: rgba(248, 113, 122, .10);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 28px rgba(2, 6, 18, .45);
+  --shadow-sm: 0 2px 10px rgba(2, 6, 18, .35);
+  --font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+html { scrollbar-color: #2a3a5f var(--bg-0); }
+body {
+  background:
+    radial-gradient(1100px 500px at 85% -10%, rgba(45, 212, 191, .06), transparent 60%),
+    radial-gradient(900px 420px at 0% 0%, rgba(245, 185, 66, .05), transparent 55%),
+    var(--bg-0);
+  color: var(--tx-1);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ---------- Topbar (semua halaman) ---------- */
+.ws-topbar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 26px;
+  background: rgba(7, 11, 20, .82);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.ws-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 800; font-size: 15px; letter-spacing: .4px; text-decoration: none;
+  color: var(--tx-1); white-space: nowrap;
+}
+.ws-logo .bolt {
+  width: 30px; height: 30px; border-radius: 9px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--acc), #0ea5a4);
+  color: #04211d; font-size: 16px; box-shadow: 0 0 18px rgba(45, 212, 191, .35);
+}
+.ws-topnav { display: flex; gap: 4px; margin-left: 8px; flex-wrap: wrap; }
+.ws-topnav a {
+  color: var(--tx-2); text-decoration: none; font-size: 13px; font-weight: 600;
+  padding: 7px 13px; border-radius: 8px; transition: all .15s;
+}
+.ws-topnav a:hover { color: var(--tx-1); background: var(--bg-2); }
+.ws-topnav a.aktif { color: var(--acc); background: rgba(45, 212, 191, .10); }
+.ws-user {
+  margin-left: auto; font-size: 12.5px; color: var(--tx-2);
+  border: 1px solid var(--line-soft); padding: 6px 12px; border-radius: 999px;
+  background: var(--bg-1); white-space: nowrap;
+}
+.ws-user b { color: var(--gold); font-weight: 700; }
+
+.ws-wrap { max-width: 1440px; margin: 0 auto; padding: 22px 26px 48px; }
+
+/* ---------- Judul halaman ---------- */
+.ws-judul { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 10px 0 4px; }
+.ws-judul h1 { font-size: 24px; font-weight: 800; letter-spacing: -.3px; margin: 0; }
+.ws-judul .sub { color: var(--tx-3); font-size: 13px; }
+.kembali { display: inline-flex; align-items: center; gap: 6px; color: var(--tx-3); text-decoration: none; font-size: 12.5px; margin-bottom: 14px; }
+.kembali:hover { color: var(--acc); }
+
+/* ---------- Kartu & panel ---------- */
+.kartu {
+  background: linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  border: 1px solid var(--line-soft); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.kartu-pad { padding: 18px; }
+.panel-title {
+  font-size: 11.5px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--tx-3); display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.panel-title::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--acc); }
+
+/* ---------- Metric cards ---------- */
+.metrik {
+  background: linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  border: 1px solid var(--line-soft); border-radius: var(--radius);
+  padding: 16px 14px; text-align: center; position: relative; overflow: hidden;
+  transition: transform .15s, border-color .15s;
+}
+.metrik:hover { transform: translateY(-2px); border-color: var(--line); }
+.metrik .label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--tx-3); margin-bottom: 6px; }
+.metrik .nilai { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -.5px; }
+.metrik .garis { position: absolute; inset: 0 0 auto 0; height: 2.5px; }
+
+/* ---------- Tabel ---------- */
+.tabel { width: 100%; border-collapse: separate; border-spacing: 0; }
+.tabel th {
+  position: sticky; top: 0; z-index: 2;
+  background: var(--bg-3); color: var(--tx-2);
+  font-size: 10.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.tabel td { padding: 9px 12px; border-bottom: 1px solid var(--line-soft); font-size: 13px; white-space: nowrap; }
+.tabel tbody tr { transition: background .12s; }
+.tabel tbody tr:nth-child(even) { background: rgba(18, 26, 46, .5); }
+.tabel tbody tr:hover { background: rgba(45, 212, 191, .05); }
+.tabel td.mono, .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tx-up { color: var(--up); } .tx-down { color: var(--down); } .tx-flat { color: var(--flat); }
+
+/* ---------- Form ---------- */
+.ws-input, .ws-select {
+  background: var(--bg-1); border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+  padding: 8px 11px; color: var(--tx-1); font-size: 13px; font-family: var(--font);
+  transition: border-color .15s, box-shadow .15s; width: 100%;
+}
+.ws-input:focus, .ws-select:focus { outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(45, 212, 191, .12); }
+.ws-select option { background: var(--bg-1); }
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { opacity: .3; }
+
+/* ---------- Tombol ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  font-weight: 700; font-size: 13px; border-radius: var(--radius-sm);
+  padding: 9px 16px; cursor: pointer; border: 1px solid transparent;
+  transition: all .15s; text-decoration: none; font-family: var(--font);
+}
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-teal  { background: var(--acc); color: #04211d; }
+.btn-teal:hover:not(:disabled) { background: #3ff0da; box-shadow: 0 4px 16px rgba(45, 212, 191, .25); }
+.btn-gold  { background: var(--gold); color: #291a03; }
+.btn-gold:hover:not(:disabled) { background: #ffd069; box-shadow: 0 4px 16px rgba(245, 185, 66, .25); }
+.btn-ghost { background: var(--bg-2); color: var(--tx-1); border-color: var(--line); }
+.btn-ghost:hover:not(:disabled) { background: var(--bg-3); }
+.btn-red   { background: #b91c1c; color: #fff; }
+.btn-red:hover:not(:disabled) { background: #dc2626; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+
+/* ---------- Badge/pill ---------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--line-soft); background: var(--bg-2); color: var(--tx-2);
+}
+
+/* ---------- Progress ---------- */
+.ws-progress { height: 8px; background: var(--bg-1); border-radius: 999px; overflow: hidden; border: 1px solid var(--line-soft); }
+.ws-progress > div { height: 100%; background: linear-gradient(90deg, var(--acc-dim), var(--acc)); border-radius: 999px; transition: width .5s ease; }
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: #2a3a5f; border-radius: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-0); }
+
+/* ---------- Util ---------- */
+.teks-redup { color: var(--tx-3); }
+.flex { display: flex; } .gap-2 { gap: 8px; } .gap-3 { gap: 14px; }
+@media (max-width: 760px) {
+  .ws-wrap { padding: 14px 12px 40px; }
+  .ws-topbar { padding: 10px 12px; }
+  .ws-topnav { display: none; }
+  .metrik .nilai { font-size: 20px; }
+}

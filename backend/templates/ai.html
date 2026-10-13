@@ -4,31 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asisten AI Spesial — WEB-SCREENING</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/theme.css">
     <style>
-        body { background: #0f172a; color: #f8fafc; }
-        table { width: 100%; border-collapse: collapse; }
-        th { background: #1e293b; padding: 10px 12px; text-align: left; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; position: sticky; top: 0; }
-        td { padding: 8px 12px; border-bottom: 1px solid #2d3b54; font-size: 0.85rem; white-space: nowrap; }
-        tr:nth-child(even) { background: rgba(30, 41, 59, 0.35); }
-        tr:hover { background: rgba(56, 189, 248, 0.08); }
-        .text-green { color: #22c55e; }
-        .text-red { color: #ef4444; }
-        select { background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 8px 10px; color: #f8fafc; }
-        .rumus-card { background: #16213a; border: 1px solid #27354f; border-radius: 8px; padding: 10px 14px; cursor: pointer; transition: all .15s; }
-        .rumus-card:hover, .rumus-card.aktif { border-color: #a855f7; background: #1e293b; }
-        #tableWrap { max-height: 60vh; overflow: auto; }
-        .spin { display: inline-block; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        body { font-family: var(--font); }
+        #tableWrap { max-height: 62vh; overflow: auto; border-radius: var(--radius); border: 1px solid var(--line-soft); }
+        .filter-group { background: var(--bg-1); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 12px; }
+        .filter-group h4 {
+            font-size: 10.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+            color: var(--tx-3); margin-bottom: 8px; display: flex; align-items: center; gap: 7px;
+        }
+        .filter-group h4::before { content: ""; width: 6px; height: 6px; border-radius: 2px; background: var(--acc); }
+        select, input { background: var(--bg-1); border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+            padding: 7px 10px; color: var(--tx-1); font-size: 12.5px; }
+        select:focus, input:focus { outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(45,212,191,.12); }
+        select option { background: var(--bg-1); }
+        .badge-page { min-width: 32px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        th { position: sticky; top: 0; background: var(--bg-3); color: var(--tx-2); font-size: 10px;
+             font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 9px 11px; text-align: left;
+             white-space: nowrap; border-bottom: 1px solid var(--line); }
+        td { padding: 8px 11px; border-bottom: 1px solid var(--line-soft); font-size: 12.5px; white-space: nowrap; }
+        tbody tr:nth-child(even) { background: rgba(18,26,46,.5); }
+        tbody tr:hover { background: rgba(45,212,191,.05); }
+        .text-green { color: var(--up); } .text-red { color: var(--down); }
     </style>
 </head>
-<body class="min-h-screen">
-    <div class="max-w-[95rem] mx-auto p-4 md:p-6">
-        <div class="mb-4">
-            <a href="/" class="text-blue-400 hover:text-blue-300 inline-block mb-2">← Kembali ke Beranda</a>
-            <h1 class="text-2xl md:text-3xl font-bold">🤖 Asisten AI Spesial</h1>
-            <p class="text-gray-400 text-sm">9 Rumus BSJP + Sidang AI Top-5 + Radar Live — <span id="userinfo" class="text-purple-400"></span></p>
+<body>
+    <nav class="ws-topbar">
+        <a class="ws-logo" href="/"><span class="bolt">⚡</span> WEB-SCREENING</a>
+        <div class="ws-topnav">
+            <a href="/market">Market</a>
+            <a href="/screener">Screener</a>
+            <a href="/ai" class="aktif">Asisten AI</a>
+            <a href="/portfolio">Portofolio</a>
+            <a href="/detective">Detektif</a>
         </div>
+        <span class="ws-user">AI Aktif</span>
+    </nav>
+    <div class="ws-wrap">
+        <a href="/" class="kembali">← Kembali ke Beranda</a>
+        <div class="ws-judul"><h1>🤖 Asisten AI Spesial</h1><span class="sub">9 Rumus BSJP · Sidang AI Top-5 · Radar Live</span></div>
+        
 
         <!-- 2 Tab -->
         <div class="flex gap-2 mb-4">
@@ -196,5 +212,6 @@ async function loadRadar() {
 
 cekLogin().then(loadRumus);
 </script>
+    </div><!-- /ws-wrap -->
 </body>
 </html>

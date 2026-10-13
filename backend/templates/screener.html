@@ -4,35 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Screener Utama — WEB-SCREENING</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/theme.css">
     <style>
-        body { background: #0f172a; color: #f8fafc; }
-        table { width: 100%; border-collapse: collapse; }
-        th { background: #1e293b; padding: 10px 12px; text-align: left; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; white-space: nowrap; position: sticky; top: 0; }
-        td { padding: 8px 12px; border-bottom: 1px solid #2d3b54; white-space: nowrap; font-size: 0.85rem; }
-        tr:nth-child(even) { background: rgba(30, 41, 59, 0.35); }
-        tr:hover { background: rgba(56, 189, 248, 0.08); }
-        .text-green { color: #22c55e; }
-        .text-red { color: #ef4444; }
-        select, input[type="number"], input[type="text"] {
-            background: #1e293b; border: 1px solid #334155; border-radius: 6px;
-            padding: 6px 8px; color: #f8fafc; font-size: 0.8rem; width: 100%;
+        body { font-family: var(--font); }
+        #tableWrap { max-height: 62vh; overflow: auto; border-radius: var(--radius); border: 1px solid var(--line-soft); }
+        .filter-group { background: var(--bg-1); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 12px; }
+        .filter-group h4 {
+            font-size: 10.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+            color: var(--tx-3); margin-bottom: 8px; display: flex; align-items: center; gap: 7px;
         }
-        select:focus, input:focus { outline: 1px solid #38bdf8; }
-        .filter-group { background: #16213a; border: 1px solid #27354f; border-radius: 8px; padding: 10px; }
-        .filter-group h4 { font-size: 0.7rem; text-transform: uppercase; color: #94a3b8; margin-bottom: 6px; font-weight: 700; }
-        .badge-page { min-width: 34px; }
-        #tableWrap { max-height: 65vh; overflow: auto; }
+        .filter-group h4::before { content: ""; width: 6px; height: 6px; border-radius: 2px; background: var(--acc); }
+        select, input { background: var(--bg-1); border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+            padding: 7px 10px; color: var(--tx-1); font-size: 12.5px; }
+        select:focus, input:focus { outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(45,212,191,.12); }
+        select option { background: var(--bg-1); }
+        .badge-page { min-width: 32px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        th { position: sticky; top: 0; background: var(--bg-3); color: var(--tx-2); font-size: 10px;
+             font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 9px 11px; text-align: left;
+             white-space: nowrap; border-bottom: 1px solid var(--line); }
+        td { padding: 8px 11px; border-bottom: 1px solid var(--line-soft); font-size: 12.5px; white-space: nowrap; }
+        tbody tr:nth-child(even) { background: rgba(18,26,46,.5); }
+        tbody tr:hover { background: rgba(45,212,191,.05); }
+        .text-green { color: var(--up); } .text-red { color: var(--down); }
     </style>
 </head>
-<body class="min-h-screen">
-    <div class="max-w-[95rem] mx-auto p-4 md:p-6">
-        <!-- Header -->
-        <div class="mb-4">
-            <a href="/" class="text-blue-400 hover:text-blue-300 inline-block mb-2">← Kembali ke Beranda</a>
-            <h1 class="text-2xl md:text-3xl font-bold">📌 Screener Utama</h1>
-            <p class="text-gray-400 text-sm">38 filter + numerik + pencarian — <span id="stempel">loading...</span></p>
+<body>
+    <nav class="ws-topbar">
+        <a class="ws-logo" href="/"><span class="bolt">⚡</span> WEB-SCREENING</a>
+        <div class="ws-topnav">
+            <a href="/market">Market</a>
+            <a href="/screener" class="aktif">Screener</a>
+            <a href="/ai">Asisten AI</a>
+            <a href="/portfolio">Portofolio</a>
+            <a href="/detective">Detektif</a>
         </div>
+        <span class="ws-user">38 Filter aktif</span>
+    </nav>
+    <div class="ws-wrap">
+        <a href="/" class="kembali">← Kembali ke Beranda</a>
+        <div class="ws-judul"><h1>📌 Screener Utama</h1><span class="sub">38 filter + numerik + pencarian — stempel <span id="stempel" style="color:var(--acc);font-weight:700;">memuat…</span></span></div>
+        <!-- Header -->
+        
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
             <!-- Panel Filter -->
@@ -285,5 +298,6 @@ fetch('/api/market-overview').then(r => r.json()).then(d => {
 
 init();
 </script>
+    </div><!-- /ws-wrap -->
 </body>
 </html>

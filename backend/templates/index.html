@@ -1,40 +1,110 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEB-SCREENING — FastAPI Backend</title>
+    <title>WEB-SCREENING — Screener Saham IHSG Ultimate</title>
+    <link rel="stylesheet" href="/static/theme.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background: #0f172a; color: #f8fafc; }
-    </style>
 </head>
-<body class="min-h-screen">
-    <div class="max-w-7xl mx-auto p-6">
-        <h1 class="text-3xl font-bold mb-4">⚡ WEB-SCREENING</h1>
-        <div class="bg-gray-800 rounded-lg p-6 mb-6" style="border:1px solid #334155">
-            <h2 class="text-xl font-semibold mb-4">Menu Cepat</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="/market" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded text-center">
-                    📊 Market Overview
-                </a>
-                <a href="/screener" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded text-center">
-                    📌 Screener
-                </a>
-                <a href="/ai" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded text-center">
-                    🤖 Asisten AI
-                </a>
-                <a href="/portfolio" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded text-center">
-                    💼 Portofolio
-                </a>
-                <a href="/detective" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded text-center col-span-2 md:col-span-4">
-                    🕵️ Detektif Ledakan
-                </a>
-            </div>
+<body>
+    <!-- ===== TOPBAR ===== -->
+    <nav class="ws-topbar">
+        <a class="ws-logo" href="/"><span class="bolt">⚡</span> WEB-SCREENING</a>
+        <div class="ws-topnav">
+            <a href="/market">Market</a>
+            <a href="/screener">Screener</a>
+            <a href="/ai">Asisten AI</a>
+            <a href="/portfolio">Portofolio</a>
+            <a href="/detective">Detektif</a>
         </div>
-        <!-- SPA Opsi A (shell lama dipertahankan di bawah menu cepat) -->
-        <div id="app"></div>
+        <span class="ws-user">IHSG · Data Harian</span>
+    </nav>
+
+    <div class="ws-wrap">
+        <!-- ===== HERO ===== -->
+        <section style="text-align:center; padding:64px 16px 52px;">
+            <span class="pill" style="margin-bottom:18px;">
+                <span style="width:7px;height:7px;border-radius:50%;background:var(--acc);display:inline-block;box-shadow:0 0 8px var(--acc);"></span>
+                FastAPI · Multi-user · Data IHSG Harian
+            </span>
+            <h1 style="font-size:clamp(30px,5vw,52px); font-weight:900; letter-spacing:-1.2px; line-height:1.12; margin:14px 0 14px;">
+                Screener Saham IHSG<br>
+                <span style="background:linear-gradient(90deg,var(--acc),var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent;">Ultimate Edition</span>
+            </h1>
+            <p style="color:var(--tx-2); max-width:620px; margin:0 auto 30px; font-size:15.5px; line-height:1.7;">
+                Detektor jejak bandar, anomali volume &amp; strategi BSJP —
+                900+ saham IHSG dianalisis otomatis setiap hari bursa dengan kekuatan AI.
+            </p>
+            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                <a href="/market" class="btn btn-teal" style="padding:13px 26px; font-size:14.5px;">📊 Buka Dashboard</a>
+                <a href="/screener" class="btn btn-ghost" style="padding:13px 26px; font-size:14.5px;">📌 Mulai Screening</a>
+            </div>
+            <div style="display:flex; gap:34px; justify-content:center; margin-top:42px; flex-wrap:wrap;">
+                <div><div style="font-size:24px;font-weight:800;color:var(--acc);font-variant-numeric:tabular-nums;">900+</div><div class="teks-redup" style="font-size:12px;">Saham IHSG</div></div>
+                <div><div style="font-size:24px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;">38</div><div class="teks-redup" style="font-size:12px;">Filter Screener</div></div>
+                <div><div style="font-size:24px;font-weight:800;color:var(--acc);font-variant-numeric:tabular-nums;">9</div><div class="teks-redup" style="font-size:12px;">Rumus BSJP + AI</div></div>
+                <div><div style="font-size:24px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;">2×</div><div class="teks-redup" style="font-size:12px;">Update Data/Hari</div></div>
+            </div>
+        </section>
+
+        <!-- ===== MENU UTAMA ===== -->
+        <section class="panel-title" style="justify-content:center;">Menu Utama</section>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; max-width:1080px; margin:0 auto;">
+            <a href="/market" class="kartu" style="text-decoration:none; padding:20px; transition:transform .15s, border-color .15s; display:block;"
+               onmouseover="this.style.borderColor='var(--acc)';this.style.transform='translateY(-3px)'"
+               onmouseout="this.style.borderColor='var(--line-soft)';this.style.transform=''">
+                <div style="font-size:26px;margin-bottom:10px;">📊</div>
+                <div style="font-weight:800;font-size:15px;margin-bottom:5px;">Market Overview</div>
+                <div class="teks-redup" style="font-size:12.5px;line-height:1.55;">Sentimen pasar, top gainers/losers, volume &amp; turnover real-time.</div>
+                <div style="margin-top:12px;color:var(--acc);font-size:12px;font-weight:700;">Buka →</div>
+            </a>
+            <a href="/screener" class="kartu" style="text-decoration:none; padding:20px; transition:transform .15s, border-color .15s; display:block;"
+               onmouseover="this.style.borderColor='var(--acc)';this.style.transform='translateY(-3px)'"
+               onmouseout="this.style.borderColor='var(--line-soft)';this.style.transform=''">
+                <div style="font-size:26px;margin-bottom:10px;">📌</div>
+                <div style="font-weight:800;font-size:15px;margin-bottom:5px;">Screener 38 Filter</div>
+                <div class="teks-redup" style="font-size:12.5px;line-height:1.55;">Bandarmologi, teknikal, fundamental + export CSV &amp; 5 mode tampilan.</div>
+                <div style="margin-top:12px;color:var(--acc);font-size:12px;font-weight:700;">Buka →</div>
+            </a>
+            <a href="/ai" class="kartu" style="text-decoration:none; padding:20px; transition:transform .15s, border-color .15s; display:block;"
+               onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)'"
+               onmouseout="this.style.borderColor='var(--line-soft)';this.style.transform=''">
+                <div style="font-size:26px;margin-bottom:10px;">🤖</div>
+                <div style="font-weight:800;font-size:15px;margin-bottom:5px;">Asisten AI</div>
+                <div class="teks-redup" style="font-size:12.5px;line-height:1.55;">9 rumus BSJP, sidang AI Top-5, dan Radar Live harian.</div>
+                <div style="margin-top:12px;color:var(--gold);font-size:12px;font-weight:700;">Buka →</div>
+            </a>
+            <a href="/portfolio" class="kartu" style="text-decoration:none; padding:20px; transition:transform .15s, border-color .15s; display:block;"
+               onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-3px)'"
+               onmouseout="this.style.borderColor='var(--line-soft)';this.style.transform=''">
+                <div style="font-size:26px;margin-bottom:10px;">💼</div>
+                <div style="font-weight:800;font-size:15px;margin-bottom:5px;">Portofolio Simulator</div>
+                <div class="teks-redup" style="font-size:12.5px;line-height:1.55;">9 arena × Rp 100 juta — beli pagi, jual sore, TP/CL otomatis.</div>
+                <div style="margin-top:12px;color:var(--gold);font-size:12px;font-weight:700;">Buka →</div>
+            </a>
+            <a href="/detective" class="kartu" style="text-decoration:none; padding:20px; transition:transform .15s, border-color .15s; display:block; grid-column:1/-1;"
+               onmouseover="this.style.borderColor='var(--acc)';this.style.transform='translateY(-3px)'"
+               onmouseout="this.style.borderColor='var(--line-soft)';this.style.transform=''">
+                <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+                    <div style="font-size:26px;">🕵️</div>
+                    <div style="flex:1; min-width:220px;">
+                        <div style="font-weight:800;font-size:15px;margin-bottom:5px;">Detektif Ledakan <span class="pill" style="margin-left:6px;">AlphaScan Pro</span></div>
+                        <div class="teks-redup" style="font-size:12.5px;line-height:1.55;">Otopsi intraday saham sebelum ledakan, tren 50 hari, checklist gap-up &amp; chat AI analis.</div>
+                    </div>
+                    <div style="color:var(--acc);font-size:12px;font-weight:700;">Buka →</div>
+                </div>
+            </a>
+        </div>
+
+        <footer style="text-align:center; margin-top:56px; padding-top:22px; border-top:1px solid var(--line-soft);">
+            <p class="teks-redup" style="font-size:12px;">
+                ⚠️ Semua data &amp; analisis bersifat edukasi &amp; simulasi — bukan ajakan beli/jual saham.
+            </p>
+            <p class="teks-redup" style="font-size:11.5px; margin-top:6px;">
+                ⚡ WEB-SCREENING · FastAPI Edition · Data harian IHSG via pipeline otomatis
+            </p>
+        </footer>
     </div>
-    <script src="/static/app.js"></script>
 </body>
 </html>
