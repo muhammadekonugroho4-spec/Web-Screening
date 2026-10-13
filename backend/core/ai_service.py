@@ -293,16 +293,13 @@ def ai_grand_final_top5(data_saham_dict, api_key):
 
 
 _DAFTAR_MODEL_GEMINI_STATIS = [
-    # Estafet flash/lite dulu (cepat & rate-limit rendah), lalu pro sebagai cadangan.
-    # (Fase E1: menggantikan genai.list_models() yang membuat container Railway free
-    #  512MB crash saat sidang — chat tanpa list_models terbukti aman.)
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
+    # Estafet flash dulu (cepat), pro terakhir. Hanya nama yang terverifikasi ada
+    # di API v1beta. (Fase E1: menggantikan genai.list_models() yang membuat
+    # container Railway free 512MB crash saat sidang.)
     "gemini-1.5-flash-latest",
     "gemini-1.5-flash",
-    "gemini-1.5-flash-8b",
+    "gemini-1.5-flash-8b-latest",
     "gemini-1.5-pro-latest",
-    "gemini-1.0-pro",
 ]
 
 
@@ -342,8 +339,35 @@ def panggil_ai_teks(prompt):
     return "❌ Tidak ada mesin AI gratis tersedia.", "error"
 
 
+def _hakim_openrouter(data_json_str, instruksi):
+    """Fase E1 fallback: hakim Top-5 via OpenRouter (gratis) saat semua model
+    Gemini gagal (404/429). Return: teks JSON mentah atau string 'Error_AI: ...'."""
+    try:
+        OK_ = os.environ.get("OPENROUTER_API_KEY")
+        if not OK_:
+            return "Error_AI: OPENROUTER_API_KEY tidak tersedia untuk fallback"
+        prompt = f"""{instruksi}
+
+DATA:
+{data_json_str}
+
+CRITICAL: Output ONLY a raw JSON array with EXACTLY 5 objects, each with EXACTLY 1 key: "Ticker".
+DO NOT add explanations, markdown, or any other text."""
+        cp = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=OK_).chat.completions.create(
+            model="openrouter/free", messages=[{"role": "user", "content": prompt}],
+            temperature=0.0, max_tokens=512,
+        )
+        isi = (cp.choices[0].message.content or "").strip()
+        if not isi:
+            return "Error_AI: OpenRouter respons kosong"
+        return isi
+    except Exception as e:
+        return f"Error_AI: OpenRouter fallback gagal — {str(e)[:120]}"
+
+
 def ai_hakim_klasemen_cepat(data_top15, api_key, daftar_model):
-    """Asal: app.py PART 03 (baris 360-395). Tanpa adaptasi (0x st.)."""
+    """Asal: app.py PART 03 (baris 360-395).
+    Fase E1: jika semua model Gemini gagal → fallback hakim OpenRouter."""
     genai.configure(api_key=api_key)
     prompt = f"""
     Select EXACTLY 5 Tickers that have the highest combination of 'Score' and 'Volume' from the data below.
@@ -378,7 +402,12 @@ def ai_hakim_klasemen_cepat(data_top15, api_key, daftar_model):
             else:
                 time.sleep(1)
             continue
-    return f"Error_AI (Semua model aktif gagal eksekusi): {pesan_error_terakhir}"
+    # Semua model Gemini gagal → fallback OpenRouter (jika key tersedia)
+    fallback = _hakim_openrouter(json.dumps(data_top15, ensure_ascii=False, default=str),
+                                 "Select EXACTLY 5 Tickers with the highest combination of 'Score' and 'Volume'.")
+    if not fallback.startswith("Error_AI"):
+        return fallback
+    return f"Error_AI (Semua model aktif gagal eksekusi): {pesan_error_terakhir} | {fallback[:120]}"
 
 
 def ai_top5_dari_daftar(data_dict, api_key, daftar_model, suhu=0.4):
@@ -419,6 +448,11 @@ def ai_top5_dari_daftar(data_dict, api_key, daftar_model, suhu=0.4):
             pesan_terakhir = str(e)
             time.sleep(2)
             continue
+    # Fase E1 fallback: semua model Gemini gagal → OpenRouter
+    fallback = _hakim_openrouter(json.dumps(data_dict, ensure_ascii=False, default=str),
+                                 "Select EXACTLY 5 DIFFERENT tickers with the strongest accumulation for tomorrow morning.")
+    if not fallback.startswith("Error_AI"):
+        return fallback
     return f"Error_AI: {pesan_terakhir}"
 
 
