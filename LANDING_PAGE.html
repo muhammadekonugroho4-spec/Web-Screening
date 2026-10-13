@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB-SCREENING — Screener Saham IHSG Ultimate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: #f8fafc; }
+        .feature-card { background: linear-gradient(145deg, #1e293b 0%, #16213a 100%); border: 1px solid #334155; border-radius: 12px; padding: 20px; transition: transform .15s, border-color .15s; }
+        .feature-card:hover { transform: translateY(-3px); border-color: #38bdf8; }
+        .gate-overlay { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.92); display: flex; align-items: center; justify-content: center; z-index: 50; }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Gate overlay (muncul saat tombol diklik, hitung mundur 5 detik) -->
+    <div id="gate" class="gate-overlay hidden">
+        <div class="text-center max-w-md mx-auto p-8">
+            <div class="text-5xl mb-4">🚪</div>
+            <h2 class="text-2xl font-bold mb-3">Membuka gerbang...</h2>
+            <p class="text-gray-300 mb-4">Halaman sponsor terbuka di tab baru. Anda akan diarahkan ke aplikasi dalam <span id="countdown" class="font-bold text-yellow-400">5</span> detik.</p>
+            <div class="w-full bg-gray-800 rounded-full h-3 mb-4">
+                <div id="gate_bar" class="bg-yellow-500 h-3 rounded-full transition-all duration-1000" style="width:0%"></div>
+            </div>
+            <button onclick="skipWait()" class="text-blue-400 hover:text-blue-300 text-sm underline">Lewati tunggu →</button>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="max-w-5xl mx-auto px-4 py-16 text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4">⚡ WEB-SCREENING</h1>
+        <p class="text-xl md:text-2xl text-blue-400 font-bold mb-3">Screener Saham IHSG Ultimate</p>
+        <p class="text-gray-400 max-w-2xl mx-auto mb-10">Detektor jejak bandar, anomali volume, dan strategi BSJP — data 900+ saham IHSG, analisis AI, simulator portofolio 9 arena. Semua dalam satu dashboard modern.</p>
+        <button onclick="bukaGate()" class="bg-yellow-500 hover:bg-yellow-400 text-gray-900 text-xl font-extrabold py-4 px-12 rounded-full shadow-lg shadow-yellow-500/20 transition-transform hover:scale-105">
+            🚀 KLIK UNTUK MASUK
+        </button>
+        <p class="text-gray-500 text-xs mt-4">Mendukung pengembang melalui halaman sponsor. Gratis untuk Anda.</p>
+    </div>
+
+    <!-- Fitur -->
+    <div class="max-w-6xl mx-auto px-4 pb-20">
+        <h2 class="text-2xl font-bold mb-6 text-center">✨ Fitur Unggulan</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div class="feature-card">
+                <div class="text-3xl mb-2">📊</div>
+                <h3 class="font-bold text-lg mb-1">Market Overview</h3>
+                <p class="text-gray-400 text-sm">Ringkasan pasar real-time: saham naik/turun, sentimen pasar, top gainers/losers/volume/value.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-3xl mb-2">📌</div>
+                <h3 class="font-bold text-lg mb-1">Screener 38 Filter</h3>
+                <p class="text-gray-400 text-sm">Filter bandarmologi, teknikal, fundamental + pencarian ticker/broker, 5 mode tampilan, export CSV.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-3xl mb-2">🤖</div>
+                <h3 class="font-bold text-lg mb-1">Asisten AI</h3>
+                <p class="text-gray-400 text-sm">9 rumus BSJP otomatis + sidang AI Top-5 per rumus + Radar Live yang diperbarui tiap sesi.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-3xl mb-2">💼</div>
+                <h3 class="font-bold text-lg mb-1">Portofolio Simulator</h3>
+                <p class="text-gray-400 text-sm">9 arena simulasi Rp 100 juta: beli pagi, jual sore, TP/CL otomatis, histori lengkap.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-3xl mb-2">🕵️</div>
+                <h3 class="font-bold text-lg mb-1">Detektif Ledakan</h3>
+                <p class="text-gray-400 text-sm">Otopsi intraday saham sebelum ledakan, tren 50 hari, checklist gap-up, dan chat AI analis.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-3xl mb-2">🔄</div>
+                <h3 class="font-bold text-lg mb-1">Data Real-time</h3>
+                <p class="text-gray-400 text-sm">Pipeline data harian otomatis: screener, fundamental, arsip intraday 5 hari, buku besar.</p>
+            </div>
+        </div>
+
+        <p class="text-center text-gray-500 text-sm mt-12">
+            ⚠️ Disclaimer: Semua data dan analisis bersifat edukasi &amp; simulasi — bukan ajakan beli/jual saham.
+        </p>
+    </div>
+
+<script>
+// GANTI dengan smartlink milik Anda
+const SMARTLINK = "https://example.com/your-smartlink";
+// GANTI dengan URL aplikasi FastAPI produksi
+const APP_URL = "http://localhost:8100/";
+
+let timer = null;
+function bukaGate() {
+    window.open(SMARTLINK, '_blank', 'noopener');
+    document.getElementById('gate').classList.remove('hidden');
+    let sisa = 5;
+    document.getElementById('countdown').textContent = sisa;
+    document.getElementById('gate_bar').style.width = '20%';
+    timer = setInterval(() => {
+        sisa--;
+        document.getElementById('countdown').textContent = Math.max(sisa, 0);
+        document.getElementById('gate_bar').style.width = ((5 - sisa) / 5 * 100) + '%';
+        if (sisa <= 0) { clearInterval(timer); location.href = APP_URL; }
+    }, 1000);
+}
+function skipWait() { clearInterval(timer); location.href = APP_URL; }
+</script>
+</body>
+</html>

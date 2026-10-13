@@ -466,3 +466,171 @@ async def reset_portfolio(user: str = Depends(get_current_user)):
     """Reset semua arena ke Rp 100 juta via reset_porto.py --yes --user (Langkah 6)."""
     _USER_CTX["username"] = user
     return _jalankan_skrip(["reset_porto.py", "--yes"], 120)
+
+
+# =====================================================================
+# TAB 6: DETEKTIF LEDAKAN (Langkah 7)
+# =====================================================================
+def anomali_intraday(df_day, ticker):
+    """Mirror logika anomali intraday dari app.py PART 14 (baris 2759-2798).
+    Return: (list ciri anomali, dict ringkasan OHLC) untuk 1 saham 1 hari."""
+    g = df_day[df_day["Ticker"] == ticker].copy()
+    if g.empty: return [], None
+    cw = next((c for c in ["Waktu Update", "Terakhir Update"] if c in g.columns), g.columns[0])
+    g["_jam"] = g[cw].astype(str).str.split(" ").str[-1].str[:5]
+    g = g.sort_values("_jam")
+    h = pd.to_numeric(g["Harga (Rp)"], errors="coerce")
+    v = pd.to_numeric(g["Volume"], errors="coerce")
+    c = pd.to_numeric(g["Change (%)"], errors="coerce")
+    swing = (h.max() - h.min()) / h.min() * 100 if h.min() else 0.0
+    ringkas = {"Open": h.iloc[0], "High": h.max(), "Low": h.min(), "Close": h.iloc[-1],
+               "Swing_%": round(swing, 2), "Puncak_Change_%": round(c.max(), 2) if not c.isna().all() else 0.0,
+               "Slot": len(g)}
+    ciri = []
+    dv = v.diff().fillna(0)
+    if len(dv) > 9:
+        rata = dv.iloc[1:-6].mean()
+        akhir = dv.tail(6).sum()
+        if rata and rata > 0 and akhir / (rata * 6) >= 2.5:
+            ciri.append(f"🌋 Ledakan volume sesi akhir: 30 menit terakhir ≈{akhir / (rata * 6):.1f}x rata-rata slot")
+    ta, tk = str(g.iloc[0].get("Tekanan Bandar", "")), str(g.iloc[-1].get("Tekanan Bandar", ""))
+    if "Jual" in ta and "Beli" in tk:
+        ciri.append(f"🔄 Pressure flip: {ta} → {tk}")
+    bbs = g["Status BB"].astype(str).tolist() if "Status BB" in g.columns else []
+    if "Squeeze" in bbs and any("Breakout" in b for b in bbs[bbs.index("Squeeze"):]):
+        ciri.append("🌐 Squeeze → Breakout Upper dalam satu hari")
+    if swing < 3 and "Beli" in tk and "Akumulasi" in str(g.iloc[-1].get("Kekuatan A/D", "")):
+        ciri.append(f"🤫 Silent accumulation: harga flat (swing {swing:.1f}%) tapi {tk} + {g.iloc[-1].get('Kekuatan A/D')}")
+    p15 = g[g["_jam"] >= "15:00"]
+    if len(p15) > 0 and len(h) > len(p15):
+        dasar = h.iloc[-len(p15) - 1]
+        if dasar:
+            jump = (h.iloc[-1] - dasar) / dasar * 100
+            if jump >= 1.5: ciri.append(f"⏰ Closing jump: {jump:+.1f}% setelah 15:00")
+    if not c.isna().all() and abs(c.iloc[0]) >= 2:
+        ciri.append(f"🚪 Gap open: {c.iloc[0]:+.1f}% di snapshot pertama")
+    if "Posisi VWAP" in g.columns:
+        rk = (g["Posisi VWAP"].astype(str) == "Di Atas VWAP (Kuat)").mean()
+        if rk >= 0.7: ciri.append(f"🛡️ Ditahan di atas VWAP {rk * 100:.0f}% waktu perdagangan")
+    return ciri, ringkas
+
+
+def tren_50h(ticker, lb):
+    """Mirror logika tren 50 hari dari app.py PART 14 (baris 2820-2830).
+    Buku besar kolom wajib: Ticker, Tanggal, Volume, Close (+ Swing_% opsional)."""
+    if lb.empty: return None
+    g = lb[lb["Ticker"] == ticker].sort_values("Tanggal").tail(50).copy()
+    if g.empty: return None
+    for kol in ["Volume", "Close"]:
+        g[kol] = pd.to_numeric(g[kol], errors="coerce")
+    g["MA5_vol"] = g["Volume"].rolling(5).mean()
+    g["MA20_vol"] = g["Volume"].rolling(20).mean()
+    g["MA50_vol"] = g["Volume"].rolling(50).mean()
+    g["MA20_close"] = g["Close"].rolling(20).mean()
+    return g
+
+
+@router.get("/detective/alpha")
+async def get_alpha_scan(user: str = Depends(get_current_user)):
+    """Return AlphaScan Pro: market breadth, sector rotation, premarket gap (Langkah 7).
+    Logika murni dari services/alpha_features.py (tanpa Streamlit)."""
+    from services import alpha_features as af
+    from backend.core.data_loader import load_data_saham_raw
+
+    df = load_data_saham_raw()
+    if df.empty:
+        return {"error": "Data saham belum tersedia"}
+
+    breadth = af.market_breadth(df)
+    rotasi = af.sector_rotation(df)
+    gap = af.premarket_gap_scanner(df, 2.0)
+
+    # gap_up/gap_down berupa DataFrame → ubah ke records
+    return {
+        "market_breadth": breadth,
+        "sector_rotation": rotasi,
+        "premarket_gap": {
+            "gap_up": gap["gap_up"].to_dict('records') if gap is not None and isinstance(gap.get("gap_up"), pd.DataFrame) else (gap.get("gap_up") if gap else None),
+            "gap_down": gap["gap_down"].to_dict('records') if gap is not None and isinstance(gap.get("gap_down"), pd.DataFrame) else (gap.get("gap_down") if gap else None),
+        },
+    }
+
+
+@router.post("/detective/chat")
+async def detective_chat(request: dict, user: str = Depends(get_current_user)):
+    """Chat AI detektif (Langkah 7). Narasi via panggil_ai_teks (Gemini → OpenRouter)."""
+    from backend.core.ai_service import panggil_ai_teks
+
+    pesan = request.get("pesan", "")
+    konteks = request.get("konteks", "")
+    if not pesan:
+        return {"error": "Pesan kosong"}
+
+    prompt = f"""Kamu analis detektif pasar saham Indonesia. FAKTA hanya dari BLOK DATA di bawah; untuk edukasi/konsep gunakan pengetahuan umum. Jika fakta tidak ada, katakan jujur. Jawab Bahasa Indonesia, analitis, tanpa basa-basi.
+BLOK DATA:
+{konteks}
+PERTANYAAN: {pesan}"""
+
+    jawaban, model = panggil_ai_teks(prompt)
+    return {"jawaban": jawaban, "model": model}
+
+
+@router.get("/detective/otopsi/{ticker}/{tanggal}")
+async def get_otopsi(ticker: str, tanggal: str, user: str = Depends(get_current_user)):
+    """Return data otopsi untuk 1 saham 1 tanggal (Langkah 7).
+    Sumber: arsip intraday + buku besar (backend.core.archive)."""
+    from backend.core.archive import muat_arsip_harian_raw, muat_buku_besar_raw
+
+    ticker = ticker.strip().upper()
+    df_day = muat_arsip_harian_raw(tanggal)
+    lb = muat_buku_besar_raw()
+
+    # Anomali intraday (hanya jika arsip hari itu tersedia)
+    ciri, ringkas = anomali_intraday(df_day, ticker) if not df_day.empty else ([], None)
+
+    # Baris penutup hari (H-1)
+    row_h1 = None
+    if not df_day.empty and not df_day[df_day["Ticker"] == ticker].empty:
+        row_h1 = df_day[df_day["Ticker"] == ticker].iloc[-1]
+    elif not lb.empty:
+        lbb = lb[(lb["Ticker"] == ticker) & (lb["Tanggal"].astype(str) == tanggal)]
+        if not lbb.empty:
+            row_h1 = lbb.iloc[-1]
+
+    # Tren 50 hari dari buku besar
+    tren_data = tren_50h(ticker, lb) if not lb.empty else None
+
+    return {
+        "ticker": ticker,
+        "tanggal": tanggal,
+        "ringkas": ringkas,
+        "ciri": ciri,
+        "row_h1": row_h1.to_dict() if row_h1 is not None else None,
+        "tren_50h": tren_data.fillna("").to_dict('records') if tren_data is not None else None,
+    }
+
+
+@router.get("/detective/ledakan")
+async def get_ledakan_chips(user: str = Depends(get_current_user)):
+    """Chip saham yang swing low→high ≥10% (mirror app.py PART 14 baris 2899-2911)."""
+    from backend.core.archive import muat_buku_besar_raw
+
+    lb = muat_buku_besar_raw()
+    if lb.empty:
+        return {"chips": [], "tanggal": None}
+    tgl_chip = str(sorted(lb["Tanggal"].astype(str).unique())[-1])
+    dfx = lb[lb["Tanggal"].astype(str) == tgl_chip]
+    df_ledakan = dfx[(pd.to_numeric(dfx["Swing_%"], errors="coerce") >= 10) | (pd.to_numeric(dfx["Puncak_Change_%"], errors="coerce") >= 10)]
+    df_ledakan = df_ledakan.sort_values("Swing_%", ascending=False).head(12)
+    chips = [{"Ticker": r["Ticker"], "Swing_%": round(float(r["Swing_%"]), 1)}
+             for _, r in df_ledakan.iterrows()]
+    return {"chips": chips, "tanggal": tgl_chip}
+
+
+@router.get("/detective/tanggal")
+async def get_tanggal_opsi(user: str = Depends(get_current_user)):
+    """Daftar tanggal arsip yang tersedia untuk dropdown otopsi."""
+    from backend.core.archive import _muat_arsip_lokal
+
+    tgl = [d for d, _ in _muat_arsip_lokal()]
+    return {"tanggal": tgl}

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detektif Ledakan — WEB-SCREENING</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: #f8fafc; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #1e293b; padding: 8px 10px; text-align: left; font-weight: 700; font-size: 0.68rem; text-transform: uppercase; }
+        td { padding: 7px 10px; border-bottom: 1px solid #2d3b54; font-size: 0.8rem; white-space: nowrap; }
+        tr:nth-child(even) { background: rgba(30, 41, 59, 0.35); }
+        .text-green { color: #22c55e; }
+        .text-red { color: #ef4444; }
+        input, select { background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 8px 10px; color: #f8fafc; }
+        input:focus, select:focus { outline: 1px solid #38bdf8; }
+        .panel { background: #16213a; border: 1px solid #27354f; border-radius: 10px; padding: 14px; }
+        .tpl-btn { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 8px 6px; font-size: 0.78rem; font-weight: 600; transition: all .15s; }
+        .tpl-btn:hover { border-color: #ef4444; background: #27354f; }
+        .chip { background: #3f1d1d; border: 1px solid #7f1d1d; color: #fca5a5; border-radius: 999px; padding: 4px 12px; font-size: 0.78rem; cursor: pointer; }
+        .chip:hover { background: #5a2222; }
+        .chat-box { max-height: 45vh; overflow-y: auto; }
+        .bubble-user { background: #1d4ed8; border-radius: 12px 12px 2px 12px; }
+        .bubble-ai { background: #1e293b; border: 1px solid #334155; border-radius: 12px 12px 12px 2px; }
+        .spin { display: inline-block; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="max-w-[95rem] mx-auto p-4 md:p-6">
+        <div class="mb-4">
+            <a href="/" class="text-blue-400 hover:text-blue-300 inline-block mb-2">← Kembali ke Beranda</a>
+            <h1 class="text-2xl md:text-3xl font-bold">🕵️ Detektif Ledakan</h1>
+            <p class="text-gray-400 text-sm">AlphaScan Pro + Otopsi Intraday + Chat AI — <span id="userinfo" class="text-red-400"></span></p>
+        </div>
+
+        <!-- ====== ALPHASCAN PRO ====== -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+            <div class="panel">
+                <h3 class="font-bold mb-2 text-blue-300">📊 Market Breadth (A/D)</h3>
+                <div id="breadth" class="text-sm text-gray-400">Memuat...</div>
+            </div>
+            <div class="panel">
+                <h3 class="font-bold mb-2 text-blue-300">🔄 Rotasi Sektor (Value %)</h3>
+                <div id="rotasi" class="text-sm text-gray-400 space-y-1">Memuat...</div>
+            </div>
+            <div class="panel">
+                <h3 class="font-bold mb-2 text-blue-300">🌅 Pre-Market Gap (±2%)</h3>
+                <div id="gap" class="text-sm text-gray-400">Memuat...</div>
+            </div>
+        </div>
+
+        <!-- ====== OTOPSI ====== -->
+        <div class="panel mb-5">
+            <h3 class="font-bold mb-3 text-red-300">🩺 Alat Otopsi Saham</h3>
+            <div class="flex flex-wrap gap-2 mb-3 items-center">
+                <input type="text" id="oticker" placeholder="Kode saham (mis. LAPD)" class="w-44 uppercase">
+                <select id="otanggal" class="!w-auto"></select>
+                <button onclick="jalankanOtopsi()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded text-sm">🔍 Otopsi</button>
+            </div>
+            <div id="chips" class="flex flex-wrap gap-2 mb-3"></div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+                <button class="tpl-btn" onclick="tpl('otopsi')">🩺 Otopsi H-1</button>
+                <button class="tpl-btn" onclick="tpl('lolos')">🚫 Kenapa lolos radar?</button>
+                <button class="tpl-btn" onclick="tpl('tren')">📈 Tren 50H (MA5/20/50)</button>
+                <button class="tpl-btn" onclick="tpl('gapup')">🎯 Checklist siap gap-up</button>
+                <button class="tpl-btn" onclick="tpl('dna')">🧬 Ciri ledakan (naratif)</button>
+                <button class="tpl-btn" onclick="tpl('sesi')">⏱️ Fokus sesi akhir 14:00+</button>
+                <button class="tpl-btn" onclick="tpl('rumus')">💡 Usulan rumus baru</button>
+                <button class="tpl-btn" onclick="bersihkanChat()">🗑️ Bersihkan chat</button>
+            </div>
+            <div id="otopsi_hasil" class="text-sm"></div>
+        </div>
+
+        <!-- ====== CHAT AI ====== -->
+        <div class="panel">
+            <h3 class="font-bold mb-2 text-green-300">🗨️ Obrolan bebas (konteks: data lokal Anda)</h3>
+            <div id="chat" class="chat-box space-y-2 mb-3"></div>
+            <div class="flex gap-2">
+                <input type="text" id="chat_input" placeholder="Tanya apa saja: analisa, edukasi, atau lanjutan otopsi di atas..." class="flex-1">
+                <button onclick="kirimChat()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-5 rounded text-sm">Kirim</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+const TOKEN = localStorage.getItem('ws_token');
+if (!TOKEN) { location.href = '/'; }
+const H = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN };
+
+async function cekLogin() {
+    try {
+        const r = await fetch('/api/auth/me', { headers: H });
+        if (!r.ok) throw 0;
+        const d = await r.json();
+        document.getElementById('userinfo').textContent = '@' + d.username;
+    } catch (e) { location.href = '/'; }
+}
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function rp(v) { if (v == null || isNaN(v)) return '-'; return 'Rp ' + Math.round(v).toLocaleString('id-ID'); }
+function pct(v) { if (v == null || isNaN(v)) return '-'; return (v > 0 ? '▲ ' : '▼ ') + Number(v).toFixed(2) + '%'; }
+
+// ============ AlphaScan Pro ============
+async function loadAlpha() {
+    try {
+        const r = await fetch('/api/detective/alpha', { headers: H });
+        const d = await r.json();
+        if (d.error) { document.getElementById('breadth').textContent = d.error; return; }
+        // Breadth
+        const b = d.market_breadth;
+        if (b) document.getElementById('breadth').innerHTML =
+            `<div class="grid grid-cols-2 gap-1">
+                <span>🟢 Menguat</span><strong class="text-green text-right">${b.advance}</strong>
+                <span>🔴 Melemah</span><strong class="text-red text-right">${b.decline}</strong>
+                <span>⚪ Stagnan</span><strong class="text-right">${b.unchanged}</strong>
+                <span>📏 A/D Line</span><strong class="text-right">${b.ad_line}</strong>
+                <span>⚖️ Rasio</span><strong class="text-right">${b.ratio}</strong>
+            </div><div class="mt-2 font-bold">${b.status}</div>`;
+        // Rotasi
+        if (d.sector_rotation) {
+            document.getElementById('rotasi').innerHTML = d.sector_rotation.map(([kat, p]) =>
+                `<div class="flex justify-between"><span>${esc(kat)}</span><strong>${p}%</strong></div>`).join('');
+        }
+        // Gap
+        const g = d.premarket_gap;
+        const tampil = (rows, cls) => rows && rows.length
+            ? rows.map(r => `<div class="flex justify-between"><span><strong>${r.Ticker}</strong> ${rp(r['Harga (Rp)'])}</span><span class="${cls}">${pct(r['Change (%)'])} (gap ${r.gap_pct > 0 ? '+' : ''}${r.gap_pct}%)</span></div>`).join('')
+            : '<span class="text-gray-500">Tidak ada</span>';
+        document.getElementById('gap').innerHTML =
+            `<div class="mb-1 font-bold text-green">Gap Up</div>${tampil(g.gap_up, 'text-green')}
+             <div class="mt-2 mb-1 font-bold text-red">Gap Down</div>${tampil(g.gap_down, 'text-red')}`;
+    } catch (e) { document.getElementById('breadth').textContent = 'Error: ' + e; }
+}
+
+// ============ Otopsi ============
+async function loadTanggal() {
+    try {
+        const r = await fetch('/api/detective/tanggal', { headers: H });
+        const d = await r.json();
+        const sel = document.getElementById('otanggal');
+        (d.tanggal || []).forEach(t => sel.insertAdjacentHTML('beforeend', `<option>${t}</option>`));
+    } catch (e) {}
+}
+async function loadChips() {
+    try {
+        const r = await fetch('/api/detective/ledakan', { headers: H });
+        const d = await r.json();
+        const el = document.getElementById('chips');
+        if (!d.chips || !d.chips.length) { el.innerHTML = ''; return; }
+        el.innerHTML = `<span class="text-xs text-gray-400 w-full mb-1">🔥 Swing ≥10% pada ${d.tanggal}:</span>` +
+            d.chips.map(c => `<button class="chip" onclick="document.getElementById('oticker').value='${c.Ticker}'">${c.Ticker} ⤴${c.Swing_%}%</button>`).join('');
+    } catch (e) {}
+}
+
+let OTOPSI = null; // cache hasil otopsi terakhir
+async function jalankanOtopsi() {
+    const t = document.getElementById('oticker').value.trim().toUpperCase();
+    const tgl = document.getElementById('otanggal').value;
+    const el = document.getElementById('otopsi_hasil');
+    if (!t || !tgl) { el.innerHTML = '<span class="text-yellow-400">Isi kode saham dan tanggal dulu.</span>'; return; }
+    el.innerHTML = '<span class="spin">⏳</span> Menghitung otopsi lokal...';
+    try {
+        const r = await fetch(`/api/detective/otopsi/${t}/${tgl}`, { headers: H });
+        const d = await r.json();
+        OTOPSI = d;
+        let html = `<h4 class="font-bold mb-1">🩺 Otopsi ${d.ticker} — ${d.tanggal}</h4>`;
+        if (d.ringkas) {
+            const rk = d.ringkas;
+            html += `<table class="mb-2"><thead><tr>${Object.keys(rk).map(c => `<th>${c}</th>`).join('')}</tr></thead>
+                     <tbody><tr>${Object.values(rk).map(v => `<td>${typeof v === 'number' ? v.toLocaleString('id-ID') : v}</td>`).join('')}</tr></tbody></table>`;
+        }
+        html += d.ciri && d.ciri.length
+            ? '<strong>Ciri anomali terdeteksi mesin:</strong><ul class="list-disc ml-5">' + d.ciri.map(c => `<li>${esc(c)}</li>`).join('') + '</ul>'
+            : '<span class="text-gray-500">Tidak ada anomali besar; hari itu tenang.</span>';
+        el.innerHTML = html;
+    } catch (e) { el.innerHTML = `<span class="text-red-400">Error: ${e}</span>`; }
+}
+
+// ============ Template pertanyaan (mirror app.py PART 14) ============
+function konteksDariOtopsi() {
+    if (!OTOPSI) return '';
+    const d = OTOPSI, rk = d.ringkas || {}, r = d.row_h1 || {};
+    let k = `SAHAM ${d.ticker} TANGGAL ${d.tanggal}\n`;
+    if (rk.Open !== undefined) k += `OHLC intraday: Open ${rk.Open} High ${rk.High} Low ${rk.Low} Close ${rk.Close} | Swing ${rk['Swing_%']}% | Puncak change ${rk['Puncak_Change_%']}%\n`;
+    k += `Baris penutup hari: Tekanan ${r['Tekanan Bandar'] ?? '-'} | Siklus ${r['Fase Siklus Bandar'] ?? '-'} | A/D ${r['Kekuatan A/D'] ?? '-'} | BB ${r['Status BB'] ?? '-'} | RVOL ${r['RVOL (Anomali Vol)'] ?? '-'} | Supply ${r['Kondisi Supply'] ?? '-'} | Score ${r['Total Score'] ?? '-'} | Rekomendasi ${r['Rekomendasi'] ?? '-'}\n`;
+    if (d.ciri && d.ciri.length) k += 'ANOMALI TERDETEKSI:\n- ' + d.ciri.join('\n- ') + '\n';
+    const gt = d.tren_50h;
+    if (gt && gt.length > 1) {
+        const l = gt[gt.length - 1];
+        k += `TREN 50H: hari ke-${gt.length} | Close ${l.Close} vs MA20 ${Math.round(l.MA20_close)} | Vol terakhir ${Math.round(l.Volume)} vs MA5 ${Math.round(l.MA5_vol)} / MA20 ${Math.round(l.MA20_vol)} / MA50 ${Math.round(l.MA50_vol)}\n`;
+    }
+    return k;
+}
+
+async function tpl(mode) {
+    const t = document.getElementById('oticker').value.trim().toUpperCase();
+    if (!t || !OTOPSI || OTOPSI.ticker !== t) { await jalankanOtopsi(); }
+    if (!OTOPSI || !OTOPSI.row_h1) { tampilAI('❌ Data saham/tanggal tidak ditemukan — tidak bisa menyusun pertanyaan.'); return; }
+    const konteks = konteksDariOtopsi();
+    const P = {
+        otopsi: `Jelaskan secara naratif mengapa pergerakan ${t} pada ${OTOPSI.tanggal} penting/tidak sebagai persiapan ledakan hari berikutnya.`,
+        lolos: `Radar 9 rumus tidak menangkap ${t} pada ${OTOPSI.tanggal} padahal hari berikutnya bergerak. Dari BLOK DATA, ciri mana yang sebenarnya sudah memberi petunjuk dan asumsi filter mana yang terlalu ketat?`,
+        tren: `Interpretasikan tren 50 hari ${t}: ada build-up senyap atau tidak?`,
+        gapup: `Beri opini singkat atas kesiapan gap-up ${t} berdasarkan checklist OHLC/volume/tekanan/supply di BLOK DATA.`,
+        dna: `Sebut dan jelaskan ciri-ciri ledakan yang terlihat pada ${t} tanggal ${OTOPSI.tanggal} berdasarkan BLOK DATA, dalam bentuk daftar ciri TERLIHAT vs TIDAK TERLIHAT. Jangan bergantung pada skor.`,
+        sesi: `Analisis sesi akhir (14:00-tutup) ${t} pada ${OTOPSI.tanggal}: ada persiapan mark-up apa?`,
+        rumus: `Berdasarkan kasus ${t} ${OTOPSI.tanggal}, usulkan 1 rumus/filter BARU yang konkret (sebutkan nama kolom dan nilainya) agar pola serupa tertangkap besok.`,
+    };
+    tampilAI('⏳ AI menyusun narasi...');
+    await kirimChatAPI(P[mode], konteks);
+}
+
+// ============ Chat ============
+function tampilAI(text, user) {
+    const chat = document.getElementById('chat');
+    chat.insertAdjacentHTML('beforeend', user
+        ? `<div class="flex justify-end"><div class="bubble-user px-3 py-2 max-w-[85%] text-sm">${esc(text)}</div></div>`
+        : `<div class="flex justify-start"><div class="bubble-ai px-3 py-2 max-w-[90%] text-sm whitespace-pre-wrap">${text}</div></div>`);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+async function kirimChatAPI(pesan, konteks) {
+    try {
+        const r = await fetch('/api/detective/chat', { method: 'POST', headers: H, body: JSON.stringify({ pesan, konteks }) });
+        const d = await r.json();
+        if (d.error) tampilAI('❌ ' + d.error);
+        else tampilAI(esc(d.jawaban) + `\n\n<sub class="text-gray-500">⚡ via ${d.model}</sub>`);
+    } catch (e) { tampilAI('❌ Error: ' + e); }
+}
+
+async function kirimChat() {
+    const inp = document.getElementById('chat_input');
+    const pesan = inp.value.trim();
+    if (!pesan) return;
+    inp.value = '';
+    tampilAI(pesan, true);
+    // Auto-deteksi ticker 4 huruf → ambil konteks tren dari otopsi buku besar
+    let konteks = '';
+    const tk = pesan.toUpperCase().match(/\b[A-Z]{4}\b/g) || [];
+    for (const t of tk.slice(0, 2)) {
+        try {
+            const tgl = document.getElementById('otanggal').value || '1970-01-01';
+            const r = await fetch(`/api/detective/otopsi/${t}/${tgl}`, { headers: H });
+            const d = await r.json();
+            if (d.tren_50h && d.tren_50h.length) {
+                const l = d.tren_50h[d.tren_50h.length - 1];
+                konteks += `${t}: close ${l.Close} swing terakhir ${l['Swing_%'] ?? '-'}% vol ${Math.round(l.Volume)} (MA20 ${Math.round(l.MA20_vol)})\n`;
+            }
+        } catch (e) {}
+    }
+    tampilAI('<span class="spin">⏳</span> Berpikir...');
+    await kirimChatAPI(pesan, konteks || '(tidak ada data lokal relevan)');
+    // hapus bubble "berpikir" terakhir jika error — sederhananya biarkan jawaban menimpa
+}
+function bersihkanChat() { document.getElementById('chat').innerHTML = ''; }
+
+document.getElementById('chat_input').addEventListener('keydown', e => { if (e.key === 'Enter') kirimChat(); });
+
+cekLogin().then(() => { loadAlpha(); loadTanggal(); loadChips(); });
+</script>
+</body>
+</html>

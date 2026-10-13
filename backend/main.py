@@ -174,6 +174,11 @@ async def portfolio_page(request: Request):
     """Halaman Portofolio Bot (Langkah 6) — wajib login via frontend guard."""
     return templates.TemplateResponse(request, "portfolio.html", {})
 
+@app.get("/detective", response_class=HTMLResponse)
+async def detective_page(request: Request):
+    """Halaman Detektif Ledakan (Langkah 7) — wajib login via frontend guard."""
+    return templates.TemplateResponse(request, "detective.html", {})
+
 @app.get("/")
 def root():
     return FileResponse(os.path.join(BASE, "templates", "index.html"))
