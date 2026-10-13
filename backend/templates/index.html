@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WEB-SCREENING — AlgoTrade IHSG</title>
-<link rel="stylesheet" href="/static/style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB-SCREENING — FastAPI Backend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: #f8fafc; }
+    </style>
 </head>
-<body>
-<div id="app"></div>
-<script src="/static/app.js"></script>
+<body class="min-h-screen">
+    <div class="max-w-7xl mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-4">⚡ WEB-SCREENING</h1>
+        <div class="bg-gray-800 rounded-lg p-6 mb-6" style="border:1px solid #334155">
+            <h2 class="text-xl font-semibold mb-4">Menu Cepat</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="/market" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded text-center">
+                    📊 Market Overview
+                </a>
+                <a href="/screener" class="bg-gray-700 text-gray-400 font-bold py-3 px-4 rounded text-center cursor-not-allowed">
+                    📌 Screener (Segera)
+                </a>
+                <a href="/ai" class="bg-gray-700 text-gray-400 font-bold py-3 px-4 rounded text-center cursor-not-allowed">
+                    🤖 Asisten AI (Segera)
+                </a>
+                <a href="/portfolio" class="bg-gray-700 text-gray-400 font-bold py-3 px-4 rounded text-center cursor-not-allowed">
+                    💼 Portofolio (Segera)
+                </a>
+            </div>
+        </div>
+        <!-- SPA Opsi A (shell lama dipertahankan di bawah menu cepat) -->
+        <div id="app"></div>
+    </div>
+    <script src="/static/app.js"></script>
 </body>
 </html>

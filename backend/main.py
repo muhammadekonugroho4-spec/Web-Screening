@@ -154,6 +154,11 @@ async def status_page(request: Request):
         "waktu": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     })
 
+@app.get("/market", response_class=HTMLResponse)
+async def market_page(request: Request):
+    """Halaman Market Overview (Langkah 4)."""
+    return templates.TemplateResponse(request, "market.html", {})
+
 @app.get("/")
 def root():
     return FileResponse(os.path.join(BASE, "templates", "index.html"))
