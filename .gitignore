@@ -9,3 +9,9 @@ logs/
 Database/cache_exodus/
 CHAT_HISTORY.md
 CHAT_HISTORY.md
+Database/users.json
+Database/users.db
+Database/users/
+*.lock
+GAMBAR/
+*.pyc
