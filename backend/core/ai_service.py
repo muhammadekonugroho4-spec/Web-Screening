@@ -34,7 +34,7 @@ _DAFTAR_MODEL_GEMINI_STATIS = [
     "gemini-1.5-flash-latest",
     "gemini-1.5-flash",
     "gemini-1.5-flash-8b-latest",
-    "gemini-1.5-pro-latest",
+    "gemini-1.5-flash-8b",
 ]
 
 def ai_hakim_klasemen(data_top15, api_key):
