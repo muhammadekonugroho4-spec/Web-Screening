@@ -347,7 +347,7 @@ def _hakim_openrouter(data_json_str, instruksi):
         OK_ = os.environ.get("OPENROUTER_API_KEY")
         if not OK_:
             return "Error_AI: OPENROUTER_API_KEY tidak tersedia untuk fallback"
-        cp = [OI](base_url="https://openrouter.ai/api/v1", api_key=OK_).chat.completions.create(
+        cp = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=OK_).chat.completions.create(
             model="openrouter/free",
             messages=[
                 {"role": "system", "content": "You are an automated JSON API endpoint. You output ONLY raw valid JSON arrays starting with [ and ending with ]. No explanations, no markdown, no conversational text. Each object has EXACTLY one key: \"Ticker\"."},
