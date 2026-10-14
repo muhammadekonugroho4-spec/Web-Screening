@@ -33,10 +33,6 @@ const WS_JEDA = 5; // detik
                        font-family:inherit;box-shadow:0 4px 20px rgba(245,185,66,.3);">
                 🚀 Masuk Lewat Sponsor
             </button>
-            <div style="margin-top:18px;">
-                <button id="ws-gate-skip" style="background:none;border:none;color:#5c6b8f;font-size:11.5px;
-                        cursor:pointer;text-decoration:underline;font-family:inherit;">Lewati tanpa sponsor →</button>
-            </div>
             <div id="ws-gate-hitung" style="margin-top:16px;font-size:12px;color:#2dd4bf;display:none;"></div>
         </div>`;
     document.body.appendChild(overlay);
@@ -60,10 +56,6 @@ const WS_JEDA = 5; // detik
         document.getElementById("ws-gate-btn").disabled = true;
         document.getElementById("ws-gate-btn").textContent = "✓ Terbuka di tab baru";
         mulaiHitung();
-    });
-    document.getElementById("ws-gate-skip").addEventListener("click", () => {
-        sessionStorage.setItem("ws_gate_ok", "1");
-        overlay.remove();
     });
 })();
 
