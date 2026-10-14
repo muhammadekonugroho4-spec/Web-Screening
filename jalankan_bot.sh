@@ -19,26 +19,26 @@ git rebase --abort >/dev/null 2>&1
 git merge --abort >/dev/null 2>&1
 git pull --rebase codespace main || git rebase --abort
 
-echo "⏳ Memulai pembaruan data saham..."
-./.venv/bin/python update_data.py
+# ==========================================
+# 📡 CONSUMER: tarik data dari DATA-CENTER feed (BUKAN dari Yahoo)
+# Producer tunggal di /home/kaltaraid/Documents/DATA-CENTER
+# ==========================================
+FEED="/home/kaltaraid/Documents/DATA-CENTER/feed"
+echo "📡 Menarik data dari DATA-CENTER feed..."
+if [ -f "$FEED/hasil_screener.csv" ]; then
+    mkdir -p Database Arsip_Data_Harian
+    cp "$FEED/hasil_screener.csv" Database/hasil_screener.csv.tmp && mv Database/hasil_screener.csv.tmp Database/hasil_screener.csv
+    [ -f "$FEED/fundamental_exodus.csv" ] && cp "$FEED/fundamental_exodus.csv" Database/fundamental_exodus.csv
+    HARI_INI=$(date +%F)
+    [ -f "$FEED/arsip/screener_${HARI_INI}.csv" ] && cp "$FEED/arsip/screener_${HARI_INI}.csv" "Arsip_Data_Harian/screener_${HARI_INI}.csv"
+    echo "✅ Feed masuk ke Database/ ($(stat -c %s Database/hasil_screener.csv) bytes)"
+else
+    echo "⚠️ Feed DATA-CENTER belum tersedia — pakai data lokal terakhir."
+fi
 
 JAM_SEKARANG=$(date +%H%M)
-FLAG_PAGI="/tmp/bsjp_pagi_$(date +%F)"
-FLAG_SORE="/tmp/bsjp_sore_$(date +%F)"
-FLAG_FUND="/tmp/exodus_fund_$(date +%F)"
-
-if [ "$JAM_SEKARANG" -ge "1615" ] && [ "$JAM_SEKARANG" -le "1645" ]; then
-    if [ ! -f "$FLAG_FUND" ]; then
-        echo "🧪 [16:15-16:45] Tarik fundamental exodus (Stockbit)..."
-        if ./.venv/bin/python fetcher_exodus.py fundamental; then
-            touch "$FLAG_FUND"
-        else
-            echo "⚠️ Fundamental exodus gagal (token mati?) — dicoba lagi siklus berikutnya."
-        fi
-    else
-        echo "⏭️ Fundamental exodus sudah jalan hari ini, dilewati."
-    fi
-fi
+FLAG_PAGI="/tmp/bsjp_pagi_ws_$(date +%F)"
+FLAG_SORE="/tmp/bsjp_sore_ws_$(date +%F)"
 
 if [ "$JAM_SEKARANG" -ge "1520" ] && [ "$JAM_SEKARANG" -le "1535" ]; then
     if [ ! -f "$FLAG_PAGI" ]; then
