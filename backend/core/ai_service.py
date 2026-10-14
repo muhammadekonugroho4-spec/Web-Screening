@@ -31,9 +31,7 @@ _DAFTAR_MODEL_GEMINI_STATIS = [
     # Estafet flash dulu (cepat), pro terakhir. Hanya nama yang terverifikasi ada
     # di API v1beta. (Fase E1: menggantikan genai.list_models() yang membuat
     # container Railway free 512MB crash saat sidang.)
-    "gemini-1.5-flash-latest",
     "gemini-1.5-flash",
-    "gemini-1.5-flash-8b-latest",
     "gemini-1.5-flash-8b",
 ]
 
@@ -574,7 +572,10 @@ def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None,
 
                 hasil_mentah = ai_hakim_klasemen_cepat(data_kirim_ai, api_key, daftar_model)
                 if "Error_AI" in hasil_mentah:
-                    return i, n_kandidat, None, hasil_mentah
+                    # Fase E-fix: AI limit → fallback deterministik skor, jangan gagalkan sidang
+                    tickers_ai = df_sorted['Ticker'].tolist()[:5]
+                    catatan_ai = "fallback skor (AI limit)"
+                    hasil_mentah = ""
 
                 hasil_json = None
                 semua_blok_kurung = re.findall(r'\[.*\]', hasil_mentah, re.DOTALL)
@@ -590,6 +591,7 @@ def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None,
                         continue
 
                 tickers_ai = []
+                catatan_ai = None
                 if hasil_json is not None:
                     for item in hasil_json:
                         t = (item.get("Ticker", "") if isinstance(item, dict) else str(item)).strip().upper()
@@ -600,10 +602,22 @@ def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None,
                         t = m.group(1).strip().upper()
                         if t and t in data_kirim_ai and t not in tickers_ai:
                             tickers_ai.append(t)
+                # Fase E-fix: lapis terakhir — petik SEMUA ticker 4-huruf valid dari respons bebas
+                if len(tickers_ai) < 5:
+                    for m in re.finditer(r'\b([A-Z]{4})\b', hasil_mentah.upper()):
+                        t = m.group(1)
+                        if t in data_kirim_ai and t not in tickers_ai:
+                            tickers_ai.append(t)
+                        if len(tickers_ai) >= 5:
+                            break
                 tickers_ai = tickers_ai[:5]
 
                 if not tickers_ai:
-                    return i, n_kandidat, None, f"AI tidak mengembalikan ticker valid. Respons: {hasil_mentah[:120]}"
+                    # Fallback deterministik: ambil 5 teratas hasil sort skor (tanpa AI)
+                    tickers_ai = df_sorted['Ticker'].tolist()[:5]
+                    catatan_ai = "fallback skor (AI limit)"
+                else:
+                    catatan_ai = None
 
             baris_sinyal = []
             for t in tickers_ai:
@@ -619,6 +633,8 @@ def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None,
                 pd.DataFrame(baris_sinyal).to_csv(f"Database/sinyal_ai_rumus_{i}.csv", index=False)
 
             jawara = [b["Ticker"] for b in baris_sinyal]
+            if catatan_ai:
+                return i, n_kandidat, (jawara + ["", "", "", "", ""])[:5], None, catatan_ai
             return i, n_kandidat, (jawara + ["", "", "", "", ""])[:5], None
         except Exception as e:
             return i, len(daftar_rumus[i]), None, str(e)
@@ -634,7 +650,9 @@ def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None,
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         futures = [executor.submit(sidang_satu_rumus, i) for i in rumus_aktif]
         for fut in concurrent.futures.as_completed(futures):
-            i, n_kandidat, jawara, err = fut.result()
+            hasil_fut = fut.result()
+            i, n_kandidat, jawara, err = hasil_fut[0], hasil_fut[1], hasil_fut[2], hasil_fut[3]
+            catatan_fb = hasil_fut[4] if len(hasil_fut) > 4 else None
             selesai += 1
             if progress_bar: progress_bar.progress(min(selesai / 9.0, 1.0))
             if err:
@@ -644,6 +662,8 @@ def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None,
             else:
                 n_jawara = len([t for t in jawara if t])
                 catatan = "≤5 kandidat: urut skor (tanpa AI)" if n_kandidat <= 5 else f"{n_kandidat} kandidat → sidang AI"
+                if catatan_fb:
+                    catatan += f" → {catatan_fb}"
                 laporan[i] = {"status": "✅ Sukses", "detail": f"{catatan} → {n_jawara} jawara"}
                 keranjang[f"RUMUS {i}"] = jawara
                 if status_teks: status_teks.success(f"✅ Rumus {i} selesai ({selesai}/{len(rumus_aktif)}).")

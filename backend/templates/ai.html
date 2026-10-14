@@ -189,7 +189,16 @@ async function jalankanSidang() {
             </div>`;
         }).join('');
     }
-    st.textContent = gagal ? `⚠️ Sidang selesai — ${9 - gagal}/9 sukses, ${gagal} gagal.` : '✅ Sidang selesai — 9/9 sukses!';
+    if (gagal === 9) {
+        const contoh = semuaLaporan['1']?.detail || '';
+        if (contoh.includes('GEMINI') || contoh.includes('OpenRouter') || contoh.includes('API')) {
+            st.innerHTML = '❌ Semua rumus gagal — kunci API AI bermasalah. Detail: ' + contoh.slice(0, 90);
+        } else {
+            st.textContent = '⚠️ Sidang selesai — 0/9 sukses (kuota AI free tier mungkin habis; coba lagi nanti).';
+        }
+    } else {
+        st.textContent = gagal ? `⚠️ Sidang selesai — ${9 - gagal}/9 sukses, ${gagal} gagal (kuota AI).` : '✅ Sidang selesai — 9/9 sukses!';
+    }
     btn.disabled = false;
     setTimeout(() => document.getElementById('sidang_progress').classList.add('hidden'), 1500);
     loadRadar(); // refresh radar dengan hasil terbaru
