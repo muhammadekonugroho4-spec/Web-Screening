@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-13 15:55:02",
+    "stempel_data": "2026-10-14 15:40:02",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
+            "STRK",
             "DKHH",
-            "SBMA",
-            "HATM",
-            "BIKE",
-            "TCPI"
+            "PWON",
+            "SICO",
+            "BAIK"
         ],
         "RUMUS 2": [
-            "BIKE",
-            "NINE",
-            "SMGR",
-            "SMIL",
-            "RSCH"
+            "PORT",
+            "DEWI",
+            "LPGI",
+            "SHIP",
+            "YULE"
         ],
         "RUMUS 3": [
-            "TFCO",
-            "AMOR",
-            "SHID",
-            "NICK",
-            "KDSI"
+            "STRK",
+            "PWON",
+            "SICO",
+            "BIKE",
+            "TRON"
         ],
         "RUMUS 4": [
+            "STRK",
             "DKHH",
-            "HATM",
-            "SBMA",
-            "BOLA",
-            "BIKE"
+            "PWON",
+            "SICO",
+            "BAIK"
         ],
         "RUMUS 5": [
+            "STRK",
             "DKHH",
-            "HATM",
-            "BIKE",
-            "TCPI",
-            "PWON"
+            "PWON",
+            "TRON",
+            "BIKE"
         ],
         "RUMUS 6": [
-            "PICO",
+            "DKHH",
+            "PWON",
+            "PRDA",
             "CTRA",
-            "AMOR",
-            "MLBI",
-            "ADES"
+            "ELSA"
         ],
         "RUMUS 7": [
+            "DKHH",
+            "PWON",
+            "PRDA",
             "MMIX",
-            "",
-            "",
-            "",
             ""
         ],
         "RUMUS 8": [
+            "STRK",
             "DKHH",
-            "HATM",
-            "BOLA",
-            "BIKE",
-            "SBMA"
+            "PWON",
+            "SICO",
+            "BAIK"
         ],
         "RUMUS 9": [
-            "MAHA",
-            "SCNP",
-            "MKAP",
-            "SMRA",
-            "HMSP"
+            "TIFA",
+            "MPMX",
+            "CTTH",
+            "BEER",
+            "MKAP"
         ]
     }
 }
