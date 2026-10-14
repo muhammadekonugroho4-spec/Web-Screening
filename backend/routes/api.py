@@ -384,6 +384,33 @@ async def run_ai_sidang(rumus: Optional[int] = None, user: str = Depends(get_cur
 
 
 @router.get("/ai/radar")
+@router.get("/ai/diagnose")
+async def diagnose_gemini(user: str = Depends(get_current_user)):
+    """Fase E-diagnose: daftar model Gemini yang AKTIF untuk API key ini
+    (via SDK baru google-genai — ringan, bukan library deprecated)."""
+    import os
+    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+    if not GEMINI_API_KEY:
+        raise HTTPException(status_code=400, detail="GEMINI_API_KEY belum dipasang")
+
+    def _list():
+        from google import genai as ggenai
+        client = ggenai.Client(api_key=GEMINI_API_KEY)
+        hasil = []
+        for m in client.models.list():
+            if "generateContent" in (m.supported_actions or []):
+                hasil.append(m.name.replace("models/", ""))
+        return hasil
+
+    import asyncio
+    try:
+        models = await asyncio.to_thread(_list)
+        return {"total": len(models), "models": sorted(models)}
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {str(e)[:300]}"}
+
+
+@router.get("/ai/radar")
 async def get_radar_live(user: str = Depends(get_current_user)):
     """Return data Radar Live dari cache_autopilot.json (Langkah 6)."""
     from backend.core.data_loader import muat_keranjang_radar_raw, load_data_saham_raw
