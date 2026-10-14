@@ -89,7 +89,7 @@
 <script>
 // ============ Auth guard ============
 const TOKEN = localStorage.getItem('ws_token');
-if (!TOKEN) { location.href = '/'; }
+if (!TOKEN) { location.href = '/login'; }
 const authHeaders = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN };
 
 async function cekLogin() {
@@ -98,7 +98,7 @@ async function cekLogin() {
         if (!r.ok) throw 0;
         const d = await r.json();
         document.getElementById('userinfo').textContent = '@' + d.username;
-    } catch (e) { location.href = '/'; }
+    } catch (e) { location.href = '/login'; }
 }
 
 // ============ Tabs ============
@@ -128,7 +128,7 @@ let RUMUS = {};
 async function loadRumus() {
     try {
         const r = await fetch('/api/ai/rumus', { headers: authHeaders });
-        if (r.status === 401) { location.href = '/'; return; }
+        if (r.status === 401) { location.href = '/login'; return; }
         RUMUS = await r.json();
         if (RUMUS.error) { document.getElementById('rumus_info').textContent = RUMUS.error; return; }
         const sel = document.getElementById('pilih_rumus');
@@ -163,7 +163,7 @@ async function jalankanSidang() {
         bar.style.width = ((r - 1) / 9 * 100) + '%';
         try {
             const res = await fetch(`/api/ai/sidang?rumus=${r}`, { method: 'POST', headers: authHeaders });
-            if (res.status === 401) { location.href = '/'; return; }
+            if (res.status === 401) { location.href = '/login'; return; }
             const d = await res.json();
             if (d.detail || d.error) {
                 gagal++;
@@ -213,5 +213,6 @@ async function loadRadar() {
 cekLogin().then(loadRumus);
 </script>
     </div><!-- /ws-wrap -->
+    <script src="/static/core.js"></script>
 </body>
 </html>

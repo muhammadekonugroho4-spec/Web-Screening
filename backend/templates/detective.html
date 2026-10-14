@@ -97,7 +97,7 @@
 
 <script>
 const TOKEN = localStorage.getItem('ws_token');
-if (!TOKEN) { location.href = '/'; }
+if (!TOKEN) { location.href = '/login'; }
 const H = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN };
 
 async function cekLogin() {
@@ -106,7 +106,7 @@ async function cekLogin() {
         if (!r.ok) throw 0;
         const d = await r.json();
         document.getElementById('userinfo').textContent = '@' + d.username;
-    } catch (e) { location.href = '/'; }
+    } catch (e) { location.href = '/login'; }
 }
 
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -272,5 +272,6 @@ document.getElementById('chat_input').addEventListener('keydown', e => { if (e.k
 cekLogin().then(() => { loadAlpha(); loadTanggal(); loadChips(); });
 </script>
     </div><!-- /ws-wrap -->
+    <script src="/static/core.js"></script>
 </body>
 </html>

@@ -47,12 +47,12 @@
         <!-- Header -->
         
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div style="display:grid; grid-template-columns:340px 1fr; gap:16px; align-items:start;" id="scr-grid">
             <!-- Panel Filter -->
-            <div class="lg:col-span-1 space-y-3">
+            <div class="space-y-3" style="position:sticky; top:70px; max-height:calc(100vh - 90px); overflow-y:auto; padding-right:4px;">
                 <!-- Pencarian & Harga -->
                 <div class="filter-group">
-                    <h4>🔍 Pencarian & Harga</h4>
+                    <h4>🔍 Pencarian &amp; Harga</h4>
                     <input type="text" id="search_ticker" placeholder="Cari Ticker..." class="mb-2">
                     <input type="text" id="search_broker" placeholder="Cari Broker (Broksum)..." class="mb-2">
                     <div class="grid grid-cols-2 gap-2">
@@ -64,7 +64,7 @@
                 <!-- Dropdown filters diisi otomatis -->
                 <div class="filter-group">
                     <h4>🎛️ Filter Kategori (38 dropdown)</h4>
-                    <div id="dropdowns" class="space-y-2 max-h-96 overflow-y-auto pr-1"></div>
+                    <div id="dropdowns" style="display:grid; grid-template-columns:1fr; gap:8px; max-height:46vh; overflow-y:auto; padding-right:2px;"></div>
                 </div>
 
                 <!-- Filter numerik -->
@@ -74,13 +74,13 @@
                 </div>
 
                 <div class="flex gap-2">
-                    <button onclick="resetFilters()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-3 rounded text-sm">↺ Reset</button>
-                    <button onclick="downloadCSV()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-3 rounded text-sm">⬇ CSV</button>
+                    <button onclick="resetFilters()" class="btn btn-ghost" style="flex:1;">↺ Reset</button>
+                    <button onclick="downloadCSV()" class="btn btn-teal" style="flex:1;">⬇ CSV</button>
                 </div>
             </div>
 
             <!-- Tabel -->
-            <div class="lg:col-span-3">
+            <div>
                 <!-- Toolbar -->
                 <div class="flex flex-wrap items-center gap-3 mb-3">
                     <div>
@@ -299,5 +299,11 @@ fetch('/api/market-overview').then(r => r.json()).then(d => {
 init();
 </script>
     </div><!-- /ws-wrap -->
+<style>
+@media (max-width: 900px) {
+    #scr-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+    <script src="/static/core.js"></script>
 </body>
 </html>

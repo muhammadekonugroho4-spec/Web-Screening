@@ -83,7 +83,7 @@
 
 <script>
 const TOKEN = localStorage.getItem('ws_token');
-if (!TOKEN) { location.href = '/'; }
+if (!TOKEN) { location.href = '/login'; }
 const authHeaders = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN };
 
 let PORTO = null;
@@ -95,7 +95,7 @@ async function cekLogin() {
         if (!r.ok) throw 0;
         const d = await r.json();
         document.getElementById('userinfo').textContent = '@' + d.username;
-    } catch (e) { location.href = '/'; }
+    } catch (e) { location.href = '/login'; }
 }
 
 function rp(v) { if (v == null || isNaN(v)) return '-'; return 'Rp ' + Math.round(v).toLocaleString('id-ID'); }
@@ -114,7 +114,7 @@ async function loadPortfolio() {
     document.getElementById('tbody').innerHTML = '<tr><td class="text-gray-400">Memuat...</td></tr>';
     try {
         const r = await fetch('/api/portfolio/' + id, { headers: authHeaders });
-        if (r.status === 401) { location.href = '/'; return; }
+        if (r.status === 401) { location.href = '/login'; return; }
         PORTO = await r.json();
         document.getElementById('m_saldo').textContent = rp(PORTO.saldo);
         document.getElementById('m_modal').textContent = rp(PORTO.modal_terpakai);
@@ -185,5 +185,6 @@ function batalReset() {
 cekLogin().then(loadPortfolio);
 </script>
     </div><!-- /ws-wrap -->
+    <script src="/static/core.js"></script>
 </body>
 </html>

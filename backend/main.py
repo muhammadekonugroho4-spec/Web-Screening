@@ -179,6 +179,11 @@ async def detective_page(request: Request):
     """Halaman Detektif Ledakan (Langkah 7) — wajib login via frontend guard."""
     return templates.TemplateResponse(request, "detective.html", {})
 
+@app.get("/login", response_class=HTMLResponse)
+async def login_page(request: Request):
+    """Halaman Masuk / Daftar akun (Fase desain v2)."""
+    return templates.TemplateResponse(request, "login.html", {})
+
 @app.get("/")
 def root():
     return FileResponse(os.path.join(BASE, "templates", "index.html"))

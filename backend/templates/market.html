@@ -23,13 +23,13 @@
             <a href="/portfolio">Portofolio</a>
             <a href="/detective">Detektif</a>
         </div>
-        <span class="ws-user" id="jam">—</span>
+        <span class="ws-user">IHSG</span>
     </nav>
 
     <div class="ws-wrap">
         <div class="ws-judul">
             <h1>📊 Market Overview</h1>
-            <span class="sub">Ringkasan Pasar IHSG — update <span id="stempel" style="color:var(--acc);font-weight:700;">memuat…</span></span>
+            <span class="sub">Ringkasan Pasar IHSG — update <span id="stempel" style="color:var(--acc);font-weight:700;">memuat…</span> · <span id="jam"></span></span>
         </div>
 
         <!-- Metrics -->
@@ -101,5 +101,6 @@ fetch('/api/market-overview').then(r=>r.json()).then(d=>{
     document.getElementById('w_value').innerHTML   = tabelSimple(d.top_value,  ['Turnover', r=>formatSingkatRp(r.Turnover)]);
 }).catch(e=>{ document.querySelector('.ws-wrap').innerHTML = `<div class="kartu kartu-pad" style="color:var(--down)">Error: ${e}</div>`; });
 </script>
+    <script src="/static/core.js"></script>
 </body>
 </html>

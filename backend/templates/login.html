@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk / Daftar — WEB-SCREENING</title>
+    <link rel="stylesheet" href="/static/theme.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .auth-card { max-width: 400px; margin: 40px auto; }
+        .tab-btn { flex: 1; padding: 11px; font-weight: 700; font-size: 13.5px; background: transparent;
+                   color: var(--tx-2); border: none; border-bottom: 2px solid transparent; cursor: pointer;
+                   font-family: var(--font); transition: all .15s; }
+        .tab-btn.aktif { color: var(--acc); border-bottom-color: var(--acc); background: rgba(45,212,191,.06); }
+        .pesan { font-size: 12.5px; min-height: 18px; margin-top: 10px; text-align: center; }
+        .pesan.err { color: var(--down); }
+        .pesan.ok { color: var(--up); }
+    </style>
+</head>
+<body>
+    <nav class="ws-topbar">
+        <a class="ws-logo" href="/"><span class="bolt">⚡</span> WEB-SCREENING</a>
+        <span class="ws-user">Akses Akun</span>
+    </nav>
+
+    <div class="ws-wrap">
+        <div class="auth-card kartu kartu-pad">
+            <div style="text-align:center; margin-bottom:18px;">
+                <div style="font-size:34px;">🔐</div>
+                <h1 style="font-size:19px; font-weight:800; margin:8px 0 4px;">Masuk ke Akun Anda</h1>
+                <p class="teks-redup" style="font-size:12.5px;">Wajib login untuk Asisten AI, Portofolio &amp; Detektif</p>
+            </div>
+
+            <div style="display:flex; border-bottom:1px solid var(--line-soft); margin-bottom:16px;">
+                <button class="tab-btn aktif" id="t_masuk" onclick="tab('masuk')">🔑 Masuk</button>
+                <button class="tab-btn" id="t_daftar" onclick="tab('daftar')">📝 Daftar</button>
+            </div>
+
+            <div id="panel_masuk">
+                <label class="teks-redup" style="font-size:11.5px;">Username</label>
+                <input class="ws-input" id="m_user" maxlength="20" placeholder="username Anda" style="margin:5px 0 12px;">
+                <label class="teks-redup" style="font-size:11.5px;">PIN (6 digit)</label>
+                <input class="ws-input" id="m_pin" type="password" maxlength="6" inputmode="numeric" placeholder="••••••" style="margin:5px 0 4px;">
+                <button class="btn btn-teal" style="width:100%; margin-top:14px;" onclick="masuk()">🔑 Masuk</button>
+            </div>
+
+            <div id="panel_daftar" style="display:none;">
+                <label class="teks-redup" style="font-size:11.5px;">Username (min. 3 karakter)</label>
+                <input class="ws-input" id="d_user" maxlength="20" placeholder="pilih username" style="margin:5px 0 12px;">
+                <label class="teks-redup" style="font-size:11.5px;">PIN (6 digit angka)</label>
+                <input class="ws-input" id="d_pin" type="password" maxlength="6" inputmode="numeric" placeholder="••••••" style="margin:5px 0 4px;">
+                <button class="btn btn-gold" style="width:100%; margin-top:14px;" onclick="daftar()">📝 Buat Akun</button>
+            </div>
+
+            <div class="pesan" id="pesan"></div>
+
+            <p class="teks-redup" style="font-size:11px; text-align:center; margin-top:14px; line-height:1.6;">
+                PIN disimpan terenkripsi (bcrypt) · Sesi berlaku 7 hari<br>
+                <a href="/" style="color:var(--tx-3);">← Kembali ke Beranda tanpa login</a>
+            </p>
+        </div>
+    </div>
+
+<script>
+// Sudah login? langsung ke beranda
+(function(){
+    const t = localStorage.getItem('ws_token');
+    if (t) fetch('/api/auth/me', { headers: { Authorization: 'Bearer ' + t } })
+        .then(r => { if (r.ok) location.href = '/'; });
+})();
+
+function tab(which) {
+    document.getElementById('panel_masuk').style.display = which === 'masuk' ? '' : 'none';
+    document.getElementById('panel_daftar').style.display = which === 'daftar' ? '' : 'none';
+    document.getElementById('t_masuk').className = 'tab-btn' + (which === 'masuk' ? ' aktif' : '');
+    document.getElementById('t_daftar').className = 'tab-btn' + (which === 'daftar' ? ' aktif' : '');
+    setPesan('');
+}
+function setPesan(txt, jenis) {
+    const el = document.getElementById('pesan');
+    el.textContent = txt; el.className = 'pesan' + (jenis ? ' ' + jenis : '');
+}
+async function kirim(endpoint, user, pin) {
+    if (!user || user.length < 3) { setPesan('Username minimal 3 karakter', 'err'); return; }
+    if (pin.length !== 6 || !/^\d+$/.test(pin)) { setPesan('PIN harus 6 digit angka', 'err'); return; }
+    setPesan('⏳ Memproses…');
+    try {
+        const r = await fetch('/api/auth/' + endpoint, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user, pin })
+        });
+        const d = await r.json();
+        if (r.ok && d.access_token) {
+            localStorage.setItem('ws_token', d.access_token);
+            localStorage.setItem('ws_user', d.username);
+            setPesan('✅ Berhasil! Mengalihkan…', 'ok');
+            setTimeout(() => location.href = '/', 700);
+        } else {
+            setPesan(d.detail || 'Gagal — coba lagi', 'err');
+        }
+    } catch (e) { setPesan('Error: ' + e, 'err'); }
+}
+function masuk()  { kirim('login',    document.getElementById('m_user').value.trim(), document.getElementById('m_pin').value); }
+function daftar() { kirim('register', document.getElementById('d_user').value.trim(), document.getElementById('d_pin').value); }
+['m_pin','d_pin'].forEach(id => document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') (id === 'm_pin' ? masuk() : daftar());
+}));
+</script>
+</body>
+</html>
