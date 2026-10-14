@@ -31,8 +31,10 @@ _DAFTAR_MODEL_GEMINI_STATIS = [
     # Estafet flash dulu (cepat), pro terakhir. Hanya nama yang terverifikasi ada
     # di API v1beta. (Fase E1: menggantikan genai.list_models() yang membuat
     # container Railway free 512MB crash saat sidang.)
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-8b",
+    "gemini-flash-latest",
+    "gemini-2.5-flash",
+    "gemini-flash-lite-latest",
+    "gemini-3.5-flash",
 ]
 
 def ai_hakim_klasemen(data_top15, api_key):
@@ -308,7 +310,7 @@ def panggil_ai_teks(prompt):
         GK = os.environ.get("GEMINI_API_KEY")
         if GK:
             client_gk = _client_gemini(GK)
-            for mn in ["gemini-1.5-flash-latest", "gemini-1.5-flash", "gemini-1.0-pro"]:
+            for mn in ["gemini-flash-latest", "gemini-2.5-flash", "gemini-flash-lite-latest"]:
                 try:
                     r = client_gk.models.generate_content(model=mn, contents=prompt)
                     if r.text: return r.text, f"Gemini ({mn})"
