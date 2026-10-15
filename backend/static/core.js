@@ -84,3 +84,11 @@ const WS_JEDA = 5; // detik
             slot.innerHTML = `<a href="/login" style="color:#2dd4bf;text-decoration:none;font-weight:700;">🔐 Login / Daftar</a>`;
         });
 })();
+
+/* ---------- 3. PWA: registrasi service worker ---------- */
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/static/service-worker.js")
+            .catch(err => console.warn("SW gagal:", err));
+    });
+}
