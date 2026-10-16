@@ -1,5 +1,5 @@
 {
-    "stempel_data": "2026-10-16 15:10:01",
+    "stempel_data": "2026-10-16 15:55:02",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
@@ -7,28 +7,28 @@
             "TFCO",
             "ALDO",
             "IGAR",
-            "FMII"
+            "MKTR"
         ],
         "RUMUS 2": [
             "TFCO",
             "BSWD",
             "PTSP",
-            "CMNT",
-            "CAKK"
+            "MKTR",
+            "MEGA"
         ],
         "RUMUS 3": [
             "AKKU",
             "ALDO",
-            "FMII",
+            "",
             "",
             ""
         ],
         "RUMUS 4": [
-            "TFCO",
             "AKKU",
             "ALDO",
+            "TFCO",
             "IGAR",
-            "FMII"
+            "PTSP"
         ],
         "RUMUS 5": [
             "AKKU",
@@ -38,15 +38,15 @@
             ""
         ],
         "RUMUS 6": [
-            "FMII",
             "INTP",
+            "",
             "",
             "",
             ""
         ],
         "RUMUS 7": [
-            "FMII",
-            "CMNT",
+            "",
+            "",
             "",
             "",
             ""
@@ -54,13 +54,13 @@
         "RUMUS 8": [
             "AKKU",
             "ALDO",
-            "PTSP",
-            "TFCO",
-            "TIFA"
+            "IGAR",
+            "BSWD",
+            "TFCO"
         ],
         "RUMUS 9": [
             "DAYA",
-            "STTP",
+            "",
             "",
             "",
             ""
