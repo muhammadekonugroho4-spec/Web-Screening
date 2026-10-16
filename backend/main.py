@@ -122,6 +122,15 @@ def me(username: str = __import__("fastapi").Depends(get_current_user)):
 from backend.routes.api import router as api_router
 app.include_router(api_router)
 
+# Seed data ke Volume (Fase C3) — proteksi ADMIN_TOKEN
+from backend.routes.admin_seed import router as seed_router
+app.include_router(seed_router)
+
+# Seed otomatis saat startup bila Database kosong (volume baru) — sekali jalan
+from backend.routes.admin_seed import seed_jika_perlu
+import threading
+threading.Thread(target=seed_jika_perlu, daemon=True).start()
+
 
 @app.get("/health")
 async def health():
