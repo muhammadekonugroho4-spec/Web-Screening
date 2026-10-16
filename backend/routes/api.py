@@ -383,7 +383,6 @@ async def run_ai_sidang(rumus: Optional[int] = None, user: str = Depends(get_cur
     }
 
 
-@router.get("/ai/radar")
 @router.get("/ai/diagnose")
 async def diagnose_gemini(user: str = Depends(get_current_user)):
     """Fase E-diagnose: daftar model Gemini yang AKTIF untuk API key ini
