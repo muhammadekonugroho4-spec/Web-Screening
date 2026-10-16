@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-15 15:50:02",
+    "stempel_data": "2026-10-16 15:10:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "PTSP",
-            "TFCO",
-            "BSWD",
             "AKKU",
-            "SBMA"
+            "TFCO",
+            "ALDO",
+            "IGAR",
+            "FMII"
         ],
         "RUMUS 2": [
             "TFCO",
-            "PGJO",
-            "MMIX",
-            "BIKE",
-            "RCCC"
+            "BSWD",
+            "PTSP",
+            "CMNT",
+            "CAKK"
         ],
         "RUMUS 3": [
-            "PTSP",
-            "BSWD",
             "AKKU",
             "ALDO",
-            "CSAP"
+            "FMII",
+            "",
+            ""
         ],
         "RUMUS 4": [
+            "TFCO",
             "AKKU",
-            "SBMA",
-            "PWON",
-            "IDEA",
-            "PTSP"
+            "ALDO",
+            "IGAR",
+            "FMII"
         ],
         "RUMUS 5": [
             "AKKU",
-            "SBMA",
-            "PWON",
-            "DKHH",
-            "ACES"
+            "BIKE",
+            "",
+            "",
+            ""
         ],
         "RUMUS 6": [
-            "PWON",
-            "CMRY",
-            "HATM",
-            "MYOR",
-            "WBSA"
+            "FMII",
+            "INTP",
+            "",
+            "",
+            ""
         ],
         "RUMUS 7": [
-            "PWON",
-            "MMIX",
+            "FMII",
+            "CMNT",
             "",
             "",
             ""
         ],
         "RUMUS 8": [
             "AKKU",
-            "SBMA",
-            "PWON",
-            "IDEA",
-            "PTSP"
+            "ALDO",
+            "PTSP",
+            "TFCO",
+            "TIFA"
         ],
         "RUMUS 9": [
-            "EAST",
-            "DEFI",
-            "BIPP",
-            "SCNP",
-            "GPSO"
+            "DAYA",
+            "STTP",
+            "",
+            "",
+            ""
         ]
     }
 }
