@@ -122,9 +122,6 @@ def me(username: str = __import__("fastapi").Depends(get_current_user)):
 from backend.routes.api import router as api_router
 app.include_router(api_router)
 
-# Debug volume (Fase C3) — hapus setelah persistensi terbukti
-from backend.routes.debug_volume import router as debug_router
-app.include_router(debug_router)
 
 @app.get("/health")
 async def health():
