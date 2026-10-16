@@ -383,6 +383,13 @@ async def run_ai_sidang(rumus: Optional[int] = None, user: str = Depends(get_cur
     }
 
 
+@router.get("/pipeline/status")
+async def pipeline_status():
+    """Status pipeline data di server (Fase E) — tanpa login (hanya info)."""
+    from backend import pipeline_runner
+    return pipeline_runner.status()
+
+
 @router.get("/ai/diagnose")
 async def diagnose_gemini(user: str = Depends(get_current_user)):
     """Fase E-diagnose: daftar model Gemini yang AKTIF untuk API key ini

@@ -131,6 +131,10 @@ from backend.routes.admin_seed import seed_jika_perlu
 import threading
 threading.Thread(target=seed_jika_perlu, daemon=True).start()
 
+# Pipeline data di Railway (Fase E): update 5-menit bursa + sidang AI di server
+from backend import pipeline_runner
+pipeline_runner.mulai_pipeline()
+
 
 @app.get("/health")
 async def health():
