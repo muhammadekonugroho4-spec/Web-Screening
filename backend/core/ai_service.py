@@ -550,6 +550,7 @@ def jalankan_sidang_autopilot(daftar_rumus, df_data, api_key, progress_bar=None,
 
     def sidang_satu_rumus(i):
         try:
+            catatan_ai = None  # inisialisasi (Fase E-fix: cabang <=5 kandidat tidak melewati blok AI)
             df_target = daftar_rumus[i]
             n_kandidat = len(df_target)
             saham_valid = df_target['Ticker'].tolist()
