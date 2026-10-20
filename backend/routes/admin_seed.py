@@ -7,7 +7,6 @@ from backend.auth import get_current_user
 router = APIRouter(prefix="/admin", tags=["admin"])
 
 REPO_RAW = "https://raw.githubusercontent.com/muhammadekonugroho4-spec/Web-Screening/main/Database"
-SEED_FLAG = os.path.join(os.getcwd(), "Database", ".seeded")
 
 
 SEED_FILES = [
@@ -21,25 +20,25 @@ SEED_FILES = [
 
 
 def seed_jika_perlu():
-    """Seed otomatis sekali: jalankan saat startup bila Database kosong total
-    (volume baru dipasang). File .seeded menandai sudah pernah seed."""
+    """Fase C3-fix: SEGARKAN file data CSV/JSON dari GitHub saat startup.
+    Volume menimpa image → CSV dari deploy TAK pernah sampai ke volume.
+    Solusi: tiap startup, tarik versi terbaru dari repo (cron laptop push
+    data terbaru ke GitHub tiap siklus bursa). users.db TIDAK disentuh
+    (akun permanen di volume)."""
     db = os.path.join(os.getcwd(), "Database")
     os.makedirs(db, exist_ok=True)
-    marker = os.path.join(db, "hasil_screener.csv")
-    if os.path.exists(marker) and os.path.getsize(marker) > 100:
-        return {"status": "data sudah ada — skip"}
-    if os.path.exists(os.path.join(db, ".seeded")):
-        return {"status": "seed pernah dijalankan — skip"}
     hasil = {}
     for nama in SEED_FILES:
         dst = os.path.join(db, nama)
         try:
-            urllib.request.urlretrieve(f"{REPO_RAW}/{nama}", dst)
+            # Ganti file lama dengan versi terbaru dari repo
+            tmp = dst + ".tmp"
+            urllib.request.urlretrieve(f"{REPO_RAW}/{nama}", tmp)
+            os.replace(tmp, dst)
             hasil[nama] = f"OK ({os.path.getsize(dst):,} bytes)"
         except Exception as e:
             hasil[nama] = f"GAGAL: {str(e)[:60]}"
-    open(os.path.join(db, ".seeded"), "w").write("seeded")
-    return {"status": "seed selesai", "hasil": hasil}
+    return {"status": "refresh data selesai", "hasil": hasil}
 
 # Daftar file data yang di-seed dari GitHub repo (raw) ke /app/Database
 @router.post("/seed-data")
