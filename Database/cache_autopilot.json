@@ -1,5 +1,5 @@
 {
-    "stempel_data": "2026-10-20 15:15:01",
+    "stempel_data": "2026-10-20 15:50:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
@@ -7,7 +7,7 @@
             "MPXL",
             "BIKE",
             "SOTS",
-            "YULE"
+            "AKPI"
         ],
         "RUMUS 2": [
             "TRUK",
@@ -24,24 +24,24 @@
             ""
         ],
         "RUMUS 4": [
-            "STRK",
-            "TMPO",
+            "TRUK",
             "MPXL",
             "BIKE",
-            "TRUK"
+            "ARII",
+            "SOTS"
         ],
         "RUMUS 5": [
             "MPXL",
-            "STRK",
-            "TMPO",
             "BIKE",
-            "AALI"
+            "STRK",
+            "INTP",
+            "BUKA"
         ],
         "RUMUS 6": [
             "YULE",
-            "BNBR",
+            "RDTX",
             "DEWA",
-            "AMRT",
+            "PACK",
             "ISAT"
         ],
         "RUMUS 7": [
@@ -52,16 +52,16 @@
             ""
         ],
         "RUMUS 8": [
-            "TRUK",
             "MPXL",
             "BIKE",
-            "SOTS",
-            "PNSE"
+            "TRUK",
+            "STRK",
+            "ARII"
         ],
         "RUMUS 9": [
+            "RDTX",
             "PADI",
             "RISE",
-            "",
             "",
             ""
         ]
