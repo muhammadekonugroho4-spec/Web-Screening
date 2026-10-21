@@ -50,11 +50,17 @@ def siapkan_key_dan_token():
 
 def _jalankan(args, timeout):
     """Jalankan subproses python di ROOT; return (ok, output)."""
+    env = dict(os.environ)
+    # Hemat memori di Railway: kurangi thread yfinance
+    env.setdefault("WS_YF_THREADS", "2")
     try:
         p = subprocess.run([PY] + args, capture_output=True, text=True,
-                           timeout=timeout, cwd=ROOT)
-        out = (p.stdout or "") + (("\nSTDERR: " + p.stderr[-800:]) if p.returncode != 0 else "")
-        return p.returncode == 0, out[-2500:]
+                           timeout=timeout, cwd=ROOT, env=env)
+        if p.returncode is not None and p.returncode < 0:
+            return False, f"[PROSES DIBUNUH SISTEM (signal {-p.returncode}) — kemungkinan OOM/kehabisan memori]"
+        out = (p.stdout or "")[-800:]
+        err = (p.stderr or "")[-800:]
+        return p.returncode == 0, out + (f"\n[STDERR]\n{err}" if err else "")
     except subprocess.TimeoutExpired:
         return False, f"timeout {args[0]}"
     except Exception as e:
