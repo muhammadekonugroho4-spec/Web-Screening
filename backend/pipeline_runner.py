@@ -20,7 +20,7 @@ PY = sys.executable
 GEMINI_KEY_PATH = os.path.expanduser("~/.config/bsjp/gemini.key")
 
 _lock = threading.Lock()
-_state = {"sedang_jalan": False, "terakhir": None, "hasil_terakhir": ""}
+_state = {"sedang_jalan": False, "terakhir": None, "hasil_terakhir": "", "log_detail": ""}
 
 
 def _wib_now():
@@ -53,8 +53,8 @@ def _jalankan(args, timeout):
     try:
         p = subprocess.run([PY] + args, capture_output=True, text=True,
                            timeout=timeout, cwd=ROOT)
-        out = (p.stdout or "") + (("\nSTDERR: " + p.stderr[-500:]) if p.returncode != 0 else "")
-        return p.returncode == 0, out[-1500:]
+        out = (p.stdout or "") + (("\nSTDERR: " + p.stderr[-800:]) if p.returncode != 0 else "")
+        return p.returncode == 0, out[-2500:]
     except subprocess.TimeoutExpired:
         return False, f"timeout {args[0]}"
     except Exception as e:
@@ -76,6 +76,7 @@ def siklus_pipeline(kali_per_hari=True):
     # 1) Update data (selalu, tiap siklus)
     ok, out = _jalankan(["update_data.py"], 900)
     langkah.append(f"update_data: {'OK' if ok else 'GAGAL'}")
+    _state["log_detail"] = f"[update_data]\n{out}"
 
     # 2) Sidang jadwal 15:20-15:35 (sekali/hari) — butuh GEMINI key
     flag_pagi = f"/tmp/bsjp_pagi_{tanggal}"

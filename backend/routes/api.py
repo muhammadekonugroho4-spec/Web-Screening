@@ -390,6 +390,16 @@ async def pipeline_status():
     return pipeline_runner.status()
 
 
+@router.get("/pipeline/log")
+async def pipeline_log():
+    """Detail output siklus terakhir (diagnosa)."""
+    from backend import pipeline_runner
+    return {
+        "status": pipeline_runner.status(),
+        "log_detail": pipeline_runner._state.get("log_detail", "")[-2500:],
+    }
+
+
 @router.get("/ai/diagnose")
 async def diagnose_gemini(user: str = Depends(get_current_user)):
     """Fase E-diagnose: daftar model Gemini yang AKTIF untuk API key ini
