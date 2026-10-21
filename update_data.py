@@ -7,7 +7,7 @@ import requests
 import xml.etree.ElementTree as ET # <-- Modul untuk membaca berita RSS
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 # ==========================================
 # SECTION 1: KONFIGURASI & TOKEN CURIAN BROKSUM
@@ -476,7 +476,7 @@ def main():
     with open(LOCK_FILE, "w") as f: f.write("SEDANG PROSES")
 
     try:
-        now = datetime.now()
+        now = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(hours=7)  # WIB
         tanggal_hari_ini = now.strftime("%Y-%m-%d")
         waktu_sekarang = now.strftime("%H:%M")
         jam_sekarang = now.hour 
