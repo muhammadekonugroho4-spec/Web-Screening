@@ -1,67 +1,67 @@
 {
-    "stempel_data": "2026-10-20 15:50:01",
+    "stempel_data": "2026-10-21 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "TRUK",
-            "MPXL",
-            "BIKE",
-            "SOTS",
-            "AKPI"
+            "PRDA",
+            "SOLA",
+            "CARE",
+            "NANO"
         ],
         "RUMUS 2": [
-            "TRUK",
-            "PNSE",
+            "BUKA",
             "BSWD",
-            "MRAT",
-            "CMNT"
+            "BUKK",
+            "RSCH",
+            "INTP"
         ],
         "RUMUS 3": [
-            "SOTS",
-            "AKPI",
-            "SDPC",
-            "YULE",
+            "SOLA",
+            "",
+            "",
+            "",
             ""
         ],
         "RUMUS 4": [
+            "STRK",
             "TRUK",
-            "MPXL",
-            "BIKE",
-            "ARII",
-            "SOTS"
+            "PRDA",
+            "PWON",
+            "BSWD"
         ],
         "RUMUS 5": [
-            "MPXL",
-            "BIKE",
             "STRK",
-            "INTP",
-            "BUKA"
+            "CARE",
+            "TRUK",
+            "PRDA",
+            "PWON"
         ],
         "RUMUS 6": [
-            "YULE",
-            "RDTX",
-            "DEWA",
-            "PACK",
-            "ISAT"
+            "TIRA",
+            "MPRO",
+            "BMTR",
+            "INDO",
+            "ERTX"
         ],
         "RUMUS 7": [
-            "",
-            "",
-            "",
-            "",
+            "BUKA",
+            "PWON",
+            "BBRI",
+            "IATA",
             ""
         ],
         "RUMUS 8": [
-            "MPXL",
-            "BIKE",
             "TRUK",
             "STRK",
-            "ARII"
+            "AXIO",
+            "PRDA",
+            "BSWD"
         ],
         "RUMUS 9": [
-            "RDTX",
-            "PADI",
-            "RISE",
+            "",
+            "",
+            "",
             "",
             ""
         ]
