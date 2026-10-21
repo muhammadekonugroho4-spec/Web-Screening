@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafik Teknikal — WEB-SCREENING</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0c1220">
+    <link rel="stylesheet" href="/static/theme.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: var(--font); }
+        .search-suggest {
+            position: absolute; top: 100%; left: 0; right: 0; z-index: 30;
+            background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius-sm);
+            max-height: 260px; overflow-y: auto; box-shadow: var(--shadow);
+        }
+        .suggest-item { padding: 9px 14px; cursor: pointer; font-size: 13px; display: flex; justify-content: space-between; }
+        .suggest-item:hover, .suggest-item.aktif { background: rgba(45,212,191,.10); }
+        .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--tx-2); }
+        .legend b { font-family: var(--mono); color: var(--tx-1); }
+        .stok-ind { background: var(--bg-1); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); padding: 7px 10px; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <nav class="ws-topbar">
+        <a class="ws-logo" href="/"><span class="bolt">⚡</span> WEB-SCREENING</a>
+        <div class="ws-topnav">
+            <a href="/market">Market</a>
+            <a href="/screener">Screener</a>
+            <a href="/chart" class="aktif">Grafik</a>
+            <a href="/ai">Asisten AI</a>
+            <a href="/portfolio">Portofolio</a>
+            <a href="/detective">Detektif</a>
+        </div>
+        <span class="ws-user">…</span>
+    </nav>
+
+    <div class="ws-wrap">
+        <div class="ws-judul">
+            <h1>📈 Grafik Teknikal</h1>
+            <span class="sub">Candlestick OHLCV harian — sumber buku besar pipeline Anda</span>
+        </div>
+
+        <!-- Pencarian -->
+        <div style="position:relative; max-width:480px; margin:12px 0 6px;">
+            <input type="text" id="q" class="ws-input" placeholder="Ketik kode saham (mis. BBCA)…" autocomplete="off"
+                   style="font-size:15px; padding:12px 16px; font-family:var(--mono); font-weight:700; letter-spacing:1px;">
+            <div id="suggest" class="search-suggest" style="display:none;"></div>
+        </div>
+        <p class="teks-redup" style="font-size:12.5px;" id="info"></p>
+
+        <!-- Chart -->
+        <div class="kartu" style="padding:12px; margin-top:10px;">
+            <div class="legend" style="margin-bottom:8px;">
+                <span>🟢 MA5 <b id="v_ma5">-</b></span>
+                <span>🟣 MA20 <b id="v_ma20">-</b></span>
+                <span>💵 Close <b id="v_close">-</b></span>
+                <span>📦 Vol <b id="v_vol">-</b></span>
+                <span id="v_nama" style="color:var(--tx-2);"></span>
+            </div>
+            <div id="chart" style="height: 420px;"></div>
+        </div>
+
+        <!-- Indikator harian -->
+        <div class="panel-title" style="margin-top:22px;">Data Harian &amp; Bandarmologi</div>
+        <div class="kartu" style="overflow:auto; max-height:40vh;">
+            <table class="tabel" id="t_ind">
+                <thead><tr id="t_head"></tr></thead>
+                <tbody id="t_body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/static/core.js"></script>
+<script>
+const TOKEN = localStorage.getItem('ws_token');
+if (!TOKEN) { location.href = '/login'; }
+const H = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN };
+const MONO = v => v == null ? '-' : Number(v).toLocaleString('id-ID');
+
+// ---------- Chart setup (Lightweight Charts) ----------
+const chart = LightweightCharts.createChart(document.getElementById('chart'), {
+    layout: { background: { color: 'transparent' }, textColor: '#9aa8c7', fontFamily: 'Inter, sans-serif' },
+    grid: { vertLines: { color: 'rgba(34,48,80,.4)' }, horzLines: { color: 'rgba(34,48,80,.4)' } },
+    rightPriceScale: { borderColor: '#223050' },
+    timeScale: { borderColor: '#223050', timeVisible: false },
+    crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+    width: document.getElementById('chart').clientWidth,
+    height: 420,
+});
+const candleSeries = chart.addCandlestickSeries({
+    upColor: '#34d399', downColor: '#f8717a', borderUpColor: '#34d399', borderDownColor: '#f8717a',
+    wickUpColor: '#34d399', wickDownColor: '#f8717a',
+});
+const ma5Series  = chart.addLineSeries({ color: '#2dd4bf', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
+const ma20Series = chart.addLineSeries({ color: '#a78bfa', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
+const volSeries  = chart.addHistogramSeries({ priceFormat: { type: 'volume' }, priceScaleId: 'vol', color: 'rgba(148,163,184,.4)' });
+chart.priceScale('vol').applyOptions({ scaleMargins: { top: 0.82, bottom: 0 } });
+
+window.addEventListener('resize', () => chart.applyOptions({ width: document.getElementById('chart').clientWidth }));
+
+// ---------- Load tickers utk autocomplete ----------
+let TICKERS = [];
+async function loadTickers() {
+    try {
+        const r = await fetch('/api/chart/tickers', { headers: H });
+        const d = await r.json();
+        TICKERS = d.tickers || [];
+        document.getElementById('info').textContent =
+            `${d.total} saham tersedia di grafik (dari buku besar pipeline Anda)`;
+    } catch (e) { document.getElementById('info').textContent = 'Gagal memuat daftar: ' + e; }
+}
+
+// Autocomplete
+const qEl = document.getElementById('q');
+const sugEl = document.getElementById('suggest');
+qEl.addEventListener('input', () => {
+    const q = qEl.value.trim().toUpperCase();
+    if (!q) { sugEl.style.display = 'none'; return; }
+    const matches = TICKERS.filter(t => t.Ticker.startsWith(q)).slice(0, 12);
+    sugEl.innerHTML = matches.map(t =>
+        `<div class="suggest-item" onclick="pilih('${t.Ticker}')">
+            <strong style="font-family:var(--mono)">${t.Ticker}</strong>
+            <span class="teks-redup">${t.nama_hari} hari · s/d ${t.terakhir}</span>
+        </div>`).join('');
+    sugEl.style.display = matches.length ? 'block' : 'none';
+});
+document.addEventListener('click', e => { if (!e.target.closest('#q') && !e.target.closest('#suggest')) sugEl.style.display = 'none'; });
+function pilih(t) { qEl.value = t; sugEl.style.display = 'none'; loadChart(t); }
+qEl.addEventListener('keydown', e => { if (e.key === 'Enter' && qEl.value.trim()) { sugEl.style.display = 'none'; loadChart(qEl.value.trim().toUpperCase()); } });
+
+// ---------- Load chart data ----------
+let lastBar = null;
+async function loadChart(ticker) {
+    document.getElementById('info').textContent = '⏳ Memuat grafik ' + ticker + '…';
+    try {
+        const r = await fetch('/api/chart/' + ticker, { headers: H });
+        const d = await r.json();
+        if (d.error) { document.getElementById('info').textContent = '❌ ' + d.error; return; }
+
+        const candles = d.bars.map(b => ({
+            time: b.Tanggal, open: b.Open, high: b.High, low: b.Low, close: b.Close,
+        }));
+        candleSeries.setData(candles);
+        ma5Series.setData(d.bars.filter(b => b.MA5_close > 0).map(b => ({ time: b.Tanggal, value: b.MA5_close })));
+        ma20Series.setData(d.bars.filter(b => b.MA20_close > 0).map(b => ({ time: b.Tanggal, value: b.MA20_close })));
+        volSeries.setData(d.bars.map(b => ({
+            time: b.Tanggal, value: b.Volume,
+            color: b.Close >= b.Open ? 'rgba(52,211,153,.45)' : 'rgba(248,113,122,.45)',
+        })));
+        chart.timeScale().fitContent();
+
+        const last = d.bars[d.bars.length - 1];
+        document.getElementById('v_close').textContent = MONO(last.Close);
+        document.getElementById('v_ma5').textContent = last.MA5_close ? MONO(last.MA5_close) : '-';
+        document.getElementById('v_ma20').textContent = last.MA20_close ? MONO(last.MA20_close) : '-';
+        document.getElementById('v_vol').textContent = MONO(last.Volume);
+        document.getElementById('v_nama').textContent = d.nama ? `· ${d.nama}` : '';
+
+        // tabel indikator (baris terakhir di atas)
+        const head = document.getElementById('t_head');
+        const kol = Object.keys(d.indikator[0] || { Tanggal: 1 });
+        head.innerHTML = kol.map(c => `<th>${c}</th>`).join('');
+        document.getElementById('t_body').innerHTML = d.indikator.slice().reverse().map(row =>
+            '<tr>' + kol.map(c => `<td>${row[c] ?? '-'}</td>`).join('') + '</tr>').join('');
+        document.getElementById('info').textContent =
+            `${d.jumlah_hari} hari data · ${d.ticker}${d.nama ? ' — ' + d.nama : ''}`;
+    } catch (e) {
+        document.getElementById('info').textContent = '❌ Error: ' + e;
+    }
+}
+
+// crosshair → update legend
+chart.subscribeCrosshairMove(param => {
+    if (!param.time || !param.seriesData) return;
+    const c = param.seriesData.get(candleSeries);
+    if (c) {
+        document.getElementById('v_close').textContent = MONO(c.close);
+        document.getElementById('v_vol').textContent = MONO(c.volume ?? '-');
+    }
+});
+
+// topbar user + init
+(async () => {
+    try {
+        const me = await (await fetch('/api/auth/me', { headers: H })).json();
+        document.querySelector('.ws-user').innerHTML = `👤 <b style="color:var(--gold)">${(me.username||'').replace(/</g,'&lt;')}</b>`;
+    } catch (e) {}
+    loadTickers();
+})();
+</script>
+</body>
+</html>

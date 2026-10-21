@@ -122,6 +122,12 @@ def me(username: str = __import__("fastapi").Depends(get_current_user)):
 from backend.routes.api import router as api_router
 app.include_router(api_router)
 
+# Grafik teknik & health (Fase E-final)
+from backend.routes.health_ext import router as health_ext_router
+app.include_router(health_ext_router)
+from backend.routes.chart_data import router as chart_router
+app.include_router(chart_router)
+
 # Seed data ke Volume (Fase C3) — proteksi ADMIN_TOKEN
 from backend.routes.admin_seed import router as seed_router
 app.include_router(seed_router)
@@ -192,6 +198,11 @@ async def portfolio_page(request: Request):
 async def detective_page(request: Request):
     """Halaman Detektif Ledakan (Langkah 7) — wajib login via frontend guard."""
     return templates.TemplateResponse(request, "detective.html", {})
+
+@app.get("/chart", response_class=HTMLResponse)
+async def chart_page(request: Request):
+    """Halaman Grafik Teknikal candlestick (Fase E-final)."""
+    return templates.TemplateResponse(request, "chart.html", {})
 
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):

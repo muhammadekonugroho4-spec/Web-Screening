@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@1,700&display=swap');
+
 /* ============================================================
    WEB-SCREENING — Design System v2.0
    Tema: "Midnight Terminal" — dark finance-grade, aksen teal/amber
@@ -26,6 +28,7 @@
   --shadow: 0 8px 28px rgba(2, 6, 18, .45);
   --shadow-sm: 0 2px 10px rgba(2, 6, 18, .35);
   --font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
   --mono: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
 }
 
@@ -178,4 +181,12 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   .ws-topbar { padding: 10px 12px; }
   .ws-topnav { display: none; }
   .metrik .nilai { font-size: 20px; }
+}
+
+
+/* ---------- Judul display (Playfair italic aksen) ---------- */
+.ws-judul h1 em, .hero-title em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
 }
