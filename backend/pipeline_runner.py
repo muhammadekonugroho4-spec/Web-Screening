@@ -76,7 +76,7 @@ def siklus_pipeline(kali_per_hari=True):
     # 1) Update data (selalu, tiap siklus)
     ok, out = _jalankan(["update_data.py"], 900)
     langkah.append(f"update_data: {'OK' if ok else 'GAGAL'}")
-    _state["log_detail"] = f"[update_data]\n{out}"
+    _state["log_detail"] = f"[update_data]\n{out[-2000:]}"
 
     # 2) Sidang jadwal 15:20-15:35 (sekali/hari) — butuh GEMINI key
     flag_pagi = f"/tmp/bsjp_pagi_{tanggal}"
