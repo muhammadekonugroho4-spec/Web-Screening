@@ -58,9 +58,11 @@ def _jalankan(args, timeout):
                            timeout=timeout, cwd=ROOT, env=env)
         if p.returncode is not None and p.returncode < 0:
             return False, f"[PROSES DIBUNUH SISTEM (signal {-p.returncode}) — kemungkinan OOM/kehabisan memori]"
-        out = (p.stdout or "")[-800:]
-        err = (p.stderr or "")[-800:]
-        return p.returncode == 0, out + (f"\n[STDERR]\n{err}" if err else "")
+        out = (p.stdout or "")[-1000:]
+        err = (p.stderr or "")[-600:]
+        hasil = f"[EXIT CODE: {p.returncode}]\n{out}"
+        if err: hasil += f"\n[STDERR]\n{err}"
+        return p.returncode == 0, hasil
     except subprocess.TimeoutExpired:
         return False, f"timeout {args[0]}"
     except Exception as e:
