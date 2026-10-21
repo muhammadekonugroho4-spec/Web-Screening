@@ -1,5 +1,5 @@
 {
-    "stempel_data": "2026-10-21 15:15:01",
+    "stempel_data": "2026-10-21 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
@@ -10,10 +10,10 @@
             "NANO"
         ],
         "RUMUS 2": [
-            "BUKA",
             "BSWD",
+            "SDPC",
             "BUKK",
-            "RSCH",
+            "ASGR",
             "INTP"
         ],
         "RUMUS 3": [
@@ -25,42 +25,42 @@
         ],
         "RUMUS 4": [
             "STRK",
-            "TRUK",
             "PRDA",
-            "PWON",
-            "BSWD"
+            "TRUK",
+            "BSWD",
+            "BUKA"
         ],
         "RUMUS 5": [
             "STRK",
-            "CARE",
-            "TRUK",
             "PRDA",
-            "PWON"
+            "BUKA",
+            "DKHH",
+            "TRUK"
         ],
         "RUMUS 6": [
-            "TIRA",
-            "MPRO",
             "BMTR",
             "INDO",
+            "TIRA",
+            "BIRD",
             "ERTX"
         ],
         "RUMUS 7": [
             "BUKA",
-            "PWON",
+            "BRPT",
             "BBRI",
-            "IATA",
+            "GOTO",
             ""
         ],
         "RUMUS 8": [
-            "TRUK",
+            "DMAS",
             "STRK",
-            "AXIO",
-            "PRDA",
-            "BSWD"
+            "BUKA",
+            "DKHH",
+            "SOLA"
         ],
         "RUMUS 9": [
-            "",
-            "",
+            "BAPA",
+            "PANI",
             "",
             "",
             ""
