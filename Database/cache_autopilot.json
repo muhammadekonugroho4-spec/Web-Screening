@@ -1,5 +1,5 @@
 {
-    "stempel_data": "2026-10-22 15:15:01",
+    "stempel_data": "2026-10-22 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
@@ -10,60 +10,60 @@
             "BUKK"
         ],
         "RUMUS 2": [
-            "BBTN",
-            "CMNT",
+            "BBMD",
             "GPRA",
-            "PKPK",
-            "BBMD"
+            "PDES",
+            "AYAM",
+            "PKPK"
         ],
         "RUMUS 3": [
             "PNSE",
             "SMLE",
+            "PRDA",
             "ARTA",
-            "",
-            ""
+            "NANO"
         ],
         "RUMUS 4": [
-            "PTSP",
-            "TRUK",
             "DMAS",
             "DKHH",
-            "STRK"
+            "STRK",
+            "PTSP",
+            "AALI"
         ],
         "RUMUS 5": [
             "DKHH",
             "STRK",
             "TRUK",
             "SMLE",
-            "BUKA"
+            "PRDA"
         ],
         "RUMUS 6": [
-            "DMAS",
             "AALI",
-            "LFLO",
+            "SGER",
+            "BBTN",
             "MOLI",
-            "BWPT"
+            "SNLK"
         ],
         "RUMUS 7": [
-            "DMAS",
             "AALI",
-            "MBMA",
-            "BUMI",
+            "SGER",
+            "PRDA",
+            "BBRI",
             "DEWA"
         ],
         "RUMUS 8": [
             "DMAS",
             "DKHH",
             "STRK",
-            "PTSP",
-            "TRUK"
+            "AALI",
+            "PTSP"
         ],
         "RUMUS 9": [
             "JGLE",
+            "DADA",
+            "PADI",
             "LPPS",
-            "LPKR",
-            "",
-            ""
+            "LPKR"
         ]
     }
 }
