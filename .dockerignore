@@ -1,0 +1,10 @@
+.venv/
+.git/
+Backup_Migrasi_Northflank/
+Arsip_Data_Harian/
+__pycache__/
+*.pyc
+*.har
+logs/
+GAMBAR/
+Dokumen*.pdf
