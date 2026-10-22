@@ -1,67 +1,67 @@
 {
-    "stempel_data": "2026-10-21 15:55:01",
+    "stempel_data": "2026-10-22 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "TRUK",
-            "PRDA",
-            "SOLA",
-            "CARE",
-            "NANO"
+            "DMAS",
+            "DKHH",
+            "AALI",
+            "BUKK"
         ],
         "RUMUS 2": [
-            "BSWD",
-            "SDPC",
-            "BUKK",
-            "ASGR",
-            "INTP"
+            "BBTN",
+            "CMNT",
+            "GPRA",
+            "PKPK",
+            "BBMD"
         ],
         "RUMUS 3": [
-            "SOLA",
-            "",
-            "",
+            "PNSE",
+            "SMLE",
+            "ARTA",
             "",
             ""
         ],
         "RUMUS 4": [
-            "STRK",
-            "PRDA",
+            "PTSP",
             "TRUK",
-            "BSWD",
-            "BUKA"
+            "DMAS",
+            "DKHH",
+            "STRK"
         ],
         "RUMUS 5": [
-            "STRK",
-            "PRDA",
-            "BUKA",
             "DKHH",
-            "TRUK"
+            "STRK",
+            "TRUK",
+            "SMLE",
+            "BUKA"
         ],
         "RUMUS 6": [
-            "BMTR",
-            "INDO",
-            "TIRA",
-            "BIRD",
-            "ERTX"
+            "DMAS",
+            "AALI",
+            "LFLO",
+            "MOLI",
+            "BWPT"
         ],
         "RUMUS 7": [
-            "BUKA",
-            "BRPT",
-            "BBRI",
-            "GOTO",
-            ""
+            "DMAS",
+            "AALI",
+            "MBMA",
+            "BUMI",
+            "DEWA"
         ],
         "RUMUS 8": [
             "DMAS",
-            "STRK",
-            "BUKA",
             "DKHH",
-            "SOLA"
+            "STRK",
+            "PTSP",
+            "TRUK"
         ],
         "RUMUS 9": [
-            "BAPA",
-            "PANI",
-            "",
+            "JGLE",
+            "LPPS",
+            "LPKR",
             "",
             ""
         ]
