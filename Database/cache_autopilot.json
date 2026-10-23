@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-22 15:55:01",
+    "stempel_data": "2026-10-23 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "TRUK",
-            "DMAS",
-            "DKHH",
-            "AALI",
-            "BUKK"
+            "TOBA",
+            "PTSP",
+            "ANDI",
+            "ENAK",
+            "FIRE"
         ],
         "RUMUS 2": [
-            "BBMD",
-            "GPRA",
-            "PDES",
-            "AYAM",
-            "PKPK"
+            "GRPM",
+            "PTSN",
+            "SHID",
+            "MERK",
+            "TYRE"
         ],
         "RUMUS 3": [
-            "PNSE",
-            "SMLE",
-            "PRDA",
-            "ARTA",
-            "NANO"
+            "PTSP",
+            "AALI",
+            "FIRE",
+            "BUKA",
+            "FAST"
         ],
         "RUMUS 4": [
-            "DMAS",
-            "DKHH",
-            "STRK",
+            "TOBA",
             "PTSP",
-            "AALI"
+            "ANDI",
+            "ENAK",
+            "ISSP"
         ],
         "RUMUS 5": [
+            "TOBA",
             "DKHH",
-            "STRK",
-            "TRUK",
-            "SMLE",
-            "PRDA"
+            "JSMR",
+            "PRDA",
+            "IDEA"
         ],
         "RUMUS 6": [
-            "AALI",
-            "SGER",
-            "BBTN",
-            "MOLI",
-            "SNLK"
+            "RANC",
+            "IOTF",
+            "",
+            "",
+            ""
         ],
         "RUMUS 7": [
-            "AALI",
-            "SGER",
-            "PRDA",
-            "BBRI",
-            "DEWA"
+            "DEWA",
+            "ASMI",
+            "BUMI",
+            "",
+            ""
         ],
         "RUMUS 8": [
-            "DMAS",
-            "DKHH",
-            "STRK",
-            "AALI",
-            "PTSP"
+            "TOBA",
+            "PTSP",
+            "ANDI",
+            "ENAK",
+            "ISSP"
         ],
         "RUMUS 9": [
-            "JGLE",
-            "DADA",
-            "PADI",
-            "LPPS",
-            "LPKR"
+            "FORU",
+            "BRRC",
+            "BAIK",
+            "RODA",
+            "SDMU"
         ]
     }
 }
