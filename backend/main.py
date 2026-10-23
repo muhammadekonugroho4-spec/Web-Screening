@@ -122,11 +122,15 @@ def me(username: str = __import__("fastapi").Depends(get_current_user)):
 from backend.routes.api import router as api_router
 app.include_router(api_router)
 
-# Grafik teknik & health (Fase E-final)
-from backend.routes.health_ext import router as health_ext_router
-app.include_router(health_ext_router)
-from backend.routes.chart_data import router as chart_router
-app.include_router(chart_router)
+# Grafik teknik & health (Fase E-final) — aman: jika import gagal, app tetap hidup
+try:
+    from backend.routes.health_ext import router as health_ext_router
+    app.include_router(health_ext_router)
+    from backend.routes.chart_data import router as chart_router
+    app.include_router(chart_router)
+    print("✅ chart/health router loaded")
+except Exception as _router_err:
+    print(f"⚠️ chart/health router GAGAL dimuat: {_router_err}")
 
 # Seed data ke Volume (Fase C3) — proteksi ADMIN_TOKEN
 from backend.routes.admin_seed import router as seed_router
