@@ -122,28 +122,36 @@ def me(username: str = __import__("fastapi").Depends(get_current_user)):
 from backend.routes.api import router as api_router
 app.include_router(api_router)
 
-# Grafik teknik & health (Fase E-final) — aman: jika import gagal, app tetap hidup
-try:
-    from backend.routes.health_ext import router as health_ext_router
-    app.include_router(health_ext_router)
-    from backend.routes.chart_data import router as chart_router
-    app.include_router(chart_router)
-    print("✅ chart/health router loaded")
-except Exception as _router_err:
-    print(f"⚠️ chart/health router GAGAL dimuat: {_router_err}")
+# Grafik teknik & health (Fase E-final) — DIMATIKAN SEMENTARA (502 crash-loop produksi)
+# Diaktifkan kembali setelah akar masalah ditemukan dari Railway logs.
+_ENABLE_CHART_ROUTER = False  # ← flip ke True setelah akar 502 ditemukan
+if _ENABLE_CHART_ROUTER:
+    try:
+        from backend.routes.health_ext import router as health_ext_router
+        app.include_router(health_ext_router)
+        from backend.routes.chart_data import router as chart_router
+        app.include_router(chart_router)
+        print("✅ chart/health router loaded")
+    except Exception as _router_err:
+        print(f"⚠️ chart/health router GAGAL dimuat: {_router_err}")
 
 # Seed data ke Volume (Fase C3) — proteksi ADMIN_TOKEN
 from backend.routes.admin_seed import router as seed_router
 app.include_router(seed_router)
 
-# Seed otomatis saat startup bila Database kosong (volume baru) — sekali jalan
-from backend.routes.admin_seed import seed_jika_perlu
-import threading
-threading.Thread(target=seed_jika_perlu, daemon=True).start()
+# Seed otomatis saat startup — DIMATIKAN (kandidat penyumbat startup di Railway)
+if os.environ.get("WS_SEED_ON_START", "0") == "1":
+    from backend.routes.admin_seed import seed_jika_perlu
+    import threading
+    threading.Thread(target=seed_jika_perlu, daemon=True).start()
 
-# Pipeline data di Railway (Fase E): update 5-menit bursa + sidang AI di server
-from backend import pipeline_runner
-pipeline_runner.mulai_pipeline()
+# Pipeline data di Railway (Fase E) — DIMATIKAN SEMENTARA (kandidat 502 crash-loop)
+# Aktifkan kembali lewat env PIPELINE_ENABLED=1 SETELAH akar 502 ketemu.
+if os.environ.get("PIPELINE_ENABLED", "0") == "1" and os.environ.get("PIPELINE_DISABLE_WEB", "0") == "1":
+    pass  # pipeline di worker service terpisah
+else:
+    from backend import pipeline_runner
+    pipeline_runner.mulai_pipeline()
 
 
 @app.get("/health")
