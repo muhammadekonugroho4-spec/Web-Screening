@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-26 15:15:01",
+    "stempel_data": "2026-10-26 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "ANDI",
+            "BLES",
             "WMUU",
-            "TPIA",
-            "NATO",
-            "SEMA"
+            "MTLA",
+            "PTSN"
         ],
         "RUMUS 2": [
+            "BCIP",
             "JSMR",
-            "ULTJ",
-            "TAXI",
-            "BAPI",
-            "KLBF"
+            "BBMD",
+            "OBAT",
+            "BBNI"
         ],
         "RUMUS 3": [
             "IDEA",
             "MPPA",
-            "TALF",
             "YULE",
+            "",
             ""
         ],
         "RUMUS 4": [
-            "TMPO",
             "ANDI",
-            "WMUU",
+            "TMPO",
             "DKHH",
-            "NANO"
+            "BLES",
+            "WMUU"
         ],
         "RUMUS 5": [
-            "TMPO",
             "ANDI",
+            "TMPO",
             "WMUU",
             "DKHH",
-            "MTLA"
+            "SBMA"
         ],
         "RUMUS 6": [
-            "BBMD",
             "NANO",
             "MTLA",
-            "DGWG",
-            ""
+            "CBUT",
+            "BBMD",
+            "OMED"
         ],
         "RUMUS 7": [
             "NANO",
             "MTLA",
             "BUVA",
-            "VKTR",
-            "ASLI"
+            "",
+            ""
         ],
         "RUMUS 8": [
-            "TMPO",
             "ANDI",
-            "WMUU",
-            "NANO",
-            "DKHH"
+            "TMPO",
+            "DKHH",
+            "BLES",
+            "WMUU"
         ],
         "RUMUS 9": [
             "RBMS",
-            "LION",
             "NPGF",
-            "CTBN",
-            "IDPR"
+            "LPPS",
+            "LION",
+            "CTBN"
         ]
     }
 }
