@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-23 15:55:01",
+    "stempel_data": "2026-10-26 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "TOBA",
-            "AALI",
-            "PTSP",
             "ANDI",
-            "WMPP"
+            "WMUU",
+            "TPIA",
+            "NATO",
+            "SEMA"
         ],
         "RUMUS 2": [
-            "BBNI",
-            "ELSA",
-            "GRPM",
-            "GTRA",
-            "NCKL"
+            "JSMR",
+            "ULTJ",
+            "TAXI",
+            "BAPI",
+            "KLBF"
         ],
         "RUMUS 3": [
-            "AALI",
-            "PTSP",
-            "WMUU",
-            "BUKA",
-            "FAST"
+            "IDEA",
+            "MPPA",
+            "TALF",
+            "YULE",
+            ""
         ],
         "RUMUS 4": [
-            "TOBA",
-            "AALI",
-            "PTSP",
+            "TMPO",
             "ANDI",
-            "WMPP"
+            "WMUU",
+            "DKHH",
+            "NANO"
         ],
         "RUMUS 5": [
-            "TOBA",
-            "PWON",
+            "TMPO",
+            "ANDI",
+            "WMUU",
             "DKHH",
-            "BTPS",
-            "JSMR"
+            "MTLA"
         ],
         "RUMUS 6": [
-            "PSAT",
-            "KKGI",
-            "GTSI",
-            "KBLM",
+            "BBMD",
+            "NANO",
+            "MTLA",
+            "DGWG",
             ""
         ],
         "RUMUS 7": [
-            "SGER",
-            "ASMI",
-            "DEWA",
-            "BIPI",
-            "BUMI"
+            "NANO",
+            "MTLA",
+            "BUVA",
+            "VKTR",
+            "ASLI"
         ],
         "RUMUS 8": [
-            "TOBA",
-            "AALI",
-            "PTSP",
+            "TMPO",
             "ANDI",
-            "WMPP"
+            "WMUU",
+            "NANO",
+            "DKHH"
         ],
         "RUMUS 9": [
-            "FORU",
-            "ESIP",
-            "MAXI",
-            "ACRO",
-            "BRRC"
+            "RBMS",
+            "LION",
+            "NPGF",
+            "CTBN",
+            "IDPR"
         ]
     }
 }
