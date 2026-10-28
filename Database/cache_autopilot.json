@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-27 15:55:01",
+    "stempel_data": "2026-10-28 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "TMPO",
-            "PTSP",
-            "ERAL",
-            "ISSP",
-            "JSMR"
+            "UNIQ",
+            "CBUT",
+            "PBID",
+            "LTLS",
+            "SGRO"
         ],
         "RUMUS 2": [
-            "CEKA",
-            "TCPI",
-            "CBUT",
-            "ARGO",
-            "BDMN"
+            "JSMR",
+            "HMSP",
+            "MPPA",
+            "AALI",
+            "JPFA"
         ],
         "RUMUS 3": [
-            "LSIP",
-            "AALI",
-            "UNTR",
+            "LMAX",
+            "",
+            "",
             "",
             ""
         ],
         "RUMUS 4": [
-            "TMPO",
-            "ERAL",
-            "ISSP",
-            "JSMR",
-            "LSIP"
+            "UNIQ",
+            "CBUT",
+            "SEMA",
+            "PBID",
+            "JSMR"
         ],
         "RUMUS 5": [
-            "TMPO",
+            "SEMA",
             "JSMR",
-            "LSIP",
-            "PWON",
-            "HMSP"
+            "ACES",
+            "NISP",
+            ""
         ],
         "RUMUS 6": [
-            "",
-            "",
-            "",
-            "",
+            "DGWG",
+            "AYAM",
+            "GEMA",
+            "BRNA",
             ""
         ],
         "RUMUS 7": [
-            "AALI",
-            "UNTR",
-            "KREN",
-            "",
+            "JSMR",
+            "DRMA",
+            "PRDA",
+            "BBRI",
             ""
         ],
         "RUMUS 8": [
-            "TMPO",
-            "PTSP",
-            "ERAL",
-            "ISSP",
+            "UNIQ",
+            "CBUT",
+            "SEMA",
+            "PBID",
             "JSMR"
         ],
         "RUMUS 9": [
-            "DADA",
-            "KOKA",
-            "RODA",
-            "",
-            ""
+            "ESTA",
+            "ACES",
+            "LUCY",
+            "LION",
+            "AMAN"
         ]
     }
 }
