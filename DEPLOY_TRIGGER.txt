@@ -1,4 +1,4 @@
 # Deploy Trigger
 # File ini HANYA penanda agar Railway auto-deploy (watchPaths di railway.json).
 # Diupdate otomatis oleh deploy_trigger.sh (cron 08:55 & 17:30 hari bursa).
-stempel: 2026-10-28 08:55:01 WIB (auto)
+stempel: 2026-10-28 17:30:00 WIB (auto)
