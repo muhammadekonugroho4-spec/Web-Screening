@@ -1,20 +1,20 @@
 {
-    "stempel_data": "2026-10-29 15:15:01",
+    "stempel_data": "2026-10-29 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "KJEN",
-            "INOV",
             "PTSP",
+            "CBUT",
             "AGII",
-            "CSRA"
+            "ALKA",
+            ""
         ],
         "RUMUS 2": [
-            "AGII",
-            "MANG",
+            "TAPG",
+            "TCPI",
             "RMKE",
-            "LPCK",
-            "NELY"
+            "YPAS",
+            "AGII"
         ],
         "RUMUS 3": [
             "",
@@ -24,11 +24,11 @@
             ""
         ],
         "RUMUS 4": [
-            "KJEN",
-            "INOV",
             "UNIQ",
+            "MANG",
             "SSMS",
-            "PTSP"
+            "PTSP",
+            "WIIM"
         ],
         "RUMUS 5": [
             "PTSP",
@@ -38,25 +38,25 @@
             ""
         ],
         "RUMUS 6": [
-            "",
-            "",
-            "",
+            "AGII",
+            "BTPN",
+            "MAPB",
             "",
             ""
         ],
         "RUMUS 7": [
-            "AGII",
-            "JRPT",
+            "OMRE",
+            "LUCY",
             "",
             "",
             ""
         ],
         "RUMUS 8": [
-            "TMAS",
-            "KJEN",
-            "INOV",
+            "MANG",
             "PTSP",
-            "ENAK"
+            "CBUT",
+            "TMAS",
+            "INOV"
         ],
         "RUMUS 9": [
             "LUCY",
