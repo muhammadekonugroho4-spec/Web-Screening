@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-28 15:55:01",
+    "stempel_data": "2026-10-29 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "UNIQ",
-            "KOKA",
-            "PBID",
+            "KJEN",
+            "INOV",
             "PTSP",
-            "KOPI"
+            "AGII",
+            "CSRA"
         ],
         "RUMUS 2": [
-            "AADI",
-            "BBMD",
-            "JSMR",
-            "AALI",
-            "LPCK"
+            "AGII",
+            "MANG",
+            "RMKE",
+            "LPCK",
+            "NELY"
         ],
         "RUMUS 3": [
-            "AGII",
-            "KOKA",
-            "LMAX",
+            "",
+            "",
+            "",
             "",
             ""
         ],
         "RUMUS 4": [
+            "KJEN",
+            "INOV",
             "UNIQ",
-            "KOKA",
-            "SEMA",
-            "PTSP",
-            "AGII"
+            "SSMS",
+            "PTSP"
         ],
         "RUMUS 5": [
             "PTSP",
-            "SEMA",
-            "JSMR",
-            "NISP",
-            "DSNG"
+            "UNIQ",
+            "SSMS",
+            "",
+            ""
         ],
         "RUMUS 6": [
-            "AGII",
-            "LPCK",
-            "DGWG",
-            "AYAM",
-            "BBHI"
+            "",
+            "",
+            "",
+            "",
+            ""
         ],
         "RUMUS 7": [
             "AGII",
-            "DRMA",
-            "PMJS",
-            "ASII",
+            "JRPT",
+            "",
+            "",
             ""
         ],
         "RUMUS 8": [
-            "UNIQ",
-            "DMAS",
-            "KOKA",
-            "SEMA",
-            "PTSP"
+            "TMAS",
+            "KJEN",
+            "INOV",
+            "PTSP",
+            "ENAK"
         ],
         "RUMUS 9": [
-            "ESTA",
-            "ACES",
             "LUCY",
-            "BRRC",
-            "GMTD"
+            "BABP",
+            "",
+            "",
+            ""
         ]
     }
 }
