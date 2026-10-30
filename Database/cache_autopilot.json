@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-29 15:55:01",
+    "stempel_data": "2026-10-30 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "PTSP",
-            "CBUT",
-            "AGII",
-            "ALKA",
-            ""
+            "APIC",
+            "POLI",
+            "DNET",
+            "NPGF",
+            "DKFT"
         ],
         "RUMUS 2": [
-            "TAPG",
-            "TCPI",
-            "RMKE",
-            "YPAS",
-            "AGII"
+            "FMII",
+            "LPIN",
+            "CBUT",
+            "UNIQ",
+            "WIIM"
         ],
         "RUMUS 3": [
-            "",
-            "",
-            "",
-            "",
+            "POLI",
+            "DNET",
+            "DKFT",
+            "MAPB",
             ""
         ],
         "RUMUS 4": [
-            "UNIQ",
-            "MANG",
-            "SSMS",
-            "PTSP",
-            "WIIM"
+            "APIC",
+            "KONI",
+            "POLI",
+            "DNET",
+            "ASBI"
         ],
         "RUMUS 5": [
-            "PTSP",
-            "UNIQ",
+            "BINA",
+            "MARK",
+            "POWR",
             "SSMS",
-            "",
             ""
         ],
         "RUMUS 6": [
-            "AGII",
-            "BTPN",
-            "MAPB",
+            "DNET",
+            "LPIN",
+            "",
             "",
             ""
         ],
         "RUMUS 7": [
-            "OMRE",
-            "LUCY",
-            "",
-            "",
+            "DNET",
+            "ASII",
+            "CBUT",
+            "UNIQ",
             ""
         ],
         "RUMUS 8": [
-            "MANG",
-            "PTSP",
-            "CBUT",
-            "TMAS",
-            "INOV"
+            "APIC",
+            "KONI",
+            "POLI",
+            "DNET",
+            "MKNT"
         ],
         "RUMUS 9": [
-            "LUCY",
-            "BABP",
-            "",
-            "",
-            ""
+            "GMTD",
+            "CTBN",
+            "GOTO",
+            "SKLT",
+            "HEAL"
         ]
     }
 }
