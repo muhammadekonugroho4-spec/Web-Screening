@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-10-30 15:55:01",
+    "stempel_data": "2026-11-02 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "APIC",
-            "POLI",
-            "WIIM",
-            "ABMM",
-            "BINA"
+            "AKPI",
+            "DFAM",
+            "NPGF",
+            "DKFT",
+            "JIHD"
         ],
         "RUMUS 2": [
+            "BBMD",
+            "CBUT",
+            "NFCX",
             "UNIQ",
-            "SSMS",
-            "PEGE",
-            "LPIN",
-            "CBUT"
+            "WIIM"
         ],
         "RUMUS 3": [
-            "POLI",
-            "DKFT",
-            "SMMA",
-            "",
-            ""
+            "DFAM",
+            "ASII",
+            "JSMR",
+            "CASA",
+            "GHON"
         ],
         "RUMUS 4": [
-            "APIC",
-            "KONI",
-            "POLI",
-            "WIIM",
-            "ABMM"
+            "AKPI",
+            "DFAM",
+            "NPGF",
+            "MPMX",
+            "DKFT"
         ],
         "RUMUS 5": [
-            "BINA",
-            "MARK",
-            "SSMS",
+            "MPMX",
+            "DKFT",
+            "ADMR",
+            "RMKE",
+            "POWR"
+        ],
+        "RUMUS 6": [
+            "MPMX",
+            "NFCX",
+            "NICK",
             "",
             ""
         ],
-        "RUMUS 6": [
-            "WIIM",
-            "LPIN",
-            "NFCX",
-            "BEEF",
-            "SPTO"
-        ],
         "RUMUS 7": [
-            "WIIM",
-            "ASII",
-            "SMMA",
-            "UNIQ",
+            "MPMX",
+            "BBMD",
+            "CBUT",
+            "GOTO",
             ""
         ],
         "RUMUS 8": [
-            "APIC",
-            "KONI",
-            "POLI",
+            "AKPI",
+            "DFAM",
+            "NPGF",
             "MKNT",
-            "WIIM"
+            "MPMX"
         ],
         "RUMUS 9": [
             "GOTO",
-            "CTBN",
-            "ADMR",
-            "WBSA",
-            "SKLT"
+            "LUCK",
+            "BREN",
+            "APLN",
+            "ASLC"
         ]
     }
 }
