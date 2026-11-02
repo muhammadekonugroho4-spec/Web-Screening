@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-02 15:15:01",
+    "stempel_data": "2026-11-02 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "AKPI",
             "DFAM",
+            "AKPI",
             "NPGF",
-            "DKFT",
-            "JIHD"
+            "KINO",
+            "DKFT"
         ],
         "RUMUS 2": [
-            "BBMD",
-            "CBUT",
-            "NFCX",
+            "POWR",
+            "WIIM",
             "UNIQ",
-            "WIIM"
+            "CBUT",
+            "NAYZ"
         ],
         "RUMUS 3": [
             "DFAM",
+            "PGAS",
             "ASII",
-            "JSMR",
             "CASA",
             "GHON"
         ],
         "RUMUS 4": [
-            "AKPI",
             "DFAM",
+            "AKPI",
+            "PGAS",
             "NPGF",
-            "MPMX",
-            "DKFT"
+            "POWR"
         ],
         "RUMUS 5": [
+            "POWR",
             "MPMX",
             "DKFT",
-            "ADMR",
             "RMKE",
-            "POWR"
+            ""
         ],
         "RUMUS 6": [
             "MPMX",
+            "SILO",
             "NFCX",
-            "NICK",
-            "",
-            ""
+            "CAKK",
+            "GMFI"
         ],
         "RUMUS 7": [
+            "POWR",
             "MPMX",
-            "BBMD",
+            "PGAS",
             "CBUT",
-            "GOTO",
-            ""
+            "SMMA"
         ],
         "RUMUS 8": [
             "AKPI",
             "DFAM",
-            "NPGF",
-            "MKNT",
-            "MPMX"
+            "POWR",
+            "MPMX",
+            "SILO"
         ],
         "RUMUS 9": [
-            "GOTO",
-            "LUCK",
+            "JIHD",
             "BREN",
             "APLN",
-            "ASLC"
+            "LUCK",
+            "GMTD"
         ]
     }
 }
