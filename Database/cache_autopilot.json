@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-02 15:55:01",
+    "stempel_data": "2026-11-03 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "DFAM",
-            "AKPI",
-            "NPGF",
-            "KINO",
-            "DKFT"
+            "BSWD",
+            "",
+            "",
+            "",
+            ""
         ],
         "RUMUS 2": [
-            "POWR",
-            "WIIM",
-            "UNIQ",
+            "MIDI",
+            "BPFI",
             "CBUT",
-            "NAYZ"
+            "BTPN",
+            "DKFT"
         ],
         "RUMUS 3": [
-            "DFAM",
-            "PGAS",
-            "ASII",
-            "CASA",
-            "GHON"
+            "",
+            "",
+            "",
+            "",
+            ""
         ],
         "RUMUS 4": [
-            "DFAM",
-            "AKPI",
-            "PGAS",
+            "TMPO",
+            "BSWD",
+            "MIDI",
             "NPGF",
-            "POWR"
+            "BPFI"
         ],
         "RUMUS 5": [
-            "POWR",
-            "MPMX",
+            "TMPO",
             "DKFT",
-            "RMKE",
+            "",
+            "",
             ""
         ],
         "RUMUS 6": [
-            "MPMX",
+            "MIDI",
+            "DAYA",
             "SILO",
-            "NFCX",
-            "CAKK",
-            "GMFI"
+            "",
+            ""
         ],
         "RUMUS 7": [
-            "POWR",
-            "MPMX",
-            "PGAS",
-            "CBUT",
-            "SMMA"
+            "MIDI",
+            "GOTO",
+            "BPFI",
+            "DAYA",
+            "CBUT"
         ],
         "RUMUS 8": [
-            "AKPI",
-            "DFAM",
-            "POWR",
-            "MPMX",
-            "SILO"
+            "TMPO",
+            "BSWD",
+            "MIDI",
+            "MBAP",
+            "MKNT"
         ],
         "RUMUS 9": [
-            "JIHD",
-            "BREN",
-            "APLN",
-            "LUCK",
-            "GMTD"
+            "GOTO",
+            "BCAP",
+            "PRAY",
+            "ASLC",
+            "ACST"
         ]
     }
 }
