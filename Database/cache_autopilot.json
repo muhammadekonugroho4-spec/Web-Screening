@@ -1,23 +1,23 @@
 {
-    "stempel_data": "2026-11-03 15:55:01",
+    "stempel_data": "2026-11-04 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "BSWD",
-            "KINO",
+            "TMPO",
+            "DKFT",
+            "AKPI",
             "GRIA",
-            "BLTZ",
-            ""
+            "BOBA"
         ],
         "RUMUS 2": [
-            "CBUT",
-            "BTPN",
-            "DKFT",
-            "SPMA",
-            "EPMT"
+            "MKNT",
+            "OMRE",
+            "AIMS",
+            "MTLA",
+            "BCAP"
         ],
         "RUMUS 3": [
-            "",
+            "DKFT",
             "",
             "",
             "",
@@ -25,10 +25,10 @@
         ],
         "RUMUS 4": [
             "TMPO",
-            "BSWD",
-            "NPGF",
-            "KINO",
-            "NFCX"
+            "MKNT",
+            "DKFT",
+            "AKPI",
+            "GRIA"
         ],
         "RUMUS 5": [
             "TMPO",
@@ -38,32 +38,32 @@
             ""
         ],
         "RUMUS 6": [
-            "",
-            "",
-            "",
-            "",
+            "BTPN",
+            "SCCO",
+            "BKDP",
+            "SMDM",
             ""
         ],
         "RUMUS 7": [
-            "PRDA",
-            "SMMA",
-            "CBUT",
-            "DAYA",
+            "BTPN",
+            "MPMX",
+            "PGAS",
+            "",
             ""
         ],
         "RUMUS 8": [
-            "BSWD",
             "TMPO",
-            "NPGF",
             "MKNT",
-            "MBAP"
+            "DKFT",
+            "AKPI",
+            "BTPN"
         ],
         "RUMUS 9": [
-            "BCAP",
-            "ASLC",
-            "BBHI",
-            "ALII",
-            "PRAY"
+            "CNMA",
+            "BRIS",
+            "BBYB",
+            "EPAC",
+            "UNVR"
         ]
     }
 }
