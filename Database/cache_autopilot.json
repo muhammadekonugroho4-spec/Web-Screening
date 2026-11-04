@@ -1,20 +1,20 @@
 {
-    "stempel_data": "2026-11-04 15:15:01",
+    "stempel_data": "2026-11-04 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "TMPO",
             "DKFT",
             "AKPI",
-            "GRIA",
-            "BOBA"
+            "BTPN",
+            "BBMD"
         ],
         "RUMUS 2": [
             "MKNT",
-            "OMRE",
+            "SMMA",
             "AIMS",
-            "MTLA",
-            "BCAP"
+            "AMOR",
+            "ALII"
         ],
         "RUMUS 3": [
             "DKFT",
@@ -39,31 +39,31 @@
         ],
         "RUMUS 6": [
             "BTPN",
-            "SCCO",
-            "BKDP",
-            "SMDM",
-            ""
+            "BBMD",
+            "PRIM",
+            "NFCX",
+            "SUNI"
         ],
         "RUMUS 7": [
-            "BTPN",
             "MPMX",
-            "PGAS",
-            "",
-            ""
+            "PRDA",
+            "BTPN",
+            "NFCX",
+            "GOTO"
         ],
         "RUMUS 8": [
-            "TMPO",
             "MKNT",
+            "TMPO",
             "DKFT",
             "AKPI",
-            "BTPN"
+            "GRIA"
         ],
         "RUMUS 9": [
+            "GOTO",
             "CNMA",
+            "ACES",
             "BRIS",
-            "BBYB",
-            "EPAC",
-            "UNVR"
+            "WMPP"
         ]
     }
 }
