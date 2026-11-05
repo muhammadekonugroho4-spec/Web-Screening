@@ -1,34 +1,34 @@
 {
-    "stempel_data": "2026-11-05 15:15:01",
+    "stempel_data": "2026-11-05 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
+            "UVCR",
             "INOV",
-            "LPIN",
-            "ALKA",
-            "HBAT",
-            "BAJA"
+            "MPMX",
+            "BELL",
+            "FUJI"
         ],
         "RUMUS 2": [
             "MKNT",
+            "ASII",
             "YUPI",
-            "BTPN",
             "AIMS",
-            "NFCX"
+            "OLIV"
         ],
         "RUMUS 3": [
             "MPMX",
-            "ALKA",
             "LPIN",
             "CSRA",
-            "LSIP"
+            "KLBF",
+            ""
         ],
         "RUMUS 4": [
             "MKNT",
             "INOV",
-            "LPIN",
             "MPMX",
-            "ALKA"
+            "LPIN",
+            "CSRA"
         ],
         "RUMUS 5": [
             "MKNT",
@@ -38,32 +38,32 @@
             ""
         ],
         "RUMUS 6": [
-            "LPIN",
             "MPMX",
+            "LPIN",
             "SMSM",
-            "",
-            ""
+            "INTD",
+            "PEVE"
         ],
         "RUMUS 7": [
-            "LPIN",
             "MPMX",
-            "BTPN",
-            "NFCX",
-            "DEWA"
+            "LPIN",
+            "CSRA",
+            "KLBF",
+            "GOTO"
         ],
         "RUMUS 8": [
             "MKNT",
             "INOV",
-            "LPIN",
             "MPMX",
-            "ALKA"
+            "LPIN",
+            "FUJI"
         ],
         "RUMUS 9": [
             "BAJA",
-            "BRIS",
-            "GDST",
-            "LPGI",
-            "GIAA"
+            "GOTO",
+            "INET",
+            "BBCA",
+            "EMTK"
         ]
     }
 }
