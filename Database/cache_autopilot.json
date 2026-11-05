@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-04 15:55:01",
+    "stempel_data": "2026-11-05 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "TMPO",
-            "DKFT",
-            "AKPI",
-            "BTPN",
-            "BBMD"
+            "INOV",
+            "LPIN",
+            "ALKA",
+            "HBAT",
+            "BAJA"
         ],
         "RUMUS 2": [
             "MKNT",
-            "SMMA",
+            "YUPI",
+            "BTPN",
             "AIMS",
-            "AMOR",
-            "ALII"
+            "NFCX"
         ],
         "RUMUS 3": [
-            "DKFT",
-            "",
-            "",
-            "",
-            ""
+            "MPMX",
+            "ALKA",
+            "LPIN",
+            "CSRA",
+            "LSIP"
         ],
         "RUMUS 4": [
-            "TMPO",
             "MKNT",
-            "DKFT",
-            "AKPI",
-            "GRIA"
+            "INOV",
+            "LPIN",
+            "MPMX",
+            "ALKA"
         ],
         "RUMUS 5": [
-            "TMPO",
-            "DKFT",
-            "",
-            "",
+            "MKNT",
+            "MPMX",
+            "AIMS",
+            "SMSM",
             ""
         ],
         "RUMUS 6": [
-            "BTPN",
-            "BBMD",
-            "PRIM",
-            "NFCX",
-            "SUNI"
+            "LPIN",
+            "MPMX",
+            "SMSM",
+            "",
+            ""
         ],
         "RUMUS 7": [
+            "LPIN",
             "MPMX",
-            "PRDA",
             "BTPN",
             "NFCX",
-            "GOTO"
+            "DEWA"
         ],
         "RUMUS 8": [
             "MKNT",
-            "TMPO",
-            "DKFT",
-            "AKPI",
-            "GRIA"
+            "INOV",
+            "LPIN",
+            "MPMX",
+            "ALKA"
         ],
         "RUMUS 9": [
-            "GOTO",
-            "CNMA",
-            "ACES",
+            "BAJA",
             "BRIS",
-            "WMPP"
+            "GDST",
+            "LPGI",
+            "GIAA"
         ]
     }
 }
