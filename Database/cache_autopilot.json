@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-06 15:15:02",
+    "stempel_data": "2026-11-06 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "NASI",
-            "BAJA",
-            "HOKI",
-            "YUPI",
-            "NFCX"
+            "NATO",
+            "ALII",
+            "NFCX",
+            "DUTI",
+            "YUPI"
         ],
         "RUMUS 2": [
-            "PGAS",
+            "CARE",
             "POWR",
             "CASA",
-            "CSRA",
+            "BREN",
             "SMSM"
         ],
         "RUMUS 3": [
-            "NASI",
-            "YUPI",
-            "SUNI",
+            "NATO",
             "DUTI",
-            "TCID"
+            "SUNI",
+            "MYOH",
+            "MEGA"
         ],
         "RUMUS 4": [
-            "NASI",
-            "ENAK",
-            "BAJA",
-            "ICBP",
-            "AIMS"
+            "NATO",
+            "ALII",
+            "LSIP",
+            "AIMS",
+            "APIC"
         ],
         "RUMUS 5": [
+            "LSIP",
             "AIMS",
-            "BAJA",
-            "",
-            "",
-            ""
+            "MPMX",
+            "ASGR",
+            "SMSM"
         ],
         "RUMUS 6": [
-            "NFCX",
-            "SMAR",
+            "NATO",
+            "ALII",
             "BBHI",
-            "KDSI",
-            "CYBR"
+            "PGJO",
+            "SSTM"
         ],
         "RUMUS 7": [
-            "KLBF",
-            "ASII",
+            "NATO",
+            "ALII",
             "LSIP",
-            "NFCX",
-            "PBID"
+            "ASII",
+            "BRIS"
         ],
         "RUMUS 8": [
-            "NASI",
-            "ENAK",
-            "ICBP",
-            "BAJA",
-            "FLMC"
+            "NATO",
+            "ALII",
+            "LSIP",
+            "FLMC",
+            "AIMS"
         ],
         "RUMUS 9": [
-            "GOTO",
-            "BBHI",
             "BBCA",
             "PSAB",
-            "KPIG"
+            "KPIG",
+            "BIPI",
+            "GMFI"
         ]
     }
 }
