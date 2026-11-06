@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-05 15:55:01",
+    "stempel_data": "2026-11-06 15:15:02",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "UVCR",
-            "INOV",
-            "MPMX",
-            "BELL",
-            "FUJI"
+            "NASI",
+            "BAJA",
+            "HOKI",
+            "YUPI",
+            "NFCX"
         ],
         "RUMUS 2": [
-            "MKNT",
-            "ASII",
-            "YUPI",
-            "AIMS",
-            "OLIV"
+            "PGAS",
+            "POWR",
+            "CASA",
+            "CSRA",
+            "SMSM"
         ],
         "RUMUS 3": [
-            "MPMX",
-            "LPIN",
-            "CSRA",
-            "KLBF",
-            ""
+            "NASI",
+            "YUPI",
+            "SUNI",
+            "DUTI",
+            "TCID"
         ],
         "RUMUS 4": [
-            "MKNT",
-            "INOV",
-            "MPMX",
-            "LPIN",
-            "CSRA"
+            "NASI",
+            "ENAK",
+            "BAJA",
+            "ICBP",
+            "AIMS"
         ],
         "RUMUS 5": [
-            "MKNT",
-            "MPMX",
             "AIMS",
-            "SMSM",
+            "BAJA",
+            "",
+            "",
             ""
         ],
         "RUMUS 6": [
-            "MPMX",
-            "LPIN",
-            "SMSM",
-            "INTD",
-            "PEVE"
+            "NFCX",
+            "SMAR",
+            "BBHI",
+            "KDSI",
+            "CYBR"
         ],
         "RUMUS 7": [
-            "MPMX",
-            "LPIN",
-            "CSRA",
             "KLBF",
-            "GOTO"
+            "ASII",
+            "LSIP",
+            "NFCX",
+            "PBID"
         ],
         "RUMUS 8": [
-            "MKNT",
-            "INOV",
-            "MPMX",
-            "LPIN",
-            "FUJI"
+            "NASI",
+            "ENAK",
+            "ICBP",
+            "BAJA",
+            "FLMC"
         ],
         "RUMUS 9": [
-            "BAJA",
             "GOTO",
-            "INET",
+            "BBHI",
             "BBCA",
-            "EMTK"
+            "PSAB",
+            "KPIG"
         ]
     }
 }
