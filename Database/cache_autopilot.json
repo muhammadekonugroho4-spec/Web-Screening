@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-06 15:55:01",
+    "stempel_data": "2026-11-09 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "NATO",
-            "ALII",
-            "NFCX",
-            "DUTI",
-            "YUPI"
+            "TGUK",
+            "HRME",
+            "SRTG",
+            "SOTS",
+            "ACST"
         ],
         "RUMUS 2": [
-            "CARE",
-            "POWR",
-            "CASA",
-            "BREN",
-            "SMSM"
+            "WIRG",
+            "HBAT",
+            "BABY",
+            "ACRO",
+            "UANG"
         ],
         "RUMUS 3": [
-            "NATO",
-            "DUTI",
-            "SUNI",
-            "MYOH",
-            "MEGA"
+            "ACST",
+            "TGUK",
+            "PGAS",
+            "PTSP",
+            "DUTI"
         ],
         "RUMUS 4": [
-            "NATO",
-            "ALII",
-            "LSIP",
-            "AIMS",
-            "APIC"
-        ],
-        "RUMUS 5": [
-            "LSIP",
-            "AIMS",
-            "MPMX",
-            "ASGR",
-            "SMSM"
-        ],
-        "RUMUS 6": [
-            "NATO",
-            "ALII",
-            "BBHI",
-            "PGJO",
-            "SSTM"
-        ],
-        "RUMUS 7": [
-            "NATO",
-            "ALII",
-            "LSIP",
-            "ASII",
-            "BRIS"
-        ],
-        "RUMUS 8": [
-            "NATO",
-            "ALII",
-            "LSIP",
-            "FLMC",
+            "HRME",
+            "SRTG",
+            "SOTS",
+            "ACST",
             "AIMS"
         ],
+        "RUMUS 5": [
+            "SRTG",
+            "AIMS",
+            "DKFT",
+            "",
+            ""
+        ],
+        "RUMUS 6": [
+            "SRTG",
+            "ACST",
+            "DUTI",
+            "RDTX",
+            "BMTR"
+        ],
+        "RUMUS 7": [
+            "SRTG",
+            "PGAS",
+            "ASII",
+            "UNIQ",
+            "PBID"
+        ],
+        "RUMUS 8": [
+            "HRME",
+            "SRTG",
+            "SOTS",
+            "ACST",
+            "NASI"
+        ],
         "RUMUS 9": [
-            "BBCA",
-            "PSAB",
-            "KPIG",
-            "BIPI",
-            "GMFI"
+            "FORU",
+            "KJEN",
+            "PGJO",
+            "RDTX",
+            "INET"
         ]
     }
 }
