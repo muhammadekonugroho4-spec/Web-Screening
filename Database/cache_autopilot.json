@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-09 15:55:00",
+    "stempel_data": "2026-11-10 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "HRME",
+            "UNIQ",
+            "KBLV",
             "ALII",
-            "SRTG",
-            "SOTS",
-            "ACST"
+            "HELI",
+            "PTIS"
         ],
         "RUMUS 2": [
-            "OLIV",
-            "SUNI",
-            "EMMI",
-            "BABY",
-            "PGUN"
+            "DEWI",
+            "SMKM",
+            "AMAN",
+            "MEGA",
+            "BTPS"
         ],
         "RUMUS 3": [
-            "ACST",
-            "DRMA",
-            "PGAS",
-            "PTSP",
-            "DUTI"
+            "DLTA",
+            "TCID",
+            "ACRO",
+            "WINS",
+            "IFII"
         ],
         "RUMUS 4": [
-            "HRME",
+            "UNIQ",
+            "PTSP",
+            "AMOR",
             "ALII",
-            "SRTG",
-            "SOTS",
-            "ACST"
+            "HELI"
         ],
         "RUMUS 5": [
-            "SRTG",
-            "BAJA",
             "AYAM",
-            "DKFT",
-            "AIMS"
+            "BBTN",
+            "",
+            "",
+            ""
         ],
         "RUMUS 6": [
-            "ALII",
-            "SRTG",
-            "BMTR",
-            "ACST",
-            "BTPN"
+            "AMOR",
+            "DLTA",
+            "CFIN",
+            "RDTX",
+            "TYRE"
         ],
         "RUMUS 7": [
-            "ALII",
-            "SRTG",
-            "PBID",
-            "PGAS",
-            "BBCA"
+            "ASII",
+            "DOOH",
+            "BUMI",
+            "DEWA",
+            ""
         ],
         "RUMUS 8": [
-            "HRME",
+            "UNIQ",
+            "PTSP",
             "ALII",
-            "SRTG",
-            "BAJA",
-            "FLMC"
+            "HELI",
+            "AMOR"
         ],
         "RUMUS 9": [
-            "FORU",
-            "INET",
-            "BMTR",
-            "KBLV",
-            "CPRO"
+            "RAJA",
+            "FOLK",
+            "WGSH",
+            "PTMP",
+            "JRPT"
         ]
     }
 }
