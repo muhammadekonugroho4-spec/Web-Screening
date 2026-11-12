@@ -1,5 +1,5 @@
 {
-    "stempel_data": "2026-11-12 15:15:02",
+    "stempel_data": "2026-11-12 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
@@ -26,9 +26,9 @@
         "RUMUS 4": [
             "HRME",
             "WMUU",
+            "RAJA",
             "MYOR",
-            "AMOR",
-            "TRUS"
+            "KJEN"
         ],
         "RUMUS 5": [
             "MYOR",
@@ -54,15 +54,15 @@
         "RUMUS 8": [
             "HRME",
             "WMUU",
-            "AMOR",
-            "IFII",
-            "DKFT"
+            "RAJA",
+            "KJEN",
+            "BEER"
         ],
         "RUMUS 9": [
-            "BIPI",
-            "BULL",
             "BEER",
             "GMFI",
+            "BIPI",
+            "BULL",
             "PPRI"
         ]
     }
