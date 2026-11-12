@@ -1,33 +1,33 @@
 {
-    "stempel_data": "2026-11-11 15:55:01",
+    "stempel_data": "2026-11-12 15:15:02",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "WMUU",
             "RAJA",
-            "AMOR",
-            "IFII",
-            "TRUS"
+            "KJEN",
+            "TRUS",
+            "AGAR"
         ],
         "RUMUS 2": [
             "HRME",
             "POLA",
             "GOLD",
             "INDF",
-            "TALF"
+            "SCNP"
         ],
         "RUMUS 3": [
             "TRUS",
-            "PGAS",
             "KLIN",
             "CEKA",
+            "",
             ""
         ],
         "RUMUS 4": [
-            "WMUU",
             "HRME",
-            "RAJA",
+            "WMUU",
             "MYOR",
+            "AMOR",
             "TRUS"
         ],
         "RUMUS 5": [
@@ -39,31 +39,31 @@
         ],
         "RUMUS 6": [
             "MYOR",
+            "KAEF",
             "AMOR",
             "IFII",
-            "GOLD",
-            "VAST"
+            "GOLD"
         ],
         "RUMUS 7": [
             "KLBF",
+            "MYOR",
             "AMOR",
             "IFII",
-            "VKTR",
-            "PACK"
+            "VKTR"
         ],
         "RUMUS 8": [
-            "WMUU",
             "HRME",
+            "WMUU",
             "AMOR",
             "IFII",
             "DKFT"
         ],
         "RUMUS 9": [
-            "WMPP",
-            "KJEN",
-            "ACES",
             "BIPI",
-            "BULL"
+            "BULL",
+            "BEER",
+            "GMFI",
+            "PPRI"
         ]
     }
 }
