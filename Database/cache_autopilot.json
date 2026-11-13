@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-12 15:55:01",
+    "stempel_data": "2026-11-13 15:15:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "WMUU",
-            "RAJA",
-            "KJEN",
-            "TRUS",
-            "AGAR"
+            "ESIP",
+            "DKFT",
+            "BEEF",
+            "KKGI"
         ],
         "RUMUS 2": [
-            "HRME",
-            "POLA",
-            "GOLD",
-            "INDF",
-            "SCNP"
+            "ASII",
+            "MSTI",
+            "RUNS",
+            "HBAT",
+            "ARKO"
         ],
         "RUMUS 3": [
-            "TRUS",
-            "KLIN",
-            "CEKA",
-            "",
-            ""
+            "ESIP",
+            "DKFT",
+            "TRIN",
+            "GIAA",
+            "KOPI"
         ],
         "RUMUS 4": [
-            "HRME",
             "WMUU",
-            "RAJA",
-            "MYOR",
-            "KJEN"
+            "ESIP",
+            "ESSA",
+            "DKFT",
+            "GIAA"
         ],
         "RUMUS 5": [
+            "WMUU",
+            "DKFT",
+            "ESSA",
             "MYOR",
-            "ALII",
-            "",
-            "",
-            ""
+            "TRIN"
         ],
         "RUMUS 6": [
-            "MYOR",
-            "KAEF",
-            "AMOR",
-            "IFII",
-            "GOLD"
+            "BBSS",
+            "DILD",
+            "MSTI",
+            "TOTO",
+            "DRMA"
         ],
         "RUMUS 7": [
-            "KLBF",
-            "MYOR",
-            "AMOR",
-            "IFII",
-            "VKTR"
+            "BUKA",
+            "CUAN",
+            "KOTA",
+            "BUVA",
+            ""
         ],
         "RUMUS 8": [
-            "HRME",
             "WMUU",
-            "RAJA",
-            "KJEN",
-            "BEER"
+            "ESIP",
+            "ESSA",
+            "DKFT",
+            "IBOS"
         ],
         "RUMUS 9": [
-            "BEER",
-            "GMFI",
-            "BIPI",
-            "BULL",
-            "PPRI"
+            "TRIN",
+            "WIFI",
+            "BRMS",
+            "MSTI",
+            "MEJA"
         ]
     }
 }
