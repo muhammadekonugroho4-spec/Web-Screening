@@ -1,5 +1,5 @@
 {
-    "stempel_data": "2026-11-13 15:15:01",
+    "stempel_data": "2026-11-13 15:55:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
@@ -10,59 +10,59 @@
             "KKGI"
         ],
         "RUMUS 2": [
+            "TLKM",
             "ASII",
             "MSTI",
             "RUNS",
-            "HBAT",
-            "ARKO"
+            "DRMA"
         ],
         "RUMUS 3": [
             "ESIP",
             "DKFT",
-            "TRIN",
             "GIAA",
-            "KOPI"
+            "VOKS",
+            "SIDO"
         ],
         "RUMUS 4": [
             "WMUU",
             "ESIP",
-            "ESSA",
             "DKFT",
-            "GIAA"
+            "GIAA",
+            "TARA"
         ],
         "RUMUS 5": [
             "WMUU",
+            "ESIP",
             "DKFT",
-            "ESSA",
-            "MYOR",
-            "TRIN"
+            "WMPP",
+            "ESSA"
         ],
         "RUMUS 6": [
-            "BBSS",
-            "DILD",
-            "MSTI",
-            "TOTO",
+            "BBNI",
+            "HRUM",
+            "IRRA",
+            "APLN",
             "DRMA"
         ],
         "RUMUS 7": [
-            "BUKA",
-            "CUAN",
-            "KOTA",
+            "GOTO",
             "BUVA",
+            "KOTA",
+            "",
             ""
         ],
         "RUMUS 8": [
             "WMUU",
             "ESIP",
-            "ESSA",
             "DKFT",
-            "IBOS"
+            "GIAA",
+            "TARA"
         ],
         "RUMUS 9": [
-            "TRIN",
-            "WIFI",
             "BRMS",
-            "MSTI",
+            "GOTO",
+            "WIFI",
+            "IRSX",
             "MEJA"
         ]
     }
