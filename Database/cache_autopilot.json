@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-16 15:58:01",
+    "stempel_data": "2026-11-17 15:18:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
+            "TRIN",
+            "MGNA",
             "FOLK",
-            "COIN",
-            "VOKS",
-            "BBSS",
-            "MGNA"
+            "TRUE",
+            "BBYB"
         ],
         "RUMUS 2": [
+            "AREA",
             "IDEA",
-            "WIDI",
-            "WMUU",
-            "BBCA",
-            "PGAS"
+            "NSSS",
+            "PRIM",
+            "MPIX"
         ],
         "RUMUS 3": [
-            "MSIN",
-            "PCAR",
             "MGNA",
-            "BABP",
-            "BHIT"
+            "CHIP",
+            "TGKA",
+            "LPPF",
+            "GOTO"
         ],
         "RUMUS 4": [
-            "FOLK",
-            "COIN",
-            "BBSS",
+            "TRIN",
             "MGNA",
-            "VOKS"
+            "FOLK",
+            "TRUE",
+            "BBYB"
         ],
         "RUMUS 5": [
-            "WMUU",
-            "FOLK",
-            "COIN",
             "TRIN",
-            "BUKA"
+            "FOLK",
+            "TRUE",
+            "BBYB",
+            "PNLF"
         ],
         "RUMUS 6": [
-            "GOTO",
-            "AMFG",
-            "ARII",
+            "RDTX",
             "TGKA",
-            "MSTI"
+            "LPPF",
+            "ITIC",
+            "SUPA"
         ],
         "RUMUS 7": [
-            "GOTO",
-            "BSML",
-            "BRMS",
+            "KOTA",
+            "",
+            "",
             "",
             ""
         ],
         "RUMUS 8": [
+            "TRIN",
             "FOLK",
-            "COIN",
-            "VOKS",
-            "BBSS",
-            "MGNA"
+            "TRUE",
+            "MGNA",
+            "BBYB"
         ],
         "RUMUS 9": [
-            "KOTA",
-            "EXCL",
-            "LOPI",
-            "ITMA",
-            "DSFI"
+            "MORA",
+            "TNCA",
+            "SOFA",
+            "LEAD",
+            "LOPI"
         ]
     }
 }
