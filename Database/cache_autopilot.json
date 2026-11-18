@@ -1,51 +1,51 @@
 {
-    "stempel_data": "2026-11-18 15:18:01",
+    "stempel_data": "2026-11-18 15:58:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "TRON",
             "SOLA",
             "MANG",
-            "MGNA",
-            "KOPI"
+            "MAPA",
+            "MGNA"
         ],
         "RUMUS 2": [
             "NAYZ",
             "IDEA",
-            "CHIP",
             "UNIQ",
-            "RBMS"
+            "MPXL",
+            "JATI"
         ],
         "RUMUS 3": [
+            "GOTO",
             "TRON",
             "NZIA",
-            "PRIM",
-            "TAMA",
-            "PRAY"
+            "BAPI",
+            "TAMA"
         ],
         "RUMUS 4": [
             "TRON",
             "SOLA",
             "CPRO",
             "MANG",
-            "MGNA"
+            "MAPA"
         ],
         "RUMUS 5": [
             "TRON",
+            "MAPA",
             "MGNA",
             "BBYB",
-            "ASGR",
-            "FOLK"
+            "ASGR"
         ],
         "RUMUS 6": [
-            "SKBM",
-            "SPRE",
-            "SATU",
-            "BESS",
-            "CRAB"
+            "MAPA",
+            "CRAB",
+            "RBMS",
+            "MPXL",
+            "VAST"
         ],
         "RUMUS 7": [
-            "DGIK",
+            "MAPA",
             "GOTO",
             "",
             "",
@@ -56,14 +56,14 @@
             "SOLA",
             "CPRO",
             "MANG",
-            "MGNA"
+            "MAPA"
         ],
         "RUMUS 9": [
+            "VAST",
+            "SFAN",
             "YULE",
             "DSFI",
-            "KRYA",
-            "DOSS",
-            "BNGA"
+            "BAUT"
         ]
     }
 }
