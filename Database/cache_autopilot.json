@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-19 15:18:02",
+    "stempel_data": "2026-11-19 15:58:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "TALF",
-            "WEHA",
+            "PTSP",
             "IFSH",
             "ASHA",
-            ""
+            "UDNG"
         ],
         "RUMUS 2": [
             "NAYZ",
             "IDEA",
-            "ASPR",
-            "ASGR",
-            "UNTD"
+            "MKAP",
+            "UNIQ",
+            "ASGR"
         ],
         "RUMUS 3": [
             "MANG",
-            "MCOL",
-            "FUJI",
             "PTSP",
-            "TAMA"
+            "TAMA",
+            "GOTO",
+            "PSKT"
         ],
         "RUMUS 4": [
             "TALF",
-            "MCOL",
+            "HRME",
             "MANG",
-            "OLIV",
-            "BNBA"
+            "INTP",
+            "MCAS"
         ],
         "RUMUS 5": [
-            "ASGR",
+            "HRME",
             "INTP",
-            "",
-            "",
+            "AYAM",
+            "ASGR",
             ""
         ],
         "RUMUS 6": [
-            "MLBI",
-            "MCOL",
-            "LIFE",
-            "TYRE",
-            "PTPW"
+            "INTP",
+            "DILD",
+            "MKAP",
+            "SGER",
+            "KLIN"
         ],
         "RUMUS 7": [
-            "DCII",
-            "",
-            "",
-            "",
-            ""
+            "DGIK",
+            "INTP",
+            "GOTO",
+            "PGAS",
+            "UDNG"
         ],
         "RUMUS 8": [
             "TALF",
             "OKAS",
-            "MLBI",
-            "MCOL",
-            "ESTI"
+            "HRME",
+            "ESTI",
+            "CTTH"
         ],
         "RUMUS 9": [
             "CTTH",
-            "AYLS",
             "IFSH",
-            "NELY",
-            "KAQI"
+            "KAQI",
+            "DSFI",
+            "AVIA"
         ]
     }
 }
