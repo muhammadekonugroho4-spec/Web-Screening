@@ -1,48 +1,48 @@
 {
-    "stempel_data": "2026-11-23 15:18:01",
+    "stempel_data": "2026-11-23 15:58:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
+            "TRUE",
             "MBMA",
-            "BREN",
-            "ASPR",
-            "VOKS",
-            "MANG"
+            "TRIN",
+            "CUAN",
+            "ASPR"
         ],
         "RUMUS 2": [
             "NAYZ",
-            "EXCL",
             "MCOL",
-            "BTPS",
-            "MYOR"
+            "ALDO",
+            "MYOR",
+            "MIKA"
         ],
         "RUMUS 3": [
-            "KMTR",
+            "TRUE",
+            "CRAB",
             "YULE",
-            "",
             "",
             ""
         ],
         "RUMUS 4": [
+            "TRUE",
             "MBMA",
             "TRIN",
-            "BREN",
             "ASPR",
-            "MANG"
+            "VOKS"
         ],
         "RUMUS 5": [
-            "GULA",
+            "TRUE",
+            "ELTY",
+            "HRME",
             "CDIA",
-            "IDEA",
-            "MPXL",
-            ""
+            "AYAM"
         ],
         "RUMUS 6": [
+            "DGIK",
             "JKON",
             "MKAP",
-            "DGWG",
-            "DGIK",
-            "RUIS"
+            "GULA",
+            "DGWG"
         ],
         "RUMUS 7": [
             "DGIK",
@@ -52,17 +52,17 @@
             ""
         ],
         "RUMUS 8": [
-            "VOKS",
             "TRUE",
             "MBMA",
             "TRIN",
-            "BELL"
+            "ASPR",
+            "MANG"
         ],
         "RUMUS 9": [
-            "TPIA",
-            "KDTN",
+            "ELTY",
             "LOPI",
-            "TAMU",
+            "DSFI",
+            "REAL",
             "MLPL"
         ]
     }
