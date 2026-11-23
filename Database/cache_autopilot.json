@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-20 15:58:01",
+    "stempel_data": "2026-11-23 15:18:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "NTBK",
-            "TGUK",
-            "RELF",
-            "DGIK",
-            "VOKS"
+            "MBMA",
+            "BREN",
+            "ASPR",
+            "VOKS",
+            "MANG"
         ],
         "RUMUS 2": [
             "NAYZ",
-            "MANG",
-            "IDEA",
-            "PGJO",
-            "DILD"
+            "EXCL",
+            "MCOL",
+            "BTPS",
+            "MYOR"
         ],
         "RUMUS 3": [
-            "NTBK",
-            "YUPI",
-            "MYOR",
-            "RSGK",
-            ""
-        ],
-        "RUMUS 4": [
-            "NTBK",
-            "RELF",
-            "TGUK",
-            "NAYZ",
-            "MANG"
-        ],
-        "RUMUS 5": [
-            "IDEA",
-            "PWON",
-            "MYOR",
+            "KMTR",
+            "YULE",
+            "",
             "",
             ""
         ],
+        "RUMUS 4": [
+            "MBMA",
+            "TRIN",
+            "BREN",
+            "ASPR",
+            "MANG"
+        ],
+        "RUMUS 5": [
+            "GULA",
+            "CDIA",
+            "IDEA",
+            "MPXL",
+            ""
+        ],
         "RUMUS 6": [
-            "PWON",
+            "JKON",
+            "MKAP",
+            "DGWG",
             "DGIK",
-            "SATU",
-            "SILO",
-            "FISH"
+            "RUIS"
         ],
         "RUMUS 7": [
             "DGIK",
-            "ASPR",
+            "",
             "",
             "",
             ""
         ],
         "RUMUS 8": [
-            "NTBK",
-            "TGUK",
-            "RELF",
-            "NAYZ",
-            "MANG"
+            "VOKS",
+            "TRUE",
+            "MBMA",
+            "TRIN",
+            "BELL"
         ],
         "RUMUS 9": [
-            "KKES",
-            "KBLM",
-            "SATU",
-            "BBHI",
-            "FISH"
+            "TPIA",
+            "KDTN",
+            "LOPI",
+            "TAMU",
+            "MLPL"
         ]
     }
 }
