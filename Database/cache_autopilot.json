@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-24 15:18:01",
+    "stempel_data": "2026-11-24 15:58:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "PWON",
             "MPXL",
-            "DOSS",
-            "RUNS",
-            ""
+            "GPRA",
+            "HGII",
+            "CHIP"
         ],
         "RUMUS 2": [
-            "NAYZ",
+            "BBRI",
             "MANG",
-            "BUMI",
             "MYOR",
-            "RELF"
+            "DEWI",
+            "PEGE"
         ],
         "RUMUS 3": [
             "PWON",
-            "BBHI",
             "SMRA",
+            "SMIL",
             "BTPS",
-            "AVIA"
+            "BNGA"
         ],
         "RUMUS 4": [
-            "NAYZ",
             "PWON",
             "MPXL",
             "MANG",
-            "BBHI"
-        ],
-        "RUMUS 5": [
             "NAYZ",
-            "PWON",
-            "MPXL",
-            "WMUU",
             "SMRA"
         ],
-        "RUMUS 6": [
-            "NAYZ",
+        "RUMUS 5": [
             "PWON",
+            "NAYZ",
+            "MPXL",
+            "SMRA",
+            "GPRA"
+        ],
+        "RUMUS 6": [
+            "PWON",
+            "INDF",
             "ASGR",
-            "SPTO",
+            "HGII",
             "SMRA"
         ],
         "RUMUS 7": [
-            "NAYZ",
             "PWON",
-            "BBCA",
+            "SMRA",
             "BMRI",
+            "BBRI",
             "BUVA"
         ],
         "RUMUS 8": [
-            "NAYZ",
-            "NZIA",
             "PWON",
             "MPXL",
-            "MANG"
+            "MANG",
+            "INDF",
+            "WMUU"
         ],
         "RUMUS 9": [
-            "BUVA",
-            "ASLI",
-            "MEDC",
-            "AKRA",
-            "EPAC"
+            "BBHI",
+            "MIRA",
+            "FORU",
+            "JGLE",
+            "ASLI"
         ]
     }
 }
