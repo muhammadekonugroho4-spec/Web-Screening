@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-23 15:58:01",
+    "stempel_data": "2026-11-24 15:18:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "TRUE",
-            "MBMA",
-            "TRIN",
-            "CUAN",
-            "ASPR"
+            "PWON",
+            "MPXL",
+            "DOSS",
+            "RUNS",
+            ""
         ],
         "RUMUS 2": [
             "NAYZ",
-            "MCOL",
-            "ALDO",
+            "MANG",
+            "BUMI",
             "MYOR",
-            "MIKA"
+            "RELF"
         ],
         "RUMUS 3": [
-            "TRUE",
-            "CRAB",
-            "YULE",
-            "",
-            ""
+            "PWON",
+            "BBHI",
+            "SMRA",
+            "BTPS",
+            "AVIA"
         ],
         "RUMUS 4": [
-            "TRUE",
-            "MBMA",
-            "TRIN",
-            "ASPR",
-            "VOKS"
+            "NAYZ",
+            "PWON",
+            "MPXL",
+            "MANG",
+            "BBHI"
         ],
         "RUMUS 5": [
-            "TRUE",
-            "ELTY",
-            "HRME",
-            "CDIA",
-            "AYAM"
+            "NAYZ",
+            "PWON",
+            "MPXL",
+            "WMUU",
+            "SMRA"
         ],
         "RUMUS 6": [
-            "DGIK",
-            "JKON",
-            "MKAP",
-            "GULA",
-            "DGWG"
+            "NAYZ",
+            "PWON",
+            "ASGR",
+            "SPTO",
+            "SMRA"
         ],
         "RUMUS 7": [
-            "DGIK",
-            "",
-            "",
-            "",
-            ""
+            "NAYZ",
+            "PWON",
+            "BBCA",
+            "BMRI",
+            "BUVA"
         ],
         "RUMUS 8": [
-            "TRUE",
-            "MBMA",
-            "TRIN",
-            "ASPR",
+            "NAYZ",
+            "NZIA",
+            "PWON",
+            "MPXL",
             "MANG"
         ],
         "RUMUS 9": [
-            "ELTY",
-            "LOPI",
-            "DSFI",
-            "REAL",
-            "MLPL"
+            "BUVA",
+            "ASLI",
+            "MEDC",
+            "AKRA",
+            "EPAC"
         ]
     }
 }
