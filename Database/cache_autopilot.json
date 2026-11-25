@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-24 15:58:01",
+    "stempel_data": "2026-11-25 15:18:00",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "PWON",
-            "MPXL",
-            "GPRA",
-            "HGII",
-            "CHIP"
+            "MANG",
+            "UNTD",
+            "DART",
+            "CITY",
+            "BMBL"
         ],
         "RUMUS 2": [
-            "BBRI",
-            "MANG",
-            "MYOR",
-            "DEWI",
-            "PEGE"
+            "DGIK",
+            "OLIV",
+            "ELSA",
+            "BHIT",
+            "TAXI"
         ],
         "RUMUS 3": [
+            "MANG",
+            "DART",
+            "CITY",
+            "BMBL",
+            "UNVR"
+        ],
+        "RUMUS 4": [
+            "MANG",
+            "UNTD",
+            "DART",
+            "CITY",
+            "BMBL"
+        ],
+        "RUMUS 5": [
+            "UNVR",
             "PWON",
-            "SMRA",
-            "SMIL",
+            "ASGR",
             "BTPS",
             "BNGA"
         ],
-        "RUMUS 4": [
-            "PWON",
-            "MPXL",
-            "MANG",
-            "NAYZ",
-            "SMRA"
-        ],
-        "RUMUS 5": [
-            "PWON",
-            "NAYZ",
-            "MPXL",
-            "SMRA",
-            "GPRA"
-        ],
         "RUMUS 6": [
-            "PWON",
-            "INDF",
-            "ASGR",
-            "HGII",
-            "SMRA"
+            "PRIM",
+            "UNVR",
+            "SPTO",
+            "CMNP",
+            ""
         ],
         "RUMUS 7": [
-            "PWON",
-            "SMRA",
-            "BMRI",
-            "BBRI",
-            "BUVA"
+            "UNTD",
+            "PRIM",
+            "UNVR",
+            "DGIK",
+            ""
         ],
         "RUMUS 8": [
-            "PWON",
-            "MPXL",
             "MANG",
-            "INDF",
-            "WMUU"
+            "UNTD",
+            "DART",
+            "CITY",
+            "BMBL"
         ],
         "RUMUS 9": [
-            "BBHI",
-            "MIRA",
-            "FORU",
-            "JGLE",
-            "ASLI"
+            "KOTA",
+            "BDKR",
+            "MPPA",
+            "TAXI",
+            "GTRA"
         ]
     }
 }
