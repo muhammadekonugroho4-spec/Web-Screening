@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-25 15:18:00",
+    "stempel_data": "2026-11-25 15:58:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "MANG",
-            "UNTD",
-            "DART",
+            "LOPI",
             "CITY",
-            "BMBL"
+            "BMBL",
+            "PRIM"
         ],
         "RUMUS 2": [
-            "DGIK",
+            "IDEA",
             "OLIV",
-            "ELSA",
-            "BHIT",
-            "TAXI"
+            "RUNS",
+            "BREN",
+            "DEWI"
         ],
         "RUMUS 3": [
             "MANG",
-            "DART",
-            "CITY",
+            "UNVR",
             "BMBL",
-            "UNVR"
+            "CITY",
+            "KEEN"
         ],
         "RUMUS 4": [
             "MANG",
-            "UNTD",
-            "DART",
+            "LOPI",
             "CITY",
-            "BMBL"
+            "BMBL",
+            "PRIM"
         ],
         "RUMUS 5": [
+            "AYAM",
             "UNVR",
-            "PWON",
-            "ASGR",
-            "BTPS",
-            "BNGA"
+            "MSIN",
+            "IDEA",
+            "PWON"
         ],
         "RUMUS 6": [
-            "PRIM",
             "UNVR",
-            "SPTO",
+            "PRIM",
+            "BATR",
             "CMNP",
-            ""
+            "PEHA"
         ],
         "RUMUS 7": [
-            "UNTD",
             "PRIM",
+            "AYAM",
             "UNVR",
             "DGIK",
             ""
         ],
         "RUMUS 8": [
             "MANG",
-            "UNTD",
-            "DART",
+            "LOPI",
             "CITY",
-            "BMBL"
+            "BMBL",
+            "PRIM"
         ],
         "RUMUS 9": [
             "KOTA",
-            "BDKR",
-            "MPPA",
-            "TAXI",
-            "GTRA"
+            "JECC",
+            "CMNP",
+            "HDFA",
+            "MPPA"
         ]
     }
 }
