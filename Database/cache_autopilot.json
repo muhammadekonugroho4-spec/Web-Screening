@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-26 15:18:01",
+    "stempel_data": "2026-11-26 15:58:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "MANG",
-            "SAPX",
             "IRSX",
-            "PPRO",
-            "TOBA"
+            "OASA",
+            "SAPX",
+            "INDO"
         ],
         "RUMUS 2": [
+            "AADI",
             "SPRE",
-            "SUPA",
-            "DEWI",
-            "TAXI",
+            "HDFA",
+            "POLA",
             "NSSS"
         ],
         "RUMUS 3": [
+            "IRSX",
             "TOBA",
-            "MHKI",
-            "BANK",
+            "UNTD",
             "ASII",
-            "SMSM"
+            "BINA"
         ],
         "RUMUS 4": [
+            "IRSX",
             "MANG",
-            "SAPX",
             "OASA",
-            "TOBA",
-            "MHKI"
+            "INDO",
+            "SAPX"
         ],
         "RUMUS 5": [
+            "IRSX",
             "MANG",
             "TOBA",
-            "UNVR",
-            "KDTN",
-            "IDEA"
+            "VOKS",
+            "KDTN"
         ],
         "RUMUS 6": [
-            "DVLA",
             "INDO",
+            "UNVR",
+            "BBHI",
             "MIKA",
-            "ADMF",
-            ""
+            "HDFA"
         ],
         "RUMUS 7": [
-            "UNVR",
+            "UNIQ",
             "",
             "",
             "",
             ""
         ],
         "RUMUS 8": [
+            "IRSX",
             "MANG",
-            "SAPX",
             "OASA",
-            "MHKI",
-            "TOBA"
+            "SAPX",
+            "INDO"
         ],
         "RUMUS 9": [
-            "DVLA",
             "BBHI",
-            "AADI",
-            "KBLI",
-            "BNBR"
+            "DVLA",
+            "BRPT",
+            "BNBR",
+            "IPTV"
         ]
     }
 }
