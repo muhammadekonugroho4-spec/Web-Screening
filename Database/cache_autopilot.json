@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-25 15:58:01",
+    "stempel_data": "2026-11-26 15:18:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
             "MANG",
-            "LOPI",
-            "CITY",
-            "BMBL",
-            "PRIM"
+            "SAPX",
+            "IRSX",
+            "PPRO",
+            "TOBA"
         ],
         "RUMUS 2": [
-            "IDEA",
-            "OLIV",
-            "RUNS",
-            "BREN",
-            "DEWI"
+            "SPRE",
+            "SUPA",
+            "DEWI",
+            "TAXI",
+            "NSSS"
         ],
         "RUMUS 3": [
-            "MANG",
-            "UNVR",
-            "BMBL",
-            "CITY",
-            "KEEN"
+            "TOBA",
+            "MHKI",
+            "BANK",
+            "ASII",
+            "SMSM"
         ],
         "RUMUS 4": [
             "MANG",
-            "LOPI",
-            "CITY",
-            "BMBL",
-            "PRIM"
+            "SAPX",
+            "OASA",
+            "TOBA",
+            "MHKI"
         ],
         "RUMUS 5": [
-            "AYAM",
+            "MANG",
+            "TOBA",
             "UNVR",
-            "MSIN",
-            "IDEA",
-            "PWON"
+            "KDTN",
+            "IDEA"
         ],
         "RUMUS 6": [
-            "UNVR",
-            "PRIM",
-            "BATR",
-            "CMNP",
-            "PEHA"
+            "DVLA",
+            "INDO",
+            "MIKA",
+            "ADMF",
+            ""
         ],
         "RUMUS 7": [
-            "PRIM",
-            "AYAM",
             "UNVR",
-            "DGIK",
+            "",
+            "",
+            "",
             ""
         ],
         "RUMUS 8": [
             "MANG",
-            "LOPI",
-            "CITY",
-            "BMBL",
-            "PRIM"
+            "SAPX",
+            "OASA",
+            "MHKI",
+            "TOBA"
         ],
         "RUMUS 9": [
-            "KOTA",
-            "JECC",
-            "CMNP",
-            "HDFA",
-            "MPPA"
+            "DVLA",
+            "BBHI",
+            "AADI",
+            "KBLI",
+            "BNBR"
         ]
     }
 }
