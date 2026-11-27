@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-26 15:58:01",
+    "stempel_data": "2026-11-27 15:18:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "MANG",
-            "IRSX",
-            "OASA",
-            "SAPX",
-            "INDO"
+            "BRMS",
+            "NETV",
+            "PSDN",
+            "BMBL",
+            "DKHH"
         ],
         "RUMUS 2": [
-            "AADI",
-            "SPRE",
-            "HDFA",
-            "POLA",
-            "NSSS"
+            "NASI",
+            "PWON",
+            "IRSX",
+            "BCAP",
+            "SPRE"
         ],
         "RUMUS 3": [
-            "IRSX",
-            "TOBA",
-            "UNTD",
-            "ASII",
-            "BINA"
+            "NETV",
+            "PSDN",
+            "OLIV",
+            "MANG",
+            "GIAA"
         ],
         "RUMUS 4": [
-            "IRSX",
-            "MANG",
-            "OASA",
-            "INDO",
-            "SAPX"
+            "BUMI",
+            "BRMS",
+            "DEWA",
+            "NETV",
+            "TRIN"
         ],
         "RUMUS 5": [
-            "IRSX",
+            "TRIN",
             "MANG",
-            "TOBA",
-            "VOKS",
-            "KDTN"
+            "NASI",
+            "BBHI",
+            "CYBR"
         ],
         "RUMUS 6": [
-            "INDO",
-            "UNVR",
             "BBHI",
-            "MIKA",
-            "HDFA"
+            "GPRA",
+            "JTPE",
+            "PSGO",
+            "CARE"
         ],
         "RUMUS 7": [
-            "UNIQ",
-            "",
+            "NASI",
+            "BNBR",
             "",
             "",
             ""
         ],
         "RUMUS 8": [
-            "IRSX",
-            "MANG",
-            "OASA",
-            "SAPX",
-            "INDO"
+            "NETV",
+            "PBRX",
+            "PSDN",
+            "BMBL",
+            "ALII"
         ],
         "RUMUS 9": [
             "BBHI",
-            "DVLA",
-            "BRPT",
-            "BNBR",
-            "IPTV"
+            "MERI",
+            "DSNG",
+            "JGLE",
+            "BRPT"
         ]
     }
 }
