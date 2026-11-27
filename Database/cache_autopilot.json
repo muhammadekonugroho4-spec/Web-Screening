@@ -1,69 +1,69 @@
 {
-    "stempel_data": "2026-11-27 15:18:01",
+    "stempel_data": "2026-11-27 15:58:01",
     "versi": "v5.2",
     "keranjang": {
         "RUMUS 1": [
-            "BRMS",
             "NETV",
             "PSDN",
             "BMBL",
-            "DKHH"
+            "OLIV",
+            "KKGI"
         ],
         "RUMUS 2": [
             "NASI",
             "PWON",
-            "IRSX",
-            "BCAP",
-            "SPRE"
+            "SPRE",
+            "RUNS",
+            "NSSS"
         ],
         "RUMUS 3": [
             "NETV",
             "PSDN",
             "OLIV",
             "MANG",
-            "GIAA"
+            "SOSS"
         ],
         "RUMUS 4": [
-            "BUMI",
-            "BRMS",
-            "DEWA",
             "NETV",
-            "TRIN"
+            "PSDN",
+            "BMBL",
+            "NASI",
+            "KKGI"
         ],
         "RUMUS 5": [
-            "TRIN",
             "MANG",
             "NASI",
-            "BBHI",
-            "CYBR"
+            "CYBR",
+            "INTP",
+            "ASGR"
         ],
         "RUMUS 6": [
-            "BBHI",
-            "GPRA",
-            "JTPE",
-            "PSGO",
-            "CARE"
+            "DGNS",
+            "CEKA",
+            "RUNS",
+            "BINA",
+            "GPRA"
         ],
         "RUMUS 7": [
             "NASI",
+            "GOTO",
             "BNBR",
-            "",
-            "",
+            "MDIA",
             ""
         ],
         "RUMUS 8": [
             "NETV",
-            "PBRX",
             "PSDN",
-            "BMBL",
-            "ALII"
+            "ALII",
+            "NASI",
+            "KKGI"
         ],
         "RUMUS 9": [
+            "BRPT",
             "BBHI",
-            "MERI",
-            "DSNG",
             "JGLE",
-            "BRPT"
+            "MINA",
+            "EMTK"
         ]
     }
 }
